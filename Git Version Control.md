@@ -291,6 +291,7 @@ git reset <reference-to-commit>:
 git remote
 # To add this repository on GitHub as a remote.
 git remote add [referral_name] [remote_repo_link]
+git push -u [referral_name] master
 # v stands for verbose that means that git will get more information.
 git remote -v
 #
