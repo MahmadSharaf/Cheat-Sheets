@@ -77,4 +77,3 @@
   ```
 
   - The restriction works the same as in select and supports the same set of operators on column values.
-  -

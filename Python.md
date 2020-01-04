@@ -467,6 +467,36 @@ cur.close()
 conn.close()
 ```
 
+- TIPs
+
+  - How to use placeholders
+
+    1. For variables:
+
+       ```py
+       c.execute("UPDATE posts SET content = (%s) WHERE content LIKE   (%s)",
+                 (friendly, inappropiate))
+       ```
+
+    2. For Table names
+
+       ```py
+       from psycopg2 import sql
+
+       c.execute(
+       sql.SQL("""
+           WITH A AS (SELECT x,y FROM {schema}.{table1}),
+                B AS (SELECT x,y FROM {schema}.{table2})
+           SELECT count(*) FROM A JOIN B ON A.x = B.x and  A.y = B.y
+           """
+           ).format(
+               table1=sql.Identifier("abc"),
+               table2=sql.Identifier("bcd"),
+               schema=sql.Identifier("public")
+               )
+       )
+       ```
+
 ## [Bleach](https://bleach.readthedocs.io/en/latest/)
 
 - Bleach is an allowed-list-based HTML sanitizing library that escapes or strips markup and attributes.
