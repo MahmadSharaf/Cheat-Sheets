@@ -9,6 +9,7 @@
   - [Draw on screen using Turtle module](#draw-on-screen-using-turtle-module)
   - [Classes](#classes)
   - [HTTP servers](#http-servers)
+  - [Python DB-API](#python-db-api)
   - [PostgreSQL (&quot;psycopg2&quot; module)](#postgresql-quotpsycopg2quot-module)
   - [Bleach](#bleach)
   - [Conventions](#conventions)
@@ -395,6 +396,39 @@ turtle.done()
 
    For a lot more information on cookie handling in Python, see the documentation for the [http.cookies module](https://docs.python.org/3/library/http.cookies.html).
 
+## Python DB-API
+
+For a full reference to the Python DB-API, see [the specification](https://www.python.org/dev/peps/pep-0249/) and the documentation for specific database modules, such as [sqlite3](https://docs.python.org/2/library/sqlite3.html) and [psycopg2](http://initd.org/psycopg/docs/).
+
+- `module.connect(…)`  
+  Connect to a database. The arguments to connect differ from module to module; see the documentation for details. connect returns a Connection object or raises an exception.
+
+  For the methods below, note that you don't literally call (for instance) Connection.cursor() in your code. You make a Connection object, save it in a variable (maybe called db) and then call db.cursor().
+
+- `Connection.cursor()`  
+  Makes a Cursor object from a connection. Cursors are used to send SQL statements to the database and fetch results.
+
+- `Connection.commit()`
+  Commits changes made in the current connection. You must call commit before closing the connection if you want changes (such as inserts, updates, or deletes) to be saved. Uncommitted changes will be visible from your currect connection, but not from others.
+
+- `Connection.rollback()`  
+  Rolls back (undoes) changes made in the current connection. You must roll back if you get an exception if you want to continue using the same connection.
+
+- `Connection.close()`  
+  Closes the connection. Connections are always implicitly closed when your program exits, but it's a good idea to close them manually especially if your code might run in a loop.
+
+- `Cursor.execute(statement)`  
+  `Cursor.execute(statement, tuple)`  
+  Execute an SQL statement on the database. If you want to substitute variables into the SQL statement, use the second form — see the documentation for details.
+
+  If your statement doesn't make sense (like if it asks for a column that isn't there), or if it asks the database to do something it can't do (like delete a row of a table that is referenced by other tables' rows) you will get an exception.
+
+- `Cursor.fetchall()`  
+  Fetch all the results from the current statement.
+
+- `Cursor.fetchone()`  
+  Fetch just one result. Returns a tuple, or None if there are no results.
+
 ## PostgreSQL ("psycopg2" [module](http://initd.org/psycopg/docs/usage.html))
 
 - Install Psycopg2
@@ -434,7 +468,7 @@ cur = conn.cursor()
 cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
 ```
 
-- Pass data to fill a query placeholders and let Psycopg perform the correct conversion (**no more SQL injections**!)
+- Pass data to fill a query placeholders and let Psycopg perform the correct conversion ([**no more SQL injections**!](https://bobby-tables.com))
 
 **Warning:**  
 **_Never, never, NEVER use Python string concatenation (+) or string parameters interpolation (%) to pass variables to a SQL query string. Not even at gunpoint._**
@@ -474,8 +508,8 @@ conn.close()
     1. For variables:
 
        ```py
-       c.execute("UPDATE posts SET content = (%s) WHERE content LIKE   (%s)",
-                 (friendly, inappropiate))
+       c.execute("UPDATE posts SET content = (%s) WHERE content LIKE (%s)",
+              (friendly, "%" + inappropriate + "%"))
        ```
 
     2. For Table names

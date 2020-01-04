@@ -77,3 +77,109 @@
   ```
 
   - The restriction works the same as in select and supports the same set of operators on column values.
+
+- **DELETE**:  
+  It deletes records from the table
+
+  - The syntax of the DELETE statement:
+
+  ```sql
+  DELETE FROM [table] WHERE [restriction] ;
+  ```
+
+  - The restriction works the same way as in select, with the same set of operators allowed.
+
+- **CREATE DATABASE**  
+  Create a new database
+
+  - The syntax of the CREATE DATABASE statement:
+
+  ```sql
+  CREATE DATABASE [database_name]
+  ```
+
+- **DROP DATABASE**  
+  This deletes/removes the database
+
+  - The syntax of the DROP DATABASE statement:
+
+  ```sql
+  DROP DATABASE [database_name]
+  ```
+
+- **CREATE TABLE**  
+  This Creates a new table in the database
+
+  - The syntax of the CREATE TABLE statement:
+
+  ```sql
+  CREATE TABLE [table] ( [column] [type] [restriction] , … ) [rowrestriction] ;
+  ```
+
+  - Declaring a primary key:
+
+  ```sql
+  CREATE TABLE [table_name] (
+    [column_name] [column_type] PRIMARY KEY,
+    ..);
+  ```
+
+  Or for multi-column Primary KEY
+
+  ```sql
+  CREATE TABLE [table_name] (
+    [column1_name] [column1_type],
+    [column2_name] [column2_type]
+    ..,
+    PRIMARY KEY ([column1_name],[column2_name])
+    );
+  ```
+
+  - Declaring relationships/foreign key
+
+  ```sql
+  CREATE TABLE [table_name] (
+    [column_name] [column_type] REFERENCE [referenced_table] (state_column_name_if_different),
+    ...
+  );
+  ```
+
+- **DROP TABLE**  
+  This deletes/removes a table from the database
+
+  - The syntax of the DROP TABLE statement:
+
+  ```sql
+  DROP TABLE [table_name] ;
+  ```
+
+- **CREATE VIEW**  
+  It is a select query stored in the database that can be used as a table
+
+  ```sql
+  CREATE VIEW [view_name] AS
+  SELECT [column_name], ..
+  FROM [table_name]
+  ```
+
+## Rules for normalized tables
+
+1. **Every row has the same number of columns.**  
+   In practice, the database system won't let us literally have different numbers of columns in different rows. But if we have columns that are sometimes empty (null) and sometimes not, or if we stuff multiple values into a single field, we're bending this rule.
+
+1. **There is a unique key and everything in a row says something about the key.**  
+   The key may be one column or more than one. It may even be the whole row. But we don't have duplicate rows in a table.
+
+   More importantly, if we are storing non-unique facts — such as people's names — we distinguish them using a unique identifier such as a serial number. This makes sure that we don't combine two people's grades or parking tickets just because they have the same name.
+
+1. **Facts that don't relate to the key belong in different tables.**  
+   The example here was the `items` table, which had items, their locations, and the location's street addresses in it. The address isn't a fact about the item; it's a fact about the location. Moving it to a separate table saves space and reduces ambiguity, and we can always reconstitute the original table using a join.
+
+1. **Tables shouldn't imply relationships that don't exist.**  
+   The example here was the `job_skills` table, where a single row listed one of a person's technology skills (like 'Linux') and one of their language skills (like 'French'). This made it look like their Linux knowledge was specific to French, or vice versa … when that isn't the case in the real world. Normalizing this involved splitting the tech skills and job skills into separate tables.
+
+### References
+
+1. William Kent's paper ["A Simple Guide to Five Normal Forms in Relational Database Theory"](http://www.bkent.net/Doc/simple5.htm) for a lot more about normalization and how it can help your database design.
+2. [Wikipedia's article](http://en.wikipedia.org/wiki/Database_normalization) on database normalization is somewhat brief, but describes some of the history of normalization as well as some more of the motivations for it.
+3. You will sometimes hear about denormalization as an approach to making database queries faster by avoiding joins. On modern database systems (such as PostgreSQL) it is often possible to meet the same goals using tools such as [indexes](http://www.postgresql.org/docs/9.4/static/sql-createindex.html) and [materialized views](http://www.postgresql.org/docs/9.4/static/sql-creatematerializedview.html).
