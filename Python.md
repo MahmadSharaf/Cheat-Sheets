@@ -9,6 +9,8 @@
   - [Draw on screen using Turtle module](#draw-on-screen-using-turtle-module)
   - [Classes](#classes)
   - [HTTP servers](#http-servers)
+  - [PostgreSQL (&quot;psycopg2&quot; module)](#postgresql-quotpsycopg2quot-module)
+  - [Bleach](#bleach)
   - [Conventions](#conventions)
 
 ## Dealing with files and folders
@@ -392,6 +394,101 @@ turtle.done()
    **Important safety tip**: Even though browsers make it difficult for users to modify cookies, it's possible for a user to modify a cookie value. Higher-level web toolkits, such as Flask (in Python) or Rails (in Ruby) will cryptographically sign your cookies so that they won't be accepted if they are modified. Quite often, high-security web applications use a cookie just to store a session ID, which is a key to a server-side database containing user information.
 
    For a lot more information on cookie handling in Python, see the documentation for the [http.cookies module](https://docs.python.org/3/library/http.cookies.html).
+
+## PostgreSQL ("psycopg2" [module](http://initd.org/psycopg/docs/usage.html))
+
+- Install Psycopg2
+
+```cmd
+pip install psycopg2
+```
+
+- Import psycopg2
+
+```python
+import psycopg2
+```
+
+- Connect to an existing database
+  - The function `connect()` creates a new database session and returns a new connection instance.
+  - The class `connection` encapsulates a database session. It allows to:
+    - Create new `cursor` instances using the `cursor()` method to execute database commands and queries,
+    - Terminate transactions using the methods `commit()` or `rollback()`.
+
+```python
+conn = psycopg2.connect("dbname=test user=postgres")
+```
+
+- Open a `cursor` to perform database operations:
+  - The class `cursor` allows interaction with the database:
+    - send commands to the database using methods such as `execute()` and `executemany()`,
+    - retrieve data from the database by iteration or using methods such as `fetchone()`, `fetchmany()`, `fetchall()`.
+
+```python
+cur = conn.cursor()
+```
+
+- Execute a command: this creates a new table
+
+```python
+cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+```
+
+- Pass data to fill a query placeholders and let Psycopg perform the correct conversion (**no more SQL injections**!)
+
+**Warning:**  
+**_Never, never, NEVER use Python string concatenation (+) or string parameters interpolation (%) to pass variables to a SQL query string. Not even at gunpoint._**
+
+```python
+cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
+#OR for inserting from variable "content"
+cur.execute("INSERT INTO posts VALUES (%s)", (content,))
+```
+
+- Query the database and obtain data as Python objects
+
+```python
+cur.execute("SELECT * FROM test;")
+
+cur.fetchone()
+#(1, 100, "abc'def")
+```
+
+- Make the changes to the database persistent
+
+```python
+conn.commit()
+```
+
+- Close communication with the database
+
+```python
+cur.close()
+conn.close()
+```
+
+## [Bleach](https://bleach.readthedocs.io/en/latest/)
+
+- Bleach is an allowed-list-based HTML sanitizing library that escapes or strips markup and attributes.
+- Bleach is intended for sanitizing text from untrusted sources. If you find yourself jumping through hoops to allow your site administrators to do lots of things, you’re probably outside the use cases. Either trust those users, or don’t.
+
+- Installing Bleach
+
+```cmd
+pip install bleach
+```
+
+- Basic use
+
+```py
+import bleach
+
+bleach.clean('an <script>evil()</script> example')
+# u'an &lt;script&gt;evil()&lt;/script&gt; example'
+
+bleach.linkify('an http://example.com url')
+# u'an <a href="http://example.com" rel="nofollow">http://example.com</a> url'
+```
 
 ## Conventions
 
