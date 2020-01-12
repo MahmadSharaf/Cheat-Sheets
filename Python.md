@@ -10,13 +10,13 @@
   - [Classes](#classes)
   - [HTTP servers](#http-servers)
   - [Python DB-API](#python-db-api)
-  - [PostgreSQL (&quot;psycopg2&quot; module)](#postgresql-quotpsycopg2quot-module)
+  - [PostgreSQL ("psycopg2" module)](#postgresql-psycopg2-module)
   - [Bleach](#bleach)
   - [Conventions](#conventions)
 
 ## Dealing with files and folders
 
-```python
+```py
 import os
 
 # Get the current working directory
@@ -27,12 +27,16 @@ os.chdir(file_path)
 
 # Rename file names
 os.rename(current_filename,new_filename)
+```
 
+```py
 # Open a file, read it and close it
-texts = open(fille_path)
-content = texts.read()
-texts,close()
-
+f = open("file_path", w+)
+# "w" letter indicates write and will create a file if it does not exist in library
+# Plus sign indicates both read and write.
+# The available option beside "w" are, "r" for read, and "a" for append
+f.write("string")
+f.close()
 ```
 
 ## Strings
