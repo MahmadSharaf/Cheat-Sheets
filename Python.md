@@ -12,6 +12,9 @@
   - [Python DB-API](#python-db-api)
   - [PostgreSQL ("psycopg2" module)](#postgresql-psycopg2-module)
   - [Bleach](#bleach)
+  - [CRUD operations with SQLAlchemy](#crud-operations-with-sqlalchemy)
+    - [First: database setup](#first-database-setup)
+    - [Second: CRUD operation](#second-crud-operation)
   - [Conventions](#conventions)
 
 ## Dealing with files and folders
@@ -557,6 +560,156 @@ bleach.clean('an <script>evil()</script> example')
 bleach.linkify('an http://example.com url')
 # u'an <a href="http://example.com" rel="nofollow">http://example.com</a> url'
 ```
+
+## CRUD operations with SQLAlchemy
+
+### First: database setup
+
+Create a python script that creates/connects to the database
+
+1. Import all modules needed
+
+   1. `sys`: provides a number of functions and variables that can be used to manipulate different parts in runtime environment.
+   2. `from sqlalchemy import Column, ForeignKey, Integer, String`: Can be used in mapping
+   3. `from sqlalchemy.ext.declarative import declarative_base`: Will be used in configuration and class code
+   4. `from sqlalchemy.orm import relationship`: in order to create foreign key relationship
+   5. `from sqlalchemy import create_engine`: will be used in configuration code
+
+   ```py
+   import sys
+   from sqlalchemy import Column, ForeignKey, Integer, String
+   from sqlalchemy.ext.declarative import declarative_base
+   from sqlalchemy.orm import relationship
+   from sqlalchemy import create_engine
+   ```
+
+2. Create instance of declarative base
+
+   To create classes inherited from this class in order to make SQLAlchemy know that these classes are special and corresponds to tables in our DB
+
+   ```py
+   Base = declarative_base()
+   ```
+
+3. Classes: create an inherited class for each table
+4. Mapper: Define the column names and attributes.
+
+   ```py
+   class Restaurant(Base):
+   # Table respresentation with syntax: __tablename__ = 'some_table'
+   __tablename__ = 'restaurant'
+   #! Mapper
+   name = Column(String(80), nullable=False)
+   id = Column(Integer, primary_key=True)
+   ```
+
+5. Create/Connect the database and add tables and columns
+
+   ```py
+   # An instance of the engine that points to the type of the DB
+   engine = create_engine('sqlite:///restaurantmenu.db')
+   # This goes into the DB and will add the classes and  tables into the DB
+   Base.metadata.create_all(engine)
+   ```
+
+### Second: CRUD operation
+
+Create a file for CRUD operation
+
+1. Import modules
+
+   ```py
+   from sqlalchemy import create_engine
+   from sqlalchemy.orm import sessionmaker
+   from database_setup import Base, Restaurant, MenuItem
+   ```
+
+2. Let the program now which database engine to communicate with
+
+   ```py
+   engine = create_engine('sqlite:///restaurantmenu.db')
+   ```
+
+3. Bind the engine to the metadata of the `Base class` so that the `declarative` can be accessed through a `DBSession` instance
+
+   ```py
+   Base.metadata.bind = engine
+   ```
+
+4. Create a `DBSession()`
+
+   A `DBSession()` instance establishes all conversations with the database and represents a "staging zone" for all the objects loaded into the database session object. Any change made against the objects in the session won't be persisted into the database until you call session.commit (). If you're not happy about the changes, you can revert all of them back to the last commit by calling session.rollback()
+
+   ```py
+   DBSession = sessionmaker(bind=engine)
+   ```
+
+5. SQLAlchemy needs a session to execute any of CRUD operations.
+
+   The session is staging zone and all data will not be persisted in the DB until session.commit()
+
+   ```py
+   session = DBSession()
+   ```
+
+6. Do CRUD operations
+
+   1. CREATE: Add an entry
+
+      ```py
+      # 1. Create an instance
+      myFirstRestaurant = Restaurant(name="Pizza Palace")
+      # 2. Add it to the session
+      session.add(myFirstRestaurant)
+      # 3. Commit to apply the changes
+      session.commit()
+      ```
+
+   2. [READ](http://docs.sqlalchemy.org/en/rel_0_9/orm/query.html): Find some information of our database using SQLAlchemy
+
+      ```py
+      # Use 'session.query' to fetch the data in the session
+      firstRestaurant = session.query(Restaurant).first()
+      allRestaurants = session.query(Restaurant).all()
+      # You can use for loop to get the values
+      for restaurant in allRestaurants:
+          print(restaurant.name)
+      ```
+
+   3. UPDATE: Change the values of some records
+
+      ```py
+      # 1. Find the entry
+      #todo use filter_by to query by specific value in column
+      veggieBurgers = session.query(MenuItem).filter_by(name =        'Veggie Burger')
+      #todo use for loop to print items in the list
+      for veggieBurger in veggieBurgers:
+          print(veggieBurger.id)
+          print(veggieBurger.price)
+          print(veggieBurger.restaurant.name)
+          print("\n")
+      #todo OR you can filter by specific id and return one       object
+      urbanVeggieBurger = session.query(MenuItem).filter_by       (id=1).one()
+      print(urbanVeggieBurger.price)
+      # 2. Reset the values
+      urbanVeggieBurger.price = "$2.50"
+      # 3. Add to session
+      session.add(urbanVeggieBurger)
+      # 4. Session commit
+      session.commit()
+      ```
+
+   4. DELETE: remove an entry from the DB
+
+      ```py
+      # 1. Find the entry
+      spinach = session.query(MenuItem).filter_by(name='Spinach       Ice Cream').one()
+      print(spinach.restaurant.name)
+      # 2. Delete this entry
+      session.delete(spinach)
+      # 3. commit this action
+      session.commit()
+      ```
 
 ## Conventions
 
