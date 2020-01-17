@@ -3,6 +3,7 @@
 - [Python Cheat sheet](#python-cheat-sheet)
   - [Dealing with files and folders](#dealing-with-files-and-folders)
   - [Strings](#strings)
+    - [String with variables inside](#string-with-variables-inside)
   - [Lists](#lists)
   - [While loop](#while-loop)
   - [Tricks](#tricks)
@@ -65,6 +66,64 @@ s.lower()
 'abracadabra'.find('cad')
 'badger badger badger mushroom'.count('bad')
 ```
+
+### String with variables inside
+
+Credits to this, goes to "SShah" as an answer to [stackoverflow question](https://stackoverflow.com/questions/52155591/how-to-insert-string-into-a-string-as-a-variable)
+
+There are 5 approaches for achieving this on python (Python 3):
+
+1. Concatenation:
+
+   You can do this using + for joining 2 strings, however you can only concatenate string type data, meaning non string type data needs to be converted to string using the str() function. For example:
+
+   ```py
+   print("The Enemy's health is " + str(EnemyHealth) + ". The Enemy is " + EnemyIs + ".")
+   # output = "The Enemy's health is 0. The Enemy is dead."
+   ```
+
+2. Taking advantage of Python 3's print() function which can take multiple parameter arguments:
+
+   Here your `print()` statement similar to the concatenation statement above, except where ever I use + to concatenate you need to replace it with ,. The advantage of using this, is that different data types will be automatically converted to string, i.e. no longer needing the str() function. For example:
+
+   ```py
+   print("The Enemy's health is ", EnemyHealth, ". The Enemy is ", EnemyIs, ".")
+   # output = "The Enemy's health is 0. The Enemy is dead."
+   ```
+
+3. Using your string replacement approach
+
+   The reason your code doesn't work, is because %d means you will replace it with an integer and therefore to make your code work, for the string stored on the variable EnemyIs needs to be replaced with %s which is used to state that it will be replaced with a string. Therefore to solve your problem you need to do:
+
+   ```py
+   print("The Enemy's health is %d. The Enemy is %s." % (EnemyHealth, EnemyIs))
+   # output = "The Enemy's health is 0. The Enemy is dead."
+   ```
+
+4. The format() method for python strings (This is the best approach to use)
+
+   This is a built in method for all strings in python, which allow you to easily replace the placehoder {} within python strings, with any variables. Unlike solution number 3 above, this format() method doesnt require you to express or convert different data types to string, as it would automatically do this for you. For example, to make your print statement work you can do:
+
+   ```py
+   print("The Enemy's health is {}. The Enemy is {}.".format(EnemyHealth, EnemyIs))
+
+   # OR
+
+   print("The Enemy's health is {0}. The Enemy is {1}.".format(EnemyHealth, EnemyIs))
+
+   # output = "The Enemy's health is 0. The Enemy is dead."
+   ```
+
+5. F-Strings
+
+   As of python 3.6+, you can now also use f-strings, to substitute variables within a string. This method is similar to the the .format() method described above, and in my opinion is a better upgrade to the str.format() method. To use this method all you have to do is state f before your opening quote when defining a string and then, within the string use the format, {[variable name goes here]} for this to work. For example, to make your print statement work, using this method, you can do:
+
+   ```py
+   print(f"The Enemy's health is {EnemyHealth}. The Enemy is {EnemyIs}.")
+   # output = "The Enemy's health is 0. The Enemy is dead."
+   ```
+
+   using this method, the variable name is being instantiated directly within the curly brackets {}.
 
 ## Lists
 
@@ -279,7 +338,7 @@ turtle.done()
        # to send a string over the HTTP connection, you have to encode the string into a bytes object.
        self.wfile.write(path[1,:].encode())
 
-    # This code will run when we run this module as a Python program,rather        than importing it.
+    # This code will run when we run this module as a Python program,rather than importing it.
     if __name__ == '__main__':
     server_address = ('', 8000)  # Serve on all addresses, port 8000.
     # 4. Create an instance of `http.server.HTTPServer`, giving it your handler class and server information — particularly, the port number.
@@ -341,7 +400,82 @@ turtle.done()
        self.wfile.write(mesg.encode())
    ```
 
-5. Requests library can do the following
+5. Read data out of a form:
+
+   1. Using urllib module:
+
+      ```py
+      from http.server import BaseHTTPRequestHandler, HTTPServer
+      from urllib.parse import parse_qs
+
+      def form(title, button):
+           return f'''
+            <form
+            method='POST'
+            enctype='multipart/form-data'
+            <h2>{title}</h2>
+            <br>
+            <input name="message" type="text">
+            <input type="submit" value="{button}">
+            </form>
+            '''
+
+       class WebServerHandler(BaseHTTPRequestHandler):
+
+           def do_GET(self):
+                if self.path.endswith("/restaurants/new"):
+                    form("Add new restaurant","Add")
+
+           def do_POST(self):
+               if self.path.endswith("/restaurants/new"):
+                   length = int(self.headers.get('Content-length'0))
+                   body = self.rfile.read(length).decode()
+                   params = parse_qs(body)
+                   messagecontent = params["message"][0]
+      ```
+
+   2. Using cgi library:
+
+      ```py
+      from http.server import BaseHTTPRequestHandler, HTTPServer
+      import cgi
+
+      def form(title, button):
+           return f'''
+            <form
+            method='POST'
+            enctype='multipart/form-data'
+            <h2>{title}</h2>
+            <br>
+            <input name="message" type="text">
+            <input type="submit" value="{button}">
+            </form>
+            '''
+
+       class WebServerHandler(BaseHTTPRequestHandler):
+
+           def do_GET(self):
+                if self.path.endswith("/restaurants/new"):
+                    form("Add new restaurant","Add")
+
+           def do_POST(self):
+               if self.path.endswith("/restaurants/new"):
+                    # ? Method 1:
+                    ctype, pdict = cgi.parse_header(self.headers.get('content-type'))
+                    pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
+                    content_len = int(self.headers.get('Content-length'))
+                    pdict['CONTENT-LENGTH'] = content_len
+                    if ctype == 'multipart/form-data':
+                        fields = cgi.parse_multipart(self.rfile, pdict)
+                    message = fields.get('message')
+                    messagecontent = message[0]
+
+                    # ? Method 2:
+                    form = cgi.FieldStorage(fp=self.rfile, headers=self.headers, environ={'REQUEST_METHOD': 'POST', 'CONTENT_TYPE': self.headers['Content-Type'], })
+                    messagecontent = form['message'].value
+      ```
+
+6. Requests library can do the following
 
    1. Make a Request
    2. Passing Parameters In URLs
@@ -353,7 +487,7 @@ turtle.done()
    8. Cookies
    9. and many [more](https://2.python-requests.org//en/master/user/quickstart/) ...
 
-6. Concurrency
+7. Concurrency
 
    ```python
    import threading
@@ -369,7 +503,7 @@ turtle.done()
    httpd.serve_forever()
    ```
 
-7. Cookies
+8. Cookies
 
    To set a cookie from a Python HTTP server, all you need to do is set the `Set-Cookie` header on an HTTP response. Similarly, to read a cookie in an incoming request, you read the `Cookie` header. However, the format of these headers is a little bit tricky; I don't recommend formatting them by hand. Python's `http.cookies` module provides handy utilities for doing so.
 
