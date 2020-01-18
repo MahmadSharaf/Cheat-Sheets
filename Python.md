@@ -17,6 +17,7 @@
     - [First: database setup](#first-database-setup)
     - [Second: CRUD operation](#second-crud-operation)
   - [Conventions](#conventions)
+  - [Handful resources](#handful-resources)
 
 ## Dealing with files and folders
 
@@ -849,3 +850,16 @@ Create a file for CRUD operation
 
 1. [Google Style Guide for Python](https://google.github.io/styleguide/pyguide.html)
 2. [pep8](http://pep8online.com/)
+
+## Handful resources
+
+1. This [article](http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/) discuss:
+   1. Decorators
+   2. Functions
+   3. Scope
+   4. Variable resolution rules
+   5. Variable lifetime
+   6. Function arguments and parameters
+   7. Nested functions
+   8. Closures
+   9. \*args and \*\*kwargs
