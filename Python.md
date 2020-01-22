@@ -16,6 +16,8 @@
   - [CRUD operations with SQLAlchemy](#crud-operations-with-sqlalchemy)
     - [First: database setup](#first-database-setup)
     - [Second: CRUD operation](#second-crud-operation)
+  - [Web Frameworks](#web-frameworks)
+    - [Flask](#flask)
   - [Conventions](#conventions)
   - [Handful resources](#handful-resources)
 
@@ -845,6 +847,146 @@ Create a file for CRUD operation
       # 3. commit this action
       session.commit()
       ```
+
+## Web Frameworks
+
+### Flask
+
+1. Routing:
+
+   - Create an instance of flask class.
+   - The name of the running application as an argument, anytime this application is run, a special variable called `__name__` gets defined.
+
+     ```py
+     from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+
+     app = Flask(__name__)
+     ```
+
+   - This flask decorator wraps our function inside `app.route` function, so either of the below routes were sent from the browser, the `HelloWorld()` gets executed. In a brief, `app.route` will execute the function below it when the browser visit it.
+
+     ```py
+     @app.route('/')
+     @app.route('/restaurants')
+     def showRestaurants():
+         restaurants = CRUD.read_restaurants()
+         return render_template('restaurants.html', restaurants=restaurants)
+     ```
+
+2. Templates
+
+   - Flask has a template engine to store the HTML code which is used to render templates. The HTML must be in a folder named templates inside the project folder.
+   - It uses a method called `render_template("Template_name.html",Template_Variable=Keyword)` that helps in HTML Escaping.
+   - HTML Escaping terminology is when HTML files retrieve data from python code or database.
+
+     ```py
+     @app.route('/')
+     @app.route('/restaurants')
+     def showRestaurants():
+         restaurants = CRUD.read_restaurants()
+         return render_template('restaurants.html', restaurants=restaurants)
+     ```
+
+     ```html
+     </div>
+         {% for i in restaurants %}
+         <div>
+             <a href="{{url_for('RestaurantMenu', restaurant_id = i.id) }}">{{i.name}}</a>
+         </div>
+         {% endfor %}
+     </div>
+     ```
+
+3. URL Building with `url_for()`:
+
+   - It helps in create and execute URLs that you need to create links for other pages.
+   - `url_for('FunctionName',URL_Function=Value)` is one of many Flask helper functions.
+
+     ```html
+     <a href="{{url_for('RestaurantMenu', restaurant_id = i.id) }}"></a>
+     ```
+
+4. Request and Redirects:
+
+   - Flask deals in default with `GET` requests only. `methods` argument must state the methods in the request.
+   - To retreive data from `POST`Request, request should be used as `request.form['name']`
+   - To redirect to a URL, `redirect()` can be used and also can be used with `url_for()`.
+
+     ```py
+     # todo: Create New Restaurant
+     @app.route('/restaurants/new', methods=['GET', 'POST'])
+     def newRestaurant():
+        if request.method == 'POST':
+            CRUD.create_restaurant(request.form['name'])
+            return redirect(url_for('showRestaurants'))
+        else:
+            return render_template('newrestaurant.html')
+     ```
+
+5. Flash messages:
+
+   - It prompts a message to the user after a certain action has taken place and disappears the second time the page is requested.
+
+     ```py
+     from flask import flash
+     # todo: Create new menu item
+     @app.route('/restaurants/<int:restaurant_id>/new', methods=['GET', 'POST'])
+     def newMenuItem(restaurant_id):
+         if request.method == 'POST':
+             CRUD.create_menuitem(request.form['name'], restaurant_id)
+             flash("new menu item created!")
+             return redirect(url_for('showMenu', restaurant_id=restaurant_id))
+         else:
+             return render_template('newmenuitem.html', restaurant_id=restaurant_id)
+     ```
+
+     ```html
+     <div class="flash">
+       {% with messages = get_flashed_messages() %} {% if messages %}
+
+       <ul>
+         {% for message in messages %}
+         <li><strong> {{ message }} </strong></li>
+         {% endfor %}
+       </ul>
+       {% endif %} {% endwith %}
+     </div>
+     ```
+
+6. Secret Key:
+
+   - Flask uses this to create sessions for users, this should be a very secure password.
+
+     ```py
+     if __name__ == '__main__':
+     # Create a session for the user
+     app.secret_key = 'super_secret_key'
+     app.debug = True
+     app.run(host='0.0.0.0', port=5000)
+     ```
+
+7. Static Files: JS, media and CSS files
+
+   - Flask will look for CSS, JS and mediafiles if they are in folder named 'static'
+   - Access it html file like below
+
+   ```html
+   <link rel=stylesheet type=text/css href="{{ url_for('static',
+   filename='styles.css') }}">
+   ```
+
+8. JSONify
+
+   - To respond to the webpages with JSON
+
+     ```py
+     import jsonify
+
+     @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+     def menuItemJSON(restaurant_id, menu_id):
+        menuItem = CRUD.read_menuitem(menu_id)
+        return jsonify(MenuItem=menuItem.serialize)
+     ```
 
 ## Conventions
 
