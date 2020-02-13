@@ -316,6 +316,65 @@ Being able to handle two ongoing tasks at the same time is called **concurrency*
    - Use `heroku create your-app-name` to tell Heroku about your app and give it a name. Again, you can choose any name you like, but it will have to be unique — the service will tell you if you're choosing a name that someone else has already claimed.
    - Finally, use `git push heroku master` to deploy your app!
 
+## Authentication vs Authorization
+
+### Authentication
+
+- It is the process of saying "you are who you say you are".
+- It is used to create a unique username and password to grant access to the website.
+- Websites can verified by a trusted certificate authority. The browser can tell so that this website is the real one.
+
+#### Securing your website by the following aspects
+
+1. Requiring a **strong passwords** from the users, prevents the hacker from simply guessing the password.
+2. Use **strong encryption** by adding a mathematical algorithms to make information virtually impossible to be decrypted.
+3. Ensure **secure communication** between client and server to make sure you private information doesn't become public at any point along communication.
+4. Securing **password storage** in an encrypted database; such that no one can get access to the user passwords.
+5. Implement **Password recovery** in which if the user forget their password, there will be a way to create a new one quickly and securely.
+6. Implement **2-factor authentication** that requires the password and an extra key to gain access to a private data.
+7. Include protection against "**man-in-the-middle**" attacks, to make sure no malicious system interfering with the data being transmitted or pretending to be a trusted website. `Anti-forgery state token` can be used in this case.
+
+- All these security features are important, some need to be implemented on server side and some on client side and others on both.
+  - Requiring users for strong password can be implemented in different ways, it can be checked in the JS but the attacker may mimic the HTTP request sent from the browser, and implementing them on the server can prevent the users to create weak passwords but will not figure out until the server responds, so best practice is to implement on both server and client side.
+  - Secure password storage can be implemented on server side.
+  - Protection against man-in-the-middle attacks has to be implemented on both sides since sensitive information can be acquired from both sides.
+  - Notes:
+    - [App for Checking password security](https://howsecureismypassword.net/)
+    - [Password Storage - Hashing vs. Encrypting](http://www.darkreading.com/safely-storing-user-passwords-hashing-vs-encrypting/a/d-id/1269374)
+    - [Man-in-the-Middle Attacks](http://en.wikipedia.org/wiki/Man-in-the-middle_attack)
+
+### Authorization
+
+- It is the process of checking whether the user has the privilege to access certain locations or do specific actions.
+
+### Third Party Auth Providers
+
+- It is by using the user account at the third party like Facebook or Gmail
+
+#### Pros
+
+1. Outsource Auth handling to OAuth providers. You don't need to think how to keep and store users passwords.
+2. Easer to register users
+3. Less passwords for users to remember
+
+#### Neutral
+
+1. Users need to have a 3rd party account.
+2. Users don't trust your site to gain access to their info from their third party account. So, it is better to keep authorization scope minimal.
+3. Limited/restricted internet access.
+4. Different auth requirements. The need for creating a 2-factor passwords for users.
+
+### OAuth2 Playground
+
+- Google has created a website where developers can test making API calls.
+- How to use:
+  - Visit <https://developers.google.com/oauthplayground/>
+  - At the right hand side, there is a panel which has the options for the google products that can be used to make API calls using OAuth.
+  - For example to get the users name, email, age, gender and pic:
+    1. Select Google OAuth2 API v2 and then select `https://www.googleapis.com/auth/userinfo.profile` and `https://www.googleapis.com/auth/userinfo.email` , and finally click `Authorize APIs`
+    2. Exchange authorization code for tokens
+    3. Click on `List possible operations`, then choose `V2 userinfo` under `Google OAuth2 API v2`, and finally click send request.
+
 ## Handful Resources
 
 1. [Mozilla Developer Network's HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP) index page contains a variety of tutorial and reference materials on every aspect of HTTP.
