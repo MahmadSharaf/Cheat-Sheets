@@ -18,6 +18,7 @@
     - [Second: CRUD operation](#second-crud-operation)
   - [Web Frameworks](#web-frameworks)
     - [Flask](#flask)
+    - [Third Party Auth](#third-party-auth)
   - [Conventions](#conventions)
   - [Handful resources](#handful-resources)
 
@@ -988,6 +989,10 @@ Create a file for CRUD operation
         return jsonify(MenuItem=menuItem.serialize)
      ```
 
+### Third Party Auth
+
+1. [Google login with flash](https://realpython.com/flask-google-login/#why-use-google-login-for-your-users)
+
 ## Conventions
 
 1. [Google Style Guide for Python](https://google.github.io/styleguide/pyguide.html)
@@ -1005,3 +1010,4 @@ Create a file for CRUD operation
    7. Nested functions
    8. Closures
    9. \*args and \*\*kwargs
+2. [Virtual Environments](https://realpython.com/python-virtual-environments-a-primer/#why-the-need-for-virtual-environments)
