@@ -82,4 +82,7 @@ RFID knows its role. It's mainly a critical tracking and inventory control techn
 - <https://www.explainthatstuff.com/rfid.html>
 - <https://www.atlasrfidstore.com/rfid-insider/rfid-vs-nfc/>
 - <https://electronics.howstuffworks.com/difference-between-rfid-and-nfc1.htm>
+<<<<<<< HEAD
 - <https://www.quora.com/Can-RFID-tag-transmit-information-to-a-mobile-APP>
+=======
+>>>>>>> b7475f0515efeaed34c27ec8062945f06053dfff
