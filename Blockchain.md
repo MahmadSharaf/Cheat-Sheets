@@ -65,7 +65,32 @@
 * They, as an intermediate form of blockchain, reduce the cost of an individual's participation as a node and facilitate the establishment of the system.
 * It has been one of the key focus of major financial institutions and technology companies.
 
-Public Chains | Private Chains | Consortium Chains
----|---|---
-|Not suitable for exchanges | More suitable for exchanges ||
-| Non conductive to financial transactions which require anonymity. <br> Huge data transfer leads to high power and storage requirements. <br> Time lag in transaction recording. | Private and consortium chains employ proprietary networks and have greater control over participants. <br> They are more applicable and extensible in financial business. <br> Transactions costs are kept at lower level. <br> regulators prefer the non-anonymity. ||
+Public Chains | Private Chains and Consortium Chains
+---|---
+|Not suitable for exchanges | More suitable for exchanges |
+| Non conductive to financial transactions which require anonymity. <br> Huge data transfer leads to high power and storage requirements. <br> Time lag in transaction recording. | Private and consortium chains employ proprietary networks and have greater control over participants. <br> They are more applicable and extensible in financial business. <br> Transactions costs are kept at lower level. <br> regulators prefer the non-anonymity. |
+
+## Key features of blockchain
+
+* Block chain is distributed and decentralized encrypted data stored in a distributed manner. Each node stores a complete set of the general ledger and can view all transaction data.
+* It is encrypted and tamper proof with cryptography and timestamp each proceeds strictly in chronological order. Such irreversibility in time ensures that any attempt to tamper with block chain data will be easily traceable. The consensus mechanism safe guards the data codes and verifies their authenticity even if there are error or tampering with an individual node. The authenticty of the entire block chain ledger can guaranteed given that the majority of nodes carry same information. This features resolves the traditional model reliance on the trustworthiness of intermediaries and prevents fake transactions.
+* It is extensible and programmable. It is an open source bottom level technology based on various kinds of extension decentralization antitrust can be achieved. New entities can be easily added to a blockchain in a form of a node without affecting existing nodes. Preconditions of a transaction can be set through code programming so that the transaction will be blocked automatically if it doesn't meet the preconditions. Programmable codes of blockchain as known as smart contracts can satisfy the complex demands in the financial market in a traditional model. In traditional model control mechanisms often cannot detect address risks in a timely manner. Smart contracts in the other hand can ensure early risk detection and risk control.
+
+## Potential Use Cases for Blockchain Technology
+
+* Streamlined supply chains:  
+  Blockchain is perfectly suited to the task at hand, with real-time tracking that’s especially appealing to companies with multiple supply chains. Major multinational retailer Walmart has partnered with IBM to work on the Hyperledger Fabric blockchain, for example, to track food staples from supplier to shelf. Proper implementation of the ledger could also prove valuable for pharmaceutical giants, which are required by law to maintain the chain of custody over every pill.
+
+* Forming smarter predictions:  
+  Because all transaction data is stored directly to the ledger, blockchain-based business intelligence and analytics tools are more capable than ever of scraping massive amounts of data and uncovering hidden insights. Some have already started applying the concept for practical needs. The ecosystem is designed to deliver accurate forecasts, putting predictive capabilities in the hands of consumers and smaller private enterprises.
+
+* Building decentralized apps:  
+  One of the biggest changes blockchain offers developers is the ability to build decentralized applications (or dApps) that circumvent many problems they have today. Originally created using the Ethereum ERC-20 chain, dApps offer a truly decentralized platform that inherits many of the benefits blockchain provides, including greater democratization, peer-to-peer interactions, and a fully trustless protocol based on consensus. The biggest difference, however, is the way data is stored and accessed. Unlike traditional apps where data is centralized in one location, dApps store transaction and other data directly on blockchain’s distributed ledger, which removes single points of failure and makes for more transparent operation.
+
+* Simplifying the Internet of Things:  
+  The Internet of Things represents one of the major pillars of greater automation efforts. Connected ecosystems that can record, process, and share interactions are instrumental in building smarter cities and supporting the coming autonomous vehicle revolution. Blockchain means that the infrastructure has finally caught up with modern IoT capabilities.  
+  Distributed ledger technology can record the immense amounts of data produced by IoT systems in a trustless fashion and transparently analyze data points to produce valuable insights. Thanks to its identification, verification, and data transfer abilities, blockchain is perfectly suited for hosting IoT devices for both public and private sector use cases.
+
+* Fortifying identity management:  
+  Using blockchain for identity verification gives a new dimension to security, removing verification bottlenecks and providing more accurate results. For instance, Civic’s Secure Identity Platform (SIP) is designed for multi-factor authentication without the need for passwords or usernames and relies instead on biometric information verified by the blockchain ledger.  
+  Each user goes through an identity check, creating a verifiable user ID that has been validated.  From there, partnering organizations like banks or governments can review a user’s personal identifying information in an encrypted format.
