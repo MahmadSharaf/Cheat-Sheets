@@ -65,10 +65,12 @@
 * They, as an intermediate form of blockchain, reduce the cost of an individual's participation as a node and facilitate the establishment of the system.
 * It has been one of the key focus of major financial institutions and technology companies.
 
-Public Chains | Private Chains and Consortium Chains
----|---
-|Not suitable for exchanges | More suitable for exchanges |
-| Non conductive to financial transactions which require anonymity. <br> Huge data transfer leads to high power and storage requirements. <br> Time lag in transaction recording. | Private and consortium chains employ proprietary networks and have greater control over participants. <br> They are more applicable and extensible in financial business. <br> Transactions costs are kept at lower level. <br> regulators prefer the non-anonymity. |
+| Public Chains                                                     | Private Chains and Consortium Chains                                                |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Not suitable for exchanges                                        | More suitable for exchanges                                                         |
+| Non conductive to financial transactions which require anonymity. | They employ proprietary networks and have greater control over participants.        |
+| Huge data transfer leads to high power and storage requirements.  | They are more applicable and extensible in financial business.                      |
+| Time lag in transaction recording.                                | Transactions costs are kept at lower level and regulators prefer the non-anonymity. |
 
 ## Key features of blockchain
 
