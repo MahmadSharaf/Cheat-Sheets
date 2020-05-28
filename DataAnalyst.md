@@ -2,25 +2,29 @@
 
 ## Process Overview
 
-### Step 1: Ask questions
+### Step 1: Ask questions (Extract)
 
-Either you're given data and ask questions based on it, or you ask questions first and gather data based on that later. In both cases, great questions help you focus on relevant parts of your data and direct your analysis towards meaningful insights.
+Either you're given data and ask questions based on it, or you ask questions first and gather data based on that later. In both cases, great questions help you focus on relevant parts of your data and direct your analysis towards meaningful insights. Obtain the data from a spreadsheet, SQL, the web, etc.
 
-### Step 2: Wrangle data
+### Step 2: Wrangle data (Clean)
 
-You get the data you need in a form you can work with in three steps: gather, assess, clean. You gather the data you need to answer your questions, assess your data to identify any problems in your data’s quality or structure, and clean your data by modifying, replacing, or removing data to ensure that your dataset is of the highest quality and as well-structured as possible.
+You get the data you need in a form you can work with in three steps: gather, assess, clean. You gather the data you need to answer your questions, assess your data to identify any problems in your data’s quality or structure, and clean your data by modifying, replacing, or removing data to ensure that your dataset is of the highest quality and as well-structured as possible.  
+**Here we could use exploratory visuals.**
 
 ### Step 3: Perform EDA (Exploratory Data Analysis)
 
-You explore and then augment your data to maximize the potential of your analyses, visualizations, and models. Exploring involves finding patterns in your data, visualizing relationships in your data, and building intuition about what you’re working with. After exploring, you can do things like remove outliers and create better features from your data, also known as feature engineering.
+You explore and then augment your data to maximize the potential of your analyses, visualizations, and models. Exploring involves finding patterns in your data, visualizing relationships in your data, and building intuition about what you’re working with. After exploring, you can do things like remove outliers and create better features from your data, also known as feature engineering.  
+**Here we use exploratory visuals.**
 
 ### Step 4: Draw conclusions (or even make predictions)
 
-This step is typically approached with machine learning or inferential statistics.
+This step is typically approached with machine learning or inferential statistics.  
+**Here we might use either exploratory or explanatory visuals.**
 
-### Step 5: Communicate your results
+### Step 5: Communicate your results (Share)
 
-You often need to justify and convey meaning in the insights you’ve found. Or, if your end goal is to build a system, you usually need to share what you’ve built, explain how you reached design decisions, and report how well it performs. There are many ways to communicate your results: reports, slide decks, blog posts, emails, presentations, or even conversations. Data visualization will always be very valuable.
+You often need to justify and convey meaning in the insights you’ve found. Or, if your end goal is to build a system, you usually need to share what you’ve built, explain how you reached design decisions, and report how well it performs. There are many ways to communicate your results: reports, slide decks, blog posts, emails, presentations, or even conversations. Data visualization will always be very valuable.  
+**Here is where explanatory visuals live.**
 
 ## Data Types
 
@@ -214,12 +218,12 @@ Rearrange: 1, 2, 3, 4, 5, 8, 8, 10, 12
 ##### 2.3 Standard Deviation
 
 The standard deviation is one of the most common measures for talking about the spread of data. It is defined as **the average distance of each observation from the mean.**  
-![standard deviation](images/deviation2.png)
+![standard deviation](Images/Data%20Analyst/deviation2.png)
 
 ##### 2.4 Variance
 
 The variance average squared difference of each observation from the mean.  
-![variance equation](images/variance.png)
+![variance equation](Images/Data%20Analyst/variance.png)
 
 Example3:  
 For the following set of data provide the value of the variance.  
@@ -348,3 +352,154 @@ Some of the most popular databases include:
 Each of these SQL databases may have subtle differences in syntax and available functions -- for example, MySQL doesn’t have some of the functions for modifying dates as Postgres. Most of what you see with Postgres will be directly applicable to using SQL in other frameworks and database environments. For the differences that do exist, you should check the documentation. Most SQL environments have great documentation online that you can easily access with a quick Google search.
 
 The [article](https://www.digitalocean.com/community/tutorials/sqlite-vs-mysql-vs-postgresql-a-comparison-of-relational-database-management-systems) here compares three of the most common types of SQL: SQLite, PostgreSQL, and MySQL.
+
+---
+
+## Data Visualization
+
+There are two main reasons for creating visuals using data:
+
+   1. **Exploratory** analysis is done when you are searching for insights. These visualizations don't need to be perfect. You are using plots to find insights, but they don't need to be aesthetically appealing. You are the consumer of these plots, and you need to be able to find the answer to your questions from these plots.
+
+   2. **Explanatory** analysis is done when you are providing your results for others. These visualizations need to provide you the emphasis necessary to convey your message. They should be accurate, insightful, and visually appealing.
+
+The five steps of the data analysis process:
+
+ 1. **Extract** - Obtain the data from a spreadsheet, SQL, the web, etc.
+ 1. **Clean** - Here we could use expl**or**atory visuals.
+ 1. **Explore** - Here we use expl**or**atory visuals.
+ 1. **Analyze** - Here we might use either expl**or**atory or expl**an**atory visuals.
+ 1. **Share** - Here is where expl**an**atory visuals live.
+
+What visualization to use, doesn't depend only on the data type but also on how many columns needed to be in a single plot. The key to building great data visualizations is in aiming them at answering the questions you want answered.
+
+### Univariate analysis
+
+When one column will be displayed in the plot.
+
+1. Quantitative data:
+   - Histogram:  
+   ![Example](Images/Data%20Analyst/Histogram.png)  
+   It is the most popular and there are rare cases that might not be used.
+   - Normal Quantile Plot  
+   ![Example](Images/Data%20Analyst/Normal%20Quantile%20Chart.png)  
+   - Stem and Leaf Plot  
+   ![Example](Images/Data%20Analyst/Stem-And-Leaf%20Plot.png)  
+   - Box and Whisker Plot  
+   ![Example](Images/Data%20Analyst/Box-And-Whisker%20Plot.png)  
+
+2. Categorical data:
+   - Bar Chart:
+   ![Example](Images/Data%20Analyst/Bar%20Chart.png)  
+    It is like the histogram but the bins are determined based on a set category not on a range that the chart creator can change. Ordinal categorical are better to be used with Bar Chart.
+   - Pie Chart
+   ![Example](Images/Data%20Analyst/Pie%20Chart.png)  
+   - Pareto Chart: are essentially just bar charts where the bars are in the order from the most frequent to the least frequent.
+   ![Example](Images/Data%20Analyst/Pareto%20Chart.png)  
+
+### Bivariate analysis
+
+When comparing two variables to one another.
+
+1. Quantitative data:
+   - **Scatter Plot**:
+   ![Example](Images/Data%20Analyst/Scatter%20plot.png)  
+      are a common visual for comparing two quantitative variables. A common summary statistic that relates to a scatter plot is the correlation coefficient commonly denoted by r and it ranges from -1 to 1.
+
+      Though there are a [few different](http://www.statisticssolutions.com/correlation-pearson-kendall-spearman/) ways to measure correlation between two variables, the most common way is with [Pearson's correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient). Pearson's correlation coefficient provides the:
+
+      1. **Strength**: It is the closeness of the points to each other. It considered to be **Strong** (0.7≤∣r∣≤1.0) if the points are close to each other, **Weak** if the points are far from each other (0.0≤∣r∣<0.3), or **Moderate** (0.3≤∣r∣<0.7)
+      2. **Direction**: It considered to be Positive (positive values of r), if the both variables are increasing. And to be Negative (negative values of r), if one or both variables are decreasing.
+
+      of a **linear relationship**. [Spearman's Correlation Coefficient](https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient) does not measure linear relationships specifically, and it might be more appropriate for certain cases of associating two variables.
+
+      Calculation of the Correlation Coefficient
+
+      ![equation](Images/Data%20Analyst/Correlation%20Coefficient.png)
+
+      It can also be calculated in Excel and other spreadsheet applications using `CORREL(col1, col2)`, where col1 and col2 are the two columns you are looking to compare to one another.
+
+   - **Line plot**:  
+     Line plots are a common plot for viewing data over time. These plots allow us to quickly identify overall trends, seasonal occurrences, peaks, and valleys in the data. You will commonly see these used in looking at stock prices over time, but really tracking anything over time can be easily viewed using these plots.
+   ![Example](Images/Data%20Analyst/Line%20Plot.png)  
+
+2. Categorical Data:
+   - Side by side bar chart
+   ![example](/Images/Data%20Analyst/Side%20by%20side%20Bar%20Chart.png)
+
+### More than two variables
+
+- Line Plot
+![Example](Images/Data%20Analyst/more%20than%202%20Line%20Plot.png)
+- Stacked Line
+![Example](Images/Data%20Analyst/More%20than%202%20varriables%20Stacked%20Line.png)
+- Bar Chart
+![Example](Images/Data%20Analyst/More%20than%202%20varriables%20Bar%20Chart.png)
+
+## Communicating with data
+
+1. **Understand the context** - this means knowing your audience and conveying a clear message about what you want your audience to know or do with the information you are providing.
+
+2. **Choose an appropriate visual display** - this was covered in the above section.
+
+3. **Eliminate clutter** - you should only provide information to the user that helps convey your message.
+
+4. **Focus attention where you want it** - build visualizations that pull attention to the message you want to highlight.
+
+5. **Think like a designer** - you will learn a number of design principles in this lesson to assist as you start to put together your own data visualizations.
+
+6. **Tell a story** - your visualizations should give the audience a story. The most powerful data visualizations move people to take action.
+
+   1. Start with a Question
+   1. Repetition is a Good Thing
+   1. Highlight the Answer
+   1. Call Your Audience To Action
+
+### Visuals can be bad if
+
+1. Don't convey the message.
+2. Misleading.
+3. **Chart Junk**: refers to all visual elements in charts and graphs that are not necessary to comprehend the information represented on the graph or that distract the viewer from this information.
+   Examples:
+   1. Heavy grid lines
+   2. Unnecessary text
+   3. Pictures surrounding the visual
+   4. Shading or 3d components
+   5. Ornamented chart axes
+4. **Color hue changes** (as are unfortunately commonly used as an additional variable encoding in scatter plots)
+5. **Area changes** (as we see in pie charts, which often makes them not the best plot choice).
+6. **Lie Factor (Data integrity)**: It is key that when you build plots you maintain integrity for the underlying data. Lie factor depicts the degree to which a visualization distorts or misrepresents the data values being plotted. It is calculated in the following way:
+![Equation](Images/Data%20Analyst/Lie%20Factor.png)  
+The delta symbol (Δ) stands for difference or change. In words, the lie factor is the relative change shown in the graphic divided by the actual relative change in the data. Ideally, the lie factor should be 1: any other value means that there is some mismatch in the ratio of depicted change to actual change.  
+[How to spot visualization lies](https://flowingdata.com/2017/02/09/how-to-spot-visualization-lies/)
+
+This seems straightforward, but often visuals are created that do one or both of these unintentionally. There is an entire book that was published aimed at misleading visuals: [How to Lie with Statistics](http://faculty.neu.edu.cn/cc/zhangyf/papers/How-to-Lie-with-Statistics.pdf).
+
+### Visuals can be good if
+
+1. **Positional changes** (differences in x- and y- position as we see with scatter plots).
+2. **Length changes** (differences in box heights as we see with bar charts and histograms).
+3. **Higher data-ink ratio**, credited to Edward Tufte, is directly related to the idea of chart junk. The more of the ink in your visual that is related to conveying the message in the data, the better.  
+Limiting chart junk increases the data-ink ratio.
+
+### Visuals Encoding
+
+In general, color and shape are best for categorical variables, while the size of marker can assist in adding additional quantitative data.
+
+1. Coloring
+
+   Color can both help and hurt a data visualization. Tips for using color effectively.
+
+   1. Before adding color to a visualization, start with black and white.
+
+   2. When using color, use less intense colors - not all the colors of the rainbow, which is the default in many software applications.
+
+   3. Color for communication. Use color to highlight your message and separate groups of interest. Don't add color just to have color in your visualization.
+
+   4. To be sensitive to those with colorblindness, you should use color palettes that do not move from **red to green** without using another element to distinguish this change like shape, position, or lightness.. Instead, use colors on a **blue to orange** palette.
+
+   Only use these additional encodings when absolutely necessary. Often these additional encodings suggest you are providing too much information in a single plot. **Instead, it might be better to break the information into multiple individual messages.**
+
+2. Shapes
+
+3. Size
