@@ -1011,3 +1011,24 @@ Create a file for CRUD operation
    8. Closures
    9. \*args and \*\*kwargs
 2. [Virtual Environments](https://realpython.com/python-virtual-environments-a-primer/#why-the-need-for-virtual-environments)
+   1. Using Virtual Env:
+      1. Install Virtual Env `pip install virtualenv`
+      2. Create a new virtual environment in the directory `python3 -m venv {VirEnv Name}`
+      3. Use the environment `source {VirEnv Name}/Scripts/activate`  
+      4. Deactivate Environment `deactivate`
+   2. Using Virtual Wrapper (recommended):
+      1. Install Virtual Env `pip install virtualenv`
+      2. Install Virtual Wrapper `pip install virtualenvwrapper` or for Windows `pip install virtualenvwrapper-win`
+      3. Add virtualenvwrapper.sh path in the Bash profile `source C:/Users/Mohamed.Sharaf/AppData/Local/Programs/Python/Python38/Scripts/virtualenvwrapper.sh`
+      4. Reload the startup
+      5. Create a new environment `mkvirtualenv {VirEnv Name}`
+      6. Deactivate current environment `deactivate`
+      7. Use an enviroment `workon {VirEnv Name}`
+      8. Remove an environment `rmvirtualenv {VirEnv Name}`
+      9. List all available environments `workon`
+3. How to install Jupyter without anaconda
+   1. `python -m pip install --upgrade pip`
+   2. `python -m pip install notebook`
+   3. Restart VS Code
+   4. Pick the Python environment you did the pip install in
+   For more information see <http://jupyter.org/install>
