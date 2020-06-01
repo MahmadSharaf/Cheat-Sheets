@@ -73,7 +73,29 @@ When you start a server program, it waits for clients to connect to it. Then whe
      The `?q=fish` is a query part of the URI. This does get sent to the server.
    - For way more detail: <https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Generic_syntax>
 
-## HTTP Requests
+## HTTP Requests/Responses
+
+### HTTP Request Message
+
+- HTTP message consists of a message header, and an optional message body. These two entities are separated by space.
+- In HTTP request, the first line of the header is called the request line.
+- The request line contains the HTTP verb, the URI (Uniform Resource Identifer), and the HTTP version number.
+- After the request line, there is the optional request headers. These are the parameters that can be used to describe specific properties about a request.
+- Request headers appear in name value pairs. Multiple values can be separated by commas.
+- A blank line separates the header and the body of an HTTP request.
+- In the body, Any other information can be added about the request that needs to be sent to the server.
+
+   ```txt
+   GET puppies.html HTTP/1.1
+   Host: www.puppyshelter.com
+   Accept: image/gif, image/jpeg, */*
+   Accept-language: en-us
+   Accept-Encoding: gzip, deflate
+   User-Agent: Mozilla/4.0
+   Content-Length: 35
+
+   puppyId=12345&name=Fido+Simpson
+   ```
 
 ### Request Verbs
 
@@ -131,6 +153,32 @@ Echoes back what the server received from the client — but is often disabled f
 #### Important TIP
 
 HTTP can't prevent a service from using methods to mean something different from what they're intended to mean, but this can have some surprising effects. For instance, you could create a service that used a GET request to delete content. However, web clients don't expect GET requests to have side-effects like that. In one famous case from 2006, an organization put up a web site where "edit" and "delete" actions happened through GET requests, and the result was that [the next search-engine web crawler to come along deleted the whole site](http://thedailywtf.com/articles/The_Spider_of_Doom).
+
+### HTTP Response Message
+
+- When the server receives an HTTP request, it returns a response message to the client.
+- This response can contain the information requested or an error message there was one.
+- HTTP message consists of a message header, and an optional message body. These two entities are separated by space.
+- In HTTP response, the first line of the header is called the status line.
+- The status line contains the HTTP version, status code, and a reason phrase that explains the status code in English.
+- After the status line, there is the optional response headers. These are the parameters that can be used to describe specific properties about a response.
+- Response headers appear in name value pairs. Multiple values can be separated by commas.
+- A blank line separates the header and the body of an HTTP response.
+- The response body contains the data that the client requested.
+
+   ```txt
+   HTTP/1.1 200 OK
+   Date: Fri, 04 Sep 2015 01:11:12 GMT
+   Server: Apache/1.3.29 (Win32)
+   Last-Modified: Sat, 07 Feb 2014
+   ETag: "0-23-4024c3a5:
+   ContentType: text/html
+   ContentLength: 35
+   Connection: KeepAlive
+   KeepAlive: timeout-15, max = 100
+
+   <h1>Welcome to my home page!</h1>
+   ```
 
 ### Response Status codes
 
