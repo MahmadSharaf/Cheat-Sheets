@@ -4,6 +4,7 @@
   - [Dealing with files and folders](#dealing-with-files-and-folders)
   - [Strings](#strings)
     - [String with variables inside](#string-with-variables-inside)
+    - [String formatting](#string-formatting)
   - [Lists](#lists)
   - [While loop](#while-loop)
   - [Tricks](#tricks)
@@ -18,7 +19,16 @@
     - [Second: CRUD operation](#second-crud-operation)
   - [Web Frameworks](#web-frameworks)
     - [Flask](#flask)
-    - [Third Party Auth](#third-party-auth)
+      - [Third Party Auth](#third-party-auth)
+    - [Streamlit](#streamlit)
+      - [Getting Started](#getting-started)
+      - [Syntax](#syntax)
+  - [Data Structures](#data-structures)
+    - [NumPy](#numpy)
+    - [Pandas](#pandas)
+      - [Pandas methods and functions](#pandas-methods-and-functions)
+    - [Matplotlib](#matplotlib)
+    - [Resources](#resources)
   - [Conventions](#conventions)
   - [Handful resources](#handful-resources)
 
@@ -73,7 +83,7 @@ s.lower()
 
 ### String with variables inside
 
-Credits to this, goes to "SShah" as an answer to [stackoverflow question](https://stackoverflow.com/questions/52155591/how-to-insert-string-into-a-string-as-a-variable)
+Credits to this, goes to "SShah" as an answer to [StackOverflow question](https://stackoverflow.com/questions/52155591/how-to-insert-string-into-a-string-as-a-variable)
 
 There are 5 approaches for achieving this on python (Python 3):
 
@@ -106,7 +116,7 @@ There are 5 approaches for achieving this on python (Python 3):
 
 4. The format() method for python strings (This is the best approach to use)
 
-   This is a built in method for all strings in python, which allow you to easily replace the placehoder {} within python strings, with any variables. Unlike solution number 3 above, this format() method doesnt require you to express or convert different data types to string, as it would automatically do this for you. For example, to make your print statement work you can do:
+   This is a built in method for all strings in python, which allow you to easily replace the placeholder {} within python strings, with any variables. Unlike solution number 3 above, this format() method doesn't require you to express or convert different data types to string, as it would automatically do this for you. For example, to make your print statement work you can do:
 
    ```py
    print("The Enemy's health is {}. The Enemy is {}.".format(EnemyHealth, EnemyIs))
@@ -128,6 +138,12 @@ There are 5 approaches for achieving this on python (Python 3):
    ```
 
    using this method, the variable name is being instantiated directly within the curly brackets {}.
+
+   For more [info](https://realpython.com/python-f-strings/#simple-syntax)
+
+### String formatting
+
+Python [format cookbook](https://mkaz.blog/code/python-string-format-cookbook/)
 
 ## Lists
 
@@ -400,8 +416,8 @@ turtle.done()
        self.end_headers()
 
        # Send the form with the messages in it.
-       mesg = form.format("\n".join(memory))
-       self.wfile.write(mesg.encode())
+       msg = form.format("\n".join(memory))
+       self.wfile.write(msg.encode())
    ```
 
 5. Read data out of a form:
@@ -874,6 +890,15 @@ Create a file for CRUD operation
          return render_template('restaurants.html', restaurants=restaurants)
      ```
 
+   - You can take a variable from the GET request and map to the decorater function
+
+      ```py
+      @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+      def menuItemJSON(restaurant_id, menu_id):
+         menuItem = session.query(MenuItem).filter_by(id=menu_id).one()
+         return jsonify(MenuItem=menuItem.serialize)
+      ```
+
 2. Templates
 
    - Flask has a template engine to store the HTML code which is used to render templates. The HTML must be in a folder named templates inside the project folder.
@@ -978,7 +1003,8 @@ Create a file for CRUD operation
 
 8. JSONify
 
-   - To respond to the webpages with JSON
+   - It can converts dictionaries into JSON objects that can be then sent to the client.
+   - The JSONify function in flask returns reponse object that already has the appropriate content type Header for use with JSON responses.
 
      ```py
      import jsonify
@@ -989,9 +1015,102 @@ Create a file for CRUD operation
         return jsonify(MenuItem=menuItem.serialize)
      ```
 
-### Third Party Auth
+#### Third Party Auth
 
 1. [Google login with flash](https://realpython.com/flask-google-login/#why-use-google-login-for-your-users)
+
+### [Streamlit](https://www.streamlit.io/)
+
+- Streamlit’s open-source app framework is the easiest way for data scientists and machine learning engineers to create beautiful, performant apps in only a few hours!  All in pure Python. All for free.
+- It supports live coding
+
+#### Getting Started
+
+- Install it with `pip install streamlit`
+- Import it in the project script `import streamlit as st`
+- You can run the server by typing in the terminal `streamlit run app.py`
+
+#### Syntax
+
+- Write a title for the web page by `st.title("")`
+- Write a markdown text by `st.markdown("")`
+
+## Data Structures
+
+### NumPy
+
+- It gives Arrays that a great data stucture objects, that makes working with numerical data easy and simple more than what it can be done in pure python.
+- It is the foundation for the python data stack, and it is what makes python great for data analysis.
+
+### Pandas
+
+- It gives Data Frames that are great data structures objects, that can manipulate and analyze data.
+
+#### Pandas methods and functions
+
+- [read_csv()](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html)
+- [loc(), iloc()](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html)
+- to_csv()
+
+```py
+import pandas as pd
+# Import a CSV file into a Pandas Data Frame variable.
+# sep: specifies the separtor.
+# header: specifies the column labels.
+# names: specifies a header column.
+# index_col: can specify one or more of your columns to be the index of the dataframe.
+labels = ['id', 'name', 'attendance', 'hw', 'test1', 'project1', 'test2', 'project2', 'final']
+df = pd.read_csv('file_name.csv', sep=',', header=None, names=labels, index_col=['Name', 'ID'])
+# save the dataframe with file_name_edited data into a csv file.
+# `to_csv()` will store our index unless we tell it not to. To make it ignore the index, we have to provide the parameter `index=False`
+df.to_csv('file_name_edited.csv', index=False)
+# head() is a useful function you can call on your dataframe to display the first few rows.
+df.head()
+# last two rows.
+df.tail(2)
+#
+df.describe()
+# this returns a tuple of the dimensions of the dataframe
+df.shape
+# this returns the datatypes of the columns
+df.dtypes
+# returns the count of data frame
+df.count(axis='rows')
+#
+df.info()
+# List unique values in the df['name'] column
+df.name.unique()
+# return count of unique values
+df.name.nunique()
+# Return values at the given quantile over requested axis. 
+df.quantile(0.5)
+# Fills the missing values with value and if inplace is true it will replace the column with new data.
+df['column_name'].fillna(value, inplace=True)
+# returns boolean column, which gives the duplicate TRUE value with escaping the first instance. All rows has to be the same to be identified as duplicate.
+df.duplicated()
+# removes the duplicates in the dataset and inplace parameter applies the change in the dataset.
+df.drop_duplicated(inplace=True)
+# Converts string to datetime object. But CSV will read this column as strings next time the file reopened, unless the it parsed into the CSV file. But pandas to_datetime provides more options than that of CSV.
+df['date_column'] = pd.to_datetime(df['date_column'])# View the index number and label for each column
+for i, v in enumerate(df.columns):
+    print(i, v)
+# We can select data using loc and iloc. loc uses labels of rows or columns to select data, while iloc uses the index numbers.
+# select all the columns from 'id' to the last mean column
+df_means = df.loc[:,'id':'fractal_dimension_mean']
+# repeat the step above using index numbers
+df_means = df.iloc[:,:12]
+```
+
+[Python For Data ScienceCheat Sheet](http://datacamp-community-prod.s3.amazonaws.com/dbed353d-2757-4617-8206-8767ab379ab3)
+
+### Matplotlib
+
+- It is a package for builiding visualizations from your data. It can make many kinds of simple plots with tiny amounts of codes, but also create a professional looking figures.
+
+### Resources
+
+- [Python for data analysis](http://www.ruxizhang.com/uploads/4/4/0/2/44023465/python_for_data_analysis.pdf)
+- [NumPy and Pandas by Udacity](https://classroom.udacity.com/courses/ud170)
 
 ## Conventions
 
@@ -1019,13 +1138,14 @@ Create a file for CRUD operation
    2. Using Virtual Wrapper (recommended):
       1. Install Virtual Env `pip install virtualenv`
       2. Install Virtual Wrapper `pip install virtualenvwrapper` or for Windows `pip install virtualenvwrapper-win`
-      3. Add virtualenvwrapper.sh path in the Bash profile `source C:/Users/Mohamed.Sharaf/AppData/Local/Programs/Python/Python38/Scripts/virtualenvwrapper.sh`
+      3. Add virtualenvwrapper.sh path in the Bash profile `source {path/to/Python}/Scripts/virtualenvwrapper.sh`
       4. Reload the startup
       5. Create a new environment `mkvirtualenv {VirEnv Name}`
       6. Deactivate current environment `deactivate`
       7. Use an enviroment `workon {VirEnv Name}`
       8. Remove an environment `rmvirtualenv {VirEnv Name}`
       9. List all available environments `workon`
+      10. [Medium Article](https://medium.com/the-andela-way/configuring-python-environment-with-virtualenvwrapper-8745c2895745)
 3. How to install Jupyter without anaconda
    1. `python -m pip install --upgrade pip`
    2. `python -m pip install notebook`
