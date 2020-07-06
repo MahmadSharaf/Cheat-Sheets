@@ -1042,6 +1042,8 @@ Create a file for CRUD operation
 - It gives Arrays that a great data stucture objects, that makes working with numerical data easy and simple more than what it can be done in pure python.
 - It is the foundation for the python data stack, and it is what makes python great for data analysis.
 
+[Python For Data Science Cheat Sheet NumPy Basics](Python/Files/Numpy_Python_Cheat_Sheet.pdf)
+
 ### Pandas
 
 - It gives Data Frames that are great data structures objects, that can manipulate and analyze data.
@@ -1101,7 +1103,7 @@ df_means = df.loc[:,'id':'fractal_dimension_mean']
 df_means = df.iloc[:,:12]
 ```
 
-[Python For Data Science Cheat Sheet](Files/Python%20For%20Data%20Science%20Cheat%20Sheet.pdf)
+[Python For Data Science Cheat Sheet](Python/Files/Python%20For%20Data%20Science%20Cheat%20Sheet.pdf)
 
 ### Matplotlib
 
