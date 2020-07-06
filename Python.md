@@ -1109,6 +1109,8 @@ df_means = df.iloc[:,:12]
 
 - It is a package for builiding visualizations from your data. It can make many kinds of simple plots with tiny amounts of codes, but also create a professional looking figures.
 
+[Python For Data Science MatPlotLib Cheat Sheet](Python/Files/Python%20For%20Data%20Science%20MatPlotLib%20Cheat%20Sheet.pdf)
+
 ### Resources
 
 - [Python for data analysis](http://www.ruxizhang.com/uploads/4/4/0/2/44023465/python_for_data_analysis.pdf)
