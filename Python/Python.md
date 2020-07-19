@@ -1050,9 +1050,16 @@ Create a file for CRUD operation
 
 #### Pandas methods and functions
 
+- [Compared to SQL](https://pandas.pydata.org/pandas-docs/stable/getting_started/comparison/comparison_with_sql.html) and [Medium Article](https://medium.com/jbennetcodes/how-to-rewrite-your-sql-queries-in-pandas-and-more-149d341fc53e#e009)
 - [read_csv()](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html)
 - [loc(), iloc()](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html)
 - to_csv()
+- [df_new = df.copy() vs df_new = df](https://www.geeksforgeeks.org/python-difference-between-pandas-copy-and-copying-through-variables/)
+- [apply()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html)
+- [Merges()](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
+- [idxmax](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.idxmax.html)
+
+
 
 ```py
 import pandas as pd
@@ -1070,37 +1077,77 @@ df.to_csv('file_name_edited.csv', index=False)
 df.head()
 # last two rows.
 df.tail(2)
-#
+# this returns useful descriptive statistics for each column of data.
+# such as count, mean, std, min, 25%, 50%, 75%,and max.
 df.describe()
 # this returns a tuple of the dimensions of the dataframe
 df.shape
+# this displays a concise summary of the dataframe,
+# including the number of non-null values in each column
+df.info()
 # this returns the datatypes of the columns
 df.dtypes
 # returns the count of data frame
 df.count(axis='rows')
-#
-df.info()
+# value_count aggreagates counts for each unique value in column
+df.column_name.value_counts()
 # List unique values in the df['name'] column
-df.name.unique()
-# return count of unique values
-df.name.nunique()
-# Return values at the given quantile over requested axis. 
+df.column_name.unique()
+# this returns the number of unique values in each column
+df.column_name.nunique()
+# Return values at the given quantile over requested axis.
 df.quantile(0.5)
 # Fills the missing values with value and if inplace is true it will replace the column with new data.
 df['column_name'].fillna(value, inplace=True)
+# Count of Null values in each column
+df_08.isna().sum()
 # returns boolean column, which gives the duplicate TRUE value with escaping the first instance. All rows has to be the same to be identified as duplicate.
 df.duplicated()
 # removes the duplicates in the dataset and inplace parameter applies the change in the dataset.
-df.drop_duplicated(inplace=True)
+df.drop_duplicates(inplace=True)
 # Converts string to datetime object. But CSV will read this column as strings next time the file reopened, unless the it parsed into the CSV file. But pandas to_datetime provides more options than that of CSV.
-df['date_column'] = pd.to_datetime(df['date_column'])# View the index number and label for each column
+df['date_column'] = pd.to_datetime(df['date_column'])
+# View the index number and label for each column
 for i, v in enumerate(df.columns):
     print(i, v)
 # We can select data using loc and iloc. loc uses labels of rows or columns to select data, while iloc uses the index numbers.
-# select all the columns from 'id' to the last mean column
-df_means = df.loc[:,'id':'fractal_dimension_mean']
+# select all the columns from 'id' to the last column
+df_means = df.loc[:,'id':]
 # repeat the step above using index numbers
 df_means = df.iloc[:,:12]
+# remove "_mean" from column names
+new_labels = []
+for col in df.columns:
+    if '_mean' in col:
+        new_labels.append(col[:-5])  # exclude last 6 characters
+    else:
+        new_labels.append(col)
+# datatypes of columns
+for i, v in enumerate(df.iloc[0,:]):
+    print(df.columns[i],':', type(v))
+# Remove rows or columns by specifying label names and corresponding axis, or by specifying directly index or column names. When using a multi-index, labels on different levels can be removed by specifying the level.
+df.drop(labels=None, axis=0, index=None, columns=None, level=None, inplace=False, errors='raise')
+# Rename all column labels to replace spaces with underscores and convert everything to lowercase. (Underscores can be much easier to work with in Python than spaces. For example, having spaces wouldn't allow you to use df.column_name instead of df['column_name'] to select columns or use query(). Being consistent with lowercase and underscores also helps make column names easy to remember.)
+df.rename(columns=lambda x: x.strip().lower().replace(' ','_'), inplace=True)
+# make sure they're all identical like this
+(df_08.columns == df_18.columns).all()
+# Remove missing values
+df.dropna()
+# convert to string and extract the integer using regular expressions
+df['column_name'].str.extract('(\d+)').astype(int)
+# get all rows that column_name has values contains (/)
+df[df['column_name'].str.contains('/')]
+# copying a DataFrame or Series
+# Pandas .copy() method is used to create a copy of a Pandas object. Variables are also used to generate copy of an object but variables are just pointer to an object and any change in new data will also change the previous data.
+df.copy()
+# Applies a user function to a DataFrame
+df1[column_name].apply(lambda x: x.split("/")[0])
+# combine dataframes
+df3 = df1.append(df2, ignore_index=True)
+# Merge dataframes
+df_combined = df1.merge(df2, left_on='column_name_df1', right_on='column_name_df2', how='inner')
+# idxmax function that finds the index of the row containing a column's maximum value!
+df.colum_name.idxmax()
 ```
 
 [Python For Data Science Cheat Sheet](Files/Python%20For%20Data%20Science%20Pandas%20Cheat%20Sheet.pdf)
@@ -1108,13 +1155,46 @@ df_means = df.iloc[:,:12]
 ### Matplotlib
 
 - It is a package for builiding visualizations from your data. It can make many kinds of simple plots with tiny amounts of codes, but also create a professional looking figures.
+- [Magic words](https://ipython.readthedocs.io/en/stable/interactive/magics.html)
 
-[Python For Data Science MatPlotLib Cheat Sheet](Files/Python%20For%20Data%20Science%20MatPlotLib%20Cheat%20Sheet.pdf)
+```py
+import pandas as pd
+import matplotlib.pyplot as plt
+# view the plots in the notebook
+%matplotlib inline
+# Plot Title
+plt.title("Number of Unique Models Using Alternative Fuels")
+# plot x-axis Label
+plt.xlabel("Year")
+# plot y-axis label
+plt.ylabel("Number of Unique Models");
+# plot bar graph
+plt.bar(["2008", "2018"], [alt_08, alt_18])
+# hist(): plots a histogram graph to the Data Set. Figsize: resizes the figures
+df.hist(figsize=(8,8));
+# hist() can be called on a Pandas series object as well
+df.column_name.hist();
+# plot() is a more general plotting function
+df.column_name.plot(kind='hist');
+df.plot(x='x-axis column_name', y='y-axis column_name', kind='scatter');
+df.column_name.plot(kind='box');
+df.column_name.plot(kind='pie');
+# scatter_matrix() shows the relationships among numerical variables with scatter plots. It also returns a histogram for each variable.
+pd.plotting.scatter_matrix(df, figsize=(15,15));
+# line Chart
+plot(t, s)
+# Shows x labels for each xth frequent
+plt.xticks(np.arange(min(x), max(x)+1, 1.0))
+```
+
+- [Python For Data Science MatPlotLib Cheat Sheet](Files/Python%20For%20Data%20Science%20MatPlotLib%20Cheat%20Sheet.pdf)
+- [How to rotate axis lables in seaborn and matplotlib](https://www.drawingfromdata.com/how-to-rotate-axis-labels-in-seaborn-and-matplotlib)
 
 ### Resources
 
 - [Python for data analysis](http://www.ruxizhang.com/uploads/4/4/0/2/44023465/python_for_data_analysis.pdf)
 - [NumPy and Pandas by Udacity](https://classroom.udacity.com/courses/ud170)
+- [How to rotate x-lables](https://kite.com/python/answers/how-to-rotate-date-ticks-using-matplotlib-in-python#:~:text=Use%20matplotlib.,specified%20amount%20of%20degrees%20degrees%20) and [here](https://www.drawingfromdata.com/how-to-rotate-axis-labels-in-seaborn-and-matplotlib)
 
 ## Conventions
 

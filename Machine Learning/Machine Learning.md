@@ -166,7 +166,7 @@ examples of a task
         1. Apply the same scalar object to both training and testing data.
         2. Training the scalar object on the training data and not on the test data. If it trained on the test data, it will cause a phenomena called Data Leakage, where the training phase has information that is leaked from the test set.
     * Polynomial Features
-    ![Polynomial-Features_equation](/images/Polynomial&#32;features&#32;equation.jpg)
+    ![Polynomial-Features_equation](images/Polynomial&#32;features&#32;equation.jpg)
       * Generate new features consisting of all polynomial combinations of the original two features 𝑥0,𝑥1.
       * The degree of the polynomial specifies how many variables participate at a time in each new feature (above example: degree 2).
       * This is still a weighted linear combination of features, so it's still a linear model, and can use same least-squares estimation method for w and b.

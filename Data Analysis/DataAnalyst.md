@@ -11,6 +11,8 @@ Either you're given data and ask questions based on it, or you ask questions fir
 You get the data you need in a form you can work with in three steps: gather, assess, clean. You gather the data you need to answer your questions, assess your data to identify any problems in your data’s quality or structure, and clean your data by modifying, replacing, or removing data to ensure that your dataset is of the highest quality and as well-structured as possible.  
 **Here we could use exploratory visuals.**
 
+[Medium article about Data Imputation](https://medium.com/m/global-identity?redirectUrl=https%3A%2F%2Ftowardsdatascience.com%2F6-different-ways-to-compensate-for-missing-values-data-imputation-with-examples-6022d9ca0779)
+
 ### Step 3: Perform EDA (Exploratory Data Analysis)
 
 You explore and then augment your data to maximize the potential of your analyses, visualizations, and models. Exploring involves finding patterns in your data, visualizing relationships in your data, and building intuition about what you’re working with. After exploring, you can do things like remove outliers and create better features from your data, also known as feature engineering.  
@@ -218,12 +220,12 @@ Rearrange: 1, 2, 3, 4, 5, 8, 8, 10, 12
 ##### 2.3 Standard Deviation
 
 The standard deviation is one of the most common measures for talking about the spread of data. It is defined as **the average distance of each observation from the mean.**  
-![standard deviation](Images/Data%20Analyst/deviation2.png)
+![standard deviation](Images/deviation2.png)
 
 ##### 2.4 Variance
 
 The variance average squared difference of each observation from the mean.  
-![variance equation](Images/Data%20Analyst/variance.png)
+![variance equation](Images/variance.png)
 
 Example3:  
 For the following set of data provide the value of the variance.  
@@ -366,10 +368,10 @@ There are two main reasons for creating visuals using data:
 The five steps of the data analysis process:
 
  1. **Extract** - Obtain the data from a spreadsheet, SQL, the web, etc.
- 1. **Clean** - Here we could use expl**or**atory visuals.
- 1. **Explore** - Here we use expl**or**atory visuals.
- 1. **Analyze** - Here we might use either expl**or**atory or expl**an**atory visuals.
- 1. **Share** - Here is where expl**an**atory visuals live.
+ 2. **Clean** - Here we could use expl**or**atory visuals.
+ 3. **Explore** - Here we use expl**or**atory visuals.
+ 4. **Analyze** - Here we might use either expl**or**atory or expl**an**atory visuals.
+ 5. **Share** - Here is where expl**an**atory visuals live.
 
 What visualization to use, doesn't depend only on the data type but also on how many columns needed to be in a single plot. The key to building great data visualizations is in aiming them at answering the questions you want answered.
 
@@ -379,23 +381,23 @@ When one column will be displayed in the plot.
 
 1. Quantitative data:
    - Histogram:  
-   ![Example](Images/Data%20Analyst/Histogram.png)  
+   ![Example](Images/Histogram.png)  
    It is the most popular and there are rare cases that might not be used.
    - Normal Quantile Plot  
-   ![Example](Images/Data%20Analyst/Normal%20Quantile%20Chart.png)  
+   ![Example](Images/Normal%20Quantile%20Chart.png)  
    - Stem and Leaf Plot  
-   ![Example](Images/Data%20Analyst/Stem-And-Leaf%20Plot.png)  
+   ![Example](Images/Stem-And-Leaf%20Plot.png)  
    - Box and Whisker Plot  
-   ![Example](Images/Data%20Analyst/Box-And-Whisker%20Plot.png)  
+   ![Example](Images/Box-And-Whisker%20Plot.png)  
 
 2. Categorical data:
    - Bar Chart:
-   ![Example](Images/Data%20Analyst/Bar%20Chart.png)  
+   ![Example](Images/Bar%20Chart.png)  
     It is like the histogram but the bins are determined based on a set category not on a range that the chart creator can change. Ordinal categorical are better to be used with Bar Chart.
    - Pie Chart
-   ![Example](Images/Data%20Analyst/Pie%20Chart.png)  
+   ![Example](Images/Pie%20Chart.png)  
    - Pareto Chart: are essentially just bar charts where the bars are in the order from the most frequent to the least frequent.
-   ![Example](Images/Data%20Analyst/Pareto%20Chart.png)  
+   ![Example](Images/Pareto%20Chart.png)  
 
 ### Bivariate analysis
 
@@ -403,7 +405,7 @@ When comparing two variables to one another.
 
 1. Quantitative data:
    - **Scatter Plot**:
-   ![Example](Images/Data%20Analyst/Scatter%20plot.png)  
+   ![Example](Images/Scatter%20plot.png)  
       are a common visual for comparing two quantitative variables. A common summary statistic that relates to a scatter plot is the correlation coefficient commonly denoted by r and it ranges from -1 to 1.
 
       Though there are a [few different](http://www.statisticssolutions.com/correlation-pearson-kendall-spearman/) ways to measure correlation between two variables, the most common way is with [Pearson's correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient). Pearson's correlation coefficient provides the:
@@ -415,26 +417,31 @@ When comparing two variables to one another.
 
       Calculation of the Correlation Coefficient
 
-      ![equation](Images/Data%20Analyst/Correlation%20Coefficient.png)
+      ![equation](Images/Correlation%20Coefficient.png)
 
       It can also be calculated in Excel and other spreadsheet applications using `CORREL(col1, col2)`, where col1 and col2 are the two columns you are looking to compare to one another.
 
    - **Line plot**:  
      Line plots are a common plot for viewing data over time. These plots allow us to quickly identify overall trends, seasonal occurrences, peaks, and valleys in the data. You will commonly see these used in looking at stock prices over time, but really tracking anything over time can be easily viewed using these plots.
-   ![Example](Images/Data%20Analyst/Line%20Plot.png)  
+   ![Example](Images/Line%20Plot.png)  
 
 2. Categorical Data:
    - Side by side bar chart
-   ![example](/Images/Data%20Analyst/Side%20by%20side%20Bar%20Chart.png)
+   ![example](/Images/Side%20by%20side%20Bar%20Chart.png)
 
 ### More than two variables
 
 - Line Plot
-![Example](Images/Data%20Analyst/more%20than%202%20Line%20Plot.png)
+![Example](Images/more%20than%202%20Line%20Plot.png)
 - Stacked Line
-![Example](Images/Data%20Analyst/More%20than%202%20varriables%20Stacked%20Line.png)
+![Example](Images/More%20than%202%20varriables%20Stacked%20Line.png)
 - Bar Chart
-![Example](Images/Data%20Analyst/More%20than%202%20varriables%20Bar%20Chart.png)
+![Example](Images/More%20than%202%20varriables%20Bar%20Chart.png)
+
+### Helpful resources
+
+1. Visualization Mind Map
+![Visualization Mind Map](images/Visualization%20mind%20map.jpeg)
 
 ## Communicating with data
 
@@ -469,7 +476,7 @@ When comparing two variables to one another.
 4. **Color hue changes** (as are unfortunately commonly used as an additional variable encoding in scatter plots)
 5. **Area changes** (as we see in pie charts, which often makes them not the best plot choice).
 6. **Lie Factor (Data integrity)**: It is key that when you build plots you maintain integrity for the underlying data. Lie factor depicts the degree to which a visualization distorts or misrepresents the data values being plotted. It is calculated in the following way:
-![Equation](Images/Data%20Analyst/Lie%20Factor.png)  
+![Equation](Images/Lie%20Factor.png)  
 The delta symbol (Δ) stands for difference or change. In words, the lie factor is the relative change shown in the graphic divided by the actual relative change in the data. Ideally, the lie factor should be 1: any other value means that there is some mismatch in the ratio of depicted change to actual change.  
 [How to spot visualization lies](https://flowingdata.com/2017/02/09/how-to-spot-visualization-lies/)
 
