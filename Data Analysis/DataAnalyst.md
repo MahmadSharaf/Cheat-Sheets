@@ -43,14 +43,20 @@
   - [Probability](#probability)
     - [Notations](#notations)
     - [Rules](#rules)
-    - [Terminologies](#terminologies-1)
+    - [Probability Terminologies](#probability-terminologies)
     - [Binomial Distribution](#binomial-distribution)
       - [Unconditional Probability (Independent)](#unconditional-probability-independent)
-      - [Conditional Probability (Dependent)](#conditional-probability-dependent)
         - [Formulas](#formulas)
+        - [Use Cases](#use-cases)
+        - [Some Facts](#some-facts)
+      - [Conditional Probability (Dependent)](#conditional-probability-dependent)
+        - [Formulas](#formulas-1)
     - [Bayes Rule](#bayes-rule)
       - [Bayes Rule Formula](#bayes-rule-formula)
       - [Case Study](#case-study)
+    - [Central Limit Theorem](#central-limit-theorem)
+    - [Normal Distribution](#normal-distribution)
+      - [Formula](#formula)
   - [SQL](#sql)
     - [Why SQL](#why-sql)
     - [Why Businesses Like Databases](#why-businesses-like-databases)
@@ -407,7 +413,7 @@ Though we will not be diving deep into inferential statistics within this course
 2. The probability of the complement event is 1 minus the probability of an event. That is the probability of all other possible events is 1 minus the probability an event itself. Therefore, the sum of all possible events is equal to 1.
 3. If our events are independent, then the probability of the string of possible events is the product of those events. That is the probability of one event AND the next AND the next event, is the product of those events.
 
-### Terminologies
+### Probability Terminologies
 
 1. [Sensitivity vs Specificity](https://www.differencebetween.com/difference-between-sensitivity-and-vs-specificity/)
 
@@ -423,22 +429,28 @@ The Binomial Distribution helps us determine the probability of a string of inde
 
 #### Unconditional Probability (Independent)
 
-Formulas:
+##### Formulas
 
-n is the number of "events", x is the number of "successes", and p is the probability of "success".
+n is the number of "events", x is the number of "successes", and p is the probability of "successes".
 
 - No. of successful occurrences:  
 ![successful occurrences](images/successful%20occurrences.png)
-- No. of iterations :  
+- No. of iterations or Truth table length:  
 ![iterations](images/iterations.png)
 - [Probability mass function](https://en.wikipedia.org/wiki/Probability_mass_function):  
 ![iterations](images/Probability%20mass%20function.png)
+
+This term is maximized when x is exactly the half of n.
+
+##### Use Cases
 
 We can now use this distribution to determine the probability of things like:
 
 - The probability of 3 heads occurring in 10 flips.
 - The probability of observing 8 or more heads occurring in 10 flips.
 - The probability of not observing any heads in 20 flips.
+
+##### Some Facts
 
 The truth is that in practice, you will commonly be working with data, which might follow a binomial distribution. So it is less important to calculate these probabilities (though this can be useful in some cases), and it is more important that you understand what the Binomial Distribution is used for, as it shows up in a lot of modeling techniques in machine learning, and it can sneak up in our datasets with tracking any outcome with two possible events.
 
@@ -500,7 +512,29 @@ P(C,Pos) + P(¬C,Pos) = 0.09 + 0.099 = 0.108
 
 Posterior:  
 P(C,Pos) = 0.09 / 0.108 = 0.083
-P(¬C,Pos) = 0.099 / 0.108 = 0.9166 
+P(¬C,Pos) = 0.099 / 0.108 = 0.9166
+
+### Central Limit Theorem
+
+It means that take the number of event occurrence to infinity. No of Coin flips to infinity.
+
+### Normal Distribution
+
+It is the basis of statistics in such that all of the testing and confidence intervals are defined through the normal distribution.
+
+#### Formula
+
+Where N is the number of event, x  , μ mean, σ^2 variance,
+
+![Normal Distribution Formula](images/Normal_Distribution_Formula.png)
+![Normal Distribution Curve](images/Normal_Distribution_Curve.png)
+
+- (x-μ)^2: makes the formula quadratic.
+- σ^2: the division by variance flattens the curve in direct proprtion relationship.
+- -1/2: the negative sign inverses the curve and multiplication by 1/2 increases the flatness.
+- The maximum value for this term is when x equals μ which leads to e^0=1
+- The minimum value will be when x equals to ±∞ which leads to (e^-∞).
+- The area underneath the formula curve doesn't add to 1 it adds to √(2πσ^2 ) that is why it has to be normalized with this value.
 
 ## SQL
 
