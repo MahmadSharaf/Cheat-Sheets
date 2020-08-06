@@ -25,6 +25,7 @@
       - [Syntax](#syntax)
   - [Data Structures](#data-structures)
     - [NumPy](#numpy)
+      - [NumPy Modules](#numpy-modules)
     - [Pandas](#pandas)
       - [Pandas methods and functions](#pandas-methods-and-functions)
     - [Matplotlib](#matplotlib)
@@ -1042,6 +1043,32 @@ Create a file for CRUD operation
 - It gives Arrays that a great data stucture objects, that makes working with numerical data easy and simple more than what it can be done in pure python.
 - It is the foundation for the python data stack, and it is what makes python great for data analysis.
 
+#### NumPy Modules
+
+1. Random Sampling: it helps to simulate random events like coin flips.
+   1. [Randint(low = 0, high, size)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.randint.html?highlight=randint#numpy.random.randint): it generates a list of [size] numbers and each element value can be any value between [low] and [high-1].
+   2. [Choice(a, size, replace=True, p=None)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html?highlight=choice#numpy.random.choice): generates a random sample of size [size] from given 1-D array [a] and [p] is the probability of each value in [a]
+   3. [Binomial(n,p,size=None)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.binomial.html?highlight=binomial#numpy.random.binomial): Draw samples from a binomial distribution, Samples are drawn from a binomial distribution with specified parameters, n trials and p probability of success where n an integer >= 0 and p is in the interval [0,1]. (n may be input as a float, but it is truncated to an integer in use)
+
+   ```py
+   import numpy as py
+
+   np.random.randint(2, size=10)
+   # [1,0,0,1,1,0,1,1,0,0]
+
+   np.random.choic([0,1], size=10000, p=[0.8, 0.2]).mean()
+   # 0.203199999999 which shows that the probility of 1 is 20%
+
+   np.random.binomial(n=10, p=.5)
+   # 5
+   # the above is the same as the below
+   (np.random.randint(2,size=10)==0).sum()
+   # 5
+   # The below will give the results of the above test 1000 times
+   np.random.binomial(n=10, p=.5, 1000)
+   # result of flipping a coin 10 times, tested 1000 times.
+   ```
+
 [Python For Data Science NumPy Cheat Sheet](files/Python%20For%20Data%20Science%20NumPy%20Cheat%20Sheet.pdf)
 
 ### Pandas
@@ -1058,7 +1085,7 @@ Create a file for CRUD operation
 - [apply()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html)
 - [Merges()](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
 - [idxmax](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.idxmax.html)
-
+- [groupby](https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/)
 
 
 ```py
@@ -1148,6 +1175,13 @@ df3 = df1.append(df2, ignore_index=True)
 df_combined = df1.merge(df2, left_on='column_name_df1', right_on='column_name_df2', how='inner')
 # idxmax function that finds the index of the row containing a column's maximum value!
 df.colum_name.idxmax()
+# groupby and aggregate
+df.groupby(['gender','major']).agg(
+    total=('student_id', 'count'),
+    to_females = ('student_id',lambda x: len(x)/df_females.shape[0]),
+    to_males = ('student_id',lambda x : len(x)/df_males.shape[0]),
+    admission_rate = ('admitted', 'mean'),
+    )
 ```
 
 [Python For Data Science Cheat Sheet](Files/Python%20For%20Data%20Science%20Pandas%20Cheat%20Sheet.pdf)
@@ -1185,6 +1219,9 @@ pd.plotting.scatter_matrix(df, figsize=(15,15));
 plot(t, s)
 # Shows x labels for each xth frequent
 plt.xticks(np.arange(min(x), max(x)+1, 1.0))
+# HeatMap Seaborn
+sn.heatmap(df.corr(), annot=True)
+plt.show
 ```
 
 - [Python For Data Science MatPlotLib Cheat Sheet](Files/Python%20For%20Data%20Science%20MatPlotLib%20Cheat%20Sheet.pdf)
@@ -1230,9 +1267,14 @@ plt.xticks(np.arange(min(x), max(x)+1, 1.0))
       8. Remove an environment `rmvirtualenv {VirEnv Name}`
       9. List all available environments `workon`
       10. [Medium Article](https://medium.com/the-andela-way/configuring-python-environment-with-virtualenvwrapper-8745c2895745)
-3. How to install Jupyter without anaconda
-   1. `python -m pip install --upgrade pip`
-   2. `python -m pip install notebook`
-   3. Restart VS Code
-   4. Pick the Python environment you did the pip install in
-   For more information see <http://jupyter.org/install>
+3. [Jupyter Notebook](http://jupyter.org)
+   1. How to install Jupyter without anaconda
+      1. `python -m pip install --upgrade pip`
+      2. `python -m pip install notebook`
+      3. Restart VS Code
+      4. Pick the Python environment you did the pip install in
+   2. To download all the files/folders in Jupyter notebook.
+      1. Run this line in a jupyter cell `!tar czf myfiles.tar.gz *`
+      2. Click on Juypter Logo at the most top left corner.
+      3. Scroll to find your just created file "myfiles.tar.gz" and check it.
+      4. Scroll to the top of the page and click on Download
