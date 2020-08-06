@@ -1,5 +1,73 @@
 # Data Analysis
 
+- [Data Analysis](#data-analysis)
+  - [Process Overview](#process-overview)
+    - [Step 1: Ask questions (Extract)](#step-1-ask-questions-extract)
+    - [Step 2: Wrangle data (Clean)](#step-2-wrangle-data-clean)
+    - [Step 3: Perform EDA (Exploratory Data Analysis)](#step-3-perform-eda-exploratory-data-analysis)
+    - [Step 4: Draw conclusions (or even make predictions)](#step-4-draw-conclusions-or-even-make-predictions)
+    - [Step 5: Communicate your results (Share)](#step-5-communicate-your-results-share)
+  - [Data Types](#data-types)
+    - [1. Quantitative data](#1-quantitative-data)
+      - [Continuous vs. Discrete](#continuous-vs-discrete)
+    - [2. Categorical data](#2-categorical-data)
+      - [Categorical Ordinal vs. Categorical Nominal](#categorical-ordinal-vs-categorical-nominal)
+    - [Quantitative vs. Categorical](#quantitative-vs-categorical)
+  - [Summary Statistics](#summary-statistics)
+    - [Analyzing Categorical Data](#analyzing-categorical-data)
+      - [Terminologies](#terminologies)
+    - [Analyzing Quantitative Data](#analyzing-quantitative-data)
+      - [1. Measure of center](#1-measure-of-center)
+        - [1.1 The Mean](#11-the-mean)
+        - [1.2 The Median](#12-the-median)
+          - [1.2.1 Median for Odd Values](#121-median-for-odd-values)
+          - [1.2.2 Median for Even Values](#122-median-for-even-values)
+        - [1.3 The Mode](#13-the-mode)
+          - [1.3.1 No Mode](#131-no-mode)
+          - [1.3.2 Many Modes](#132-many-modes)
+      - [2. Measures of Spread](#2-measures-of-spread)
+        - [Calculating the 5 Number Summary](#calculating-the-5-number-summary)
+        - [2.1 Range](#21-range)
+        - [2.2 IQR](#22-iqr)
+        - [2.3 Standard Deviation](#23-standard-deviation)
+        - [2.4 Variance](#24-variance)
+          - [Important Final Points](#important-final-points)
+      - [3. The Shape of the data](#3-the-shape-of-the-data)
+      - [4. Outliers](#4-outliers)
+        - [Common Techniques](#common-techniques)
+        - [Outliers Advice](#outliers-advice)
+  - [Descriptive vs. Inferential Statistics](#descriptive-vs-inferential-statistics)
+    - [Descriptive Statistics](#descriptive-statistics)
+    - [Inferential Statistics](#inferential-statistics)
+    - [Looking Ahead](#looking-ahead)
+  - [Probability](#probability)
+    - [Notations](#notations)
+    - [Rules](#rules)
+    - [Terminologies](#terminologies-1)
+    - [Binomial Distribution](#binomial-distribution)
+      - [Unconditional Probability (Independent)](#unconditional-probability-independent)
+      - [Conditional Probability (Dependent)](#conditional-probability-dependent)
+        - [Formulas](#formulas)
+    - [Bayes Rule](#bayes-rule)
+      - [Bayes Rule Formula](#bayes-rule-formula)
+      - [Case Study](#case-study)
+  - [SQL](#sql)
+    - [Why SQL](#why-sql)
+    - [Why Businesses Like Databases](#why-businesses-like-databases)
+    - [Types of Databases](#types-of-databases)
+      - [Small Differences](#small-differences)
+  - [Data Visualization](#data-visualization)
+    - [Univariate analysis](#univariate-analysis)
+    - [Bivariate analysis](#bivariate-analysis)
+    - [More than two variables](#more-than-two-variables)
+    - [Helpful resources](#helpful-resources)
+  - [Communicating with data](#communicating-with-data)
+    - [Visuals can be bad if](#visuals-can-be-bad-if)
+    - [Visuals can be good if](#visuals-can-be-good-if)
+    - [Visuals Encoding](#visuals-encoding)
+  - [Tips](#tips)
+    - [Simpson's Paradox](#simpsons-paradox)
+
 ## Process Overview
 
 ### Step 1: Ask questions (Extract)
@@ -318,6 +386,122 @@ Though we will not be diving deep into inferential statistics within this course
 
 ---
 
+## Probability
+
+- **Statistics** and **Probability** are different but strongly related fields of mathematics.
+- In probability, we make *predictions* of future events based on models or causes that we assume.
+- In statistics, we *analyze* the past events to infer what those models or causes could be.
+
+![Probability vs Statistics](images/probability_vs_statistics.png)
+
+### Notations
+
+**P**: Probability of event  
+**1-P**: Probability of opposite event  
+**P(H)**: Probability of output H  
+**P\*P\*P**: Probability of composite event
+
+### Rules
+
+1. The probability of any event must be between 0 and 1, inclusive.
+2. The probability of the complement event is 1 minus the probability of an event. That is the probability of all other possible events is 1 minus the probability an event itself. Therefore, the sum of all possible events is equal to 1.
+3. If our events are independent, then the probability of the string of possible events is the product of those events. That is the probability of one event AND the next AND the next event, is the product of those events.
+
+### Terminologies
+
+1. [Sensitivity vs Specificity](https://www.differencebetween.com/difference-between-sensitivity-and-vs-specificity/)
+
+   - Sensitivity: It measures the probability of actual positives.  
+  Sensitivity = Number of true positives /[ Number of true positives + Number of false negatives]
+   - Specificity: It measures the probability of actual negatives.  
+  Specificity = Number of true negatives / [Number of true negatives+ Number of false positives]  
+  <img src="images/Difference-Between-Sensitivity-and-Specificity_Figure-1.png" alt="Sensitivity vs Specificity" width="300"/>
+
+### Binomial Distribution
+
+The Binomial Distribution helps us determine the probability of a string of independent events with exactly two outcomes 'coin flip like events'.
+
+#### Unconditional Probability (Independent)
+
+Formulas:
+
+n is the number of "events", x is the number of "successes", and p is the probability of "success".
+
+- No. of successful occurrences:  
+![successful occurrences](images/successful%20occurrences.png)
+- No. of iterations :  
+![iterations](images/iterations.png)
+- [Probability mass function](https://en.wikipedia.org/wiki/Probability_mass_function):  
+![iterations](images/Probability%20mass%20function.png)
+
+We can now use this distribution to determine the probability of things like:
+
+- The probability of 3 heads occurring in 10 flips.
+- The probability of observing 8 or more heads occurring in 10 flips.
+- The probability of not observing any heads in 20 flips.
+
+The truth is that in practice, you will commonly be working with data, which might follow a binomial distribution. So it is less important to calculate these probabilities (though this can be useful in some cases), and it is more important that you understand what the Binomial Distribution is used for, as it shows up in a lot of modeling techniques in machine learning, and it can sneak up in our datasets with tracking any outcome with two possible events.
+
+One of the most popular places you see the Binomial distribution is in logistic regression.
+
+#### Conditional Probability (Dependent)
+
+Often events are not independent like with coin flips and dice rolling. Instead, the outcome of one event depends on an earlier event.
+
+For example, the probability of obtaining a positive test result is dependent on whether or not you have a particular condition. If you have a condition, it is more likely that a test result is positive.
+
+##### Formulas
+
+Conditional probabilities for any two events
+
+P(A∣B) = P(B) / P(A ∩ B)​
+
+In this case, we could have this as:  
+P(positive∣disease) = P(disease) / P(positive ∩ disease)​.
+
+where | represents "given" and ∩ represents "and".
+
+### Bayes Rule
+
+It describes the probability of an event, based on prior knowledge of conditions that might be related to the event.
+
+#### [Bayes Rule Formula](https://en.wikipedia.org/wiki/Bayes'_theorem)
+
+![Bayes Rule Formula](images/Bayes%20Rule.png)
+
+where A and B are events and P(B) ≠ 0.
+
+- P(A ∣ B) is a conditional probability: the likelihood of event A occurring given that B is true.
+- P(B ∣ A) is also a conditional probability: the likelihood of event B occurring given that A is true.
+- P ( A ) and P ( B ) are the probabilities of observing A and B respectively; they are known as the marginal probability.
+
+Prior Probability . Test Evidence -> Posterior probability
+
+#### Case Study
+
+1% of the population has cancer. Given that there is a 90% chance that you will test positive if you have cancer and that there is a 90% chance you will test negative if you don't have cancer, what is the probability that you have cancer if you test positive?
+
+Prior:  
+P(C) = 0.01 = 1%  
+P(¬ C) = 0.99 = 99%
+
+P(Pos | C) = 0.9  
+P(Neg | C) = 0.1
+
+P(Neg | ¬C) = 0.9  
+P(Pos | ¬C) = 0.1
+
+Joint:  
+P(C,Pos) = P(C) . P(Pos | C) = 0.01 . 0.9 = 0.09  
+P(¬C,Pos) = P(¬C) . P(Pos | ¬C) = 0.99 . 0.1 = 0.099
+
+Normalizer:  
+P(C,Pos) + P(¬C,Pos) = 0.09 + 0.099 = 0.108
+
+Posterior:  
+P(C,Pos) = 0.09 / 0.108 = 0.083
+P(¬C,Pos) = 0.099 / 0.108 = 0.9166 
+
 ## SQL
 
 ### Why SQL
@@ -510,3 +694,9 @@ In general, color and shape are best for categorical variables, while the size o
 2. Shapes
 
 3. Size
+
+## Tips
+
+### Simpson's Paradox
+
+- A Phenomenon that shows how powerful and dangerous statistics can be. Sometimes just grouping the data differently for analysis, can make conclusions disappear or even reversed.
