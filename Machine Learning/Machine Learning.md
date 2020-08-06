@@ -329,7 +329,7 @@ This is in contrast to unsupervised machine learning where we don't have labels 
                 ```
 
         2. Ridge Regression:  
-            ![ridge_equation](/images/Ridge&#32;Equation.jpg)
+            ![ridge_equation](images/Ridge&#32;Equation.jpg)
             * Ridge regression uses the same least-squares criterion, but with one difference. During the training phase, it adds a penalty for large feature weights in w parameters.
             * Once the parameters are learned, its prediction formula is the same as ordinary least-squares.
             * The addition of a parameter penalty is called regularization. Regularization prevents over fitting by restricting the model, typically to reduce its complexity.
@@ -351,7 +351,7 @@ This is in contrast to unsupervised machine learning where we don't have labels 
                 ```
 
         3. Lasso Regression
-            ![Lasso_equation](/images/Lasso&#32;Equation.jpg)
+            ![Lasso_equation](images/Lasso&#32;Equation.jpg)
             * Like ridge regression, lasso regression adds a regularization penalty term to the ordinary least-squares objective, that causes the model W-coefficients to shrink towards zero.
             * Lasso regression is another form of regularized linear regression that uses an L1 regularization penalty for training (instead of ridge's L2 penalty).
             * L1 Penalty: minimizes the sum of the absolute values of the coefficients.
