@@ -1047,8 +1047,10 @@ Create a file for CRUD operation
 
 1. Random Sampling: it helps to simulate random events like coin flips.
    1. [Randint(low = 0, high, size)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.randint.html?highlight=randint#numpy.random.randint): it generates a list of [size] numbers and each element value can be any value between [low] and [high-1].
-   2. [Choice(a, size, replace=True, p=None)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html?highlight=choice#numpy.random.choice): generates a random sample of size [size] from given 1-D array [a] and [p] is the probability of each value in [a]
+   2. [Choice(a, size, replace=True, p=None)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html?highlight=choice#numpy.random.choice): generates a random sample of size [size] from given 1-D array [a] and [p] is the probability of each value in [a]. [replace] is for bootstraping, as whether values could be chosen more than once or not.
    3. [Binomial(n,p,size=None)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.binomial.html?highlight=binomial#numpy.random.binomial): Draw samples from a binomial distribution, Samples are drawn from a binomial distribution with specified parameters, n trials and p probability of success where n an integer >= 0 and p is in the interval [0,1]. (n may be input as a float, but it is truncated to an integer in use)
+   4. seed
+   5. gamma
 
    ```py
    import numpy as py
@@ -1056,7 +1058,7 @@ Create a file for CRUD operation
    np.random.randint(2, size=10)
    # [1,0,0,1,1,0,1,1,0,0]
 
-   np.random.choic([0,1], size=10000, p=[0.8, 0.2]).mean()
+   np.random.choice([0,1], size=10000, p=[0.8, 0.2]).mean()
    # 0.203199999999 which shows that the probility of 1 is 20%
 
    np.random.binomial(n=10, p=.5)
