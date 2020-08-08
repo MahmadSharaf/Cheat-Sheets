@@ -57,6 +57,15 @@
     - [Central Limit Theorem](#central-limit-theorem)
     - [Normal Distribution](#normal-distribution)
       - [Formula](#formula)
+    - [Sampling Distribution](#sampling-distribution)
+      - [Proportions (or Means) Characteristic](#proportions-or-means-characteristic)
+      - [Important mathematical theorems](#important-mathematical-theorems)
+      - [Techniques](#techniques)
+        - [1. Bootstrapping](#1-bootstrapping)
+        - [2. Confidence Interval](#2-confidence-interval)
+          - [Confidence Intervals (& Hypothesis Testing) vs. Machine Learning](#confidence-intervals--hypothesis-testing-vs-machine-learning)
+          - [Confidence Interval Applications](#confidence-interval-applications)
+  - [Statistical Notations](#statistical-notations)
   - [SQL](#sql)
     - [Why SQL](#why-sql)
     - [Why Businesses Like Databases](#why-businesses-like-databases)
@@ -73,6 +82,7 @@
     - [Visuals Encoding](#visuals-encoding)
   - [Tips](#tips)
     - [Simpson's Paradox](#simpsons-paradox)
+    - [Statistical vs Practical Significance](#statistical-vs-practical-significance)
 
 ## Process Overview
 
@@ -367,22 +377,24 @@ If you aren't sure if your data are normally distributed, there are plots called
 
 ## Descriptive vs. Inferential Statistics
 
-In this section, we learned about how Inferential Statistics differs from Descriptive Statistics.
+In this section, we will learn about how Inferential Statistics differs from Descriptive Statistics.
 
 ### Descriptive Statistics
 
-Descriptive statistics is about describing our collected data using the measures discussed throughout this lesson: measures of center, measures of spread, shape of our distribution, and outliers. We can also use plots of our data to gain a better understanding.
+Descriptive statistics is about describing our collected data using the measures: measures of center, measures of spread, shape of our distribution, and outliers. We can also use plots of our data to gain a better understanding.
+
+1. Population: our entire group of interest.
+2. Parameter: Numeric summary about a population. Frequently we do not know this value, so we must try and estimate.
+3. Sample: Subset of the population.
+4. Statistic: Numeric summary about a sample.
 
 ### Inferential Statistics
 
 Inferential Statistics is about using our collected data to draw conclusions to a larger population. Performing inferential statistics well requires that we take a sample that accurately represents our population of interest.
-A common way to collect data is via a survey. However, surveys may be extremely biased depending on the types of questions that are asked, and the way the questions are asked. This is a topic you should think about when tackling the first project.
-We looked at specific examples that allowed us to identify the
 
-1. Population - our entire group of interest.
-2. Parameter - numeric summary about a population
-3. Sample - subset of the population
-4. Statistic numeric summary about a sample
+A common way to collect data is via a survey. However, surveys may be extremely biased depending on the types of questions that are asked, and the way the questions are asked. This is a topic you should think about when tackling the first project.
+
+1. Inference: Drawing conclusions regarding a population using information from a sample.
 
 ---
 
@@ -535,6 +547,104 @@ Where N is the number of event, x  , μ mean, σ^2 variance,
 - The maximum value for this term is when x equals μ which leads to e^0=1
 - The minimum value will be when x equals to ±∞ which leads to (e^-∞).
 - The area underneath the formula curve doesn't add to 1 it adds to √(2πσ^2 ) that is why it has to be normalized with this value.
+
+### Sampling Distribution
+
+![Sampling Distribution](images/Sampling_Distribution.png)
+![Sampling Distribution Example](images/Sampling_Distribution_Example.png)
+
+A sampling distribution is the distribution of a statistic when we look at the distributions of the proportions of all samples of same size (ex: size 5).
+
+- P: The mean of the sampling distribution.
+- P(1-P): The variance of the original 1,0 values.
+- P(1-P)/n: The variance of the proportions calculated from n randomly selected values iterated xxx times.
+
+#### Proportions (or Means) Characteristic
+
+1. The sampling distribution is centered on the original parameter value.
+2. The sampling distribution decreases its variance depending on the sample size used. Specifically, the variance of the sampling distribution is equal to the variance of the original data divided by the sample size used. This is always true for the variance of a sample mean!
+
+In notation, we say if we have a random variable, **X**, with variance of σ^2, then the distribution of X¯ (the sampling distribution of the sample mean) has a variance of σ^2/n.
+
+#### Important mathematical theorems
+
+Two important mathematical theorems for working with sampling distributions include:
+
+1. Law of Large Numbers:
+  
+    The **Law of Large Numbers** says that as our **sample size increases**, the **sample mean gets closer to the population mean**, but how did we determine that the sample mean would estimate a population mean in the first place? How would we identify another relationship between parameter and statistic like this in the future?
+
+    Three of the most common ways are with the following estimation techniques:
+
+     - [Maximum Likelihood Estimation](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)
+     - [Method of Moments Estimation](https://en.wikipedia.org/wiki/Method_of_moments)
+     - [Bayesian Estimation](https://en.wikipedia.org/wiki/Bayes_estimator)
+
+    These are techniques that should be well understood for Data Scientist's that may need to understand how to estimate some value that isn't as common as a mean or variance. Using one of these methods to determine a "best estimate", would be a necessity.
+
+2. Central Limit Theorem:
+
+    The **Central Limit Theorem** states that with a **large enough sample size** the **sampling distribution of the mean will be normally distributed**.
+
+    Facts:
+    1. It applies for additional statistics, but it doesn't apply for all statistics!
+    2. In case of a population size of 3000; the Central Limit Theorem applies to the sample mean of 100 draws from a right-skewed distribution. However, it did not apply to a sample size of 3 draws from this same distribution.
+    3. With large sample sizes the sampling distribution of certain statistics will never become normally distributed. So how do we know which statistics will follow normal distributions, and which will not?
+    4. The Central Limit Theorem applies for these statistics:
+       1. Sample means (x¯)
+       2. Sample proportions (p)
+       3. Difference in sample means (x¯1−x¯2​)
+       4. Difference in sample proportions (p1−p2)
+    5. However it doesn't apply to:
+       1. Sampling distribution for the variance (S^2)
+       2. Correlation coefficient (r)
+       3. Sampling distribution of sampling value in dataset (x(n))
+
+#### Techniques
+
+##### 1. Bootstrapping
+
+- Bootstrapping is a technique where we sample from a group with replacement.
+- Bootstrapping is sampling with replacement. Using random.choice in python actually samples in this way. Where the probability of any number in our set stays the same regardless of how many times it has been chosen. Flipping a coin and rolling a die are kind of like bootstrap sampling as well, as rolling a 6 in one scenario doesn't mean that 6 is less likely later.
+- We can use bootstrapping to simulate the creation of sampling distribution.
+- By bootstrapping and then calculating repeated values of our statistics, we can gain an understanding of the sampling distribution of our statistics.
+- No more data needed to gain a better understanding of the parameter.
+- Bootstrapping has been using in leading machine learning algorithms. Additional notes on why bootstrapping works as a technique for inference can be found [here](https://stats.stackexchange.com/questions/26088/explaining-to-laypeople-why-bootstrapping-works)
+
+##### 2. Confidence Interval
+
+- We can use bootstrapping and sampling distributions to build confidence intervals for our parameters of interest.
+- By finding the statistic that best estimates our parameter(s) of interest (say the sample mean to estimate the population mean or the difference in sample means to estimate the difference in population means), we can easily build confidence intervals for the parameter of interest.
+
+It is important to understand the way that your sample size and confidence level relate to the confidence interval you achieve at the end of your analysis.
+
+- Assuming you control all other items of your analysis:
+  1. Increasing your sample size will decrease the width of your confidence interval.
+  2. Increasing your confidence level (say 95% to 99%) will increase the width of your confidence interval.
+- We can compute:
+  1. The confidence interval width as the difference between your upper and lower bounds of your confidence interval.
+  2. The margin of error is half the confidence interval width, and the value that you add and subtract from your sample estimate to achieve your confidence interval final results.
+
+###### Confidence Intervals (& Hypothesis Testing) vs. Machine Learning
+
+- Confidence intervals take an aggregate approach towards the conclusions made based on data, as these tests are aimed at understanding population parameters (which are aggregate population values). It cannot talk about individual users with confidence intervals. Confidence intervals are for an aggregate about a population like a proportion or average.
+- Alternatively, machine learning techniques take an individual approach towards making conclusions, as they attempt to predict an outcome for each specific data point.
+
+###### Confidence Interval Applications
+
+- The effectiveness of two groups of drugs.
+- Comparing to different ways of teaching the same topic and see which way improves retention.
+- A/B testing: where comparing two different webpages to one another and determine which web design drives the largest amount of traffic. A/B testing is one of the most important to businesses around the world. In this technique, you are changing something about your web layout to understand how it impacts users. You ideally want to provide a page that leads to more clicks, higher revenue, and/or higher customer satisfaction.
+
+## Statistical Notations
+
+It is commonly to use Greek symbols as parameters and lowercase letters as the corresponding statistics. Sometimes in the literature, you might also see the same Greek symbols with a "hat" to represent that this is an estimate of the corresponding parameter.
+
+Below is a table that provides some of the most common parameters and corresponding statistics.
+
+All **parameters** pertain to a population, while all **statistics** pertain to a sample.
+
+![Notation Table](images/Notation_table.png)
 
 ## SQL
 
@@ -734,3 +844,8 @@ In general, color and shape are best for categorical variables, while the size o
 ### Simpson's Paradox
 
 - A Phenomenon that shows how powerful and dangerous statistics can be. Sometimes just grouping the data differently for analysis, can make conclusions disappear or even reversed.
+
+### Statistical vs Practical Significance
+
+- Using **confidence intervals** and **hypothesis testing**, you are able to provide **statistical significance** in making decisions.
+- However, it is also important to take into consideration **practical significance** in making decisions. **Practical significance** takes into consideration other factors of your situation that might not be considered directly in the results of your hypothesis test or confidence interval. Constraints like **space**, **time**, or **money** are important in business decisions. However, they might not be accounted for directly in a statistical test.
