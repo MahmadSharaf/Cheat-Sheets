@@ -13,7 +13,11 @@
     - [2. Categorical data](#2-categorical-data)
       - [Categorical Ordinal vs. Categorical Nominal](#categorical-ordinal-vs-categorical-nominal)
     - [Quantitative vs. Categorical](#quantitative-vs-categorical)
-  - [Summary Statistics](#summary-statistics)
+  - [Descriptive vs. Inferential Statistics](#descriptive-vs-inferential-statistics)
+    - [Descriptive Statistics](#descriptive-statistics)
+    - [Inferential Statistics](#inferential-statistics)
+    - [Looking Ahead](#looking-ahead)
+  - [Descriptive (Summary) Statistics](#descriptive-summary-statistics)
     - [Analyzing Categorical Data](#analyzing-categorical-data)
       - [Terminologies](#terminologies)
     - [Analyzing Quantitative Data](#analyzing-quantitative-data)
@@ -31,40 +35,26 @@
         - [2.2 IQR](#22-iqr)
         - [2.3 Standard Deviation](#23-standard-deviation)
         - [2.4 Variance](#24-variance)
-          - [Important Final Points](#important-final-points)
+        - [Important Final Points](#important-final-points)
       - [3. The Shape of the data](#3-the-shape-of-the-data)
       - [4. Outliers](#4-outliers)
         - [Common Techniques](#common-techniques)
         - [Outliers Advice](#outliers-advice)
-  - [Descriptive vs. Inferential Statistics](#descriptive-vs-inferential-statistics)
-    - [Descriptive Statistics](#descriptive-statistics)
-    - [Inferential Statistics](#inferential-statistics)
-    - [Looking Ahead](#looking-ahead)
-  - [Probability](#probability)
-    - [Notations](#notations)
-    - [Rules](#rules)
-    - [Probability Terminologies](#probability-terminologies)
-    - [Binomial Distribution](#binomial-distribution)
-      - [Unconditional Probability (Independent)](#unconditional-probability-independent)
-        - [Formulas](#formulas)
-        - [Use Cases](#use-cases)
-        - [Some Facts](#some-facts)
-      - [Conditional Probability (Dependent)](#conditional-probability-dependent)
-        - [Formulas](#formulas-1)
-    - [Bayes Rule](#bayes-rule)
-      - [Bayes Rule Formula](#bayes-rule-formula)
-      - [Case Study](#case-study)
-    - [Central Limit Theorem](#central-limit-theorem)
-    - [Normal Distribution](#normal-distribution)
-      - [Formula](#formula)
-    - [Sampling Distribution](#sampling-distribution)
-      - [Proportions (or Means) Characteristic](#proportions-or-means-characteristic)
-      - [Important mathematical theorems](#important-mathematical-theorems)
-      - [Techniques](#techniques)
-        - [1. Bootstrapping](#1-bootstrapping)
-        - [2. Confidence Interval](#2-confidence-interval)
-          - [Confidence Intervals (& Hypothesis Testing) vs. Machine Learning](#confidence-intervals--hypothesis-testing-vs-machine-learning)
-          - [Confidence Interval Applications](#confidence-interval-applications)
+  - [Inferential Statistics](#inferential-statistics-1)
+    - [Probability](#probability)
+      - [Probability Notations](#probability-notations)
+      - [Probability Rules](#probability-rules)
+      - [Probability Terminologies](#probability-terminologies)
+      - [Probability Methods](#probability-methods)
+        - [1. Binomial Distribution](#1-binomial-distribution)
+          - [1.1 Unconditional Probability (Independent)](#11-unconditional-probability-independent)
+          - [1.2 Conditional Probability (Dependent)](#12-conditional-probability-dependent)
+        - [2. Bayes Rule](#2-bayes-rule)
+        - [3. Normal Distribution](#3-normal-distribution)
+        - [4. Sampling Distribution:](#4-sampling-distribution)
+          - [Proportions (or Means) Characteristic](#proportions-or-means-characteristic)
+          - [Important mathematical theorems](#important-mathematical-theorems)
+          - [Sampling Distributions Techniques](#sampling-distributions-techniques)
   - [Statistical Notations](#statistical-notations)
   - [SQL](#sql)
     - [Why SQL](#why-sql)
@@ -159,7 +149,36 @@ Gender, Letter Grade, Breakfast Type, Marital Status, and Zip Code can be though
 | ----------- | --------------------------- | --------------------------------------- |
 | Examples    | Letter Grade, Survey Rating | Gender, Marital Status, Breakfast Items |
 
-## Summary Statistics
+## Descriptive vs. Inferential Statistics
+
+In this section, we will learn about how Inferential Statistics differs from Descriptive Statistics.
+
+### Descriptive Statistics
+
+Descriptive statistics is about describing our collected data using the measures: measures of center, measures of spread, shape of our distribution, and outliers. We can also use plots of our data to gain a better understanding.
+
+1. Population: our entire group of interest.
+2. Parameter: Numeric summary about a population. Frequently we do not know this value, so we must try and estimate.
+3. Sample: Subset of the population.
+4. Statistic: Numeric summary about a sample.
+
+### Inferential Statistics
+
+Inferential Statistics is about using our collected data to draw conclusions to a larger population. Performing inferential statistics well requires that we take a sample that accurately represents our population of interest.
+
+A common way to collect data is via a survey. However, surveys may be extremely biased depending on the types of questions that are asked, and the way the questions are asked. This is a topic you should think about when tackling the first project.
+
+1. Inference: Drawing conclusions regarding a population using information from a sample.
+
+---
+
+### Looking Ahead
+
+Though we will not be diving deep into inferential statistics within this course, you are now aware of the difference between these two avenues of statistics. If you have ever conducted a hypothesis test or built a confidence interval, you have performed inferential statistics. The way we perform inferential statistics is changing as technology evolves. Many career paths involving Machine Learning and Artificial Intelligence are aimed at using collected data to draw conclusions about entire populations at an individual level. It is an exciting to time to be a part of this space, and you are now well on your way to joining the other practitioners!
+
+---
+
+## Descriptive (Summary) Statistics
 
 ### Analyzing Categorical Data
 
@@ -320,7 +339,7 @@ Rearrange: 1, 3, 4, 5, 8, 10, 12
 2. Cal. Variance: (26.4+9.9+4.6+1.3+3.5+14.9+34.3)/7=94.9/7=13.55
 3. std deviation: √(variance)=√13.55=3.68
 
-###### Important Final Points
+##### Important Final Points
 
 1. The variance is used to compare the spread of two different groups. A set of data with higher variance is more spread out than a dataset with lower variance. Be careful though, there might just be an outlier (or outliers) that is increasing the variance, when most of the data are actually very close.
 2. When comparing the spread between two datasets, the units of each must be the same.
@@ -374,37 +393,9 @@ Side note
 If you aren't sure if your data are normally distributed, there are plots called [normal quantile plots](http://data.library.virginia.edu/understanding-q-q-plots/) and statistical methods like the [Kolmogorov-Smirnov](https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test) test that are aimed to help you understand whether or not your data are normally distributed. Implementing this test is beyond the scope of this class but can be used as a fun fact.
 
 ---
+## Inferential Statistics
 
-## Descriptive vs. Inferential Statistics
-
-In this section, we will learn about how Inferential Statistics differs from Descriptive Statistics.
-
-### Descriptive Statistics
-
-Descriptive statistics is about describing our collected data using the measures: measures of center, measures of spread, shape of our distribution, and outliers. We can also use plots of our data to gain a better understanding.
-
-1. Population: our entire group of interest.
-2. Parameter: Numeric summary about a population. Frequently we do not know this value, so we must try and estimate.
-3. Sample: Subset of the population.
-4. Statistic: Numeric summary about a sample.
-
-### Inferential Statistics
-
-Inferential Statistics is about using our collected data to draw conclusions to a larger population. Performing inferential statistics well requires that we take a sample that accurately represents our population of interest.
-
-A common way to collect data is via a survey. However, surveys may be extremely biased depending on the types of questions that are asked, and the way the questions are asked. This is a topic you should think about when tackling the first project.
-
-1. Inference: Drawing conclusions regarding a population using information from a sample.
-
----
-
-### Looking Ahead
-
-Though we will not be diving deep into inferential statistics within this course, you are now aware of the difference between these two avenues of statistics. If you have ever conducted a hypothesis test or built a confidence interval, you have performed inferential statistics. The way we perform inferential statistics is changing as technology evolves. Many career paths involving Machine Learning and Artificial Intelligence are aimed at using collected data to draw conclusions about entire populations at an individual level. It is an exciting to time to be a part of this space, and you are now well on your way to joining the other practitioners!
-
----
-
-## Probability
+### Probability
 
 - **Statistics** and **Probability** are different but strongly related fields of mathematics.
 - In probability, we make *predictions* of future events based on models or causes that we assume.
@@ -412,20 +403,20 @@ Though we will not be diving deep into inferential statistics within this course
 
 ![Probability vs Statistics](images/probability_vs_statistics.png)
 
-### Notations
+#### Probability Notations
 
 **P**: Probability of event  
 **1-P**: Probability of opposite event  
 **P(H)**: Probability of output H  
 **P\*P\*P**: Probability of composite event
 
-### Rules
+#### Probability Rules
 
 1. The probability of any event must be between 0 and 1, inclusive.
 2. The probability of the complement event is 1 minus the probability of an event. That is the probability of all other possible events is 1 minus the probability an event itself. Therefore, the sum of all possible events is equal to 1.
 3. If our events are independent, then the probability of the string of possible events is the product of those events. That is the probability of one event AND the next AND the next event, is the product of those events.
 
-### Probability Terminologies
+#### Probability Terminologies
 
 1. [Sensitivity vs Specificity](https://www.differencebetween.com/difference-between-sensitivity-and-vs-specificity/)
 
@@ -435,13 +426,15 @@ Though we will not be diving deep into inferential statistics within this course
   Specificity = Number of true negatives / [Number of true negatives+ Number of false positives]  
   <img src="images/Difference-Between-Sensitivity-and-Specificity_Figure-1.png" alt="Sensitivity vs Specificity" width="300"/>
 
-### Binomial Distribution
+#### Probability Methods
+
+##### 1. Binomial Distribution
 
 The Binomial Distribution helps us determine the probability of a string of independent events with exactly two outcomes 'coin flip like events'.
 
-#### Unconditional Probability (Independent)
+###### 1.1 Unconditional Probability (Independent)
 
-##### Formulas
+Formulas:
 
 n is the number of "events", x is the number of "successes", and p is the probability of "successes".
 
@@ -454,7 +447,7 @@ n is the number of "events", x is the number of "successes", and p is the probab
 
 This term is maximized when x is exactly the half of n.
 
-##### Use Cases
+Use Cases:
 
 We can now use this distribution to determine the probability of things like:
 
@@ -462,19 +455,19 @@ We can now use this distribution to determine the probability of things like:
 - The probability of observing 8 or more heads occurring in 10 flips.
 - The probability of not observing any heads in 20 flips.
 
-##### Some Facts
+Some Facts:
 
 The truth is that in practice, you will commonly be working with data, which might follow a binomial distribution. So it is less important to calculate these probabilities (though this can be useful in some cases), and it is more important that you understand what the Binomial Distribution is used for, as it shows up in a lot of modeling techniques in machine learning, and it can sneak up in our datasets with tracking any outcome with two possible events.
 
 One of the most popular places you see the Binomial distribution is in logistic regression.
 
-#### Conditional Probability (Dependent)
+###### 1.2 Conditional Probability (Dependent)
 
 Often events are not independent like with coin flips and dice rolling. Instead, the outcome of one event depends on an earlier event.
 
 For example, the probability of obtaining a positive test result is dependent on whether or not you have a particular condition. If you have a condition, it is more likely that a test result is positive.
 
-##### Formulas
+Formulas:
 
 Conditional probabilities for any two events
 
@@ -485,11 +478,11 @@ P(positive∣disease) = P(disease) / P(positive ∩ disease)​.
 
 where | represents "given" and ∩ represents "and".
 
-### Bayes Rule
+##### 2. Bayes Rule
 
 It describes the probability of an event, based on prior knowledge of conditions that might be related to the event.
 
-#### [Bayes Rule Formula](https://en.wikipedia.org/wiki/Bayes'_theorem)
+[Bayes Rule Formula](https://en.wikipedia.org/wiki/Bayes'_theorem):
 
 ![Bayes Rule Formula](images/Bayes%20Rule.png)
 
@@ -501,7 +494,7 @@ where A and B are events and P(B) ≠ 0.
 
 Prior Probability . Test Evidence -> Posterior probability
 
-#### Case Study
+Case Study:
 
 1% of the population has cancer. Given that there is a 90% chance that you will test positive if you have cancer and that there is a 90% chance you will test negative if you don't have cancer, what is the probability that you have cancer if you test positive?
 
@@ -526,15 +519,11 @@ Posterior:
 P(C,Pos) = 0.09 / 0.108 = 0.083
 P(¬C,Pos) = 0.099 / 0.108 = 0.9166
 
-### Central Limit Theorem
-
-It means that take the number of event occurrence to infinity. No of Coin flips to infinity.
-
-### Normal Distribution
+##### 3. Normal Distribution
 
 It is the basis of statistics in such that all of the testing and confidence intervals are defined through the normal distribution.
 
-#### Formula
+Formula:
 
 Where N is the number of event, x  , μ mean, σ^2 variance,
 
@@ -548,7 +537,7 @@ Where N is the number of event, x  , μ mean, σ^2 variance,
 - The minimum value will be when x equals to ±∞ which leads to (e^-∞).
 - The area underneath the formula curve doesn't add to 1 it adds to √(2πσ^2 ) that is why it has to be normalized with this value.
 
-### Sampling Distribution
+##### 4. Sampling Distribution:
 
 ![Sampling Distribution](images/Sampling_Distribution.png)
 ![Sampling Distribution Example](images/Sampling_Distribution_Example.png)
@@ -559,14 +548,14 @@ A sampling distribution is the distribution of a statistic when we look at the d
 - P(1-P): The variance of the original 1,0 values.
 - P(1-P)/n: The variance of the proportions calculated from n randomly selected values iterated xxx times.
 
-#### Proportions (or Means) Characteristic
+###### Proportions (or Means) Characteristic
 
 1. The sampling distribution is centered on the original parameter value.
 2. The sampling distribution decreases its variance depending on the sample size used. Specifically, the variance of the sampling distribution is equal to the variance of the original data divided by the sample size used. This is always true for the variance of a sample mean!
 
 In notation, we say if we have a random variable, **X**, with variance of σ^2, then the distribution of X¯ (the sampling distribution of the sample mean) has a variance of σ^2/n.
 
-#### Important mathematical theorems
+###### Important mathematical theorems
 
 Two important mathematical theorems for working with sampling distributions include:
 
@@ -600,41 +589,107 @@ Two important mathematical theorems for working with sampling distributions incl
        2. Correlation coefficient (r)
        3. Sampling distribution of sampling value in dataset (x(n))
 
-#### Techniques
+###### Sampling Distributions Techniques
 
-##### 1. Bootstrapping
+1. Bootstrapping
 
-- Bootstrapping is a technique where we sample from a group with replacement.
-- Bootstrapping is sampling with replacement. Using random.choice in python actually samples in this way. Where the probability of any number in our set stays the same regardless of how many times it has been chosen. Flipping a coin and rolling a die are kind of like bootstrap sampling as well, as rolling a 6 in one scenario doesn't mean that 6 is less likely later.
-- We can use bootstrapping to simulate the creation of sampling distribution.
-- By bootstrapping and then calculating repeated values of our statistics, we can gain an understanding of the sampling distribution of our statistics.
-- No more data needed to gain a better understanding of the parameter.
-- Bootstrapping has been using in leading machine learning algorithms. Additional notes on why bootstrapping works as a technique for inference can be found [here](https://stats.stackexchange.com/questions/26088/explaining-to-laypeople-why-bootstrapping-works)
+   - Bootstrapping is a technique where we sample from a group with replacement.
+   - Bootstrapping is sampling with replacement. Using random.choice in python actually samples in this way. Where the probability of any number in our set stays the same regardless of how many times it has been chosen. Flipping a coin and rolling a die are kind of like bootstrap sampling as well, as rolling a 6 in one scenario doesn't mean that 6 is less likely later.
+   - We can use bootstrapping to simulate the creation of sampling distribution.
+   - By bootstrapping and then calculating repeated values of our statistics, we can gain an understanding of the sampling distribution of our statistics.
+   - No more data needed to gain a better understanding of the parameter.
+   - Bootstrapping has been using in leading machine learning algorithms. Additional notes on why bootstrapping works as a technique for inference can be found [here](https://stats.stackexchange.com/questions/26088/explaining-to-laypeople-why-bootstrapping-works)
+   - new_page_converted = np.random.binomial(new_n, p_new, 10000)/new_n
 
-##### 2. Confidence Interval
+2. Confidence Interval
 
-- We can use bootstrapping and sampling distributions to build confidence intervals for our parameters of interest.
-- By finding the statistic that best estimates our parameter(s) of interest (say the sample mean to estimate the population mean or the difference in sample means to estimate the difference in population means), we can easily build confidence intervals for the parameter of interest.
+   - We can use bootstrapping and sampling distributions to build confidence intervals for our parameters of interest.
+   - By finding the statistic that best estimates our parameter(s) of interest (say the sample mean to estimate the population mean or the difference in sample means to estimate the difference in population means), we can easily build confidence intervals for the parameter of interest.
 
-It is important to understand the way that your sample size and confidence level relate to the confidence interval you achieve at the end of your analysis.
+    It is important to understand the way that your sample size and confidence level relate to the confidence interval you achieve at the end of your analysis.
 
-- Assuming you control all other items of your analysis:
-  1. Increasing your sample size will decrease the width of your confidence interval.
-  2. Increasing your confidence level (say 95% to 99%) will increase the width of your confidence interval.
-- We can compute:
-  1. The confidence interval width as the difference between your upper and lower bounds of your confidence interval.
-  2. The margin of error is half the confidence interval width, and the value that you add and subtract from your sample estimate to achieve your confidence interval final results.
+   - Assuming you control all other items of your analysis:
+     1. Increasing your sample size will decrease the width of your confidence interval.
+     2. Increasing your confidence level (say 95% to 99%) will increase the width of your confidence interval.
+   - We can compute:
+     1. The confidence interval width as the difference between your upper and lower bounds of your confidence interval.
+     2. The margin of error is half the confidence interval width, and the value that you add and subtract from your sample estimate to achieve your confidence interval final results.
 
-###### Confidence Intervals (& Hypothesis Testing) vs. Machine Learning
+    Confidence Intervals (& Hypothesis Testing) vs. Machine Learning:
 
-- Confidence intervals take an aggregate approach towards the conclusions made based on data, as these tests are aimed at understanding population parameters (which are aggregate population values). It cannot talk about individual users with confidence intervals. Confidence intervals are for an aggregate about a population like a proportion or average.
-- Alternatively, machine learning techniques take an individual approach towards making conclusions, as they attempt to predict an outcome for each specific data point.
+   - Confidence intervals take an aggregate approach towards the conclusions made based on data, as these tests are aimed at understanding population parameters (which are aggregate population values). It cannot talk about individual users with confidence intervals. Confidence intervals are for an aggregate about a population like a proportion or average.
+   - Alternatively, machine learning techniques take an individual approach towards making conclusions, as they attempt to predict an outcome for each specific data point.
 
-###### Confidence Interval Applications
+    Confidence Interval Applications:
 
-- The effectiveness of two groups of drugs.
-- Comparing to different ways of teaching the same topic and see which way improves retention.
-- A/B testing: where comparing two different webpages to one another and determine which web design drives the largest amount of traffic. A/B testing is one of the most important to businesses around the world. In this technique, you are changing something about your web layout to understand how it impacts users. You ideally want to provide a page that leads to more clicks, higher revenue, and/or higher customer satisfaction.
+   - The effectiveness of two groups of drugs.
+   - Comparing to different ways of teaching the same topic and see which way improves retention.
+   - A/B testing: where comparing two different webpages to one another and determine which web design drives the largest amount of traffic. A/B testing is one of the most important to businesses around the world. In this technique, you are changing something about your web layout to understand how it impacts users. You ideally want to provide a page that leads to more clicks, higher revenue, and/or higher customer satisfaction.
+
+3. Hypothesis Testing
+
+   - Hypothesis Testing and Confidence Intervals allow us to use only sample data to draw conclusions about an entire population.
+   - You are always performing hypothesis tests on population parameters, never on statistics. Statistics are values that you already have from the data, so it does not make sense to perform hypothesis tests on these values.
+
+   - Rules:
+     - First thing, translate a question into two competing hypotheses, H0: Null Hypothesis, H1: Alternative Hypothesis.
+     - The H0​ is true before you collect any data.
+     - The H0​ usually states there is no effect or that two groups are equal.
+     - The H0H​ and H1​ are competing, non-overlapping hypotheses.
+     - H1​ is what we would like to prove to be true.
+     - H0​ contains an equal sign of some kind - either =, ≤, or ≥.
+     - H1​ contains the opposition of the null - either ≠, >, or <.
+
+   - Case Study #1:
+     - The statement, "Innocent until proven guilty" is one that suggests the following hypotheses are true:
+       - H0​: Innocent
+       - H1​: Guilty
+     - We can relate this to the idea that "innocent" is true before we collect any data. Then the alternative must be a competing, non-overlapping hypothesis. Hence, the alternative hypothesis is that an individual is guilty.
+
+   - Case Study #2:
+     - We wanted to test if a new page was better than an existing page, we set that up in the alternative. Two indicators are that the null should hold the equality, and the statement we would like to be true should be in the alternative. Therefore, it would look like this:
+     - H0​:μ1​≤μ2​
+     - H1​:μ1​>μ2
+     - Here μ1​ represents the population mean return from the new page. Similarly, μ2​ represents the population mean return from the old page.
+     - Depending on your question of interest, you would change your null and alternative hypotheses to match.
+
+   - Errors
+     - **Type I** errors have the following features:
+       1. You should set up your null and alternative hypotheses, so that the worse of your errors is the type I error.
+       2. They are denoted by the symbol α.
+       3. The definition of a type I error is: Deciding the alternative (H1​) is true, when actually (H0) is true.
+       4. Type I errors are often called false positives.
+     - **Type II**:
+       1. They are denoted by the symbol β.
+       2. The definition of a type II error is: Deciding the null (H0) is true, when actually (H1​) is true.
+       3. Type II errors are often called false negatives.
+
+     In the most extreme case, we can always choose one hypothesis (say always choosing the null) to ensure that a particular error never occurs (never a type I error assuming we always choose the null). However, more generally, there is a relationship where with a single set of data decreasing your chance of one type of error, increases the chance of the other error occurring.
+
+   - Common hypothesis tests include:
+     1. Testing a population mean [(One sample t-test)](http://sites.utexas.edu/sos/guided/inferential/numeric/claim/one-sample-t/).
+     2. Testing the difference in means [(Two sample t-test)](https://www.isixsigma.com/tools-templates/hypothesis-testing/making-sense-two-sample-t-test/).
+     3. Testing the difference before and after some treatment on the same individual [(Paired t-test)](http://www.statstutor.ac.uk/resources/uploaded/paired-t-test.pdf).
+     4. Testing a population proportion [(One sample z-test)](http://stattrek.com/statistics/dictionary.aspx?definition=one-sample%20z-test).
+     5. Testing the difference between population proportions [(Two sample z-test)](https://onlinecourses.science.psu.edu/stat414/node/268).
+     - You can use one of these sites to provide a t-table or z-table to support one of the above approaches:
+       - [t-table](https://s3.amazonaws.com/udacity-hosted-downloads/t-table.jpg)
+       - [t-table or z-table](http://www.z-table.com/t-value-table.html)
+     - There are literally hundreds of different hypothesis tests! However, instead of memorizing how to perform all of these tests, you can find the statistic(s) that best estimates the parameter(s) you want to estimate, you can bootstrap to simulate the sampling distribution. Then you can use your sampling distribution to assist in choosing the appropriate hypothesis.
+
+   - How to calculate Hypothesis:
+     1. Using Confidence Interval:
+        1. First we need to bootstrap a sample set of data and compute the sample mean again and again.
+        2. Build the sampling distribution
+        3. Calculate the confidence Intervals to determine what are the reasonable values for the population mean with some level of confidence.
+        4. Using your confidence interval, you can simply look at if the interval falls in the null hypothesis space or in the alternative hypothesis space to choose which hypothesis you believe to be true.
+     2. Using Normal Distribution
+        1. We assume the Null Hypothesis H0 is True and we can image how the sampling distribution would look like if we were to simulate from the closest value under the Null Hypothesis to the Alternative Hypothesis H1.
+        2. Use the standard deviation of the sampling distribution to determine what the sampling distribution would look like, if it came from the Null Hypothesis.
+        3. By applying Central Limit Theorem we know that the means would follow a normal distribution.
+        4. Using NumPy.random.normal library in Python, we can simulate draws from the normal using hypothesized mean and standard deviation of our sampling distribution. By setting the center to be the closest value under the Null Hypothesis to the Alternative Hypothesis H1.
+        5. Each of the simulated draws will represent a mean from the Null Hypothesis.
+        6. Compare the actual sample  mean to this distribution, tells us the likelihood of our statistic coming from.
 
 ## Statistical Notations
 
