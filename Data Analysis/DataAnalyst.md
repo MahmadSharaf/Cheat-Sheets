@@ -66,13 +66,41 @@
       - [How Hypothesis Testing and Confidence Intervals related are](#how-hypothesis-testing-and-confidence-intervals-related-are)
       - [Hypothesis Testing vs. Machine Learning](#hypothesis-testing-vs-machine-learning)
       - [Statistical vs Practical Significance](#statistical-vs-practical-significance)
+    - [A/B Testing](#ab-testing)
+      - [Uses and value of A/B Testing](#uses-and-value-of-ab-testing)
+      - [Defining metrics for experiments](#defining-metrics-for-experiments)
+      - [Analyzing results with Hypothesis testing](#analyzing-results-with-hypothesis-testing)
+      - [Drawbacks](#drawbacks)
+      - [Evaluating multiple metrics](#evaluating-multiple-metrics)
+      - [Difficulties in A/B Testing](#difficulties-in-ab-testing)
   - [Statistical Notations](#statistical-notations)
+  - [Machine Learning](#machine-learning)
+    - [1. Supervised Machine Learning](#1-supervised-machine-learning)
+      - [1.1 Simple Linear Regression](#11-simple-linear-regression)
+        - [**Scatter plots**](#scatter-plots)
+        - [Correlation Coefficient](#correlation-coefficient)
+        - [Linear Regression Line](#linear-regression-line)
+        - [Hypothesis P-Values](#hypothesis-p-values)
+        - [R-Squared](#r-squared)
+        - [Least-Squares regression algorithm](#least-squares-regression-algorithm)
+      - [1.2 Multiple Linear Regression](#12-multiple-linear-regression)
+        - [Adding Categorical variables to Linear Regression](#adding-categorical-variables-to-linear-regression)
+        - [Model Assumptions And How To Address Each](#model-assumptions-and-how-to-address-each)
+        - [Higher Order Terms](#higher-order-terms)
+          - [Interaction Terms](#interaction-terms)
+        - [Resources](#resources)
+      - [1.3 Logistic Regression](#13-logistic-regression)
+        - [Interpreting the coefficients](#interpreting-the-coefficients)
+        - [Confusion Matrix](#confusion-matrix)
+    - [2. Unsupervised Machine Learning](#2-unsupervised-machine-learning)
   - [SQL](#sql)
     - [Why SQL](#why-sql)
     - [Why Businesses Like Databases](#why-businesses-like-databases)
     - [Types of Databases](#types-of-databases)
       - [Small Differences](#small-differences)
   - [Data Visualization](#data-visualization)
+    - [Summary Statistics vs. Visualizations](#summary-statistics-vs-visualizations)
+    - [Exploratory vs Explanatory](#exploratory-vs-explanatory)
     - [Univariate analysis](#univariate-analysis)
     - [Bivariate analysis](#bivariate-analysis)
     - [More than two variables](#more-than-two-variables)
@@ -544,7 +572,7 @@ Inferential Statistics is about using our collected data to draw conclusions to 
 
 ### 1. Sampling Distribution
 
-![Sampling Distribution](images/Sampling_Distribution.png)
+![Sampling Distribution](images/Sampling_Distribution.png)  
 ![Sampling Distribution Example](images/Sampling_Distribution_Example.png)
 
 A sampling distribution is the distribution of a statistic when we look at the distributions of the proportions of all samples of same size (ex: size 5).
@@ -795,6 +823,50 @@ Alternatively, machine learning techniques take an individual approach towards m
 - Using **confidence intervals** and **hypothesis testing**, you are able to provide **statistical significance** in making decisions.
 - However, it is also important to take into consideration **practical significance** in making decisions. **Practical significance** takes into consideration other factors of your situation that might not be considered directly in the results of your hypothesis test or confidence interval. Constraints like **space**, **time**, or **money** are important in business decisions. However, they might not be accounted for directly in a statistical test.
 
+### A/B Testing
+
+#### Uses and value of A/B Testing
+
+- A/B tests are used to test changes on a web page by running an experiment where a **control group** sees the old version, while the **experiment group** sees the new version.
+
+#### Defining metrics for experiments
+
+- **A metric** is then chosen to measure the level of engagement from users in each group.
+- These results are then used to judge whether one version is more effective than the other.
+
+#### Analyzing results with Hypothesis testing
+
+- A/B testing is very much like hypothesis testing with the following hypotheses:
+  - **Null Hypothesis**: The new version is no better, or even worse, than the old version
+  - **Alternative Hypothesis**: The new version is better than the old version
+- If we fail to reject the null hypothesis, the results would suggest keeping the old version. If we reject the null hypothesis, the results would suggest launching the change. These tests can be used for a wide variety of changes, from large feature additions to small adjustments in color, to see what change maximizes your metric the most.
+
+#### Drawbacks
+
+- A/B testing also has its drawbacks. It can help you compare two options, but it can't tell you about an option you haven’t considered. It can also produce bias results when tested on existing users, due to factors like change aversion and novelty effect.
+  - **Change Aversion**: Existing users may give an unfair advantage to the old version, simply because they are unhappy with change, even if it’s ultimately for the better.
+  - **Novelty Effect**: Existing users may give an unfair advantage to the new version, because they’re excited or drawn to the change, even if it isn’t any better in the long run.
+
+#### Evaluating multiple metrics
+
+- The more metrics you evaluate, the more likely you are to observe significant differences just by chance. Luckily, this [multiple comparisons problem](https://en.wikipedia.org/wiki/Multiple_comparisons_problem) can be handled in several ways.
+  - The [Bonferroni Correction](http://en.wikipedia.org/wiki/Bonferroni_correction) is one way we could handle experiments with multiple tests, or metrics in this case.
+  - Since the Bonferroni method is too conservative when we expect correlation among metrics, we can better approach this problem with more sophisticated methods, such as the [closed testing procedure](http://en.wikipedia.org/wiki/Closed_testing_procedure), [Boole-Bonferroni bound](http://en.wikipedia.org/wiki/Bonferroni_bound), and the [Holm-Bonferroni method](http://en.wikipedia.org/wiki/Holm%E2%80%93Bonferroni_method). These are less conservative and take this correlation into account.
+  - If you do choose to use a less conservative method, just make sure the assumptions of that method are truly met in your situation, and that you're not just trying to [cheat on a p-value](http://freakonometrics.hypotheses.org/19817). Choosing a poorly suited test just to get significant results will only lead to misguided decisions that harm your company's performance in the long run.
+
+#### Difficulties in A/B Testing
+
+Being able to determine the statistical significance of performance differences in A/B test results is valuable. However, there are many other factors to consider to ensure your A/B tests are successful. In the real world, designing, running, and drawing conclusions from an A/B test to lead you to the right decisions can be tricky.
+
+There are many factors to consider when designing an A/B test and drawing conclusions based on its results.
+
+- Novelty effect and change aversion when existing users first experience a change
+- Sufficient traffic and conversions to have significant and repeatable results
+- Best metric choice for making the ultimate decision (eg. measuring revenue vs. clicks)
+- Long enough run time for the experiment to account for changes in behavior based on time of day/week or seasonal events.
+- Practical significance of a conversion rate (the cost of launching a new feature vs. the gain from the increase in conversion)
+- Consistency among test subjects in the control and experiment group (imbalance in the population represented in each group can lead to situations like [Simpson's Paradox](#simpsons-paradox))
+
 ## Statistical Notations
 
 It is commonly to use Greek symbols as parameters and lowercase letters as the corresponding statistics. Sometimes in the literature, you might also see the same Greek symbols with a "hat" to represent that this is an estimate of the corresponding parameter.
@@ -804,6 +876,238 @@ Below is a table that provides some of the most common parameters and correspond
 All **parameters** pertain to a population, while all **statistics** pertain to a sample.
 
 ![Notation Table](images/Notation_table.png)
+
+## Machine Learning
+
+### 1. Supervised Machine Learning
+
+In supervised machine learning, you are interested in predicting a label for your data. Commonly, you might want to predict fraud, customers that will buy a product, or home values in an area.
+
+#### 1.1 Simple Linear Regression
+
+In simple linear regression, we compare two quantitative variables to one another.
+
+The response variable is what you want to predict, while the explanatory variable is the variable you use to predict the response. A common way to visualize the relationship between two variables in linear regression is using a scatterplot.
+
+##### **Scatter plots**
+
+Scatter plots are a common visual for comparing two quantitative variables. A common summary statistic that relates to a scatter plot is the correlation coefficient commonly denoted by r.
+
+##### Correlation Coefficient
+
+Correlation coefficients provide a measure of the **strength** and **direction** of a **linear** relationship.
+
+Though there are a [few different](http://www.statisticssolutions.com/correlation-pearson-kendall-spearman/) ways to measure correlation between two variables, the most common way is with [Pearson's correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient).  
+Pearson's correlation coefficient provides the:
+
+  1. Strength
+  2. Direction
+
+of a linear relationship. [Spearman's Correlation Coefficient](https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient) does not measure linear relationships specifically, and it might be more appropriate for certain cases of associating two variables.
+
+We can tell the direction based on whether the correlation is positive or negative.  
+A rule of thumb for judging the strength:
+
+- Strong: $0.7≤∣r∣≤1.0$
+- Moderate: $0.3≤∣r∣<0.7$
+- Weak: $0.0≤∣r∣<0.3$
+
+##### Linear Regression Line
+
+- A line is commonly identified by an intercept and a slope.
+- The intercept is defined as the predicted value of the response when the x-variable is zero.
+- The slope is defined as the predicted change in the response for every one unit increase in the x-variable.
+- We notate the line in linear regression in the following way:  
+  - $\hat{y}​=b_0​+b_1​x_1​$
+
+  where
+  - $\hat{y}$ is the predicted value of the response from the line.
+  - $b_0​$ is the intercept. The predicted value of the response when the explanatory variable is zero.
+  - $b_1$​ is the slope. The predicted change in the response for every one unit increase in the explanatory variable.
+  - $x_1​$ is the explanatory variable.
+  - $y$ is an actual response value for a data point in our dataset (not a prediction from our line).
+
+- We notate the actual values as below:
+  - $y$ is the actual value of the response.
+  - $\beta_0$ is the actual average response value for the population when the explanatory variable is zero.
+  - $\beta_1$ is the actual average change in the response for the population with every one unit increase in the explanatory variable.
+
+- [Here](https://stats.stackexchange.com/questions/7948/when-is-it-ok-to-remove-the-intercept-in-a-linear-regression-model) is a Post on the need of an intercept in nearly all cases of regression. Although, there are very few cases where you do not need to include an intercept in a linear model.
+- The units need to be consistent in every column or you will create an ineffective model.
+
+##### Hypothesis P-Values
+
+In Regression, p-vales are always given for testing if the parameter the intercept or the slope are equal to zero in the Null Hypothesis. Then in the alternative, Python and other software compute 'P' values using a not equal to.
+
+These tests help us determine if there is a statistically significant linear relationship between a particular variable and the response. The hypothesis test for the intercept isn't useful in most cases. However, the hypothesis test for each x-variable is a test of if that population slope is equal to zero vs. an alternative where the parameter differs from zero. Therefore, if the slope is different than zero (the alternative is true), we have evidence that the x-variable attached to that coefficient has a statistically significant linear relationship with the response. This in turn suggests that the x-variable should help us in predicting the response (or at least be better than not having it in the model).
+
+##### R-Squared
+
+The Rsquared value is the square of the correlation coefficient.
+
+A common definition for the Rsquared variable is that it is the amount of variability in the response variable that can be explained by the x-variable in our model. In general, the closer this value is to 1, the better our model fits the data.
+
+Many feel that Rsquared isn't a great measure (which is possibly true), but I would argue that using cross-validation can assist us with validating any measure that helps us understand the fit of a model to our data. [Here](http://data.library.virginia.edu/is-r-squared-useless/), you can find one such argument explaining why one individual doesn't care for Rsquared.
+
+##### Least-Squares regression algorithm
+
+In bi-variate case, we need to find a line that best allows us to predict the response variable using explanatory variable.
+
+It minimizes the sum of squared vertical distances between our fitted line and each of the actual points.
+
+Though the steps needed to calculate this line can be achieved by computers. [Here](https://www.youtube.com/watch?v=zPG4NjIkCjc), a step by step solution in Excel
+
+#### 1.2 Multiple Linear Regression
+
+It uses both quantitative and categorical x-variables to predict a quantitative response. That is, you will be creating equations that like this to predict your response:  
+$y^​=b_0​+b_1​x_1​+b_2​x_2​+b_3​x_3​+b_4​x_4​$
+
+The coefficients might have positive and negative values. Therefore, we can interpret each coefficient as the predicted increase or decrease in the response for every one unit increase in the explanatory variable, holding all other variables in the model constant.
+
+##### Adding Categorical variables to Linear Regression
+
+- The way that we add categorical variables into our multiple linear regression models is by using dummy variables.
+  - 1,0 Encoding:
+    - The most common way dummy variables are added is through 1, 0 encoding. In this encoding method, you create a new column for each level of a category (in this case A, B, or C). Then our new columns either hold a 1 or 0 depending on the presence of the level in the original column.  
+    ![1,0 Encoding](Images/1,0%20encoding.png)
+    - When we add these dummy variables to our multiple linear regression models, we always drop one of the columns to make the matrices [full rank(all of the columns of X must be linearly independent)](https://www.cds.caltech.edu/~murray/amwiki/index.php/FAQ:_What_does_it_mean_for_a_non-square_matrix_to_be_full_rank%3F). The column you drop is called the baseline. The coefficients you obtain from the output of your multiple linear regression models are then an indication of how the encoded levels compare to the baseline level (the dropped level).
+    - If you do not drop one of the columns (from the model, not from the dataframe) when creating the dummy variables, your solution is unstable and results from Python are unreliable.
+
+##### Model Assumptions And How To Address Each
+
+1. Non-linearity of the response-predictor relationships:
+
+   The assumption of linearity is that a linear model is the relationship that truly exists between your response and predictor variables. If this isn't true, then your predictions will not be very accurate. Additionally, the linear relationships associated with your coefficients really aren't useful either.
+
+   In order to assess if a linear relationship is reasonable, a plot of the residuals $(y - \hat{y})$ by the predicted values $(\hat{y})$ is often useful. If there are curvature patterns in this plot, it suggests that a linear model might not actually fit the data, and some other relationship exists between the predictor variables and response. There are many ways to create non-linear models (even using the linear model form), and you will be introduced to a few of these later in this lesson.
+
+   In the image at the bottom of this section, these are considered the biased models. Ideally, we want to see a random scatter of points like the top left residual plot in the image.
+
+2. Correlation of error terms:
+
+   Correlated errors frequently occur when our data are collected over time (like in forecasting stock prices or interest rates in the future) or data are spatially related (like predicting flood or drought regions). We can often improve our predictions by using information from the past data points (for time) or the points nearby (for space).
+
+   The main problem with not accounting for correlated errors is that you can often use this correlation to your advantage to better predict future events or events spatially close to one another.
+
+   One of the most common ways to identify if you have correlated errors is based on the domain from which the data were collected. If you are unsure, there is a test known as a [Durbin-Watson](https://en.wikipedia.org/wiki/Durbin%E2%80%93Watson_statistic) test that is commonly used to assess whether correlation of the errors is an issue. Then [ARIMA or ARMA](http://www.statsref.com/HTML/index.html?arima.html) models are commonly implemented to use this correlation to make better predictions.
+
+3. Non-constant Variance and Normally Distributed Errors:
+
+   Non-constant variance is when the spread of your predicted values differs depending on which value you are trying to predict. This isn't a huge problem in terms of predicting well. However, it does lead to confidence intervals and p-values that are inaccurate. Confidence intervals for the coefficients will be too wide for areas where the actual values are closer to the predicted values, but too narrow for areas where the actual values are more spread out from the predicted values.
+
+   Commonly, a log (or some other transformation of the response variable is done) in order to "get rid" of the non-constant variance. In order to choose the transformation, a [Box-Cox](http://www.statisticshowto.com/box-cox-transformation/) is commonly used.
+
+   Non-constant variance can be assessed again using a plot of the residuals by the predicted values. In the image at the bottom of the page, non-constant variance is labeled as heteroscedastic. Ideally, we want an unbiased model with homoscedastic residuals (consistent across the range of values).
+
+   Though the text does not discuss normality of the residuals, this is an important assumption of regression if you are interested in creating reliable confidence intervals. More on this topic is provided [here](http://www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm).
+
+4. Outliers/Leverage Points:
+
+   Outliers and leverage points are points that lie far away from the regular trends of your data. These points can have a large influence on your solution. In practice, these points might even be typos. If you are aggregating data from multiple sources, it is possible that some of the data values were carried over incorrectly or aggregated incorrectly.
+
+   Other times outliers are accurate and true data points, not necessarily measurement or data entry errors. In these cases, 'fixing' is more subjective. Often the strategy for working with these points is dependent on the goal of your analysis. Linear models using ordinary least squares, in particular, are not very robust. That is, large outliers may greatly change our results. There are techniques to combat this - largely known as regularization techniques. These are beyond the scope of this class, but they are quickly discussed in the [free course on machine learning](https://classroom.udacity.com/courses/ud120).
+
+5. Multi-collinearity
+
+   Multicollinearity is when we have predictor variables that are correlated with one another. One of the main concerns of multicollinearity is that it can lead to coefficients being flipped from the direction we expect from simple linear regression. We want our predictor variables to be correlated with our response but not with one another.
+
+   The most common ways to identify multicollinearity are:
+    1. Bivariate plots:
+       - We can look at the correlation of each explanatory variable with each other explanatory variable (with a plot or the correlation coefficient).
+       - One of the side effects is when the bivariate plots shows positive relationship between the variables, we might find that the interpretation of the coefficient of one of the variables is counter-intuitive to the relationship we would expect.
+       - In python, we can plot using pairplot function in seaborn
+    2. [Variance inflation factors](https://etav.github.io/python/vif_factor_python.html) (or VIFs).
+       - When VIFs are greater than 10, this suggests that multicollinearity is certainly a problem in your model. Some experts even suggest that VIFs of greater than 5 can be problematic. In most cases, not just one VIF is high, but rather many VIFs are high, as these are measures of how related variables are with one another.
+       - In Python, we can use dmatrices from patsy library to create an equation for x and y which returns matrices. These matrices will be used in VIF function.
+
+          ```py
+          from patsy import dmatrices
+          from statsmodels.stats.outliers_influence import variance_inflation_factor
+
+          y, X = dmatrices('price ~ area + bedrooms + bathrooms', df, return_type='dataframe')
+          vif = pd.DataFrame()
+          vif['VIF Factor'] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+          vif['features'] = X.columns
+          ```
+
+   There are two potential negative impacts:
+    1. The expected relationships between your x-variables and the response may not hold when multicollinearity is present. That is, you may expect a positive relationship between the explanatory variables and the response (based on the bivariate relationships), but in the multiple linear regression case, it turns out the relationship is negative.
+    2. Our hypothesis testing results may not be reliable. It turns out that having correlated explanatory variables means that our coefficient estimates are less stable. That is, standard deviations (often called standard errors) associated with your regression coefficients are quite large. Therefore, a particular variable might be useful for predicting the response, but because of the relationship it has with other x-variables, you will no longer see this association.
+
+   The most common way of working with correlated explanatory variables in a multiple linear regression model is simply to remove one of the variables that is most related to the other variables. Choosing an explanatory variable that you aren't interested in, or isn't as important to you, is a common choice.
+
+![resid-plots.gif](images/resid-plots.gif)
+
+##### Higher Order Terms
+
+Higher order terms in linear models are created when multiplying two or more x-variables by one another. Common higher order terms include quadratics ($x_1^2$​) and cubics ($x_1^3$​) , where an x-variable is multiplied by itself, as well as interactions ($x_1x_2$​) , where two or more x-variables are multiplied by one another.
+
+![Higher Order Terms](images/Higher_Order_Terms.png)
+
+In a model with no higher order terms, you might have an equation like:
+
+$$\hat{y}​=b_0​+b_1​x_1​+b_2​x_2$$
+
+Then we might decide the linear model can be improved with higher order terms. The equation might change to:
+
+$$\hat{y}​=b_0​+b_1​x_1​+b_2​x_1^2+b_3​x_2​+b_4​x_1​x_2​$$
+
+Here, we have introduced a quadratic ($b_2x_1^2$​) and an interaction ($b_4x_1x_2$​) term into the model.
+
+In general, these terms can help you fit more complex relationships in your data. However, they also take away from the ease of interpreting coefficients, as we have seen so far. You might be wondering: "How do I identify if I need one of these higher order terms?"
+
+When creating models with quadratic, cubic, or even higher orders of a variable, we are essentially looking at how many curves there are in the relationship between the explanatory and response variables.
+
+If there is one curve, like in the plot below, then you will want to add a quadratic. Clearly, we can see a line isn't the best fit for this relationship.
+
+![Quadratic Curve](images/quadratic_curve.png)
+
+Then, if we want to add a cubic relationship, it is because we see two curves in the relationship between the explanatory and response variable. An example of this is shown in the plot below.
+
+![Cubic 2 Curves](images/Cubic_2_curves.jpg)
+
+###### Interaction Terms
+
+Mathematically, an interaction is created by multiplying two variables by one another and adding this term to our linear regression model.
+
+If the slope of these two variables ($x_1, x_2$) are equal, meaning the way that $x_1$ is related to $y$ is the same regardless of $x_2$ and the way that $x_2$ is related to $y$ is the same regardless of $x_1$. When these statements are true, we do not need an interaction term in our model.
+
+However, we need an interaction when the way that $x_1$ is related to $y$ is different depending on the $x_2$.
+
+##### Resources
+
+1. Free supplementary book: [Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20First%20Printing.pdf). This is an absolutely spectacular book for getting started with machine learning, and Chapter 3 discusses many of the ideas in this lesson. and [Here](https://www.reddit.com/r/learnpython/comments/6rkh3u/introduction_to_statistical_learning_with_python/) a resource that provides Jupyter Notebooks in Python with notes and answers to nearly all the questions from the book.
+
+#### 1.3 Logistic Regression
+
+- Unlike ordinary linear regression in its most basic form, logistic repressions target value is a binary variable instead of a continuous value.
+- Using Logistic Regression as opposed to linear regression, bounds our response to a probability between zero and one.
+
+##### Interpreting the coefficients
+
+- For every one unit increase in $x_1$, we expect a multiplicative change in the odds of a 1 of $e^{b_1}$
+- The way to encode the dummy variables in Logistic Regression is exactly the same as in Multiple Linear Regression. However, interpreting the dummy variable coefficient is by exponentiating the coefficient.
+- When in category $x_1$, we expect a multiplicative change in the odds of a 1 of $e^{b_1}$ compared to the baseline.
+
+Example:
+
+- $b_0 = 9.8709$ , $b_1 = -1.4637$, $b_2 = 2.5465$
+- To interpret the coefficients, then exponentiating the coefficients is required. As to be $e^{b_1}= 0.23$ and $e^{b_2} = 12.76$
+- If the multiplicative changes is less than one, like in the case of $e^{b_1}$, then it often useful to compute the reciprocal $\frac{1}{e^{b_1}}$. This Changes the direction for the unit increase, to a unit decrease. So it could be said, for every one unit decrease in the duration on the page, response is likely $\frac{1}{e^{b_1} increase, if all else hold constant.
+
+##### Confusion Matrix
+
+To determine how well is the Logistic Model, the are some some metrics:
+
+Most common to use is called **Accuracy**: Accuracy is the proportion of correctly labeled rows divided by the total number of rows in data set. There are some cases when Accuracy won't work well, when there are large class imbalances in the dataset.
+
+**Recall**: True Positive / (True Positive + False Negative). Out of all the items that are truly positive, how many were correctly classified as positive. Or simply, how many positive items were 'recalled' from the dataset.
+
+**Precision**: True Positive / (True Positive + False Positive). Out of all the items labeled as positive, how many truly belong to the positive class.
+
+### 2. Unsupervised Machine Learning
+
+In unsupervised machine learning, you are interested in clustering data together that isn't already labeled.
 
 ## SQL
 
@@ -845,6 +1149,14 @@ The [article](https://www.digitalocean.com/community/tutorials/sqlite-vs-mysql-v
 ---
 
 ## Data Visualization
+
+### Summary Statistics vs. Visualizations
+
+- Summary statistics like the mean and standard deviation can be great for attempting to quickly understand aspects of a dataset, but they can also be misleading if you make too many assumptions about how the data distribution looks.
+- Anscombe's Quartet demonstrates that datasets can be identical in mean, vairance, correlation and the line of the line of best fit, however, they will differ a lot when plotted. So, depending only on Sumarry Statistics can be misleading, that is why it is important to plot the data to find pattern and outliers of the dataset.
+- More recently [Alberto Cairo](http://albertocairo.com/) created the [Datasaurus](https://www.autodeskresearch.com/publications/samestats) dataset, which is amazingly insightful and artistic, but is built on the same idea.
+
+### Exploratory vs Explanatory
 
 There are two main reasons for creating visuals using data:
 
