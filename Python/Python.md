@@ -27,7 +27,28 @@
     - [NumPy](#numpy)
       - [NumPy Modules](#numpy-modules)
     - [Pandas](#pandas)
-      - [Pandas methods and functions](#pandas-methods-and-functions)
+      - [Input/Output](#inputoutput)
+        - [Read and Write from CSV](#read-and-write-from-csv)
+        - [Read and write from Excel](#read-and-write-from-excel)
+        - [Read and Write to SQL Query or Database Table](#read-and-write-to-sql-query-or-database-table)
+      - [Retrieveing Information](#retrieveing-information)
+        - [Basic Information](#basic-information)
+        - [Summary](#summary)
+      - [Data Wrangling](#data-wrangling)
+        - [Creating Data Frame](#creating-data-frame)
+        - [Reshaping Data](#reshaping-data)
+        - [Subset Observations (rows)](#subset-observations-rows)
+        - [Subset Variables (Columns)](#subset-variables-columns)
+        - [Subset row and column](#subset-row-and-column)
+      - [Handling Missing Data](#handling-missing-data)
+      - [Group Data](#group-data)
+      - [Sort and Rank](#sort-and-rank)
+      - [Applying functions](#applying-functions)
+      - [Plotting](#plotting)
+      - [Tips and Tricks](#tips-and-tricks)
+      - [Logic in Python](#logic-in-python)
+      - [Regular Expressions Examples](#regular-expressions-examples)
+      - [Pandas References](#pandas-references)
     - [Matplotlib](#matplotlib)
     - [Seaborn](#seaborn)
     - [Resources](#resources)
@@ -1083,108 +1104,325 @@ Create a file for CRUD operation
 ### Pandas
 
 - It gives Data Frames that are great data structures objects, that can manipulate and analyze data. It also includes some convenient methods for visualizing data that hook into matplotlib.
-
-#### Pandas methods and functions
-
 - [Compared to SQL](https://pandas.pydata.org/pandas-docs/stable/getting_started/comparison/comparison_with_sql.html) and [Medium Article](https://medium.com/jbennetcodes/how-to-rewrite-your-sql-queries-in-pandas-and-more-149d341fc53e#e009)
-- [read_csv()](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html)
-- [loc(), iloc()](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html)
-- to_csv()
-- [df_new = df.copy() vs df_new = df](https://www.geeksforgeeks.org/python-difference-between-pandas-copy-and-copying-through-variables/)
-- [apply()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html)
-- [Merges()](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
-- [idxmax](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.idxmax.html)
-- [groupby](https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/)
-- [to_datetime] converts string to DateTime type
-- [CategoricalDtype](https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.api.types.CategoricalDtype.html): to convert the data into an ordered type, the order of categories becomes innate to the feature, and we won't need to specify an "order" parameter each time it's required in a plot.
+
+#### Input/Output
+
+##### Read and Write from CSV
+
+- [read_csv](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.htm)
+- [to_csv](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html)
 
 ```py
-import pandas as pd
-# Import a CSV file into a Pandas Data Frame variable.
-# sep: specifies the separtor.
-# header: specifies the column labels.
-# names: specifies a header column.
-# index_col: can specify one or more of your columns to be the index of the dataframe.
-labels = ['id', 'name', 'attendance', 'hw', 'test1', 'project1', 'test2', 'project2', 'final']
-df = pd.read_csv('file_name.csv', sep=',', header=None, names=labels, index_col=['Name', 'ID'])
-# save the dataframe with file_name_edited data into a csv file.
+# Read and write from CSV
+pd.read_csv('file_name.csv',header=None,nrows=5)
+df.to_csv('file_name.csv')
+
 # `to_csv()` will store our index unless we tell it not to. To make it ignore the index, we have to provide the parameter `index=False`
 df.to_csv('file_name_edited.csv', index=False)
-# head() is a useful function you can call on your dataframe to display the first few rows.
-df.head()
-# last two rows.
-df.tail(2)
-# this returns useful descriptive statistics for each column of data.
-# such as count, mean, std, min, 25%, 50%, 75%,and max.
-df.describe()
-# this returns a tuple of the dimensions of the dataframe
+```
+
+##### Read and write from Excel
+
+- read_excel
+- to_excel
+
+```py
+# Read and write from Excel
+pd.read_excel('file_name.xlsx')
+df.to_excel('file_name.xlsx')
+
+# Write to excel sheet with multiple sheets
+with pd.ExcelWriter(path='file_name.xlsx') as writer:
+        df1.to_excel(writer,sheet_name='df1')
+        df2.to_excel(writer,sheet_name='df2')
+        df3.to_excel(writer,sheet_name='df3')
+
+# Read multiple sheets from excel file
+xlsx = pd.ExcelFile('file_name.xlsx')
+df = pd.read_excel(xlsx, 'Sheet1')
+```
+
+##### Read and Write to SQL Query or Database Table
+
+```py
+from sqlalchemy import create_engine
+engine = create_engine('sqlite:///:memory:')
+pd.read_sql("SELECT * FROM my_table;", engine)
+pd.read_sql_table('my_table',engine)
+pd.read_sql_query("SELECT * FROM my_table;", engine)
+
+# read_sql() is a convenience wrapper around read_sql_table() and read_sql_query()
+
+pd.to_sql('my_DF', engine)
+```
+
+#### Retrieveing Information
+
+##### Basic Information
+
+```py
+# Get rows and columns counts
 df.shape
-# this displays a concise summary of the dataframe,
+
+# Describe index
+df.index
+
+# Describe Columns
+df.columns
+
+# This displays a concise summary of the dataframe,
 # including the number of non-null values in each column
 df.info()
-# this returns the datatypes of the columns
+
+# Number of non-NA values
+df.count()
+
+# This returns the datatypes of the columns
 df.dtypes
-# returns the count of data frame
-df.count(axis='rows')
-# value_count aggreagates counts for each unique value in column
-df.column_name.value_counts()
-# List unique values in the df['name'] column
-df.column_name.unique()
-# this returns the number of unique values in each column
-df.column_name.nunique()
-# Return values at the given quantile over requested axis.
-df.quantile(0.5)
-# Fills the missing values with value and if inplace is true it will replace the column with new data.
-df['column_name'].fillna(value, inplace=True)
+```
+
+##### Summary
+
+- [idxmax](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.idxmax.html)
+
+```py
+# Sum of values
+df.sum()
+
+# Cummulative sum of values
+df.cumsum()
+
+# Min values
+df.min()
+
+# Max values
+df.max()
+
+# Min index value
+df.idmin()
+
+# Max index value
+df.idmax()
+
+# Finds the index of the row containing a column's maximum value!
+df.colum_name.idxmax()
+
+# Summary Statistics
+df.describe()
+
+# Mean of values
+df.mean()
+
+# Median of values
+df.median()
+
+# Variance of each object
+df.var()
+
+# Standard Deviation of each object
+df.std()
+
 # Count of Null values in each column
 df.isna().sum()
-# returns boolean column, which gives the duplicate TRUE value with escaping the first instance. All rows has to be the same to be identified as duplicate.
-df.duplicated()
-# removes the duplicates in the dataset and inplace parameter applies the change in the dataset.
-df.drop_duplicates(inplace=True)
-# Converts string to datetime object. But CSV will read this column as strings next time the file reopened, unless the it parsed into the CSV file. But pandas to_datetime provides more options than that of CSV.
-df['date_column'] = pd.to_datetime(df['date_column'])
-# View the index number and label for each column
-for i, v in enumerate(df.columns):
-    print(i, v)
-# We can select data using loc and iloc. loc uses labels of rows or columns to select data, while iloc uses the index numbers.
-# select all the columns from 'id' to the last column
-df_means = df.loc[:,'id':]
-# repeat the step above using index numbers
-df_means = df.iloc[:,:12]
-# remove "_mean" from column names
-new_labels = []
-for col in df.columns:
-    if '_mean' in col:
-        new_labels.append(col[:-5])  # exclude last 6 characters
-    else:
-        new_labels.append(col)
-# datatypes of columns
-for i, v in enumerate(df.iloc[0,:]):
-    print(df.columns[i],':', type(v))
-# Remove rows or columns by specifying label names and corresponding axis, or by specifying directly index or column names. When using a multi-index, labels on different levels can be removed by specifying the level.
-df.drop(labels=None, axis=0, index=None, columns=None, level=None, inplace=False, errors='raise')
-# Rename all column labels to replace spaces with underscores and convert everything to lowercase. (Underscores can be much easier to work with in Python than spaces. For example, having spaces wouldn't allow you to use df.column_name instead of df['column_name'] to select columns or use query(). Being consistent with lowercase and underscores also helps make column names easy to remember.)
-df.rename(columns=lambda x: x.strip().lower().replace(' ','_'), inplace=True)
-# make sure they're all identical like this
-(df_08.columns == df_18.columns).all()
-# Remove missing values
-df.dropna()
-# convert to string and extract the integer using regular expressions
-df['column_name'].str.extract('(\d+)').astype(int)
-# get all rows that column_name has values contains (/)
-df[df['column_name'].str.contains('/')]
-# copying a DataFrame or Series
-# Pandas .copy() method is used to create a copy of a Pandas object. Variables are also used to generate copy of an object but variables are just pointer to an object and any change in new data will also change the previous data.
-df.copy()
-# Applies a user function to a DataFrame
-df1[column_name].apply(lambda x: x.split("/")[0])
-# combine dataframes
+
+# List unique values in the df['name'] column
+df.column_name.unique()
+
+# This returns the number of unique values in each column
+df.column_name.nunique()
+
+# Return values at the given quantile over requested axis.
+df.quantile(0.5)
+```
+
+#### Data Wrangling
+
+##### Creating Data Frame
+
+```py
+# Specify values for each column
+df = pd.DataFrame(
+   {
+      "a": [4,5,6],
+      "b": [7,8,9],
+      "c": [10,11,12]
+   },
+   index= [1,2,3])
+
+# Specify values for each row
+df = pd.DataFrame(
+   [[4,7,10],
+    [5,8,11],
+    [6,9,12]],
+   index = [1,2,3],
+   column = ['a','b','c'])
+
+# Specify DataFrame with a MultiIndex
+df = pd.DataFrame(
+   {
+      "a": [4,5,6],
+      "b": [7,8,9],
+      "c": [10,11,12]
+   },
+   index= pd.MultiIndex.from_tuples(
+      [('d',1),('d',2),('e',2)],
+      names = ['n','v']))
+```
+
+##### Reshaping Data
+
+- [df_new = df.copy() vs df_new = df](https://www.geeksforgeeks.org/python-difference-between-pandas-copy-and-copying-through-variables/)
+- [to_datetime] converts string to DateTime type
+- [Merges()](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
+
+```py
+# Gather columns into rows
+pd.melt(df)
+
+# Spread rows into columns
+pd.pivot(columns='vars', values='val')
+
+# Append rows of DataFrames
+pd.concat([df1,df2])
+
+# Append columns of DataFrames
+pd.concat([df1,df2],axis=1)
+
+# Combine dataframes
 df3 = df1.append(df2, ignore_index=True)
+
 # Merge dataframes
 df_combined = df1.merge(df2, left_on='column_name_df1', right_on='column_name_df2', how='inner')
-# idxmax function that finds the index of the row containing a column's maximum value!
-df.colum_name.idxmax()
+
+# Order rows by values of a column (low to high).
+df.sort_values('col_name')
+
+# Order rows by values of a column (low to high).
+df.sort_values('col_name', ascending=False)
+
+# Rename the columns of DataFrame
+df.rename(columns = {'old_col_name':'new_col_name'})
+
+# Rename all column labels to replace spaces with underscores and convert everything to lowercase. (Underscores can be much easier to work with in Python than spaces. For example, having spaces wouldn't allow you to use df.column_name instead of df['column_name'] to select columns or use query(). Being consistent with lowercase and underscores also helps make column names easy to remember.)
+df.rename(columns=lambda x: x.strip().lower().replace(' ','_'), inplace=True)
+
+# copying a DataFrame or Series
+# Pandas .copy() method is used to create a copy of a Pandas object. Variables are also used to generate copy of an object but variables are just pointer to an object and any change in new data will also change the previous data.
+df2 = df.copy()
+
+# Converts string to datetime object. But CSV will read this column as strings next time the file reopened, unless the it parsed into the CSV file. But pandas to_datetime provides more options than that of CSV.
+df['date_column'] = pd.to_datetime(df['date_column'])
+```
+
+##### Subset Observations (rows)
+
+```py
+# Extract rows that meet logical criteria
+df[df.col_name > 7]
+
+# Returns boolean column, which gives the duplicate TRUE value with escaping the first instance. All rows has to be the same to be identified as duplicate.
+df.duplicated()
+
+# Removes the duplicates (only consider columns) in the dataset and inplace parameter applies the change in the dataset.
+df.drop_duplicates(inplace=True)
+
+# Select first n rows
+df.head(n)
+
+# Select last n rows
+df.tail(n)
+
+# Randomly select fraction of rows
+df.sample(frac=0.5)
+
+# Randomly select n rows
+df.sample(n=10)
+
+
+# Select rows by position
+df.iloc[10:20]
+
+# Select and order top n entries.
+df.nlargest(n, 'value')
+
+# Select and order bottom n entries
+df.nsmallest(n, 'value')
+```
+
+##### Subset Variables (Columns)
+
+- [loc(), iloc()](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html)
+
+```py
+# Select multiple columns with specific names
+df[['col1','col2','col3']]
+
+# Select single column with specific name.
+df['col']
+df.col
+
+# Select columns whose name matches regular expression regex.
+df.filter(regex='regex')
+
+# Select all columns between x2 and x4 (inclusive)
+df.loc[:,'x2':'x4']
+
+# Select columns in positions 1,2 and 5 (first column is 0)
+df.iloc[:,[1,2,5]]
+```
+
+##### Subset row and column
+
+- [loc(), iloc()](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html)
+
+```py
+# Select single value by row and column
+## By Index/Position
+df.iloc[[0],[0]]
+df.iat[[0],[0]] # Get scalar/single value. It's a very fast iloc
+## By Column/Label
+df.loc[[0],['col_name']]
+df.at[[0],['col_name']] # Get scalar/single value. It's a very fast loc
+
+# Select rows meeting logical condition, and only in the specific columns
+df.loc[df['a'] > 10, ['a','c']]
+```
+
+#### Handling Missing Data
+
+```py
+# Drop values from rows
+s.drop(['a','c'])
+
+# Remove rows or columns by specifying label names and corresponding axis, or by specifying directly index or column names. When using a multi-index, labels on different levels can be removed by specifying the level.
+df.drop(labels=None, axis=0, index=None, columns=None, level=None, inplace=False, errors='raise')
+
+# Remove missing values
+df.dropna()
+
+# Fills the missing values with value and if inplace is true it will replace the column with new data.
+df['column_name'].fillna(value, inplace=True)
+
+# Replace all null data with value
+df.fillna(value)
+```
+
+#### Group Data
+
+- All of summary functions can be applied to a group
+- [groupby](https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/)
+
+```py
+# Return a GroupBy object, grouped by values in column 'col'
+df.groupby(by='col')
+
+# Return a GroupBy object, grouped by values in index level named 'ind'
+df.groupby(level='ind')
+
+# Aggregate group using function
+agg(function)
+
 # groupby and aggregate
 df.groupby(['gender','major']).agg(
     total=('student_id', 'count'),
@@ -1192,9 +1430,27 @@ df.groupby(['gender','major']).agg(
     to_males = ('student_id',lambda x : len(x)/df_males.shape[0]),
     admission_rate = ('admitted', 'mean'),
     )
+```
 
-# Get dummy columns with 1,0 encoding for Linear Regression Model, it will return
-pd.get_dummies(df['column_name'])
+#### Sort and Rank
+
+- [CategoricalDtype](https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.api.types.CategoricalDtype.html): to convert the data into an ordered type, the order of categories becomes innate to the feature, and we won't need to specify an "order" parameter each time it's required in a plot.
+
+```py
+# Sort by row or column index
+df.sort_index(by='col_name')
+
+# Sorts by the values along an axis
+df.sort_values(by='Column lable')
+
+# Sorts values by column1 in ascending order
+df.sort_values(column1, ascending=True)
+
+# Sort a series by its values
+s.order()
+
+# Assign ranks to entries
+df.rank()
 
 ## CategoricalDtypes
 # this method requires pandas v0.21 or later
@@ -1206,7 +1462,88 @@ df['cat_var'] = df['cat_var'].astype(ordered_cat)
 #                                      categories = level_order)
 ```
 
-[Python For Data Science Cheat Sheet](Files/Python%20For%20Data%20Science%20Pandas%20Cheat%20Sheet.pdf)
+#### Applying functions
+
+- [apply()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html)
+- [applymap](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.applymap.html?highlight=applymap#pandas.DataFrame.applymap)
+
+```py
+f = lambda x: x*2
+# Apply function
+df.apply(f)
+
+# Apply function element-wise
+df.applymap(f)
+```
+
+#### Plotting
+
+```py
+# Plot Histogram for each column
+df.plot.hist()
+
+# Scatter chrt using pairs of points
+df.plot.scatter(x='w', y='h')
+```
+
+#### Tips and Tricks
+
+```py
+# Get information about a function
+help(pd.Series.loc)
+
+# convert to string and extract the integer using regular expressions
+df['column_name'].str.extract('(\d+)').astype(int)
+
+# get all rows that column_name has values contains (/)
+df[df['column_name'].str.contains('/')]
+
+# View the index number and label for each column
+for i, v in enumerate(df.columns):
+    print(i, v)
+
+# remove "_mean" from column names
+new_labels = []
+for col in df.columns:
+    if '_mean' in col:
+        new_labels.append(col[:-5])  # exclude last 6 characters
+    else:
+        new_labels.append(col)
+# datatypes of columns
+for i, v in enumerate(df.iloc[0,:]):
+    print(df.columns[i],':', type(v))
+
+# make sure they're all identical like this
+(df_08.columns == df_18.columns).all()
+
+# Get dummy columns with 1,0 encoding for Linear Regression Model, it will return
+pd.get_dummies(df['column_name'])
+```
+
+#### Logic in Python
+
+- `<` : Less than
+- `>` : Greater than
+- `==`: Equals
+- `<=`: Less than or equals
+- `>=`: Greater than or equals
+- `!=`: Not equal to
+- `df.column.isna(values)` : Group membership
+- `pd.isnull(obj)` : Is NaN
+- `pd.notnull(obj)`: Is not Nan
+- `&,|,~,^,df.any(),df.all()` : Logical and, or, not, xor, any, all
+
+#### Regular Expressions Examples
+
+- `'\.'` : Matches strings containg a period '.'
+- `'Length$'` : Matches string ending with word 'Length'
+- `'^Sepal'` : Matches string beginning with word 'Sepal'
+- `'^x[1-5]$` : Matches strings beginning with 'x' and ending with 1,2,3,4,5
+- `'^(?!Species$).*'` : Matches strings except the string 'Species'
+
+#### Pandas References
+
+[Python For Data Science Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
 
 ### Matplotlib
 
