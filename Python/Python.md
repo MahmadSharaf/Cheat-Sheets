@@ -29,7 +29,10 @@
     - [Pandas](#pandas)
       - [Pandas methods and functions](#pandas-methods-and-functions)
     - [Matplotlib](#matplotlib)
+    - [Seaborn](#seaborn)
     - [Resources](#resources)
+  - [Machine Learning](#machine-learning)
+    - [StatsModels](#statsmodels)
   - [Conventions](#conventions)
   - [Handful resources](#handful-resources)
 
@@ -1045,12 +1048,13 @@ Create a file for CRUD operation
 
 #### NumPy Modules
 
-1. Random Sampling: it helps to simulate random events like coin flips.
-   1. [Randint(low = 0, high, size)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.randint.html?highlight=randint#numpy.random.randint): it generates a list of [size] numbers and each element value can be any value between [low] and [high-1].
-   2. [Choice(a, size, replace=True, p=None)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html?highlight=choice#numpy.random.choice): generates a random sample of size [size] from given 1-D array [a] and [p] is the probability of each value in [a]. [replace] is for bootstraping, as whether values could be chosen more than once or not.
-   3. [Binomial(n,p,size=None)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.binomial.html?highlight=binomial#numpy.random.binomial): Draw samples from a binomial distribution, Samples are drawn from a binomial distribution with specified parameters, n trials and p probability of success where n an integer >= 0 and p is in the interval [0,1]. (n may be input as a float, but it is truncated to an integer in use)
+1. Random: it helps to simulate random events like coin flips.
+   1. [randint(low = 0, high, size)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.randint.html?highlight=randint#numpy.random.randint): it generates a list of [size] numbers and each element value can be any value between [low] and [high-1].
+   2. [choice(a, size, replace=True, p=None)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html?highlight=choice#numpy.random.choice): generates a random sample of size [size] from given 1-D array [a] and [p] is the probability of each value in [a]. [replace] is for bootstraping, as whether values could be chosen more than once or not.
+   3. [binomial(n,p,size=None)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.binomial.html?highlight=binomial#numpy.random.binomial): Draw samples from a binomial distribution, Samples are drawn from a binomial distribution with specified parameters, n trials and p probability of success where n an integer >= 0 and p is in the interval [0,1]. (n may be input as a float, but it is truncated to an integer in use)
    4. seed
    5. gamma
+   6. [normal(loc=0.0, scale=1.0, size=None)](https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.random.normal.html): Draw random samples from a normal (Gaussian) distribution. [loc] is the center point, [scale] is the standard deviation, [size] is the number of sampling points.
 
    ```py
    import numpy as py
@@ -1067,15 +1071,18 @@ Create a file for CRUD operation
    (np.random.randint(2,size=10)==0).sum()
    # 5
    # The below will give the results of the above test 1000 times
-   np.random.binomial(n=10, p=.5, 1000)
+   np.random.binomial(n=10, p=.5, size=1000)
    # result of flipping a coin 10 times, tested 1000 times.
+
+   np.random.normal(70,std,10000)
+   # returns a normal distribution of 10000 sample with center at 70 and has 2.5 wide spread.
    ```
 
 [Python For Data Science NumPy Cheat Sheet](files/Python%20For%20Data%20Science%20NumPy%20Cheat%20Sheet.pdf)
 
 ### Pandas
 
-- It gives Data Frames that are great data structures objects, that can manipulate and analyze data.
+- It gives Data Frames that are great data structures objects, that can manipulate and analyze data. It also includes some convenient methods for visualizing data that hook into matplotlib.
 
 #### Pandas methods and functions
 
@@ -1088,7 +1095,8 @@ Create a file for CRUD operation
 - [Merges()](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
 - [idxmax](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.idxmax.html)
 - [groupby](https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/)
-
+- [to_datetime] converts string to DateTime type
+- [CategoricalDtype](https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.api.types.CategoricalDtype.html): to convert the data into an ordered type, the order of categories becomes innate to the feature, and we won't need to specify an "order" parameter each time it's required in a plot.
 
 ```py
 import pandas as pd
@@ -1129,7 +1137,7 @@ df.quantile(0.5)
 # Fills the missing values with value and if inplace is true it will replace the column with new data.
 df['column_name'].fillna(value, inplace=True)
 # Count of Null values in each column
-df_08.isna().sum()
+df.isna().sum()
 # returns boolean column, which gives the duplicate TRUE value with escaping the first instance. All rows has to be the same to be identified as duplicate.
 df.duplicated()
 # removes the duplicates in the dataset and inplace parameter applies the change in the dataset.
@@ -1184,13 +1192,25 @@ df.groupby(['gender','major']).agg(
     to_males = ('student_id',lambda x : len(x)/df_males.shape[0]),
     admission_rate = ('admitted', 'mean'),
     )
+
+# Get dummy columns with 1,0 encoding for Linear Regression Model, it will return
+pd.get_dummies(df['column_name'])
+
+## CategoricalDtypes
+# this method requires pandas v0.21 or later
+level_order = ['Alpha', 'Beta', 'Gamma', 'Delta']
+ordered_cat = pd.api.types.CategoricalDtype(ordered = True, categories = level_order)
+df['cat_var'] = df['cat_var'].astype(ordered_cat)
+# # use this method if you have pandas v0.20.3 or earlier
+# df['cat_var'] = df['cat_var'].astype('category', ordered = True,
+#                                      categories = level_order)
 ```
 
 [Python For Data Science Cheat Sheet](Files/Python%20For%20Data%20Science%20Pandas%20Cheat%20Sheet.pdf)
 
 ### Matplotlib
 
-- It is a package for builiding visualizations from your data. It can make many kinds of simple plots with tiny amounts of codes, but also create a professional looking figures.
+- It is a package for builiding visualizations from your data. It can make many kinds of simple plots with tiny amounts of codes, but it can take some code effort to  create a professional looking figures.
 - [Magic words](https://ipython.readthedocs.io/en/stable/interactive/magics.html)
 
 ```py
@@ -1224,16 +1244,68 @@ plt.xticks(np.arange(min(x), max(x)+1, 1.0))
 # HeatMap Seaborn
 sn.heatmap(df.corr(), annot=True)
 plt.show
+# Draw a vertical line
+plt.axvline(x=x_value, color='r');
 ```
 
 - [Python For Data Science MatPlotLib Cheat Sheet](Files/Python%20For%20Data%20Science%20MatPlotLib%20Cheat%20Sheet.pdf)
 - [How to rotate axis lables in seaborn and matplotlib](https://www.drawingfromdata.com/how-to-rotate-axis-labels-in-seaborn-and-matplotlib)
+
+### Seaborn
+
+- It is built on top of matplotlib, adds a number of functions to make common statistical visualizations easier to generate.
+- [ScatterPlot Matrix](https://seaborn.pydata.org/examples/scatterplot_matrix.html)
+- [countplot](https://seaborn.pydata.org/generated/seaborn.countplot.html): Draws a basic bar chart of frequencies for categorical variables. By default, each category is given a different color.
+- [color_palette](https://seaborn.pydata.org/generated/seaborn.color_palette.html): returns a list of RGB tuples. Each tuple consists of three digits specifying the red, green, and blue channel values to specify a color. Calling this function without any parameters returns the current / default palette.
+
+   ```py
+   import seaborn as sb
+
+   # HeatMap Seaborn
+   sn.heatmap(df.corr(), annot=True)
+   plt.show
+
+   # It shows the relationship between each of the given variables
+   sb.pairplot(df[['A','B','C']], hue='A')
+
+   # countplot Draws a bar chart for categorical variables. By default, each category is given a different color. we take the first color to be the color for all bars.
+   base_color = sb.color_palette()[0]
+   cat_order = df['col_name'].value_counts().index
+   sb.countplot(data = df, x = 'col_name', color = base_color, order = cat_order)
+   ```
 
 ### Resources
 
 - [Python for data analysis](http://www.ruxizhang.com/uploads/4/4/0/2/44023465/python_for_data_analysis.pdf)
 - [NumPy and Pandas by Udacity](https://classroom.udacity.com/courses/ud170)
 - [How to rotate x-lables](https://kite.com/python/answers/how-to-rotate-date-ticks-using-matplotlib-in-python#:~:text=Use%20matplotlib.,specified%20amount%20of%20degrees%20degrees%20) and [here](https://www.drawingfromdata.com/how-to-rotate-axis-labels-in-seaborn-and-matplotlib)
+
+## Machine Learning
+
+### StatsModels
+
+1. Linear Regression:
+   1. First you need to add an intercept column to the dataset as statsmodels doesn't add it at its own.
+   2. Then provide y and x variables to [OLS model](http://www.statsmodels.org/dev/regression.html)
+   3. Fit the model
+   4. Interpret the linear Model results with summary(). It shows the intercept and the slope, p-values, R-squared values.
+
+   ```py
+   import statsmodels.api as sm
+
+   # Add intercept column to the dataset
+   df['intercept'] = 1
+   # Here providing OLS method for x and y variables.
+   # OLS stands for Ordinary Least Squares. It used for Linear Regression
+   # sm.OLS(y, list(x-variables))
+   lm = sm.OLS(df['price'],df[['intercept','area']])
+   # Logit is used for Logistc Regression
+   lm = sm.Logit(df['price'],df[['intercept','area']])
+   # Fit the model with fit()
+   results = lm.fit()
+   # Show results summary
+   results.summary()
+   ```
 
 ## Conventions
 
