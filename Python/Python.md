@@ -51,6 +51,14 @@
       - [Pandas References](#pandas-references)
     - [Matplotlib](#matplotlib)
     - [Seaborn](#seaborn)
+      - [Import seaborn library](#import-seaborn-library)
+      - [Basic Steps for creating plots with Seaborn](#basic-steps-for-creating-plots-with-seaborn)
+        - [Step 1: Prepare the data](#step-1-prepare-the-data)
+        - [Step 2: Figure Aesthetics](#step-2-figure-aesthetics)
+        - [Step 3: Plotting](#step-3-plotting)
+        - [Step 4: Further Customizations](#step-4-further-customizations)
+        - [Step 5: Show, Save, Close](#step-5-show-save-close)
+      - [Seaborn References](#seaborn-references)
     - [Resources](#resources)
   - [Machine Learning](#machine-learning)
     - [StatsModels](#statsmodels)
@@ -1595,11 +1603,14 @@ plt.axvline(x=x_value, color='r');
 - [countplot](https://seaborn.pydata.org/generated/seaborn.countplot.html): Draws a basic bar chart of frequencies for categorical variables. By default, each category is given a different color.
 - [color_palette](https://seaborn.pydata.org/generated/seaborn.color_palette.html): returns a list of RGB tuples. Each tuple consists of three digits specifying the red, green, and blue channel values to specify a color. Calling this function without any parameters returns the current / default palette.
 
+#### Import seaborn library
+
    ```py
-   import seaborn as sb
+   import matplotlib.pyplot as plt
+   import seaborn as sns
 
    # HeatMap Seaborn
-   sn.heatmap(df.corr(), annot=True)
+   sb.heatmap(df.corr(), annot=True)
    plt.show
 
    # It shows the relationship between each of the given variables
@@ -1610,6 +1621,244 @@ plt.axvline(x=x_value, color='r');
    cat_order = df['col_name'].value_counts().index
    sb.countplot(data = df, x = 'col_name', color = base_color, order = cat_order)
    ```
+
+#### Basic Steps for creating plots with Seaborn
+
+##### Step 1: Prepare the data
+
+```py
+# Seaborn offers built-in data sets
+titanic = sns.load_dataset("titanic")
+iris = sns.load_dataset("iris")
+```
+
+##### Step 2: Figure Aesthetics
+
+```py
+# Create a figure and one subplot
+f, ax = plt.subplots(figsize=(5,6)
+```
+
+- Seaborn styles:
+
+```py
+# (Re)set the seaborn default
+sns.set()
+
+# Set the matplotlib parameters
+sns.set_style("whitegrid")
+
+# Set the matplotlib parameters
+sns.set_style("ticks",
+               {"xtick.major.size":8,"ytick.major.size":8})
+
+# Return a dict of params or use `with` to temporarily set the style
+sns.axes_style("whitegrid")
+```
+
+- Context Functions
+
+```py
+# Set context to "talk"
+sns.set_context("talk")
+
+# Set context to "notebook", scale font elements and override param mapping
+sns.set_context("notebook", t_scale=1.5, rc={"lines.linewidth":2.5})
+```
+
+- Color Palette
+
+```py
+# Define the color palette
+sns.set_palette("husl",3)
+
+# Use with `with` to temporarily set palette
+sns.color_palette("husl")
+
+# Set your own color palette
+flatui = ["#9b59b6","#3498db","#95a5a6","#e74c3c","#34495e","#2ecc71"]
+sns.set_palette(flatui)
+```
+
+##### Step 3: Plotting
+
+- Axis Grids
+
+```py
+# Subplot grid for plotting conditional relationships
+g = sns.FacetGrid(titanic, col="survived", row="gender")
+g = g.map(plt.hist,"age")
+
+# Draw a categorical plot onto a Facetgrid
+sns.factorplot(x="pclass", y="survived", hue="gender", data=titanic)
+
+# Plot data and regression model fits across a FacetGrid
+sns.lmplot(x="sepal_width", y="sepal_length", hue="species", data=iris)
+
+# Subplot grid for plotting pairwise relationships
+h = sns.PairGrid(iris)
+h = h.map(plt.scatter)
+
+# Plot pairwise bivariate distributions
+sns.pairplot(iris)
+
+# Grid for bivariate plot with marginal univariate plots
+i = sns.JointGrid(x="x", y="y", data=data)
+i = i.plot(sns.regplot, sns.distplot)
+
+# Plot bivariate distribution
+sns.jointplot("sepal_length", "sepal_width", data=iris, kind='kde')
+```
+
+- Categorical Plots
+
+1. Scatterplot
+
+   ```py
+   ## Scatterplot
+   # Scatterplot with one categorical variable
+   sns.stripplot(x="species", y="petal_length", data=iris)
+
+   # Categorical scatterplot with non-overlapping points
+   sns.swarmplot(x="species", y="petal_length", data=iris)
+   ```
+
+2. Bar Chart
+
+   ```py
+   # Show point estimates andconfidence intervals with scatterplot glyphs
+   sns.barplot(x="gender", y="survived", hue="class", data=titanic)
+   ```
+
+3. Count Plot
+
+   ```py
+   # Show count of observations
+   sns.countplot(x="deck", data=titanic, palette="Greens_d")
+   ```
+
+4. Point Plot
+
+   ```py
+   # Show point estimates and confidence intervals as rectangular bars
+   sns.pointplot(x="class", y="survived", hue="gender", data=titanic, palette={"male":"g", "female":"m"}, markers=["^","o"], linestyles=["-","--"])
+   ```
+
+5. Boxplot
+
+   ```py
+   # Boxplot
+   sns.boxplot(x="alive", y="age", hue="adult_male", data=titanic)
+
+   # Boxplot with wide-form data
+   sns.boxplot(data=iris,orient="h")
+   ```
+
+6. Violinplot
+
+   ```py
+   # Violin plot
+   sns.violinplot(x="age", y="gender", hue="survived", data=titanic)
+   ```
+
+- Regression Plots
+
+```py
+# Plot data and a linear regression model fit
+sns.regplot(x="sepal_width", y="sepal_length", data=iris, ax=ax)
+```
+
+- Distribution Plots
+
+```py
+# Plot univariate distribution
+plot = sns.distplot(data.y, kde=False, color="b")
+```
+
+- Matrix Plots
+
+```py
+# Heatmap
+sns.heatmap(uniform_data,vmin=0,vmax=1)
+```
+
+##### Step 4: Further Customizations
+
+- Axisgrid Objects
+
+```py
+# Remove left spine
+g.despine(left=True)
+
+# Set the labels of the y-axis
+g.set_ylabels("Survived")
+
+# Set the tick labels for x
+g.set_xticklabels(rotation=45)
+
+# Set the axis labels
+g.set_axis_labels("Survived", "gender")
+
+# Set the limit and ticks of the x-and y-axis
+h.set(xlim=(0,5), ylim=(0,5), xticks=[0,2.5,5], yticks=[0,2.5,5])
+```
+
+- Plot
+
+```py
+# Add plot title
+plt.title("A Title")
+
+# Adjust the label of the y-axis
+plt.ylabel("Survived")
+
+# Adjust the label of the x-axis
+plt.xlabel("gender")
+
+# Adjust the limits of the y-axis
+plt.ylim(0,100)
+
+# Adjust the limits of the x-axis
+plt.xlim(0,10)
+
+# Adjust a plot property
+plt.setp(ax,yticks=[0,5])
+
+# Adjust subplot params
+plt.tight_layout()
+```
+
+##### Step 5: Show, Save, Close
+
+- Show or Save Plot
+
+```py
+# Show the plot
+plt.show()
+
+# Save the plot as a figure
+plt.savefig("foo.png")
+
+# Save transparent figure
+plt.savefig("foo.png", transparent=True)
+```
+
+- Close & Clear
+
+```py
+# Clear an axis
+plt.cla()
+
+# Clear an entire figure
+plt.clf()
+
+# Close a window
+plt.close()
+```
+
+#### Seaborn References
+
+- [DataCamp Cheat Sheet](https://www.datacamp.com/community/blog/seaborn-cheat-sheet-python)
 
 ### Resources
 
