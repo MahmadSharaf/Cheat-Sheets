@@ -8,9 +8,9 @@
     - [Step 4: Draw conclusions (or even make predictions)](#step-4-draw-conclusions-or-even-make-predictions)
     - [Step 5: Communicate your results (Share)](#step-5-communicate-your-results-share)
   - [Data Types](#data-types)
-    - [1. Quantitative data](#1-quantitative-data)
+    - [1. Quantitative or numeric types](#1-quantitative-or-numeric-types)
       - [Continuous vs. Discrete](#continuous-vs-discrete)
-    - [2. Categorical data](#2-categorical-data)
+    - [2. Qualitative or categorical types (non-numeric types)](#2-qualitative-or-categorical-types-non-numeric-types)
       - [Categorical Ordinal vs. Categorical Nominal](#categorical-ordinal-vs-categorical-nominal)
     - [Quantitative vs. Categorical](#quantitative-vs-categorical)
   - [Descriptive vs. Inferential Statistics](#descriptive-vs-inferential-statistics)
@@ -77,7 +77,7 @@
   - [Machine Learning](#machine-learning)
     - [1. Supervised Machine Learning](#1-supervised-machine-learning)
       - [1.1 Simple Linear Regression](#11-simple-linear-regression)
-        - [**Scatter plots**](#scatter-plots)
+        - [Scatter plots](#scatter-plots)
         - [Correlation Coefficient](#correlation-coefficient)
         - [Linear Regression Line](#linear-regression-line)
         - [Hypothesis P-Values](#hypothesis-p-values)
@@ -101,9 +101,15 @@
   - [Data Visualization](#data-visualization)
     - [Summary Statistics vs. Visualizations](#summary-statistics-vs-visualizations)
     - [Exploratory vs Explanatory](#exploratory-vs-explanatory)
+    - [The Four Levels of Measurement](#the-four-levels-of-measurement)
     - [Univariate analysis](#univariate-analysis)
     - [Bivariate analysis](#bivariate-analysis)
     - [More than two variables](#more-than-two-variables)
+    - [Visualization Techniques](#visualization-techniques)
+      - [Absolute vs. Relative Frequency:](#absolute-vs-relative-frequency)
+      - [Counting Missing Data](#counting-missing-data)
+      - [Descriptive Statistics, Outliers, and Axis Limits](#descriptive-statistics-outliers-and-axis-limits)
+      - [Scales and Transformations](#scales-and-transformations)
     - [Helpful resources](#helpful-resources)
   - [Communicating with data](#communicating-with-data)
     - [Visuals can be bad if](#visuals-can-be-bad-if)
@@ -142,22 +148,27 @@ You often need to justify and convey meaning in the insights you’ve found. Or,
 
 ## Data Types
 
-There are two types of data Quantitative and Categorical:
+There are two types of data, Quantitative and Categorical:
 
-### 1. Quantitative data
+### 1. Quantitative or numeric types
 
 It takes on numeric values that allow us to perform mathematical operations (like the number of dogs).
 
-We can think of quantitative data as being either continuous or discrete.
+- **Interval data**: numeric values where absolute differences are meaningful (addition and subtraction operations can be made)
+- **Ratio data**: numeric values where relative differences are meaningful (multiplication and division operations can be made)
 
-- **Continuous** data can be split into smaller and smaller units, and still a smaller unit exists. An example of this is the age of the dog - we can measure the units of the age in years, months, days, hours, seconds, but there are still smaller units that could be associated with the age.
-- **Discrete** data only takes on countable values. The number of dogs we interact with is an example of a discrete data type.
+  All quantitative-type variables also come in one of two varieties: discrete and continuous.
+
+  All quantitative-type variables also come in one of two varieties. We can think of quantitative data as being either continuous or discrete.
+
+  - **Continuous** data can be split into smaller and smaller units, and still a smaller unit exists. An example of this is the age of the dog - we can measure the units of the age in years, months, days, hours, seconds, but there are still smaller units that could be associated with the age.
+  - **Discrete** data only takes on countable values. The number of dogs we interact with is an example of a discrete data type.
 
 #### Continuous vs. Discrete
 
 To consider if we have continuous or discrete data, we should see if we can split our data into smaller and smaller units. Consider **time** - we could measure an event in years, months, days, hours, minutes, or seconds, and even at seconds we know there are smaller units we could measure time in. Therefore, we know this data type is continuous. **Height**, **age**, and **income** are all examples of **_continuous_** data. Alternatively, the number of **pages** in a **book**, **dogs** I count outside a **coffee shop**, or **trees** in a yard are **_discrete_** data. We would not want to split our dogs in half.
 
-### 2. Categorical data
+### 2. Qualitative or categorical types (non-numeric types)
 
 They are used to label a group or set of items (like dog breeds - Collies, Labs, Poodles, etc.).
 
@@ -165,8 +176,8 @@ They are used to label a group or set of items (like dog breeds - Collies, Labs,
 
 We can divide categorical data further into two types: Ordinal and Nominal.
 
-- **Categorical Ordinal** data take on a ranked ordering (like a ranked interaction on a scale from Very Poor to Very Good with the dogs).
-- **Categorical Nominal** data do not have an order or ranking (like the breeds of the dog).
+- **Categorical Ordinal** labels with an intrinsic order or ranking (comparison operations can be made between values, but the magnitude of differences are not be well-defined). Data take on a ranked ordering (like a ranked interaction on a scale from Very Poor to Very Good with the dogs).
+- **Categorical Nominal** pure labels without inherent order (no label is intrinsically greater or less than any other). Data do not have an order or ranking (like the breeds of the dog).
 
 In looking at categorical variables, we found **Gender**, **Marital Status**, **Zip Code** and your **Breakfast items** are **_nominal variables_** where there is no order ranking associated with this type of data. Whether you ate cereal, toast, eggs, or only coffee for breakfast; there is no rank ordering associated with your breakfast.  
 Alternatively, the **Letter Grade** or **Survey Ratings** have a rank ordering associated with it, as **_ordinal_** data. If you receive an A, this is higher than an A-. An A- is ranked higher than a B+, and so on... **_Ordinal variables_** frequently occur on rating scales from very poor to very good. In many cases we turn these ordinal variables into numbers, as we can more easily analyze them.
@@ -889,7 +900,7 @@ In simple linear regression, we compare two quantitative variables to one anothe
 
 The response variable is what you want to predict, while the explanatory variable is the variable you use to predict the response. A common way to visualize the relationship between two variables in linear regression is using a scatterplot.
 
-##### **Scatter plots**
+##### Scatter plots
 
 Scatter plots are a common visual for comparing two quantitative variables. A common summary statistic that relates to a scatter plot is the correlation coefficient commonly denoted by r.
 
@@ -1150,6 +1161,14 @@ The [article](https://www.digitalocean.com/community/tutorials/sqlite-vs-mysql-v
 
 ## Data Visualization
 
+It is expected that the data is organized in some kind of tidy format. In short, a [tidy dataset](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) is a tabular dataset where:
+
+- Each variable is a column
+- Each observation is a row
+- Each type of observational unit is a table
+
+This is also not to say that tidy data is the only useful form that data can take. In fact, as you work with a dataset, you might need to summarize it in a non-tidy form in order to generate appropriate visualizations.
+
 ### Summary Statistics vs. Visualizations
 
 - Summary statistics like the mean and standard deviation can be great for attempting to quickly understand aspects of a dataset, but they can also be misleading if you make too many assumptions about how the data distribution looks.
@@ -1174,14 +1193,78 @@ The five steps of the data analysis process:
 
 What visualization to use, doesn't depend only on the data type but also on how many columns needed to be in a single plot. The key to building great data visualizations is in aiming them at answering the questions you want answered.
 
+### The Four Levels of Measurement
+
+In order to choose an appropriate plot type or method of analysis for your data, you need to understand the types of data you have. One common method divides the data into four levels of measurement:
+
+Qualitative or categorical types (non-numeric types):
+
+- 1.**Nominal data**: pure labels without inherent order (no label is intrinsically greater or less than any other).
+- 2.**Ordinal data**: labels with an intrinsic order or ranking (comparison operations can be made between values, but the magnitude of differences are not be well-defined)
+
+Quantitative or numeric types:
+
+- 3.**Interval data**: numeric values where absolute differences are meaningful (addition and subtraction operations can be made)
+- 4.**Ratio data**: numeric values where relative differences are meaningful (multiplication and division operations can be made)
+
+  All quantitative-type variables also come in one of two varieties: discrete and continuous.
+
+  - **Discrete** quantitative variables can only take on a specific set values at some maximum level of precision.
+  - **Continuous** quantitative variables can (hypothetically) take on values to any level of precision.
+
+Distinguishing between continuous and discrete can be a little tricky – a rule of thumb is if there are few levels, and values can't be subdivided into further units, then it's discrete. Otherwise, it's continuous.
+
 ### Univariate analysis
 
-When one column will be displayed in the plot.
+When one column/variable will be displayed in the plot.
 
 1. Quantitative data:
    - Histogram:  
    ![Example](Images/Histogram.png)  
-   It is the most popular and there are rare cases that might not be used.
+      - It is the most popular and there are rare cases that might not be used.
+      - A histogram is used to plot the distribution of a numeric variable. It's the quantitative version of the bar chart. However, rather than plot one bar for each unique numeric value, values are grouped into continuous bins, and one bar for each bin is plotted depicting the number. For instance, using the default settings for matplotlib's hist function: `plt.hist(data = df, x = 'num_var')`
+      - The direct adjacency of the bars in the histogram, in contrast to the separated bars in a bar chart, emphasize the fact that the data takes on a continuous range of values.
+      - When a data value is on a bin edge, it is counted in the bin to its right. The exception is the rightmost bin edge, which places data values equal to the uppermost limit into the right-most bin (to the upper limit's left).
+      - You can use descriptive statistics (e.g. via `df['num_var'].describe()`) to gauge what minimum and maximum bin limits might be appropriate for the plot. These bin edges can be set using numpy's `arange` function:
+
+        ```py
+        bin_edges = np.arange(0, df['num_var'].max()+1, 1)
+        plt.hist(data = df, x = 'num_var', bins = bin_edges)
+        ```
+
+        The first argument to `arange` is the leftmost bin edge, the second argument the upper limit, and the third argument the bin width. Note that even though I've specified the "max" value in the second argument, I've added a "+1" (the bin width). That is because `arange` will only return values that are strictly less than the upper limit. Adding in "+1" is a safety measure to ensure that the rightmost bin edge is at least the maximum data value, so that all of the data points are plotted.
+      - When creating histograms, it's useful to play around with different bin widths to see what represents the data best.
+      - Since data points fall on set values, it can help to reduce ambiguity by **putting bin edges between the actual values** taken by the data.
+      - It can also possible to add gaps between bars. By adding `rwidth` parameter to set the proportion of the bin widths that will be filled by each histogram bar. With `rwidth` set to 0.7, the bars will take up 70% of the space allocated by each bin, with 30% of the space left empty. `plt.hist(die_rolls, bins = bin_edges, rwidth = 0.7`. **For continuous numeric data, you should not make use of the "rwidth" parameter, since the gaps imply discreteness of value**.
+      - `countplot` shouldn't be used to plot discrete values, since each unique numeric value will get a bar, regardless of the spacing in values between bars. (For example, if the unique values were {1, 2, 4, 5}, missing 3, countplot would only plot four bars, with the bars for 2 and 4 right next to one another.) 
+
+   - **Kernel Density Estimation**: is one way of estimating the probability density function of a variable. In a KDE plot, you can think of each observation as replaced by a small ‘lump’ of area. Stacking these lumps all together produces the final density curve. The default settings use a normal-distribution kernel, but most software that can produce KDE plots also include other kernel function options.
+
+      ![KDE Chart](Images/kde-chart.png)
+
+      ```py
+      data = [0.0, 3.0, 4.5, 8.0]
+      plt.figure(figsize = [12, 5])
+
+      # left plot: showing kde lumps with the default settings
+      plt.subplot(1, 3, 1)
+      sb.distplot(data, hist = False, rug = True, rug_kws = {'color' : 'r'})
+
+      # central plot: kde with narrow bandwidth to show individual probability lumps
+      plt.subplot(1, 3, 2)
+      sb.distplot(data, hist = False, rug = True, rug_kws = {'color' : 'r'}, kde_kws = {'bw' : 1})
+
+      # right plot: choosing a different, triangular kernel function (lump shape)
+      plt.subplot(1, 3, 3)
+      sb.distplot(data, hist = False, rug = True, rug_kws = {'color' : 'r'}, kde_kws = {'bw' : 1.5, 'kernel' : 'tri'})
+      ```
+
+      ![KDE](Images/kde-tri-plot.png)
+
+      Despite the fact that making specific probability judgments are not as intuitive with KDE plots as histograms, there are still reasons to use kernel density estimation. If there are relatively few data points available, KDE provides a smooth estimate of the overall distribution of data. These ideas may not be so easily conveyed through histograms, in which the large discreteness of jumps may end up misleading.
+
+      It should also be noted that there is a bandwidth parameter in KDE that specifies how wide the density lumps are. Similar to bin width for histograms, we need to choose a bandwidth size that best shows the signal in the data. A too-small bandwidth can make the data look noisier than it really is, and a too-large bandwidth can smooth out useful features that we could use to make inferences about the data.
+
    - Normal Quantile Plot  
    ![Example](Images/Normal%20Quantile%20Chart.png)  
    - Stem and Leaf Plot  
@@ -1192,11 +1275,194 @@ When one column will be displayed in the plot.
 2. Categorical data:
    - Bar Chart:
    ![Example](Images/Bar%20Chart.png)  
-    It is like the histogram but the bins are determined based on a set category not on a range that the chart creator can change. Ordinal categorical are better to be used with Bar Chart.
+    It is like the histogram but the bins are determined based on a set category not on a range that the chart creator can change. Ordinal categorical are better to be used with Bar Chart. A basic bar chart of frequencies can be created through the use of seaborn's countplot function. By default, each category is given a different color. Otherwise, it's a good idea to simplify the plot and reduce unnecessary distractions by plotting all bars in the same color.  
+    This can be set using the "color" parameter:
+
+      ```py
+      base_color = sns.color_palette()[0]
+      col_order = df['col_name'].value_counts().index
+      sns.countplot(data = df, x = 'col_name', color = base_color, order = col_order)
+      ```
+
+      For nominal-type data, it is common to sort the data in terms of frequency. While, for ordinal-type data, it is sorted in order of the variables. The best thing for us to do in this case is to convert the column into an ordered categorical data type. By default, pandas reads in string data as object types, and will plot the bars in the order in which the unique values were seen. By converting the data into an ordered type, the order of categories becomes innate to the feature, and we won't need to specify an "order" parameter each time it's required in a plot
+
+      ```py
+      # this method requires pandas v0.21 or later
+      level_order = ['Alpha', 'Beta', 'Gamma', 'Delta']
+      ordered_cat = pd.api.types.CategoricalDtype(ordered = True,categories = level_order)
+      df['cat_var'] = df['cat_var'].astype(ordered_cat)
+
+      # # use this method if you have pandas v0.20.3 or earlier
+      # df['cat_var'] = df['cat_var'].astype('category', ordered = True,
+      #                                      categories = level_order)
+
+       base_color = sb.color_palette()[0]
+       sb.countplot(data = df, x = 'cat_var', color = base_color)
+      ```
+
+      If you have a lot of category levels, or the category names are long, then you might end up with overcrowding of the tick labels. One way to address this is through creation of a horizontal bar chart. In a horizontal bar chart, it is the length of each bar that indicates frequency, rather than the height. In the code, instead of setting the data or variable on the "x" parameter, you can set the variable to be plotted on the parameter "y":
+
+      ```py
+      base_color = sb.color_palette()[0]
+      sb.countplot(data = df, y = 'cat_var', color = base_color)
+      ```
+
+      Alternatively, you can use matplotlib's xticks function and its "rotation" parameter to change the orientation in which the labels will be depicted (as degrees counter-clockwise from horizontal):
+
+      ```py
+      base_color = sb.color_palette()[0]
+      sb.countplot(data = df, x = 'cat_var', color = base_color)
+      plt.xticks(rotation = 90)
+      ```
+
    - Pie Chart
-   ![Example](Images/Pie%20Chart.png)  
-   - Pareto Chart: are essentially just bar charts where the bars are in the order from the most frequent to the least frequent.
-   ![Example](Images/Pareto%20Chart.png)  
+   ![Example](Images/Pie%20Chart.png)
+
+      - A pie chart is a common univariate plot type that is used to depict relative frequencies for levels of a categorical variable.
+      - Pie charts are a fairly limited plot type in the range of scenarios where they can be used.
+      - There are certain guidelines for using Pie Chart:
+        - Make sure that your interest is in relative frequencies.
+        - Areas should represent parts of a whole, rather than measurements on a second variable (unless that second variable can logically be summed up into some whole).
+        - A pie chart works best with two or three slices, though it's also possible to plot with four or five slices as long as the wedge sizes can be distinguished.
+        - Plot the data systematically. One typical method of plotting a pie chart is to start from the top of the circle, then plot each categorical level clockwise from most frequent to least frequent.
+        - If you have three categories and are interested in the comparison of two of them, a common plotting method is to place the two categories of interest on either side of the 12 o'clock direction, with the third category filling in the remaining space at the bottom.
+      - You can create a pie chart with matplotlib's pie function. This function requires that the data be in a summarized form: the primary argument to the function will be the wedge sizes.
+
+        ```py
+        sorted_counts = df['cat_var'].value_counts()
+        plt.pie(sorted_counts, labels = sorted_counts.index, startangle = 90, counterclock = False);
+        plt.axis('square')
+        ```
+
+        The axis function call and 'square' argument makes it so that the scaling of the plot is equal on both the x- and y-axes. Without this call, the pie could end up looking oval-shaped, rather than a circle.
+
+      - To create a donut plot, you can add a "wedgeprops" argument to the pie function call.
+
+      ```py
+      sorted_counts = df['cat_var'].value_counts()
+      plt.pie(sorted_counts,
+              labels = sorted_counts.index,
+              startangle = 90,
+              counterclock = False,
+              wedgeprops = {'width' : 0.4});
+      plt.axis('square')
+      ```
+
+   - **Waffle Plot**: waffle plot, also known as the square pie chart is plotted onto a square divided into a 10x10 grid. Each small square in the grid represents one percent of the data, and a number of squares are colored by category to indicate total proportions. Compared to a pie chart, it is much easier to make precise assessments of relative frequencies.
+
+     ![waffle plot](Images/waffle.png)
+
+     There's no built-in function for waffle plots in Matplotlib or Seaborn, so we'll need to take some additional steps in order to build one with the tools available. First, we need to create a function to decide how many blocks to allocate to each category. The function below, percentage_blocks, uses a rule where each category gets a number of blocks equal to the number of full percentage points it covers. The remaining blocks to get to the full one hundred are assigned to the categories with the largest fractional parts.
+
+      ```py
+      def percentage_blocks(df, var):
+      """
+      Take as input a dataframe and variable, and return a Pandas series with
+      approximate percentage values for filling out a waffle plot.
+      """
+      # compute base quotas
+      percentages = 100 * df[var].value_counts() / df.shape[0]
+      counts = np.floor(percentages).astype(int) # integer part = minimum quota
+      decimal = (percentages - counts).sort_values(ascending = False)
+
+      # add in additional counts to reach 100
+      rem = 100 - counts.sum()
+      for cat in decimal.index[:rem]:
+          counts[cat] += 1
+
+      return counts
+      ```
+
+      ![function output](Images/l3-c16-waffleplotsa.png)
+
+      Note that if we just rounded the proportions (center), we would round all of them up, ending up with a total of 101 blocks.
+
+      Now it's time to actually plot those counts as boxes in the waffle plot form. To do this, we'll make use of Matplotlib's bar function. We could have used this function earlier in the lesson to create our bar charts instead of Seaborn's countplot, but it would have required us to aggregate the data first to get the height of each bar. For the case of the waffle plot, we're going to specify the x- and y- coordinates of the boxes, and set their widths and heights to be equal, to create squares. The initial plotting code looks like this:
+
+      ```py
+      waffle_counts = percentage_blocks(df, 'cat_var')
+
+      prev_count = 0
+      # for each category,
+      for cat in range(waffle_counts.shape[0]):
+          # get the block indices
+          blocks = np.arange(prev_count, prev_count + waffle_counts[cat])
+          # and put a block at each index's location
+          x = blocks % 10 # use mod operation to get ones digit
+          y = blocks // 10 # use floor division to get tens digit
+          plt.bar(x = x, height = 0.8, width = 0.8, bottom = y)
+          prev_count += waffle_counts[cat]
+      ```
+
+      The blocks are drawn from left to right, bottom to top, using the ones and tens digits for numbers from 0 to 99 to specify the x- and y- positions, respectively. A loop is used to call the bar function once for each category; each time it is called, the plotted bars are assigned a different color.
+
+      ![waffle plot 1](Images/l3-c16-waffleplots1.png)
+
+      The last steps that we need to do involve aesthetic cleaning to polish it up for interpretability. We can take away the plot border and ticks, since they're arbitrary, but we should change the limits so that the boxes are square. We should also add a legend so that the mapping from colors to category levels is clear.
+
+      ```py
+      waffle_counts = percentage_blocks(df, 'cat_var')
+
+      prev_count = 0
+      # for each category,
+      for cat in range(waffle_counts.shape[0]):
+          # get the block indices
+          blocks = np.arange(prev_count, prev_count + waffle_counts[cat])
+          # and put a block at each index's location
+          x = blocks % 10 # use mod operation to get ones digit
+          y = blocks // 10 # use floor division to get tens digit
+          plt.bar(x = x, height = 0.8, width = 0.8, bottom = y)
+          prev_count += waffle_counts[cat]
+
+      # aesthetic wrangling
+      plt.legend(waffle_counts.index, bbox_to_anchor = (1, 0.5), loc = 6)
+      plt.axis('off')
+      plt.axis('square')
+      ```
+
+      The two calls to Matplotlib's axis function make use of two convenience strings for arguments: 'off' removes the axis lines, ticks, and labels, while 'square' ensures that the scaling on each axis is equal within a square bounding box. As for the legend call, the first argument is a list of categories as obtained from the sorted waffle_counts Series variable. This will match each category to each bar call, in order. The "bbox_to_anchor" argument sets an anchor for the legend to the right side of the plot, and "loc = 6" positions the anchor to the center left of the legend. The final plot is as it looks at the top of the page:
+
+      ![waffle plot 2](Images/l3-c16-waffleplots2.png)
+
+      Other variants of the waffle plot exist to extend it beyond just displaying probabilities. By associating each square with an amount rather than a percentage, we can use waffle plots to show absolute frequencies instead. This might cause us to end up with something other than 100 squares.
+
+      ```py
+      # each box represents five full counts
+      waffle_counts = (df['cat_var'].value_counts() / 5).astype(int)
+
+      prev_count = 0
+      # for each category,
+      for cat in range(waffle_counts.shape[0]):
+          # get the block indices
+          blocks = np.arange(prev_count, prev_count + waffle_counts[cat])
+          # and put a block at each index's location
+          x = blocks % 10
+          y = blocks // 10
+          plt.bar(y, 0.8, 0.8, x)
+          prev_count += waffle_counts[cat]
+
+      # box size legend
+      plt.bar(7.5, 0.8, 0.8, 2, color = 'white', edgecolor = 'black', lw = 2)
+      plt.text(8.1, 2.4,'= 5 data points', va = 'center')
+
+      # aesthetic wrangling
+      plt.legend(waffle_counts.index, bbox_to_anchor = (0.8, 0.5), loc = 6)
+      plt.axis('off')
+      plt.axis('square')
+      ```
+
+      In the above code, waffle_counts has been adjusted so that each box represents 5 data points. Most of the code is the same as before, though it should be noted that the x and y variables have been swapped in the bar function so that the boxes are plotted in columns from left to right. Additional bar and text calls have been added to the plot to act as an ad hoc legend. The positions of these elements, and the legend, have been adjusted manually through some trial and error to improve the aesthetic appeal. Note that this constitutes more of an explanatory polishing than it is a part of exploration!
+
+      ![waffle plot 3](Images/l3-c16-waffleplots4.png)
+
+      As a further extension, there's no restriction against us using icons for each tally, rather than just squares. Infographics often take this approach, by having each icon represent some number of units (e.g. one person icon representing one million people). But while it can be tempting to use icons to represent values as a bit of visual flair, an icon-based plot contains more chart junk than a bar chart that conveys the same information. There’s a larger cognitive challenge in having to count a number of icons to understand the scale of a value, compared to just referencing a box's endpoint on a labeled axis.
+
+      One other downside of the waffle plot is that it is not commonly supported out of the box for most visualization libraries, including Matplotlib and Seaborn. The length of the demonstration code presented above is a testament to that. The effort required to create a meaningful and useful waffle plot means that it is best employed carefully as a part of explanatory visualizations. During the exploratory phase, you're better off using more traditional plots like the bar chart to more rapidly build your understanding of the data.
+
+      You don't actually need to go through all of the code wrangling shown above to create waffle plots in Python. The [PyWaffle](https://github.com/ligyxy/PyWaffle) package can be used with Matplotlib's figure function to create waffle plots, with a few options for the orientation and order of icons, but you'll need to install it separately since it's not a major package. 
+
+   - **Pareto Chart**: are essentially just bar charts where the bars are in the order from the most frequent to the least frequent.
+   ![Example](Images/Pareto%20Chart.png)
 
 ### Bivariate analysis
 
@@ -1226,7 +1492,7 @@ When comparing two variables to one another.
 
 2. Categorical Data:
    - Side by side bar chart
-   ![example](/Images/Side%20by%20side%20Bar%20Chart.png)
+   ![example](Images/Side%20by%20side%20Bar%20Chart.png)
 
 ### More than two variables
 
@@ -1236,6 +1502,121 @@ When comparing two variables to one another.
 ![Example](Images/More%20than%202%20varriables%20Stacked%20Line.png)
 - Bar Chart
 ![Example](Images/More%20than%202%20varriables%20Bar%20Chart.png)
+
+### Visualization Techniques
+
+#### Absolute vs. Relative Frequency:
+
+By default, seaborn's countplot function will summarize and plot the data in terms of absolute frequency, or pure counts. In certain cases, you might want to understand the distribution of data or want to compare levels in terms of proportions of the whole. In this case, you will want to plot the data in terms of relative frequency, where the height indicates the proportion of data taking each level, rather than the absolute count.
+
+One method of plotting the data in terms of relative frequency on a bar chart is to just relabel the counts axis in terms of proportions. The underlying data will be the same, it will simply be the scale of the axis ticks that will be changed.
+
+```py
+# get proportion taken by most common group for derivation of tick marks
+n_points = df.shape[0]
+max_count = df['cat_var'].value_counts().max()
+max_prop = max_count / n_points
+
+# generate tick mark locations and names
+tick_props = np.arange(0, max_prop, 0.05)
+tick_names = ['{:0.2f}'.format(v) for v in tick_props]
+
+# create the plot
+base_color = sb.color_palette()[0]
+sb.countplot(data = df, x = 'cat_var', color = base_color)
+plt.yticks(tick_props * n_points, tick_names)
+plt.ylabel('proportion')
+```
+
+Rather than plotting the data on a relative frequency scale, you might use text annotations to label the frequencies on bars instead. This requires writing a loop over the tick locations and labels and adding one text element for each bar.
+
+```py
+# create the plot
+base_color = sb.color_palette()[0]
+sb.countplot(data = df, x = 'cat_var', color = base_color)
+
+# add annotations
+n_points = df.shape[0]
+cat_counts = df['cat_var'].value_counts()
+locs, labels = plt.xticks() # get the current tick locations and labels
+
+# loop through each pair of locations and labels
+for loc, label in zip(locs, labels):
+
+    # get the text property for the label to get the correct count
+    count = cat_counts[label.get_text()]
+    pct_string = '{:0.1f}%'.format(100*count/n_points)
+
+    # print the annotation just below the top of the bar
+    plt.text(loc, count-8, pct_string, ha = 'center', color = 'w')
+```
+
+I use the `.get_text()` method to obtain the category name, so I can get the count of each category level. At the end, I use the `text` function to print each percentage, with the x-position, y-position, and string as the three main parameters to the function.
+
+#### Counting Missing Data
+
+What if we want to visualize these missing value counts? We could treat the variable names as levels of a categorical variable, and create a resulting bar plot. However, since the data is not in its tidy, unsummarized form, we need to make use of a different plotting function. Seaborn's barplot function is built to depict a summary of one quantitative variable against levels of a second, qualitative variable, but can be used here.
+
+```py
+na_counts = df.isna().sum()
+base_color = sb.color_palette()[0]
+sb.barplot(na_counts.index.values, na_counts, color = base_color)
+```
+
+#### Descriptive Statistics, Outliers, and Axis Limits
+
+As you create your plots and perform your exploration, make sure that you pay attention to what the plots tell you that go beyond just the basic descriptive statistics. Note any aspects of the data like number of modes and skew, and note the presence of outliers in the data for further investigation.
+
+You might need to change the limits or scale of what is plotted to take a closer look at the underlying patterns in the data. In order to change a histogram's axis limits, you can add a Matplotlib `xlim` call to your code. The function takes a tuple of two numbers specifying the upper and lower bounds of the x-axis range. Alternatively, the `xlim` function can be called with two numeric arguments to the same result.
+
+```py
+plt.xlim(0, 35) # could also be called as plt.xlim((0, 35))
+```
+
+#### Scales and Transformations
+
+Certain data distributions will find themselves amenable to scale transformations. The most common example of this is data that follows an approximately log-normal distribution. This is data that, in their natural units, can look highly skewed: lots of points with low values, with a very long tail of data points with large values. However, after applying a logarithmic transform to the data, the data will follow a normal distribution.
+
+In a scale transformation, the gaps between values are based on the transformed scale, but you can interpret data in the variable's natural units. It is also a convenient approach since you won't need to engineer new features. Matplotlib's `xscale` function includes a few built-in transformations:
+
+```py
+# we'll use the 'log' scale here.
+bin_edges = np.arange(0, data.max()+100, 100)
+plt.hist(data, bins = bin_edges)
+plt.xscale('log')
+```
+
+Even though the data is on a log scale, the bins are still linearly spaced. This means that they change size from wide on the left to thin on the right, as the values increase multiplicatively. Secondly, the default label settings are still somewhat tricky to interpret, and are sparse as well.
+
+To address the bin size issue, we just need to change them so that they are evenly-spaced powers of 10. Depending on what you are plotting, a different base power like 2 might be useful instead. For the ticks, we can use xticks to specify locations and labels in their natural units. Remember: we aren't changing the values taken by the data, only how they're displayed. Between integer powers of 10, we don't have clean values for even markings, but we can still get close. Setting ticks in cycles of 1-3-10 or 1-2-5-10 are very useful for base-10 log transforms.
+
+```py
+bin_edges = 10 ** np.arange(0.8, np.log10(data.max())+0.1, 0.1)
+plt.hist(data, bins = bin_edges)
+plt.xscale('log')
+tick_locs = [10, 30, 100, 300, 1000, 3000]
+plt.xticks(tick_locs, tick_locs)
+```
+
+It is important that the `xticks` are specified after `xscale` since that function has its own built-in tick settings.
+
+If you want to use a different transformation that's not available in xscale, then you'll have to perform some feature engineering. In cases like this, we want to be systematic by writing a function that applies both the transformation and its inverse. The inverse will be useful in cases where we specify values in their transformed units and need to get the natural units back. For the purposes of demonstration, let's say that we want to try plotting the above data on a square-root transformation. (Perhaps the numbers represent areas, and we think it makes sense to model the data on a rough estimation of radius, length, or some other 1-d dimension.) We can create a visualization on this transformed scale like this:
+
+```py
+def sqrt_trans(x, inverse = False):
+    """ transformation helper function """
+    if not inverse:
+        return np.sqrt(x)
+    else:
+        return x ** 2
+
+bin_edges = np.arange(0, sqrt_trans(data.max())+1, 1)
+plt.hist(data.apply(sqrt_trans), bins = bin_edges)
+tick_locs = np.arange(0, sqrt_trans(data.max())+10, 10)
+plt.xticks(tick_locs, sqrt_trans(tick_locs, inverse = True).astype(int))
+```
+
+Note that data is a pandas Series, so we can use the `apply` method for the function. If it were a NumPy Array, we would need to apply the function like in the other cases. The tick locations could have also been specified with the natural values, where we apply the standard transformation function on the first argument of xticks instead.
 
 ### Helpful resources
 
@@ -1277,7 +1658,11 @@ When comparing two variables to one another.
 6. **Lie Factor (Data integrity)**: It is key that when you build plots you maintain integrity for the underlying data. Lie factor depicts the degree to which a visualization distorts or misrepresents the data values being plotted. It is calculated in the following way:
 ![Equation](Images/Lie%20Factor.png)  
 The delta symbol (Δ) stands for difference or change. In words, the lie factor is the relative change shown in the graphic divided by the actual relative change in the data. Ideally, the lie factor should be 1: any other value means that there is some mismatch in the ratio of depicted change to actual change.  
-[How to spot visualization lies](https://flowingdata.com/2017/02/09/how-to-spot-visualization-lies/)
+[How to spot visualization lies](https://flowingdata.com/2017/02/09/how-to-spot-visualization-lies/).  
+Case Study:  
+The number of pixels related to the largest image is 79,000 and 16,500 for the smallest. The percentage change is 27% to 12%. So, the lie factor is calculated as:
+
+$$ \text{lie factor} =\frac{(79000-16500)/16500}{(27-12)/12} = 3.03$$
 
 This seems straightforward, but often visuals are created that do one or both of these unintentionally. There is an entire book that was published aimed at misleading visuals: [How to Lie with Statistics](http://faculty.neu.edu.cn/cc/zhangyf/papers/How-to-Lie-with-Statistics.pdf).
 
@@ -1285,30 +1670,27 @@ This seems straightforward, but often visuals are created that do one or both of
 
 1. **Positional changes** (differences in x- and y- position as we see with scatter plots).
 2. **Length changes** (differences in box heights as we see with bar charts and histograms).
-3. **Higher data-ink ratio**, credited to Edward Tufte, is directly related to the idea of chart junk. The more of the ink in your visual that is related to conveying the message in the data, the better.  
-Limiting chart junk increases the data-ink ratio.
+3. **Higher data-ink ratio**, credited to Edward Tufte, is directly related to the idea of chart junk. The more of the ink in your visual that is related to conveying the message in the data, the better. Limiting chart junk increases the data-ink ratio.
 
 ### Visuals Encoding
 
-In general, color and shape are best for categorical variables, while the size of marker can assist in adding additional quantitative data.
+We typically try to use position on the x- and y- axes to encode, or depict the value of variables. If we have more than two variables, however, we have to start considering other visual encodings for the additional variables.
+
+In general, **color and shape** are best for **categorical** variables, while the **size of marker** can assist in adding additional **quantitative** data.
 
 1. Coloring
 
    Color can both help and hurt a data visualization. Tips for using color effectively.
-
    1. Before adding color to a visualization, start with black and white.
-
    2. When using color, use less intense colors - not all the colors of the rainbow, which is the default in many software applications.
-
    3. Color for communication. Use color to highlight your message and separate groups of interest. Don't add color just to have color in your visualization.
-
    4. To be sensitive to those with colorblindness, you should use color palettes that do not move from **red to green** without using another element to distinguish this change like shape, position, or lightness.. Instead, use colors on a **blue to orange** palette.
-
-   Only use these additional encodings when absolutely necessary. Often these additional encodings suggest you are providing too much information in a single plot. **Instead, it might be better to break the information into multiple individual messages.**
 
 2. Shapes
 
 3. Size
+
+Only use these additional encodings when absolutely necessary. Often these additional encodings suggest you are providing too much information in a single plot. **Instead, it might be better to break the information into multiple individual messages.**
 
 ## Tips
 
