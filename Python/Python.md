@@ -50,6 +50,13 @@
       - [Regular Expressions Examples](#regular-expressions-examples)
       - [Pandas References](#pandas-references)
     - [Matplotlib](#matplotlib)
+      - [Create Plot](#create-plot)
+      - [Plotting Routines](#plotting-routines)
+      - [Customize Plot](#customize-plot)
+      - [Save Plot](#save-plot)
+      - [Show Plot](#show-plot)
+      - [Close & Clear](#close--clear)
+      - [Matplotlib references](#matplotlib-references)
     - [Seaborn](#seaborn)
       - [Import seaborn library](#import-seaborn-library)
       - [Basic Steps for creating plots with Seaborn](#basic-steps-for-creating-plots-with-seaborn)
@@ -1288,6 +1295,10 @@ df = pd.DataFrame(
 # Gather columns into rows
 pd.melt(df)
 
+df_new = df.melt(id_vars = ['id','a_column'],
+                  value_vars = ['col_1', 'col_2'],
+                  var_name = 'var_col_name', value_name = 'val_col_name')
+
 # Spread rows into columns
 pd.pivot(columns='vars', values='val')
 
@@ -1490,8 +1501,18 @@ df.applymap(f)
 # Plot Histogram for each column
 df.plot.hist()
 
-# Scatter chrt using pairs of points
+# hist() can be called on a Pandas series object as well
+df.column_name.hist();
+
+# plot() is a more general plotting function
+df.column_name.plot(kind='hist');
+df.plot(x='x-axis column_name', y='y-axis column_name', kind='scatter');
+df.column_name.plot(kind='box');
+df.column_name.plot(kind='pie');
+# Scatter chart using pairs of points
 df.plot.scatter(x='w', y='h')
+# scatter_matrix() shows the relationships among numerical variables with scatter plots. It also returns a histogram for each variable.
+pd.plotting.scatter_matrix(df, figsize=(15,15));
 ```
 
 #### Tips and Tricks
@@ -1555,45 +1576,255 @@ pd.get_dummies(df['column_name'])
 
 ### Matplotlib
 
-- It is a package for builiding visualizations from your data. It can make many kinds of simple plots with tiny amounts of codes, but it can take some code effort to  create a professional looking figures.
+- Matplotlib is a package for building visualizations from your data. It can make many kinds of simple plots with tiny amounts of codes, but it can take some code effort to  create a professional looking figures.
+- Matplotlib is a Python 2D plotting library which produces publication-quality figures in a variety of hardcopy formats and interactive environments across platforms.
 - [Magic words](https://ipython.readthedocs.io/en/stable/interactive/magics.html)
 
-```py
-import pandas as pd
-import matplotlib.pyplot as plt
-# view the plots in the notebook
-%matplotlib inline
-# Plot Title
-plt.title("Number of Unique Models Using Alternative Fuels")
-# plot x-axis Label
-plt.xlabel("Year")
-# plot y-axis label
-plt.ylabel("Number of Unique Models");
-# plot bar graph
-plt.bar(["2008", "2018"], [alt_08, alt_18])
-# hist(): plots a histogram graph to the Data Set. Figsize: resizes the figures
-df.hist(figsize=(8,8));
-# hist() can be called on a Pandas series object as well
-df.column_name.hist();
-# plot() is a more general plotting function
-df.column_name.plot(kind='hist');
-df.plot(x='x-axis column_name', y='y-axis column_name', kind='scatter');
-df.column_name.plot(kind='box');
-df.column_name.plot(kind='pie');
-# scatter_matrix() shows the relationships among numerical variables with scatter plots. It also returns a histogram for each variable.
-pd.plotting.scatter_matrix(df, figsize=(15,15));
-# line Chart
-plot(t, s)
-# Shows x labels for each xth frequent
-plt.xticks(np.arange(min(x), max(x)+1, 1.0))
-# HeatMap Seaborn
-sn.heatmap(df.corr(), annot=True)
-plt.show
-# Draw a vertical line
-plt.axvline(x=x_value, color='r');
-```
+#### Create Plot
 
-- [Python For Data Science MatPlotLib Cheat Sheet](Files/Python%20For%20Data%20Science%20MatPlotLib%20Cheat%20Sheet.pdf)
+- Import the library
+
+   ```py
+   import matplotlib.pyplot as plt
+
+   # view the plots in the notebook
+   %matplotlib inline
+   ```
+
+- Create figure
+
+   ```py
+   fig = plt.figure()
+   fig2 = plt.figure(figsize=plt.figaspect(2.0))
+   ```
+
+- Axes: All plotting is done with respect to an Axes. In most cases, a subplot will fit your needs. A subplot is an axes on a grid system.
+
+   ```py
+   fig.add_axes()
+   ax1 = fig.add_subplot(221) # row-col-num
+   ax3 = fig.add_subplot(212)
+   fig3, axes = plt.subplots(nrows=2,ncols=2)
+   fig4, axes2 = plt.subplots(ncols=3)
+   ```
+
+#### Plotting Routines
+
+- 1D Data
+
+   ```py
+   # Draw points with lines or markers connecting them
+   lines = ax.plot(x,y
+
+   # Draw unconnected points, scaled or colored
+   ax.scatter(x,y)
+
+   # Plot vertical rectangles (constant width)
+   axes[0,0].bar([1,2,3],[3,4,5]
+
+   # Plot horiontal rectangles (constant height)
+   axes[1,0].barh([0.5,1,2.5],[0,1,2]
+
+   # Draw a horizontal line across axes
+   axes[1,1].axhline(0.45)
+
+   # Draw a vertical line across axes
+   axes[0,1].axvline(0.65)
+
+   # Draw filled polygons
+   ax.fill(x,y,color='blue')
+
+   # Fill between y-values and 0
+   ax.fill_between(x,y,color='yellow')
+   ```
+
+- Vector Fields
+
+   ```py
+   # Add an arrow to the axes
+   axes[0,1].arrow(0,0,0.5,0.5)
+
+   # Plot a 2D field of arrows
+   axes[1,1].quiver(y,z)
+
+   # Plot 2D vector fields
+   axes[0,1].streamplot(X,Y,U,V)
+   ```
+
+- Data Distributions
+
+   ```py
+   # Plot a histogram
+   ax1.hist(y)
+
+   # Make a box-and-whisker plot
+   ax3.boxplot(y)
+
+   # Make a violin plot
+   ax3.violinplot(z)
+   ```
+
+- 2D Data
+
+   ```py
+   # Colormapped or RGB arrays
+   fig, ax = plt.subplots()
+   im = ax.imshow(img, cmap='gist_earth', interpolation='nearest', vmin=-2,vmax=2)
+
+   # Pseudocolor plot of 2D array
+   axes2[0].pcolor(data2)
+
+   # Pseudocolor plot of 2D array
+   axes2[0].pcolormesh(data
+
+   # Plot contours
+   CS = plt.contour(Y,X,U
+
+   # Plot filled contours
+   axes2[2].contourf(data1)
+
+   # Label a contour plot
+   axes2[2]= ax.clabel(CS)
+   ```
+
+#### Customize Plot
+
+- Colors, Color Bars & Color Maps
+
+   ```py
+   plt.plot(x, x, x, x**2, x, x**3)
+   ax.plot(x, y, alpha = 0.4)
+   ax.plot(x, y, c='k')
+   fig.colorbar(im, orientation='horizontal')
+   im = ax.imshow(img, cmap='seismic')
+   ```
+
+- Markers
+
+   ```py
+   fig, ax = plt.subplots()
+   ax.scatter(x,y,marker=".")
+   ax.plot(x,y,marker="o")
+   ```
+
+- Linestyles
+
+   ```py
+   plt.plot(x,y,linewidth=4.0)
+   plt.plot(x,y,ls='solid')
+   plt.plot(x,y,ls='--')
+   plt.plot(x,y,'--',x**2,y**2,'-.')
+   plt.setp(lines,color='r',linewidth=4.0)
+   ```
+
+- Text & Annotations
+
+   ```py
+   ax.text(1, -2.1, 'Example Graph', style='italic')
+   ax.annotate("Sine",
+               xy=(8, 0),
+               xycoords='data',
+               xytext=(10.5, 0),
+               textcoords='data',
+               arrowprops=dict(arrowstyle="->", connectionstyle="arc3"),)
+   ```
+
+- Mathtext
+
+   ```py
+   plt.title(r'$sigma_i=15$', fontsize=20)
+   ```
+
+- Limits, Legends & Layouts
+
+  - Limits & Autoscaling
+
+    ```py
+    # Add padding to a plot
+    ax.margins(x=0.0,y=0.1)
+
+    # Set the aspect ratio of the plot to 1
+    ax.axis('equal')
+
+    # Set limits for x-and y-axis
+    ax.set(xlim=[0,10.5],ylim=[-1.5,1.5])
+
+    #Set limits for x-axis
+    ax.set_xlim(0,10.5)
+    ```
+
+  - Legends
+
+    ```py
+    # Set a title and x-and y-axis labels
+    ax.set(title='An Example Axes', ylabel='Y-Axis', xlabel='X-Axis')
+
+    # No overlapping plot elements
+    ax.legend(loc='best')
+    ```
+
+  - Ticks
+
+    ```py
+    # Manually set x-ticks
+    ax.xaxis.set(ticks=range(1,5),ticklabels=[3,100,-12,"foo"])
+
+    # Make y-ticks longer and go in and out
+    ax.tick_params(axis='y', direction='inout', length=10)
+    ```
+
+  - Subplot Spacing
+
+   ```py
+   # Adjust the spacing between subplots
+   fig3.subplots_adjust(wspace=0.5, hspace=0.3, left=0.125, right=0.9, top=0.9, bottom=0.1)
+
+   # Fit subplot(s) in to the figure area
+   fig.tight_layout()
+   ```
+
+  - Axis Spines
+
+   ```py
+   # Make the top axis line for a plot invisible
+   ax1.spines['top'].set_visible(False)
+
+   # Move the bottom axis line outward
+   ax1.spines['bottom'].set_position(('outward',10))
+   ```
+
+#### Save Plot
+
+   ```py
+   #Save figures
+   plt.savefig('foo.png')
+
+   # Save transparent figures
+   plt.savefig('foo.png', transparent=True)
+   ```
+
+#### Show Plot
+
+   ```py
+   plt.show()
+   ```
+
+#### Close & Clear
+
+   ```py
+   # Clear an axis
+   plt.cla()
+
+   # Clear an entire figure
+   plt.clf()
+
+   # Close a window
+   plt.close()
+   ```
+
+#### Matplotlib references
+
+- [Python For Data Science MatPlotLib Cheat Sheet](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Python_Matplotlib_Cheat_Sheet.pdf)
 - [How to rotate axis lables in seaborn and matplotlib](https://www.drawingfromdata.com/how-to-rotate-axis-labels-in-seaborn-and-matplotlib)
 
 ### Seaborn
@@ -1607,14 +1838,7 @@ plt.axvline(x=x_value, color='r');
 
    ```py
    import matplotlib.pyplot as plt
-   import seaborn as sns
-
-   # HeatMap Seaborn
-   sb.heatmap(df.corr(), annot=True)
-   plt.show
-
-   # It shows the relationship between each of the given variables
-   sb.pairplot(df[['A','B','C']], hue='A')
+   import seaborn as sb
 
    # countplot Draws a bar chart for categorical variables. By default, each category is given a different color. we take the first color to be the color for all bars.
    base_color = sb.color_palette()[0]
@@ -1628,56 +1852,73 @@ plt.axvline(x=x_value, color='r');
 
 ```py
 # Seaborn offers built-in data sets
-titanic = sns.load_dataset("titanic")
-iris = sns.load_dataset("iris")
+titanic = sb.load_dataset("titanic")
+iris = sb.load_dataset("iris")
 ```
 
 ##### Step 2: Figure Aesthetics
 
+- [subplot()](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplot.html)
+- [figure()](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html): The method requires one list as argument specifying the dimensions of the Axes, the first two elements of the list indicate the position of the lower-left hand corner of the Axes and the last two elements specifying the Axes width and height.
+
+Python first creates a Figure object. And since the Figure doesn't start with any Axes to draw the plot onto, an Axes object is created inside the Figure. Finally, the plot is drawn within that Axes.
+
 ```py
+# Create a figure object
+fig = plt.figure()
+
+# Create Axes object
+ax = fig.add_axes([.125, .125, .775, .755])
+
+# OR
 # Create a figure and one subplot
-f, ax = plt.subplots(figsize=(5,6)
+fig, ax = plt.subplots(figsize=(5,6))
+
+# Plot the chart
+ax.hist(data = df, x = 'cat_var')
+# OR
+sb.countplot(data = df, x = 'cat_var', color = base_color, ax = ax)
 ```
 
 - Seaborn styles:
 
 ```py
 # (Re)set the seaborn default
-sns.set()
+sb.set()
 
 # Set the matplotlib parameters
-sns.set_style("whitegrid")
+sb.set_style("whitegrid")
 
 # Set the matplotlib parameters
-sns.set_style("ticks",
+sb.set_style("ticks",
                {"xtick.major.size":8,"ytick.major.size":8})
 
 # Return a dict of params or use `with` to temporarily set the style
-sns.axes_style("whitegrid")
+sb.axes_style("whitegrid")
 ```
 
 - Context Functions
 
 ```py
 # Set context to "talk"
-sns.set_context("talk")
+sb.set_context("talk")
 
 # Set context to "notebook", scale font elements and override param mapping
-sns.set_context("notebook", t_scale=1.5, rc={"lines.linewidth":2.5})
+sb.set_context("notebook", t_scale=1.5, rc={"lines.linewidth":2.5})
 ```
 
 - Color Palette
 
 ```py
 # Define the color palette
-sns.set_palette("husl",3)
+sb.set_palette("husl",3)
 
 # Use with `with` to temporarily set palette
-sns.color_palette("husl")
+sb.color_palette("husl")
 
 # Set your own color palette
 flatui = ["#9b59b6","#3498db","#95a5a6","#e74c3c","#34495e","#2ecc71"]
-sns.set_palette(flatui)
+sb.set_palette(flatui)
 ```
 
 ##### Step 3: Plotting
@@ -1686,28 +1927,28 @@ sns.set_palette(flatui)
 
 ```py
 # Subplot grid for plotting conditional relationships
-g = sns.FacetGrid(titanic, col="survived", row="gender")
+g = sb.FacetGrid(titanic, col="survived", row="gender")
 g = g.map(plt.hist,"age")
 
 # Draw a categorical plot onto a Facetgrid
-sns.factorplot(x="pclass", y="survived", hue="gender", data=titanic)
+sb.factorplot(x="pclass", y="survived", hue="gender", data=titanic)
 
 # Plot data and regression model fits across a FacetGrid
-sns.lmplot(x="sepal_width", y="sepal_length", hue="species", data=iris)
+sb.lmplot(x="sepal_width", y="sepal_length", hue="species", data=iris)
 
 # Subplot grid for plotting pairwise relationships
-h = sns.PairGrid(iris)
+h = sb.PairGrid(iris)
 h = h.map(plt.scatter)
 
 # Plot pairwise bivariate distributions
-sns.pairplot(iris)
+sb.pairplot(iris)
 
 # Grid for bivariate plot with marginal univariate plots
-i = sns.JointGrid(x="x", y="y", data=data)
-i = i.plot(sns.regplot, sns.distplot)
+i = sb.JointGrid(x="x", y="y", data=data)
+i = i.plot(sb.regplot, sb.distplot)
 
 # Plot bivariate distribution
-sns.jointplot("sepal_length", "sepal_width", data=iris, kind='kde')
+sb.jointplot("sepal_length", "sepal_width", data=iris, kind='kde')
 ```
 
 - Categorical Plots
@@ -1717,69 +1958,83 @@ sns.jointplot("sepal_length", "sepal_width", data=iris, kind='kde')
    ```py
    ## Scatterplot
    # Scatterplot with one categorical variable
-   sns.stripplot(x="species", y="petal_length", data=iris)
+   sb.stripplot(x="species", y="petal_length", data=iris)
 
    # Categorical scatterplot with non-overlapping points
-   sns.swarmplot(x="species", y="petal_length", data=iris)
+   sb.swarmplot(x="species", y="petal_length", data=iris)
    ```
 
 2. Bar Chart
 
    ```py
-   # Show point estimates andconfidence intervals with scatterplot glyphs
-   sns.barplot(x="gender", y="survived", hue="class", data=titanic)
+   # Show point estimates and confidence intervals with scatterplot glyphs
+   sb.barplot(x="gender", y="survived", hue="class", data=titanic)
    ```
 
 3. Count Plot
 
    ```py
    # Show count of observations
-   sns.countplot(x="deck", data=titanic, palette="Greens_d")
+   sb.countplot(x="deck", data=titanic, palette="Greens_d")
+
+   # Convert the column into an ordered categorical data type.
+   # By default, pandas reads in string data as object types, and will plot the bars in the order in which the unique values were seen. By converting the data into an ordered type, the order of categories becomes innate to the feature, and we won't need to specify an "order" parameter each time it's required in a plot.
+   level_order = ['Alpha', 'Beta', 'Gamma', 'Delta']
+   ordered_cat = pd.api.types.CategoricalDtype(ordered = True,categories = level_order)
+   # this method requires pandas v0.21 or later
+   df['cat_var'] = df['cat_var'].astype(ordered_cat)
+
+   # # use this method if you have pandas v0.20.3 or earlier
+   # df['cat_var'] = df['cat_var'].astype('category', ordered = True,
+   #                                      categories = level_order)
+
+    base_color = sb.color_palette()[0]
+    sb.countplot(data = df, x = 'cat_var', color = base_color)
    ```
 
 4. Point Plot
 
    ```py
    # Show point estimates and confidence intervals as rectangular bars
-   sns.pointplot(x="class", y="survived", hue="gender", data=titanic, palette={"male":"g", "female":"m"}, markers=["^","o"], linestyles=["-","--"])
+   sb.pointplot(x="class", y="survived", hue="gender", data=titanic, palette={"male":"g", "female":"m"}, markers=["^","o"], linestyles=["-","--"])
    ```
 
 5. Boxplot
 
    ```py
    # Boxplot
-   sns.boxplot(x="alive", y="age", hue="adult_male", data=titanic)
+   sb.boxplot(x="alive", y="age", hue="adult_male", data=titanic)
 
    # Boxplot with wide-form data
-   sns.boxplot(data=iris,orient="h")
+   sb.boxplot(data=iris,orient="h")
    ```
 
 6. Violinplot
 
    ```py
    # Violin plot
-   sns.violinplot(x="age", y="gender", hue="survived", data=titanic)
+   sb.violinplot(x="age", y="gender", hue="survived", data=titanic)
    ```
 
 - Regression Plots
 
 ```py
 # Plot data and a linear regression model fit
-sns.regplot(x="sepal_width", y="sepal_length", data=iris, ax=ax)
+sb.regplot(x="sepal_width", y="sepal_length", data=iris, ax=ax)
 ```
 
 - Distribution Plots
 
 ```py
 # Plot univariate distribution
-plot = sns.distplot(data.y, kde=False, color="b")
+plot = sb.distplot(df['col_name'], kde=False, color="b")
 ```
 
 - Matrix Plots
 
 ```py
 # Heatmap
-sns.heatmap(uniform_data,vmin=0,vmax=1)
+sb.heatmap(uniform_data,vmin=0,vmax=1)
 ```
 
 ##### Step 4: Further Customizations
