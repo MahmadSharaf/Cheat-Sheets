@@ -104,12 +104,15 @@
     - [The Four Levels of Measurement](#the-four-levels-of-measurement)
     - [Univariate analysis](#univariate-analysis)
     - [Bivariate analysis](#bivariate-analysis)
+      - [Bivariate Techniques](#bivariate-techniques)
+        - [Overplotting, Transparency, and Jitter](#overplotting-transparency-and-jitter)
     - [More than two variables](#more-than-two-variables)
     - [Visualization Techniques](#visualization-techniques)
-      - [Absolute vs. Relative Frequency:](#absolute-vs-relative-frequency)
+      - [Absolute vs. Relative Frequency](#absolute-vs-relative-frequency)
       - [Counting Missing Data](#counting-missing-data)
       - [Descriptive Statistics, Outliers, and Axis Limits](#descriptive-statistics-outliers-and-axis-limits)
       - [Scales and Transformations](#scales-and-transformations)
+      - [Faceting](#faceting)
     - [Helpful resources](#helpful-resources)
   - [Communicating with data](#communicating-with-data)
     - [Visuals can be bad if](#visuals-can-be-bad-if)
@@ -1469,8 +1472,10 @@ When one column/variable will be displayed in the plot.
 When comparing two variables to one another.
 
 1. Quantitative data:
-   - **Scatter Plot**:
-   ![Example](Images/Scatter%20plot.png)  
+   - **Scatter Plot** (Two Quantitative):
+
+      ![Example](Images/Scatter%20plot.png)
+
       are a common visual for comparing two quantitative variables. A common summary statistic that relates to a scatter plot is the correlation coefficient commonly denoted by r and it ranges from -1 to 1.
 
       Though there are a [few different](http://www.statisticssolutions.com/correlation-pearson-kendall-spearman/) ways to measure correlation between two variables, the most common way is with [Pearson's correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient). Pearson's correlation coefficient provides the:
@@ -1486,13 +1491,350 @@ When comparing two variables to one another.
 
       It can also be calculated in Excel and other spreadsheet applications using `CORREL(col1, col2)`, where col1 and col2 are the two columns you are looking to compare to one another.
 
-   - **Line plot**:  
-     Line plots are a common plot for viewing data over time. These plots allow us to quickly identify overall trends, seasonal occurrences, peaks, and valleys in the data. You will commonly see these used in looking at stock prices over time, but really tracking anything over time can be easily viewed using these plots.
-   ![Example](Images/Line%20Plot.png)  
+      One basic way of creating a scatterplot is through Matplotlib's scatter function: `plt.scatter(data = df, x = 'num_var1', y = 'num_var2')`
 
-2. Categorical Data:
-   - Side by side bar chart
+      As an alternative approach, Seaborn's regplot function combines scatterplot creation with regression function fitting: `sb.regplot(data = df, x = 'num_var1', y = 'num_var2')`
+
+      By default, the regression function is linear, and includes a shaded confidence region for the regression estimate.
+
+   - **Heat Map**:
+
+      A heat map is a 2-d version of the histogram that can be used as an alternative to a scatterplot. Like a scatterplot, the values of the two numeric variables to be plotted are placed on the plot axes. Similar to a histogram, the plotting area is divided into a grid and the number of points in each grid rectangle is added up. Since there won't be room for bar heights, counts are indicated instead by grid cell color. A heat map can be implemented with Matplotlib's `hist2d` function.
+
+      ```py
+      plt.figure(figsize = [12, 5])
+
+      # left plot: scatterplot of discrete data with jitter and transparency
+      plt.subplot(1, 2, 1)
+      sb.regplot(data = df, x = 'disc_var1', y = 'disc_var2', fit_reg = False,
+                x_jitter = 0.2, y_jitter = 0.2, scatter_kws = {'alpha' : 1/3})
+
+      # right plot: heat map with bin edges between values
+      plt.subplot(1, 2, 2)
+      bins_x = np.arange(0.5, 10.5+1, 1)
+      bins_y = np.arange(-0.5, 10.5+1, 1)
+      plt.hist2d(data = df, x = 'disc_var1', y = 'disc_var2',
+                bins = [bins_x, bins_y])
+      plt.colorbar();
+      ```
+
+      Notice that since we have two variables, the "bins" parameter takes a list of two bin edge specifications, one for each dimension. We add a `colorbar` function call to add a colorbar to the side of the plot, showing the mapping from counts to colors.
+
+      ![Scatter plot vs Heatmap](Images/l4-c04-heatmap1.png)
+
+      As the color in the heatmap gets brighter and moves from blue to yellow, the higher the count of points in the corresponding cell.
+
+      To select a different color palette, you can set the "cmap" parameter in `hist2d`. A list of valid strings can be found on [this part](https://matplotlib.org/api/pyplot_summary.html#colors-in-matplotlib) of the Pyplot API documentation. For example of reversing the default "viridis" color palette, by setting cmap = 'viridis_r'.
+
+      Furthermore, I would like to distinguish cells with zero counts from those with non-zero counts. The "cmin" parameter specifies the minimum value in a cell before it will be plotted. By adding a cmin = 0.5 parameter to the hist2d call, this means that a cell will only get colored if it contains at least one point.
+
+      ```py
+      bins_x = np.arange(0.5, 10.5+1, 1)
+      bins_y = np.arange(-0.5, 10.5+1, 1)
+      plt.hist2d(data = df, x = 'disc_var1', y = 'disc_var2',
+                bins = [bins_x, bins_y], cmap = 'viridis_r', cmin = 0.5)
+      plt.colorbar()
+      ```
+
+      ![Heatmap with cmin](Images/l4-c04-heatmap2.png)
+
+      If you have a lot of data, you might want to add annotations to cells in the plot indicating the count of points in each cell. From `hist2d`, this requires the addition of text elements one by one. We can get the counts to annotate directly from what is returned by hist2d, which includes not just the plotting object, but an array of counts and two vectors of bin edges.
+
+      ```py
+      # hist2d returns a number of different variables, including an array of counts
+      bins_x = np.arange(0.5, 10.5+1, 1)
+      bins_y = np.arange(-0.5, 10.5+1, 1)
+      h2d = plt.hist2d(data = df, x = 'disc_var1', y = 'disc_var2',
+                    bins = [bins_x, bins_y], cmap = 'viridis_r', cmin = 0.5)
+      counts = h2d[0]
+
+      # loop through the cell counts and add text annotations for each
+      for i in range(counts.shape[0]):
+          for j in range(counts.shape[1]):
+              c = counts[i,j]
+              if c >= 7: # increase visibility on darkest cells
+                  plt.text(bins_x[i]+0.5, bins_y[j]+0.5, int(c),
+                          ha = 'center', va = 'center', color = 'white')
+              elif c > 0:
+                  plt.text(bins_x[i]+0.5, bins_y[j]+0.5, int(c),
+                          ha = 'center', va = 'center', color = 'black')
+      ```
+
+      ![Heatmap with Count](Images/l4-c04-heatmap3.png)
+
+      If you have too many cells in your heat map, then the annotations will end up being too overwhelming, too much to attend to. In cases like that, it's best to leave off the annotations and let the data and colorbar speak for themselves.
+
+   - **Line plot** (Quantitative with Quantitive):  
+        Line plots are a common plot for viewing data over time or one numeric variable against values of a second variable. These plots allow us to quickly identify overall trends, seasonal occurrences, peaks, and valleys in the data. You will commonly see these used in looking at stock prices over time, but really tracking anything over time can be easily viewed using these plots.
+
+      ![Example](Images/Line%20Plot.png)
+
+      In contrast to a scatterplot, where all data points are plotted, in a line plot, only one point is plotted for every unique x-value or bin of x-values (like a histogram). If there are multiple observations in an x-bin, then the y-value of the point plotted in the line plot will be a summary statistic (like mean or median) of the data in the bin. The plotted points are connected with a line that emphasizes the sequential or connected nature of the x-values.
+
+      If the x-variable represents time, then a line plot of the data is frequently known as a time series plot.
+
+      We will make use of Matplotlib's errorbar function, performing some processing on the data in order to get it into its necessary form.
+
+      ```py
+      plt.errorbar(data = df, x = 'num_var1', y = 'num_var2')
+      ```
+
+      ![Line Plot](Images/l4-c13-lineplot1.png)
+
+      If we just blindly stick a dataframe into the function without considering its structure, we might end up with a mess like the above. The function just plots all the data points as a line, connecting values from the first row of the dataframe to the last row. In order to create the line plot as intended, we need to do additional work to summarize the data.
+
+      ```py
+      # set bin edges, compute centers
+      bin_size = 0.25
+      xbin_edges = np.arange(0.5, df['num_var1'].max()+bin_size, bin_size)
+      xbin_centers = (xbin_edges + bin_size/2)[:-1]
+
+      # compute statistics in each bin
+      data_xbins = pd.cut(df['num_var1'], xbin_edges, right = False, include_lowest = True)
+      y_means = df['num_var2'].groupby(data_xbins).mean()
+      y_sems = df['num_var2'].groupby(data_xbins).sem()
+
+      # plot the summarized data
+      plt.errorbar(x = xbin_centers, y = y_means, yerr = y_sems)
+      plt.xlabel('num_var1')
+      plt.ylabel('num_var2')
+      ```
+
+      Since the x-variable ('num_var1') is continuous, we first set a number of bins into which the data will be grouped. In addition to the usual edges, the center of each bin is also computed for later plotting. For the points in each bin, we compute the mean and standard error of the mean. Note that the cut function call is simpler here than in the previous page, since we don't need to compute individual point weights.
+
+      ![Summarized data Line Plot](Images/l4-c13-lineplot2.png)
+
+      An interesting part of the above summarization of the data is that the uncertainty in the mean generally increases with increasing x-values. But for the largest two points, there are no error bars. Looking at the default errorbar plot (or the scatterplot below), we can see this is due to there only being one point in each of the last two bins.
+
+      Alternate Variation #1:
+
+      Instead of computing summary statistics on fixed bins, you can also make computations on a rolling window through use of pandas' rolling method. Since the rolling window will make computations on sequential rows of the dataframe, we should use sort_values to put the x-values in ascending order first.
+
+      ```py
+      # compute statistics in a rolling window
+      df_window = df.sort_values('num_var1').rolling(15)
+      x_winmean = df_window.mean()['num_var1']
+      y_median = df_window.median()['num_var2']
+      y_q1 = df_window.quantile(.25)['num_var2']
+      y_q3 = df_window.quantile(.75)['num_var2']
+
+      # plot the summarized data
+      base_color = sb.color_palette()[0]
+      line_color = sb.color_palette('dark')[0]
+      plt.scatter(data = df, x = 'num_var1', y = 'num_var2')
+      plt.errorbar(x = x_winmean, y = y_median, c = line_color)
+      plt.errorbar(x = x_winmean, y = y_q1, c = line_color, linestyle = '--')
+      plt.errorbar(x = x_winmean, y = y_q3, c = line_color, linestyle = '--')
+
+      plt.xlabel('num_var1')
+      plt.ylabel('num_var2')
+      ```
+
+      ![Line Plots Variation #1](Images/l4-c13-lineplot3.png)
+
+      Alternate Variation #2:
+
+      Another bivariate application of line plots is to plot the distribution of a numeric variable for different levels of a categorical variable. This is another alternative to using violin plots, box plots, and faceted histograms. With the line plot, one line is plotted for each category level, like overlapping the histograms on top of one another. This can be accomplished through multiple errorbar calls using the methods above, or by performing multiple hist calls, setting the "histtype = step" parameter so that the bars are depicted as unfilled lines.
+
+      ```py
+      bin_edges = np.arange(-3, df['num_var'].max()+1/3, 1/3)
+      g = sb.FacetGrid(data = df, hue = 'cat_var', size = 5)
+      g.map(plt.hist, "num_var", bins = bin_edges, histtype = 'step')
+      g.add_legend()
+      ```
+
+      Note that I'm performing the multiple hist calls through the use of FacetGrid, setting the categorical variable on the "hue" parameter rather than the "col" parameter. I've also added an `add_legend` method call so that we can identify which level is associated with each curve.
+
+      ![Multiple Histograms](Images/l4-c13-lineplot4.png)
+
+      Unfortunately, the "Alpha" curve seems to be pretty lost behind the other three curves since the relatively low number of counts is causing a lot of overlap. Perhaps connecting the centers of the bars with a line, like what was seen in the first errorbar example, would be better.
+
+      Functions you provide to the map method of FacetGrid objects do not need to be built-ins. Below, I've written a function to perform the summarization operations seen above to plot an errorbar line for each level of the categorical variable, then fed that function (freq_poly) to map.
+
+      ```py
+      def freq_poly(x, bins = 10, **kwargs):
+        """ Custom frequency polygon / line plot code. """
+        # set bin edges if none or int specified
+        if type(bins) == int:
+            bins = np.linspace(x.min(), x.max(), bins+1)
+        bin_centers = (bin_edges[1:] + bin_edges[:-1]) / 2
+
+        # compute counts
+        data_bins = pd.cut(x, bins, right = False,
+                          include_lowest = True)
+        counts = x.groupby(data_bins).count()
+
+        # create plot
+        plt.errorbar(x = bin_centers, y = counts, **kwargs)
+
+      bin_edges = np.arange(-3, df['num_var'].max()+1/3, 1/3)
+      g = sb.FacetGrid(data = df, hue = 'cat_var', size = 5)
+      g.map(freq_poly, "num_var", bins = bin_edges)
+      g.add_legend()
+      ```
+
+      **kwargs is used to allow additional keyword arguments to be set for the errorbar function.
+
+      ![Multiple Line Plots](Images/l4-c13-lineplot5.png)
+
+2. Categorical Data:  
+  There are a few ways of plotting the relationship between one quantitative and one qualitative variable, that demonstrate the data at different levels of abstraction.
+   - **Violin Plot** (Quantitative with Qualitative variables):  
+      The violin plot is on the lower level of abstraction. For each level of the categorical variable, a distribution of the values on the numeric variable is plotted. The distribution is plotted as a kernel density estimate, something like a smoothed histogram.
+
+      Seaborn's violinplot function can be used to create violin plots combined with box plots.
+
+      ```py
+      sb.violinplot(data = df, x = 'cat_var', y = 'num_var')
+      ```
+
+      ![Violin Plot](Images/l4-c06-violinplot1.png)
+
+      Here, you can see that the numeric data takes on a different shape in each categorical level: Some bimodality is suggested in group Alpha, a relatively high variance is observed in Beta, and Gamma and Delta are skewed negatively and positively, respectively.
+
+      Inside each curve, there is a black shape with a white dot inside. This is the miniature box plot. You can set the `inner = None` parameter in the `violinplot` call to remove the box plot.
+
+      The violin plot can also be rendered horizontally. Seaborn is smart enough to make an appropriate inference on which orientation is requested, depending on whether "x" or "y" receives the categorical variable. But if both variables are numeric (e.g., one is discretely-valued) then the "orient" parameter can be used to specify the plot orientation.
+
+      ```py
+      base_color = sb.color_palette()[0]
+      sb.violinplot(data = df, x = 'num_var', y = 'cat_var', color = base_color, inner = None)
+      ```
+
+      ![Horizontal Violin Plot](Images/l4-c06-violinplot3.png)
+
+      By setting `inner = 'quartile'`, three lines will be plotted within each violin area for the three middle quartiles. The line with thick dashes indicates the median, and the two lines with shorter dashes on either side the first and third quartiles.
+
+      ```py
+      base_color = sb.color_palette()[0]
+      sb.violinplot(data = df, x = 'cat_var', y = 'num_var', color = base_color, inner = 'quartile')
+      ```
+
+      ![Violin with quartile](Images/l4-c07-boxplot3.png)
+
+   - Box Plot:  
+      A box plot is another way of showing the relationship between a numeric variable and a categorical variable. Compared to the violin plot, the box plot leans more on summarization of the data, primarily just reporting a set of descriptive statistics for the numeric values on each categorical level. A box plot can be created using seaborn's boxplot function.
+
+      ```py
+      plt.figure(figsize = [10, 5])
+      base_color = sb.color_palette()[0]
+
+      # left plot: violin plot
+      plt.subplot(1, 2, 1)
+      ax1 = sb.violinplot(data = df, x = 'cat_var', y = 'num_var', color = base_color)
+
+      # right plot: box plot
+      plt.subplot(1, 2, 2)
+      sb.boxplot(data = df, x = 'cat_var', y = 'num_var', color = base_color)
+      plt.ylim(ax1.get_ylim()) # set y-axis limits to be same as left plot
+      ```
+
+      In order to provide a better comparison of the violin and box plots, a ylim expression has been added to the second plot to match the two plots' y-axis limits. The Axes object returned by violinplot is assigned to a variable, ax1 is used to programmatically obtain those limit values.
+
+      ![Violin vs Box plot](Images/l4-c07-boxplot1.png)
+
+      The inner boxes and lines in the violin plot match up with the boxes and whiskers in the box plot. In a box plot, the central line in the box indicates the median of the distribution, while the top and bottom of the box represent the third and first quartiles of the data, respectively. Thus, the height of the box is the interquartile range (IQR). From the top and bottom of the box, the whiskers indicate the range from the first or third quartiles to the minimum or maximum value in the distribution. Typically, a maximum range is set on whisker length; by default this is 1.5 times the IQR. For the Gamma level, there are points below the lower whisker that indicate individual outlier points that are more than 1.5 times the IQR below the first quartile.
+
+      Comparing the two plots, the box plot is a cleaner summary of the data than the violin plot. It's easier to compare statistics between the groups with a box plot. This makes a box plot worth more consideration if you have a lot of groups to compare, or if you are building explanatory plots. You can clearly see from the box plot that the Delta group has the lowest median. On the other hand, the box plot lacks as nuanced a depiction of distributions as the violin plot: you can't see the slight bimodality present in the Alpha level values. The violin plot may be a better option for exploration, especially since seaborn's implementation also includes the box plot by default.
+
+      `boxplot` can also render horizontal box plots by setting the numeric and categorical features to the appropriate arguments.
+
+      ```py
+      base_color = sb.color_palette()[0]
+      sb.boxplot(data = df, x = 'num_var', y = 'cat_var', color = base_color)
+      ```
+
+      ![Horizontal Box plot](Images/l4-c07-boxplot2.png)
+
+   - Clustered Bar Charts (Side by side bar chart) (Two Qualitative Variables)
+
    ![example](Images/Side%20by%20side%20Bar%20Chart.png)
+
+      In a clustered bar chart, bars are organized into clusters based on levels of the first variable, and then bars are ordered consistently across the second variable within each cluster. This is easiest to see with an example, using seaborn's countplot function. To take the plot from univariate to bivariate, we add the second variable to be plotted under the "hue" argument:
+
+      ```py
+      sb.countplot(data = df, x = 'cat_var1', hue = 'cat_var2')
+      ```
+
+      ![Clustered plot](Images/l4-c09-clusteredbar1.png)
+
+      The first categorical variable is depicted by broad x-position (Control, Experiment A, Experiment B). Within each of these groups, three bars are plotted, one for each level of the second categorical variable (Low, Medium, High).
+
+      The legend position in this example is a bit distracting, however. We can use an Axes method to set the legend properties on the Axes object returned from countplot.
+
+      ```py
+      ax = sb.countplot(data = df, x = 'cat_var1', hue = 'cat_var2')
+      ax.legend(loc = 8, ncol = 3, framealpha = 1, title = 'cat_var2')
+      ```
+
+      ![Clustered plot](Images/l4-c09-clusteredbar2.png)
+
+   - **Adapted Bar charts**:
+
+      These plots can be adapted for use as bivariate plots by, instead of indicating count by height, indicating a mean or other statistic on a second variable.
+
+      For example, we could plot a numeric variable against a categorical variable by adapting a bar chart so that its bar heights indicate the mean of the numeric variable. This is the purpose of seaborn's `barplot` function:
+
+      ```py
+      base_color = sb.color_palette()[0]
+      sb.barplot(data = df, x = 'cat_var', y = 'num_var', color = base_color)
+      ```
+
+      Different hues are automatically assigned to each category level unless a fixed color is set in the "color" parameter, like in `countplot` and `violinplot`.
+
+      ![Adapted Bar Chart](Images/l4-c12-adaptations1.png)
+
+      The bar heights indicate the mean value on the numeric variable, with error bars plotted to show the uncertainty in the mean based on variance and sample size. The Delta bar dips below the 0 axis due to the negative mean.
+
+      The `pointplot` function can be used to plot the averages as points rather than bars. This can be useful if having bars in reference to a 0 baseline aren't important or would be confusing.
+
+      As an alternative, the pointplot function can be used to plot the averages as points rather than bars. This can be useful if having bars in reference to a 0 baseline aren't important or would be confusing.
+
+      ```py
+      sb.pointplot(data = df, x = 'cat_var', y = 'num_var', linestyles = "")
+      plt.ylabel('Avg. value of num_var')
+      ```
+
+      By default, pointplotwill connect values by a line. This is fine if the categorical variable is ordinal in nature, but it can be a good idea to remove the line via linestyles = "" for nominal data.
+
+      ![Plot Points](Images/l4-c12-adaptations2.png)
+
+      The above plots can be useful alternatives to the box plot and violin plot if the data is not conducive to either of those plot types. For example, if the numeric variable is binary in nature, taking values only of 0 or 1, then a box plot or violin plot will not be informative, leaving the adapted bar chart as the best choice for displaying the data.
+
+      ![Violin vs Bar Plot vs Adapted Baar Plot](Images/l4-c12-adaptations3.png)
+
+#### Bivariate Techniques
+
+##### Overplotting, Transparency, and Jitter
+
+If we have a very large number of points to plot or our numeric variables are discrete-valued, then it is possible that using a scatterplot straightforwardly will not be informative. The visualization will suffer from overplotting, where the high amount of overlap in points makes it difficult to see the actual relationship between the plotted variables.
+
+```py
+plt.scatter(data = df, x = 'disc_var1', y = 'disc_var2')
+```
+
+![OverPlotting](Images/l4-c03-overplotting1.png)
+
+In the above plot, we can infer some kind of negative relationship between the two variables, but the degree of variability in the data and strength of relationship are fairly unclear. In cases like this, we may want to employ transparency and jitter to make the scatterplot more informative. Transparency can be added to a scatter call by adding the "alpha" parameter set to a value between 0 (fully transparent, not visible) and 1 (fully opaque).
+
+```py
+plt.scatter(data = df, x = 'disc_var1', y = 'disc_var2', alpha = 1/5)
+```
+
+![Add transparency](Images/l4-c03-overplotting2.png)
+
+Where more points overlap, the darker the image will be. Here, we can now see that there is a moderate negative relationship between the two numeric variables. Values of 0 and 10 on the x-axis are much rarer than the central values.
+
+As an alternative or companion to transparency, we can also add jitter to move the position of each point slightly from its true value. This is not a direct option in matplotlib's scatter function, but is a built-in option with seaborn's regplot function. x- and y- jitter can be added independently, and won't affect the fit of any regression function, if made:
+
+```py
+sb.regplot(data = df, x = 'disc_var1', y = 'disc_var2', fit_reg = False,
+           x_jitter = 0.2, y_jitter = 0.2, scatter_kws = {'alpha' : 1/3})
+```
+
+The jitter settings will cause each point to be plotted in a uniform ±0.2 range of their true values. Note that transparency has been changed to be a dictionary assigned to the "scatter_kws" parameter. This is necessary so that transparency is specifically associated with the scatter component of the regplot function.
+
+![Add Jitter](Images/l4-c03-overplotting3.png)
 
 ### More than two variables
 
@@ -1505,7 +1847,7 @@ When comparing two variables to one another.
 
 ### Visualization Techniques
 
-#### Absolute vs. Relative Frequency:
+#### Absolute vs. Relative Frequency
 
 By default, seaborn's countplot function will summarize and plot the data in terms of absolute frequency, or pure counts. In certain cases, you might want to understand the distribution of data or want to compare levels in terms of proportions of the whole. In this case, you will want to plot the data in terms of relative frequency, where the height indicates the proportion of data taking each level, rather than the absolute count.
 
@@ -1617,6 +1959,49 @@ plt.xticks(tick_locs, sqrt_trans(tick_locs, inverse = True).astype(int))
 ```
 
 Note that data is a pandas Series, so we can use the `apply` method for the function. If it were a NumPy Array, we would need to apply the function like in the other cases. The tick locations could have also been specified with the natural values, where we apply the standard transformation function on the first argument of xticks instead.
+
+#### Faceting
+
+Faceting technique is when using a univariate plot, to plot a bivariate plot; or using a bivariate plot to plot multivariate one.
+
+One general visualization technique that will be useful for you to know about to handle plots of two or more variables is faceting. In faceting, the data is divided into disjoint subsets, most often by different levels of a categorical variable. For each of these subsets of the data, the same plot type is rendered on other variables. Faceting is a way of comparing distributions or relationships across levels of additional variables, especially when there are three or more variables of interest overall. While faceting is most useful in multivariate visualization, it is still valuable to introduce the technique here in our discussion of bivariate plots.
+
+For example, rather than depicting the relationship between one numeric variable and one categorical variable using a violin plot or box plot, we could use faceting to look at a histogram of the numeric variable for subsets of the data divided by categorical variable levels. Seaborn's [FacetGrid](https://seaborn.pydata.org/generated/seaborn.FacetGrid.html) class facilitates the creation of faceted plots. There are two steps involved in creating a faceted plot. First, we need to create an instance of the FacetGrid object and specify the feature we want to facet by ("cat_var" in our example). Then we use the map method on the FacetGrid object to specify the plot type and variable(s) that will be plotted in each subset (in this case, histogram on "num_var").
+
+```py
+g = sb.FacetGrid(data = df, col = 'cat_var')
+g.map(plt.hist, "num_var")
+```
+
+In the `map` call, just set the plotting function and variable to be plotted as positional arguments. Don't set them as keyword arguments, like `x = "num_var"`, or the mapping won't work properly.
+
+![Facet Grid](Images/l4-c11-faceting1.png)
+
+Notice that each subset of the data is being plotted independently. Each uses the default of ten bins from hist to bin together the data, and each plot has a different bin size. Despite that, the axis limits on each facet are the same to allow clear and direct comparisons between groups. It's still worth cleaning things a little bit more by setting the same bin edges on all facets. Extra visualization parameters can be set as additional keyword arguments to the map function.
+
+```py
+bin_edges = np.arange(-3, df['num_var'].max()+1/3, 1/3)
+g = sb.FacetGrid(data = df, col = 'cat_var')
+g.map(plt.hist, "num_var", bins = bin_edges)
+```
+
+![Facet Grid](Images/l4-c11-faceting2.png)
+
+If you have many categorical levels to plot, then you might want to add more arguments to the FacetGrid object initialization to facilitate clarity in conveyance of information. Setting `col_wrap = 5` means that the plots will be organized into rows of five facets each, rather than a single long row of fifteen plots.
+
+Other operations may be performed to increase the immediate readability of the plots: setting each facet height to 2 inches ("size"), sorting the facets by group mean ("col_order"), limiting the number of bin edges, and changing the titles of each facet to just the categorical level name using the set_titles method and {col_name} template variable.
+
+```py
+group_means = df.groupby(['many_cat_var']).mean()
+group_order = group_means.sort_values(['num_var'], ascending = False).index
+
+g = sb.FacetGrid(data = df, col = 'many_cat_var', col_wrap = 5, size = 2,
+                 col_order = group_order)
+g.map(plt.hist, 'num_var', bins = np.arange(5, 15+1, 1))
+g.set_titles('{col_name}')
+```
+
+![Facet Grid](Images/l4-c11-faceting3.png)
 
 ### Helpful resources
 
