@@ -103,6 +103,17 @@
     - [Exploratory vs Explanatory](#exploratory-vs-explanatory)
     - [The Four Levels of Measurement](#the-four-levels-of-measurement)
     - [Univariate analysis](#univariate-analysis)
+      - [1. Quantitative data](#1-quantitative-data)
+        - [Histogram](#histogram)
+        - [Kernel Density Estimation](#kernel-density-estimation)
+        - [Normal Quantile Plot](#normal-quantile-plot)
+        - [Stem and Leaf Plot](#stem-and-leaf-plot)
+        - [Box and Whisker Plot](#box-and-whisker-plot)
+      - [2. Categorical data](#2-categorical-data)
+        - [Bar Chart (Ordinal/Nominal)](#bar-chart-ordinalnominal)
+        - [Pie Chart (relative frequencies)](#pie-chart-relative-frequencies)
+        - [Waffle Plot (precise assessments of relative frequencies)](#waffle-plot-precise-assessments-of-relative-frequencies)
+        - [Pareto Chart](#pareto-chart)
     - [Bivariate analysis](#bivariate-analysis)
       - [Bivariate Techniques](#bivariate-techniques)
         - [Overplotting, Transparency, and Jitter](#overplotting-transparency-and-jitter)
@@ -1230,251 +1241,287 @@ Distinguishing between continuous and discrete can be a little tricky – a rule
 
 When one column/variable will be displayed in the plot.
 
-1. Quantitative data:
-   - Histogram:  
-   ![Example](Images/Histogram.png)  
-      - It is the most popular and there are rare cases that might not be used.
-      - A histogram is used to plot the distribution of a numeric variable. It's the quantitative version of the bar chart. However, rather than plot one bar for each unique numeric value, values are grouped into continuous bins, and one bar for each bin is plotted depicting the number. For instance, using the default settings for matplotlib's hist function: `plt.hist(data = df, x = 'num_var')`
-      - The direct adjacency of the bars in the histogram, in contrast to the separated bars in a bar chart, emphasize the fact that the data takes on a continuous range of values.
-      - When a data value is on a bin edge, it is counted in the bin to its right. The exception is the rightmost bin edge, which places data values equal to the uppermost limit into the right-most bin (to the upper limit's left).
-      - You can use descriptive statistics (e.g. via `df['num_var'].describe()`) to gauge what minimum and maximum bin limits might be appropriate for the plot. These bin edges can be set using numpy's `arange` function:
+#### 1. Quantitative data
 
-        ```py
-        bin_edges = np.arange(0, df['num_var'].max()+1, 1)
-        plt.hist(data = df, x = 'num_var', bins = bin_edges)
-        ```
+##### Histogram
 
-        The first argument to `arange` is the leftmost bin edge, the second argument the upper limit, and the third argument the bin width. Note that even though I've specified the "max" value in the second argument, I've added a "+1" (the bin width). That is because `arange` will only return values that are strictly less than the upper limit. Adding in "+1" is a safety measure to ensure that the rightmost bin edge is at least the maximum data value, so that all of the data points are plotted.
-      - When creating histograms, it's useful to play around with different bin widths to see what represents the data best.
-      - Since data points fall on set values, it can help to reduce ambiguity by **putting bin edges between the actual values** taken by the data.
-      - It can also possible to add gaps between bars. By adding `rwidth` parameter to set the proportion of the bin widths that will be filled by each histogram bar. With `rwidth` set to 0.7, the bars will take up 70% of the space allocated by each bin, with 30% of the space left empty. `plt.hist(die_rolls, bins = bin_edges, rwidth = 0.7`. **For continuous numeric data, you should not make use of the "rwidth" parameter, since the gaps imply discreteness of value**.
-      - `countplot` shouldn't be used to plot discrete values, since each unique numeric value will get a bar, regardless of the spacing in values between bars. (For example, if the unique values were {1, 2, 4, 5}, missing 3, countplot would only plot four bars, with the bars for 2 and 4 right next to one another.) 
+![Example](Images/Histogram.png)
 
-   - **Kernel Density Estimation**: is one way of estimating the probability density function of a variable. In a KDE plot, you can think of each observation as replaced by a small ‘lump’ of area. Stacking these lumps all together produces the final density curve. The default settings use a normal-distribution kernel, but most software that can produce KDE plots also include other kernel function options.
+- It is the most popular and there are rare cases that might not be used.
+- A histogram is used to plot the distribution of a numeric variable. It's the quantitative version of the bar chart. However, rather than plot one bar for each unique numeric value, values are grouped into continuous bins, and one bar for each bin is plotted depicting the number.
+- For instance, using the default settings for `matplotlib`'s `hist` function. The direct adjacency of the bars in the histogram, in contrast to the separated bars in a bar chart, emphasize the fact that the data takes on a continuous range of values.
+- When a data value is on a bin edge, it is counted in the bin to its right. The exception is the rightmost bin edge, which places data values equal to the uppermost limit into the right-most bin (to the upper limit's left).
+- You can use descriptive statistics (e.g. via `df['num_var'].describe()`) to gauge what minimum and maximum bin limits might be appropriate for the plot. These bin edges can be set using numpy's `arange` function:
 
-      ![KDE Chart](Images/kde-chart.png)
+    ```py
+    bin_edges = np.arange(0, df['num_var'].max()+1, 1)
+    plt.hist(data = df, x = 'num_var', bins = bin_edges)
+    ```
 
-      ```py
-      data = [0.0, 3.0, 4.5, 8.0]
-      plt.figure(figsize = [12, 5])
+    The first argument to `arange` is the leftmost bin edge, the second argument the upper limit, and the third argument the bin width. Note that even though I've specified the "max" value in the second argument, I've added a "+1" (the bin width). That is because `arange` will only return values that are strictly less than the upper limit. Adding in "+1" is a safety measure to ensure that the rightmost bin edge is at least the maximum data value, so that all of the data points are plotted.
 
-      # left plot: showing kde lumps with the default settings
-      plt.subplot(1, 3, 1)
-      sb.distplot(data, hist = False, rug = True, rug_kws = {'color' : 'r'})
+- When creating histograms, it's useful to play around with different bin widths to see what represents the data best.
+- Since data points fall on set values, it can help to reduce ambiguity by **putting bin edges between the actual values** taken by the data.
+- It can also possible to add gaps between bars. By adding `rwidth` parameter to set the proportion of the bin widths that will be filled by each histogram bar. With `rwidth` set to 0.7, the bars will take up 70% of the space allocated by each bin, with 30% of the space left empty. `plt.hist(die_rolls, bins = bin_edges, rwidth = 0.7`. **For continuous numeric data, you should not make use of the "rwidth" parameter, since the gaps imply discreteness of value**.
+- `countplot` shouldn't be used to plot discrete values, since each unique numeric value will get a bar, regardless of the spacing in values between bars. (For example, if the unique values were {1, 2, 4, 5}, missing 3, countplot would only plot four bars, with the bars for 2 and 4 right next to one another.)
 
-      # central plot: kde with narrow bandwidth to show individual probability lumps
-      plt.subplot(1, 3, 2)
-      sb.distplot(data, hist = False, rug = True, rug_kws = {'color' : 'r'}, kde_kws = {'bw' : 1})
+##### Kernel Density Estimation
 
-      # right plot: choosing a different, triangular kernel function (lump shape)
-      plt.subplot(1, 3, 3)
-      sb.distplot(data, hist = False, rug = True, rug_kws = {'color' : 'r'}, kde_kws = {'bw' : 1.5, 'kernel' : 'tri'})
-      ```
+KDE is one way of estimating the probability density function of a variable. In a KDE plot, you can think of each observation as replaced by a small ‘lump’ of area. Stacking these lumps all together produces the final density curve. The default settings use a normal-distribution kernel, but most software that can produce KDE plots also include other kernel function options.
 
-      ![KDE](Images/kde-tri-plot.png)
+![KDE Chart](Images/kde-chart.png)
 
-      Despite the fact that making specific probability judgments are not as intuitive with KDE plots as histograms, there are still reasons to use kernel density estimation. If there are relatively few data points available, KDE provides a smooth estimate of the overall distribution of data. These ideas may not be so easily conveyed through histograms, in which the large discreteness of jumps may end up misleading.
+```py
+data = [0.0, 3.0, 4.5, 8.0]
+plt.figure(figsize = [12, 5])
 
-      It should also be noted that there is a bandwidth parameter in KDE that specifies how wide the density lumps are. Similar to bin width for histograms, we need to choose a bandwidth size that best shows the signal in the data. A too-small bandwidth can make the data look noisier than it really is, and a too-large bandwidth can smooth out useful features that we could use to make inferences about the data.
+# left plot: showing kde lumps with the default settings
+plt.subplot(1, 3, 1)
+sb.distplot(data, hist = False, rug = True, rug_kws = {'color' : 'r'})
 
-   - Normal Quantile Plot  
-   ![Example](Images/Normal%20Quantile%20Chart.png)  
-   - Stem and Leaf Plot  
-   ![Example](Images/Stem-And-Leaf%20Plot.png)  
-   - Box and Whisker Plot  
-   ![Example](Images/Box-And-Whisker%20Plot.png)  
+# central plot: kde with narrow bandwidth to show individual probability lumps
+plt.subplot(1, 3, 2)
+sb.distplot(data, hist = False, rug = True, rug_kws = {'color' : 'r'}, kde_kws = {'bw' : 1})
 
-2. Categorical data:
-   - Bar Chart:
-   ![Example](Images/Bar%20Chart.png)  
-    It is like the histogram but the bins are determined based on a set category not on a range that the chart creator can change. Ordinal categorical are better to be used with Bar Chart. A basic bar chart of frequencies can be created through the use of seaborn's countplot function. By default, each category is given a different color. Otherwise, it's a good idea to simplify the plot and reduce unnecessary distractions by plotting all bars in the same color.  
-    This can be set using the "color" parameter:
+# right plot: choosing a different, triangular kernel function (lump shape)
+plt.subplot(1, 3, 3)
+sb.distplot(data, hist = False, rug = True, rug_kws = {'color' : 'r'}, kde_kws = {'bw' : 1.5, 'kernel' : 'tri'})
+```
 
-      ```py
-      base_color = sns.color_palette()[0]
-      col_order = df['col_name'].value_counts().index
-      sns.countplot(data = df, x = 'col_name', color = base_color, order = col_order)
-      ```
+![KDE](Images/kde-tri-plot.png)
 
-      For nominal-type data, it is common to sort the data in terms of frequency. While, for ordinal-type data, it is sorted in order of the variables. The best thing for us to do in this case is to convert the column into an ordered categorical data type. By default, pandas reads in string data as object types, and will plot the bars in the order in which the unique values were seen. By converting the data into an ordered type, the order of categories becomes innate to the feature, and we won't need to specify an "order" parameter each time it's required in a plot
+Despite the fact that making specific probability judgments are not as intuitive with KDE plots as histograms, there are still reasons to use kernel density estimation. If there are relatively few data points available, KDE provides a smooth estimate of the overall distribution of data. These ideas may not be so easily conveyed through histograms, in which the large discreteness of jumps may end up misleading.
 
-      ```py
-      # this method requires pandas v0.21 or later
-      level_order = ['Alpha', 'Beta', 'Gamma', 'Delta']
-      ordered_cat = pd.api.types.CategoricalDtype(ordered = True,categories = level_order)
-      df['cat_var'] = df['cat_var'].astype(ordered_cat)
+It should also be noted that there is a bandwidth parameter in KDE that specifies how wide the density lumps are. Similar to bin width for histograms, we need to choose a bandwidth size that best shows the signal in the data. A too-small bandwidth can make the data look noisier than it really is, and a too-large bandwidth can smooth out useful features that we could use to make inferences about the data.
 
-      # # use this method if you have pandas v0.20.3 or earlier
-      # df['cat_var'] = df['cat_var'].astype('category', ordered = True,
-      #                                      categories = level_order)
+##### Normal Quantile Plot
 
-       base_color = sb.color_palette()[0]
-       sb.countplot(data = df, x = 'cat_var', color = base_color)
-      ```
+![Example](Images/Normal%20Quantile%20Chart.png)
 
-      If you have a lot of category levels, or the category names are long, then you might end up with overcrowding of the tick labels. One way to address this is through creation of a horizontal bar chart. In a horizontal bar chart, it is the length of each bar that indicates frequency, rather than the height. In the code, instead of setting the data or variable on the "x" parameter, you can set the variable to be plotted on the parameter "y":
+##### Stem and Leaf Plot
 
-      ```py
-      base_color = sb.color_palette()[0]
-      sb.countplot(data = df, y = 'cat_var', color = base_color)
-      ```
+![Example](Images/Stem-And-Leaf%20Plot.png)
 
-      Alternatively, you can use matplotlib's xticks function and its "rotation" parameter to change the orientation in which the labels will be depicted (as degrees counter-clockwise from horizontal):
+##### Box and Whisker Plot
 
-      ```py
-      base_color = sb.color_palette()[0]
-      sb.countplot(data = df, x = 'cat_var', color = base_color)
-      plt.xticks(rotation = 90)
-      ```
+![Example](Images/Box-And-Whisker%20Plot.png)
 
-   - Pie Chart
-   ![Example](Images/Pie%20Chart.png)
+#### 2. Categorical data
 
-      - A pie chart is a common univariate plot type that is used to depict relative frequencies for levels of a categorical variable.
-      - Pie charts are a fairly limited plot type in the range of scenarios where they can be used.
-      - There are certain guidelines for using Pie Chart:
-        - Make sure that your interest is in relative frequencies.
-        - Areas should represent parts of a whole, rather than measurements on a second variable (unless that second variable can logically be summed up into some whole).
-        - A pie chart works best with two or three slices, though it's also possible to plot with four or five slices as long as the wedge sizes can be distinguished.
-        - Plot the data systematically. One typical method of plotting a pie chart is to start from the top of the circle, then plot each categorical level clockwise from most frequent to least frequent.
-        - If you have three categories and are interested in the comparison of two of them, a common plotting method is to place the two categories of interest on either side of the 12 o'clock direction, with the third category filling in the remaining space at the bottom.
-      - You can create a pie chart with matplotlib's pie function. This function requires that the data be in a summarized form: the primary argument to the function will be the wedge sizes.
+##### Bar Chart (Ordinal/Nominal)
 
-        ```py
-        sorted_counts = df['cat_var'].value_counts()
-        plt.pie(sorted_counts, labels = sorted_counts.index, startangle = 90, counterclock = False);
-        plt.axis('square')
-        ```
+![Example](Images/Bar%20Chart.png)  
 
-        The axis function call and 'square' argument makes it so that the scaling of the plot is equal on both the x- and y-axes. Without this call, the pie could end up looking oval-shaped, rather than a circle.
+- It is like the histogram but the bins are determined based on a set category not on a range that the chart creator can change.
+- **Ordinal** categorical are better to be used with Bar Chart.
+- A basic bar chart of frequencies can be created through the use of seaborn's `countplot` function. By default, each category is given a different color. Otherwise, it's a good idea to simplify the plot and reduce unnecessary distractions by plotting all bars in the same color.  
+This can be set using the "color" parameter:
 
-      - To create a donut plot, you can add a "wedgeprops" argument to the pie function call.
+```py
+base_color = sb.color_palette()[0]
+col_order = df['col_name'].value_counts().index
+sb.countplot(data = df, x = 'col_name', color = base_color, order = col_order)
+```
 
-      ```py
-      sorted_counts = df['cat_var'].value_counts()
-      plt.pie(sorted_counts,
-              labels = sorted_counts.index,
-              startangle = 90,
-              counterclock = False,
-              wedgeprops = {'width' : 0.4});
-      plt.axis('square')
-      ```
+- For **nominal-type** data, it is common to sort the data in terms of frequency. While, for **ordinal-type** data, it is sorted in order of the variables.
+- The best thing for us to do in this case is to convert the column into an ordered categorical data type. By default, pandas reads in string data as object types, and will plot the bars in the order in which the unique values were seen. By converting the data into an ordered type, the order of categories becomes innate to the feature, and we won't need to specify an "order" parameter each time it's required in a plot.
 
-   - **Waffle Plot**: waffle plot, also known as the square pie chart is plotted onto a square divided into a 10x10 grid. Each small square in the grid represents one percent of the data, and a number of squares are colored by category to indicate total proportions. Compared to a pie chart, it is much easier to make precise assessments of relative frequencies.
+```py
+# this method requires pandas v0.21 or later
+ordinal_var_dict = {'cut': ['Fair','Good','Very Good','Premium','Ideal'],
+                    'color': ['J', 'I', 'H', 'G', 'F', 'E', 'D'],
+                    'clarity': ['I1', 'SI2', 'SI1', 'VS2', 'VS1', 'VVS2', 'VVS1', 'IF']}
 
-     ![waffle plot](Images/waffle.png)
+for var in ordinal_var_dict:
+    pd_ver = pd.__version__.split(".")
+    if (int(pd_ver[0]) > 0) or (int(pd_ver[1]) >= 21): # v0.21 or later
+        ordered_var = pd.api.types.CategoricalDtype(ordered = True,
+                                                    categories = ordinal_var_dict[var])
+        diamonds[var] = diamonds[var].astype(ordered_var)
+    else: #  use this method if you have pandas v0.20.3 or earlier
+        diamonds[var] = diamonds[var].astype('category', ordered = True,
+                                             categories = ordinal_var_dict[var])
 
-     There's no built-in function for waffle plots in Matplotlib or Seaborn, so we'll need to take some additional steps in order to build one with the tools available. First, we need to create a function to decide how many blocks to allocate to each category. The function below, percentage_blocks, uses a rule where each category gets a number of blocks equal to the number of full percentage points it covers. The remaining blocks to get to the full one hundred are assigned to the categories with the largest fractional parts.
+ base_color = sb.color_palette()[0]
+ sb.countplot(data = df, x = 'cat_var', color = base_color)
+```
 
-      ```py
-      def percentage_blocks(df, var):
-      """
-      Take as input a dataframe and variable, and return a Pandas series with
-      approximate percentage values for filling out a waffle plot.
-      """
-      # compute base quotas
-      percentages = 100 * df[var].value_counts() / df.shape[0]
-      counts = np.floor(percentages).astype(int) # integer part = minimum quota
-      decimal = (percentages - counts).sort_values(ascending = False)
+- If you have a lot of category levels, or the category names are long, then you might end up with overcrowding of the tick labels. One way to address this is through creation of a horizontal bar chart.
+- In a horizontal bar chart, it is the length of each bar that indicates frequency, rather than the height.
+- In the code, instead of setting the data or variable on the "x" parameter, you can set the variable to be plotted on the parameter "y":
 
-      # add in additional counts to reach 100
-      rem = 100 - counts.sum()
-      for cat in decimal.index[:rem]:
-          counts[cat] += 1
+```py
+base_color = sb.color_palette()[0]
+sb.countplot(data = df, y = 'cat_var', color = base_color)
+```
 
-      return counts
-      ```
+- Alternatively, you can use matplotlib's `xticks` function and its "rotation" parameter to change the orientation in which the labels will be depicted (as degrees counter-clockwise from horizontal):
 
-      ![function output](Images/l3-c16-waffleplotsa.png)
+```py
+base_color = sb.color_palette()[0]
+sb.countplot(data = df, x = 'cat_var', color = base_color)
+plt.xticks(rotation = 90)
+```
 
-      Note that if we just rounded the proportions (center), we would round all of them up, ending up with a total of 101 blocks.
+##### Pie Chart (relative frequencies)
 
-      Now it's time to actually plot those counts as boxes in the waffle plot form. To do this, we'll make use of Matplotlib's bar function. We could have used this function earlier in the lesson to create our bar charts instead of Seaborn's countplot, but it would have required us to aggregate the data first to get the height of each bar. For the case of the waffle plot, we're going to specify the x- and y- coordinates of the boxes, and set their widths and heights to be equal, to create squares. The initial plotting code looks like this:
+![Example](Images/Pie%20Chart.png)
 
-      ```py
-      waffle_counts = percentage_blocks(df, 'cat_var')
+- A pie chart is a common univariate plot type that is used to depict **relative frequencies** for levels of a categorical variable.
+- Pie charts are a fairly limited plot type in the range of scenarios where they can be used.
+- There are certain guidelines for using Pie Chart:
+  - Make sure that your interest is in relative frequencies.
+  - Areas should represent parts of a whole, rather than measurements on a second variable (unless that second variable can logically be summed up into some whole).
+  - A pie chart works best with two or three slices, though it's also possible to plot with four or five slices as long as the wedge sizes can be distinguished.
+  - Plot the data systematically. One typical method of plotting a pie chart is to start from the top of the circle, then plot each categorical level clockwise from most frequent to least frequent.
+  - If you have three categories and are interested in the comparison of two of them, a common plotting method is to place the two categories of interest on either side of the 12 o'clock direction, with the third category filling in the remaining space at the bottom.
+- You can create a pie chart with matplotlib's `pie` function. This function requires that the data be in a summarized form: the primary argument to the function will be the wedge sizes.
 
-      prev_count = 0
-      # for each category,
-      for cat in range(waffle_counts.shape[0]):
-          # get the block indices
-          blocks = np.arange(prev_count, prev_count + waffle_counts[cat])
-          # and put a block at each index's location
-          x = blocks % 10 # use mod operation to get ones digit
-          y = blocks // 10 # use floor division to get tens digit
-          plt.bar(x = x, height = 0.8, width = 0.8, bottom = y)
-          prev_count += waffle_counts[cat]
-      ```
+  ```py
+  sorted_counts = df['cat_var'].value_counts()
+  plt.pie(sorted_counts, labels = sorted_counts.index, startangle = 90, counterclock = False);
+  plt.axis('square')
+  ```
 
-      The blocks are drawn from left to right, bottom to top, using the ones and tens digits for numbers from 0 to 99 to specify the x- and y- positions, respectively. A loop is used to call the bar function once for each category; each time it is called, the plotted bars are assigned a different color.
+  The axis function call and 'square' argument makes it so that the scaling of the plot is equal on both the x- and y-axes. Without this call, the pie could end up looking oval-shaped, rather than a circle.
 
-      ![waffle plot 1](Images/l3-c16-waffleplots1.png)
+- To create a donut plot, you can add a "wedgeprops" argument to the `pie` function call.
 
-      The last steps that we need to do involve aesthetic cleaning to polish it up for interpretability. We can take away the plot border and ticks, since they're arbitrary, but we should change the limits so that the boxes are square. We should also add a legend so that the mapping from colors to category levels is clear.
+```py
+sorted_counts = df['cat_var'].value_counts()
+plt.pie(sorted_counts,
+        labels = sorted_counts.index,
+        startangle = 90,
+        counterclock = False,
+        wedgeprops = {'width' : 0.4});
+plt.axis('square')
+```
 
-      ```py
-      waffle_counts = percentage_blocks(df, 'cat_var')
+##### Waffle Plot (precise assessments of relative frequencies)
 
-      prev_count = 0
-      # for each category,
-      for cat in range(waffle_counts.shape[0]):
-          # get the block indices
-          blocks = np.arange(prev_count, prev_count + waffle_counts[cat])
-          # and put a block at each index's location
-          x = blocks % 10 # use mod operation to get ones digit
-          y = blocks // 10 # use floor division to get tens digit
-          plt.bar(x = x, height = 0.8, width = 0.8, bottom = y)
-          prev_count += waffle_counts[cat]
+- Waffle plot, also known as the square pie chart is plotted onto a square divided into a 10x10 grid.
+- Each small square in the grid represents one percent of the data, and a number of squares are colored by category to indicate total proportions.
+- Compared to a pie chart, it is much easier to make precise assessments of relative frequencies.
 
-      # aesthetic wrangling
-      plt.legend(waffle_counts.index, bbox_to_anchor = (1, 0.5), loc = 6)
-      plt.axis('off')
-      plt.axis('square')
-      ```
+![waffle plot](Images/waffle.png)
 
-      The two calls to Matplotlib's axis function make use of two convenience strings for arguments: 'off' removes the axis lines, ticks, and labels, while 'square' ensures that the scaling on each axis is equal within a square bounding box. As for the legend call, the first argument is a list of categories as obtained from the sorted waffle_counts Series variable. This will match each category to each bar call, in order. The "bbox_to_anchor" argument sets an anchor for the legend to the right side of the plot, and "loc = 6" positions the anchor to the center left of the legend. The final plot is as it looks at the top of the page:
+- There's no built-in function for waffle plots in `Matplotlib` or `Seaborn`, so we'll need to take some additional steps in order to build one with the tools available.
+  - First, we need to create a function to decide how many blocks to allocate to each category.
+  - The function below, `percentage_blocks`, uses a rule where each category gets a number of blocks equal to the number of full percentage points it covers.
+  - The remaining blocks to get to the full one hundred are assigned to the categories with the largest fractional parts.
 
-      ![waffle plot 2](Images/l3-c16-waffleplots2.png)
+```py
+def percentage_blocks(df, var):
+"""
+Take as input a dataframe and variable, and return a Pandas series with
+approximate percentage values for filling out a waffle plot.
+"""
+# compute base quotas
+percentages = 100 * df[var].value_counts() / df.shape[0]
+counts = np.floor(percentages).astype(int) # integer part = minimum quota
+decimal = (percentages - counts).sort_values(ascending = False)
 
-      Other variants of the waffle plot exist to extend it beyond just displaying probabilities. By associating each square with an amount rather than a percentage, we can use waffle plots to show absolute frequencies instead. This might cause us to end up with something other than 100 squares.
+# add in additional counts to reach 100
+rem = 100 - counts.sum()
+for cat in decimal.index[:rem]:
+    counts[cat] += 1
 
-      ```py
-      # each box represents five full counts
-      waffle_counts = (df['cat_var'].value_counts() / 5).astype(int)
+return counts
+```
 
-      prev_count = 0
-      # for each category,
-      for cat in range(waffle_counts.shape[0]):
-          # get the block indices
-          blocks = np.arange(prev_count, prev_count + waffle_counts[cat])
-          # and put a block at each index's location
-          x = blocks % 10
-          y = blocks // 10
-          plt.bar(y, 0.8, 0.8, x)
-          prev_count += waffle_counts[cat]
+![function output](Images/l3-c16-waffleplotsa.png)
 
-      # box size legend
-      plt.bar(7.5, 0.8, 0.8, 2, color = 'white', edgecolor = 'black', lw = 2)
-      plt.text(8.1, 2.4,'= 5 data points', va = 'center')
+Note that if we just rounded the proportions (center), we would round all of them up, ending up with a total of 101 blocks.
 
-      # aesthetic wrangling
-      plt.legend(waffle_counts.index, bbox_to_anchor = (0.8, 0.5), loc = 6)
-      plt.axis('off')
-      plt.axis('square')
-      ```
+Now it's time to actually plot those counts as boxes in the waffle plot form. To do this, we'll make use of Matplotlib's `bar` function. We could have used this function earlier in the lesson to create our bar charts instead of Seaborn's countplot, but it would have required us to aggregate the data first to get the height of each bar. For the case of the waffle plot, we're going to specify the x- and y- coordinates of the boxes, and set their widths and heights to be equal, to create squares. The initial plotting code looks like this:
 
-      In the above code, waffle_counts has been adjusted so that each box represents 5 data points. Most of the code is the same as before, though it should be noted that the x and y variables have been swapped in the bar function so that the boxes are plotted in columns from left to right. Additional bar and text calls have been added to the plot to act as an ad hoc legend. The positions of these elements, and the legend, have been adjusted manually through some trial and error to improve the aesthetic appeal. Note that this constitutes more of an explanatory polishing than it is a part of exploration!
+```py
+waffle_counts = percentage_blocks(df, 'cat_var')
 
-      ![waffle plot 3](Images/l3-c16-waffleplots4.png)
+prev_count = 0
+# for each category,
+for cat in range(waffle_counts.shape[0]):
+    # get the block indices
+    blocks = np.arange(prev_count, prev_count + waffle_counts[cat])
+    # and put a block at each index's location
+    x = blocks % 10 # use mod operation to get ones digit
+    y = blocks // 10 # use floor division to get tens digit
+    plt.bar(x = x, height = 0.8, width = 0.8, bottom = y)
+    prev_count += waffle_counts[cat]
+```
 
-      As a further extension, there's no restriction against us using icons for each tally, rather than just squares. Infographics often take this approach, by having each icon represent some number of units (e.g. one person icon representing one million people). But while it can be tempting to use icons to represent values as a bit of visual flair, an icon-based plot contains more chart junk than a bar chart that conveys the same information. There’s a larger cognitive challenge in having to count a number of icons to understand the scale of a value, compared to just referencing a box's endpoint on a labeled axis.
+The blocks are drawn from left to right, bottom to top, using the ones and tens digits for numbers from 0 to 99 to specify the x- and y- positions, respectively. A loop is used to call the bar function once for each category; each time it is called, the plotted bars are assigned a different color.
 
-      One other downside of the waffle plot is that it is not commonly supported out of the box for most visualization libraries, including Matplotlib and Seaborn. The length of the demonstration code presented above is a testament to that. The effort required to create a meaningful and useful waffle plot means that it is best employed carefully as a part of explanatory visualizations. During the exploratory phase, you're better off using more traditional plots like the bar chart to more rapidly build your understanding of the data.
+![waffle plot 1](Images/l3-c16-waffleplots1.png)
 
-      You don't actually need to go through all of the code wrangling shown above to create waffle plots in Python. The [PyWaffle](https://github.com/ligyxy/PyWaffle) package can be used with Matplotlib's figure function to create waffle plots, with a few options for the orientation and order of icons, but you'll need to install it separately since it's not a major package. 
+The last steps that we need to do involve aesthetic cleaning to polish it up for interpretability. We can take away the plot border and ticks, since they're arbitrary, but we should change the limits so that the boxes are square. We should also add a legend so that the mapping from colors to category levels is clear.
 
-   - **Pareto Chart**: are essentially just bar charts where the bars are in the order from the most frequent to the least frequent.
-   ![Example](Images/Pareto%20Chart.png)
+```py
+waffle_counts = percentage_blocks(df, 'cat_var')
+
+prev_count = 0
+# for each category,
+for cat in range(waffle_counts.shape[0]):
+    # get the block indices
+    blocks = np.arange(prev_count, prev_count + waffle_counts[cat])
+    # and put a block at each index's location
+    x = blocks % 10 # use mod operation to get ones digit
+    y = blocks // 10 # use floor division to get tens digit
+    plt.bar(x = x, height = 0.8, width = 0.8, bottom = y)
+    prev_count += waffle_counts[cat]
+
+# aesthetic wrangling
+plt.legend(waffle_counts.index, bbox_to_anchor = (1, 0.5), loc = 6)
+plt.axis('off')
+plt.axis('square')
+```
+
+The two calls to Matplotlib's axis function make use of two convenience strings for arguments: 'off' removes the axis lines, ticks, and labels, while 'square' ensures that the scaling on each axis is equal within a square bounding box. As for the legend call, the first argument is a list of categories as obtained from the sorted waffle_counts Series variable. This will match each category to each bar call, in order. The "bbox_to_anchor" argument sets an anchor for the legend to the right side of the plot, and "loc = 6" positions the anchor to the center left of the legend. The final plot is as it looks at the top of the page:
+
+![waffle plot 2](Images/l3-c16-waffleplots2.png)
+
+Other variants of the waffle plot exist to extend it beyond just displaying probabilities. By associating each square with an amount rather than a percentage, we can use waffle plots to show absolute frequencies instead. This might cause us to end up with something other than 100 squares.
+
+```py
+# each box represents five full counts
+waffle_counts = (df['cat_var'].value_counts() / 5).astype(int)
+
+prev_count = 0
+# for each category,
+for cat in range(waffle_counts.shape[0]):
+    # get the block indices
+    blocks = np.arange(prev_count, prev_count + waffle_counts[cat])
+    # and put a block at each index's location
+    x = blocks % 10
+    y = blocks // 10
+    plt.bar(y, 0.8, 0.8, x)
+    prev_count += waffle_counts[cat]
+
+# box size legend
+plt.bar(7.5, 0.8, 0.8, 2, color = 'white', edgecolor = 'black', lw = 2)
+plt.text(8.1, 2.4,'= 5 data points', va = 'center')
+
+# aesthetic wrangling
+plt.legend(waffle_counts.index, bbox_to_anchor = (0.8, 0.5), loc = 6)
+plt.axis('off')
+plt.axis('square')
+```
+
+In the above code, waffle_counts has been adjusted so that each box represents 5 data points. Most of the code is the same as before, though it should be noted that the x and y variables have been swapped in the bar function so that the boxes are plotted in columns from left to right. Additional bar and text calls have been added to the plot to act as an ad hoc legend. The positions of these elements, and the legend, have been adjusted manually through some trial and error to improve the aesthetic appeal. Note that this constitutes more of an explanatory polishing than it is a part of exploration!
+
+![waffle plot 3](Images/l3-c16-waffleplots4.png)
+
+As a further extension, there's no restriction against us using icons for each tally, rather than just squares. Infographics often take this approach, by having each icon represent some number of units (e.g. one person icon representing one million people). But while it can be tempting to use icons to represent values as a bit of visual flair, an icon-based plot contains more chart junk than a bar chart that conveys the same information. There’s a larger cognitive challenge in having to count a number of icons to understand the scale of a value, compared to just referencing a box's endpoint on a labeled axis.
+
+One other downside of the waffle plot is that it is not commonly supported out of the box for most visualization libraries, including Matplotlib and Seaborn. The length of the demonstration code presented above is a testament to that. The effort required to create a meaningful and useful waffle plot means that it is best employed carefully as a part of explanatory visualizations. During the exploratory phase, you're better off using more traditional plots like the bar chart to more rapidly build your understanding of the data.
+
+You don't actually need to go through all of the code wrangling shown above to create waffle plots in Python. The [PyWaffle](https://github.com/ligyxy/PyWaffle) package can be used with Matplotlib's figure function to create waffle plots, with a few options for the orientation and order of icons, but you'll need to install it separately since it's not a major package.
+
+##### Pareto Chart
+
+Pareto Chart are essentially just bar charts where the bars are in the order from the most frequent to the least frequent.
+
+![Example](Images/Pareto%20Chart.png)
 
 ### Bivariate analysis
 
