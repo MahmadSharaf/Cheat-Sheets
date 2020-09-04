@@ -106,7 +106,16 @@
     - [Bivariate analysis](#bivariate-analysis)
       - [Bivariate Techniques](#bivariate-techniques)
         - [Overplotting, Transparency, and Jitter](#overplotting-transparency-and-jitter)
-    - [More than two variables](#more-than-two-variables)
+    - [Multivariate (More than two variables)](#multivariate-more-than-two-variables)
+      - [Non-Positional Encodings for Third Variables](#non-positional-encodings-for-third-variables)
+        - [Encoding via Shape](#encoding-via-shape)
+        - [Encoding via Size](#encoding-via-size)
+        - [A Warning on Combining Encodings](#a-warning-on-combining-encodings)
+        - [Encoding via Color](#encoding-via-color)
+      - [Faceting in Two Directions](#faceting-in-two-directions)
+      - [2-d histogram](#2-d-histogram)
+      - [2-d bar chart](#2-d-bar-chart)
+      - [Clustered Plots](#clustered-plots)
     - [Visualization Techniques](#visualization-techniques)
       - [Absolute vs. Relative Frequency](#absolute-vs-relative-frequency)
       - [Counting Missing Data](#counting-missing-data)
@@ -1836,14 +1845,254 @@ The jitter settings will cause each point to be plotted in a uniform ±0.2 range
 
 ![Add Jitter](Images/l4-c03-overplotting3.png)
 
-### More than two variables
+### Multivariate (More than two variables)
+
+- There are four major cases to consider when we want to plot three variables together:
+  - Three numeric variables
+  - Two numeric variables and one categorical variable
+  - One numeric variable and two categorical variables
+  - Three categorical variables
+
+Scatter plot is used in case of multivariate plot with at least two of them are numeric, then using a non-positional encoding on the points to convey the value on the third variable, whether numeric or categorical.
+
+#### Non-Positional Encodings for Third Variables
+
+- Three main non-positional encodings stand out: shape, size, and color.
+- For Matplotlib and Seaborn, color is the easiest of these three encodings to apply for a third variable.
+- Color can be used to encode both qualitative and quantitative data.
+
+##### Encoding via Shape
+
+- Shape is a good encoding for categorical variables, using one shape for each level of the categorical variable.
+- There is no built-in way to automatically assign different shapes in a single call of the scatter or regplot function. Instead, we need to write a loop to call our plotting function multiple times, isolating data points by categorical level and setting a different "marker" argument value for each one.
+
+  ```py
+  cat_markers = [['A', 'o'],
+                ['B', 's']]
+
+  for cat, marker in cat_markers:
+      df_cat = df[df['cat_var1'] == cat]
+      plt.scatter(data = df_cat, x = 'num_var1', y = 'num_var2', marker = marker)
+  plt.legend(['A','B'])
+  ```
+
+  - The 'o' string specifies circular markers for members of category 'A', while the 's' string specifies square markers for members of category 'B'. The legend function adds a legend to the plot, with one marker for every scatter call made. The function argument sets the labels for those points.
+
+  - If we wanted the points to have the same color as well, we could do that through the "c" parameter in `scatter` or "color" in `regplot`.
+
+(Documentation: [matplotlib built-in markers](https://matplotlib.org/api/markers_api.html), [marker reference example](https://matplotlib.org/examples/lines_bars_and_markers/marker_reference.html))
+
+##### Encoding via Size
+
+- Point size is a good encoding for numeric variables.
+- We want the numeric values to be proportional to the area of the point markers; this is the default functionality of the "s" parameter in `scatter`. (You need to refer to "s" through a dictionary assigned to the "scatter_kws" parameter when working with `regplot`.)
+
+  ```py
+  plt.scatter(data = df, x = 'num_var1', y = 'num_var2', s = 'num_var3')
+
+  # dummy series for adding legend
+  sizes = [20, 35, 50]
+  base_color = sb.color_palette()[0]
+  legend_obj = []
+  for s in sizes:
+      legend_obj.append(plt.scatter([], [], s = s, color = base_color))
+  plt.legend(legend_obj, sizes)
+  ```
+
+  - You might need to apply a scaling factor (e.g., multiplying or dividing all values by 2) or shift in order to make the size encoding interpretable. In particular, if the values in your third numeric variable include negative values, then you might want to choose a color encoding instead.
+
+##### A Warning on Combining Encodings
+
+- It might seem plausible to combine both size and shape encodings into the same plot, to depict the trend in four variables at once. Technically, this may be true, but there are some cautions to be taken with this approach. One surface issue is that the code to depict the plot and a reasonable legend gets complicated. A more important issue is that point areas won't all be the same even with the same value, depending on the shape of the marker.
+
+##### Encoding via Color
+
+- Color is a very common encoding for variables, for both qualitative and quantitative variables.
+- If you have a qualitative variable, you can set different colors for different levels of a categorical variable through the "hue" parameter on seaborn's [FacetGrid](https://seaborn.pydata.org/generated/seaborn.FacetGrid.html) class.
+
+  ```py
+  g = sb.FacetGrid(data = df, hue = 'cat_var1', size = 5)
+  g.map(plt.scatter, 'num_var1', 'num_var2')
+  g.add_legend()
+  ```
+
+- For quantitative variables, we should not take the same approach, since FacetGrid expects any variable input for subsetting to be categorical. Instead, we can set color based on numeric value in the scatter function through the "c" parameter, much like how we set up marker sizes through "s".
+
+  ```py
+  plt.scatter(data = df, x = 'num_var1', y = 'num_var2', c = 'num_var3')
+  plt.colorbar()
+  ```
+
+- Color Palettes:
+  
+  Depending on the type of data you have, you may want to change the type of color palette that you use to depict your data. There are three major classes of color palette to consider: **qualitative**, **sequential**, and **diverging**.
+  
+  - **Qualitative** palette:
+    - **Qualitative** palettes are built for nominal-type data. This is the palette class taken by the default palette.
+  
+      ```py
+      sb.palplot(sb.color_palette(n_colors=9))
+      ```
+
+      In a qualitative palette, consecutive color values are distinct so that there is no inherent ordering of levels implied. Colors in a good qualitative palette should also try and avoid drastic changes in brightness and saturation that would cause a reader to interpret one category as being more important than the others - unless that emphasis is deliberate and purposeful.
+
+      (Documentation: [seaborn palplot](https://seaborn.pydata.org/generated/seaborn.palplot.html), [color_palette](https://seaborn.pydata.org/generated/seaborn.color_palette.html))
+
+      ![Qualitative Palette](Images/l5-c03-color3.png)
+
+  - **Sequential** palette
+    - In a **sequential** palette, consecutive color values should follow each other systematically.
+    - Typically, this follows a light-to-dark trend across a single or small range of hues, where light colors indicate low values and dark colors indicate high values.
+    - **Sequential** palette will depict ordinal or numeric data just fine. However, if there is a meaningful zero or center value for the variable, you may want to consider using a **diverging** palette.
+    - The default sequential color map, "viridis", takes the opposite approach, with dark colors indicating low values, and light values indicating high.
+
+      ```py
+      sb.palplot(sb.color_palette('viridis', 9))
+      ```
+
+      ![Sequential Palette](Images/l5-c03-color4.png)
+
+  - **Diverging** palette
+    - In a diverging palette, two sequential palettes with different hues are put back to back, with a common color (usually white or gray) connecting them.
+    - One hue indicates values greater than the center point, while the other indicates values smaller than the center.
+    - When using a diverging color palette, you will likely need to specify the "vmin" and "vmax" parameters in order to have the neutral point in the palette meet the center point in the scale. Alternatively, solutions that create a different normalization function like the one posted in this [Stack Overflow thread](https://stackoverflow.com/questions/20144529/shifted-colorbar-matplotlib) can be used for finer control over the color map. Diverging color scales are common enough for the `heatmap` type that there is a "center" parameter for setting the central value.
+
+      ```py
+      sb.palplot(sb.color_palette('vlag', 9))
+      ```
+
+      ![Diveging Palette](Images/l5-c03-color5.png)
+
+- Selecting Color Palettes:
+
+  - If you want to change the color map for your plot, the easiest way of doing so is by using one of the built-ins from Matplotlib or Seaborn. [This part](https://matplotlib.org/api/pyplot_summary.html#colors-in-matplotlib) of the Matplotlib documentation has a list of strings that can be understood for color mappings.
+  - For most of your purposes, stick with the palettes noted in the top few tables as built-in for Matplotlib ('viridis', etc.) or from ColorBrewer.
+  - Seaborn also adds in a number of its own palettes:
+    - **Qualitative** (all up to 6 colors): 'deep', 'pastel', 'dark', 'muted', 'bright', 'colorblind'.
+    - **Sequential**: 'rocket' (white-orange-red-purple-black), 'mako' (mint-green-blue-purple-black)
+    - **Diverging**: 'vlag' (blue-white-red), 'icefire' (blue-black-orange)
+
+    For all of these strings, appending '_r' reverses the palette, which is useful if a sequential or diverging palette is rendered counter to your expectations.
+  - A color palette can be set in `FacetGrid` through the "palette" parameter, and in `scatter` through the "cmap" parameter.
+
+- Warnings on Color:
+  1. Consider color blindness when selecting color for your plots. the built-in color palettes highlighted in the previous section should minimize these concerns. For a different, or custom palette, it might be worth checking your visualization's interpretability through a color blindness sim like [this one](http://www.color-blindness.com/coblis-color-blindness-simulator/).
+  2. Be aware of the effect of transparency and overlap on interpretability. If points of different color on a qualitative scale overlap, the result may be a third color that cannot be matched to something in the palette. If multiple points on a quantitative scale overlap, then the result may be a value that does not actually exist in the data. To be safe here, avoid or minimize transparency in plots with color. You may need to plot only a sample of your points in order to make sure that the effect of the third variable is clearly visible.
+
+- Further Reading:
+  - Matplotlib tutorial: [Colormaps in Matplotlib](https://matplotlib.org/tutorials/colors/colormaps.html)
+  - Seaborn tutorial: [Choosing color palettes](https://seaborn.pydata.org/tutorial/color_palettes.html)
+  - Eager Eyes: [How The Rainbow Color Map Misleads](https://eagereyes.org/basics/rainbow-color-map) - seaborn will refuse to accept the 'jet' palette string, which corresponds with a rainbow-colored palette that covers the entire range of hues. This, and the next link, will tell you why it's been forbidden.
+  - Agile Scientific: [No more rainbows!](https://agilescientific.com/blog/2017/12/14/no-more-rainbows)
+  - Datawrapper: [How to Choose a Color Palette for Choropleth Maps](https://blog.datawrapper.de/how-to-choose-a-color-palette-for-choropleth-maps/) - Though this article discusses color in the context of maps and for a specific software tool, it's a useful reference if you want to create a non-linear normalization function.
+
+#### Faceting in Two Directions
+
+Refer to [Faceting](#faceting) in [Visualization techniques](#visualization-techniques)
+
+#### 2-d histogram
+
+If we want to depict the mean of a third variable in a 2-d histogram, we need to change the weights of points in the `hist2d` function similar to how we changed the weights in the 1-d histogram.
+
+```py
+xbin_edges = np.arange(0.25, df['num_var1'].max()+0.5, 0.5)
+ybin_edges = np.arange(7,    df['num_var2'].max()+0.5, 0.5)
+
+# count number of points in each bin
+xbin_idxs = pd.cut(df['num_var1'], xbin_edges, right = False,
+                    include_lowest = True, labels = False).astype(int)
+ybin_idxs = pd.cut(df['num_var2'], ybin_edges, right = False,
+                    include_lowest = True, labels = False).astype(int)
+
+pts_per_bin = df.groupby([xbin_idxs, ybin_idxs]).size()
+pts_per_bin = pts_per_bin.reset_index()
+pts_per_bin = pts_per_bin.pivot(index = 'num_var1', columns = 'num_var2').values
+
+z_wts = df['num_var3'] / pts_per_bin[xbin_idxs, ybin_idxs]
+
+# plot the data using the calculated weights
+plt.hist2d(data = df, x = 'num_var1', y = 'num_var2', weights = z_wts,
+           bins = [xbin_edges, ybin_edges], cmap = 'viridis_r', cmin = 0.5);
+plt.xlabel('num_var1')
+plt.ylabel('num_var2');
+plt.colorbar(label = 'mean(num_var3)');
+```
+
+![2-D Histogram](Images/l5-c06-adaptations1.png)
+
+#### 2-d bar chart
+
+It is more likely to use the heat map if there is a lot of data to be aggregated.
+
+The code for the **2-d bar chart** doesn't actually change much. The actual `heatmap` call is still the same, only the aggregation of values changes. Instead of taking `size` after the groupby `operation`, we compute the `mean` across dataframe columns and isolate the column of interest.
+
+```py
+cat_means = df.groupby(['cat_var1', 'cat_var2']).mean()['num_var2']
+cat_means = cat_means.reset_index(name = 'num_var2_avg')
+cat_means = cat_means.pivot(index = 'cat_var2', columns = 'cat_var1',
+                            values = 'num_var2_avg')
+sb.heatmap(cat_means, annot = True, fmt = '.3f',
+           cbar_kws = {'label' : 'mean(num_var2)'})
+```
+
+Note how the "cbar_kws" provides an additional argument to the colorbar component of the heat map call.
+
+![2-D bar chart](Images/l5-c06-adaptations2.png)
+
+#### Clustered Plots
+
+- Bar Chart
+  ![Example](Images/More%20than%202%20varriables%20Bar%20Chart.png)
+  - For two categorical variables and one numeric variable.
+  - clustered bar chart using the barplot function instead of the countplot function:
+
+    ```py
+    ax = sb.barplot(data = df, x = 'cat_var1', y = 'num_var2', hue = 'cat_var2')
+    ax.legend(loc = 8, ncol = 3, framealpha = 1, title = 'cat_var2')
+    ```
+
+    ![bar plot](Images/l5-c06-adaptations3.png)
+
+- Boxplot, violinplot, and pointplot
+  - The "hue" parameter can also be used in a similar fashion in the boxplot, violinplot, and pointplot functions to add a categorical third variable to those plots in a clustered fashion. As a special note for `pointplot`, the default rendering aligns all levels of the "hue" categorical variable vertically. Use the "dodge" parameter to shift the levels in a clustered fashion:
+
+    ```py
+    ax = sb.pointplot(data = df, x = 'cat_var1', y = 'num_var2', hue = 'cat_var2', dodge = 0.3, linestyles = "")
+    ```
+
+    ![point plot](Images/l5-c06-adaptations4.png)
 
 - Line Plot
-![Example](Images/more%20than%202%20Line%20Plot.png)
+  - line plot can be adapted from previous code showing how to create frequency polygons for levels of a categorical variable. In this case as well, we create a custom function to send to a FacetGrid object's map function that computes the means in each bin, then plots them as lines via errorbar.
+  
+  ```py
+  def mean_poly(x, y, bins = 10, **kwargs):
+      """ Custom adapted line plot code. """
+      # set bin edges if none or int specified
+      if type(bins) == int:
+          bins = np.linspace(x.min(), x.max(), bins+1)
+      bin_centers = (bin_edges[1:] + bin_edges[:-1]) / 2
+
+      # compute counts
+      data_bins = pd.cut(x, bins, right = False,
+                        include_lowest = True)
+      means = y.groupby(data_bins).mean()
+
+      # create plot
+      plt.errorbar(x = bin_centers, y = means, **kwargs)
+
+  bin_edges = np.arange(0.25, df['num_var1'].max()+0.5, 0.5)
+  g = sb.FacetGrid(data = df, hue = 'cat_var2', size = 5)
+  g.map(mean_poly, "num_var1", "num_var2", bins = bin_edges)
+  g.set_ylabels('mean(num_var2)')
+  g.add_legend()
+  ```
+
+  ![Line plot](Images/l5-c06-adaptations5.png)
+  
+  ![Example](Images/more%20than%202%20Line%20Plot.png)
 - Stacked Line
 ![Example](Images/More%20than%202%20varriables%20Stacked%20Line.png)
-- Bar Chart
-![Example](Images/More%20than%202%20varriables%20Bar%20Chart.png)
 
 ### Visualization Techniques
 
@@ -1962,46 +2211,75 @@ Note that data is a pandas Series, so we can use the `apply` method for the func
 
 #### Faceting
 
-Faceting technique is when using a univariate plot, to plot a bivariate plot; or using a bivariate plot to plot multivariate one.
+- Faceting technique is when using a univariate plot, to plot a bivariate plot, or using a bivariate plot to plot multivariate one.
 
-One general visualization technique that will be useful for you to know about to handle plots of two or more variables is faceting. In faceting, the data is divided into disjoint subsets, most often by different levels of a categorical variable. For each of these subsets of the data, the same plot type is rendered on other variables. Faceting is a way of comparing distributions or relationships across levels of additional variables, especially when there are three or more variables of interest overall. While faceting is most useful in multivariate visualization, it is still valuable to introduce the technique here in our discussion of bivariate plots.
+- In faceting, the data is divided into disjoint subsets, most often by different levels of a categorical variable. For each of these subsets of the data, the same plot type is rendered on other variables.
 
-For example, rather than depicting the relationship between one numeric variable and one categorical variable using a violin plot or box plot, we could use faceting to look at a histogram of the numeric variable for subsets of the data divided by categorical variable levels. Seaborn's [FacetGrid](https://seaborn.pydata.org/generated/seaborn.FacetGrid.html) class facilitates the creation of faceted plots. There are two steps involved in creating a faceted plot. First, we need to create an instance of the FacetGrid object and specify the feature we want to facet by ("cat_var" in our example). Then we use the map method on the FacetGrid object to specify the plot type and variable(s) that will be plotted in each subset (in this case, histogram on "num_var").
+- Faceting is a way of comparing distributions or relationships across levels of additional variables, especially when there are three or more variables of interest overall. While faceting is most useful in multivariate visualization, it is still valuable in bivariate plots.
 
-```py
-g = sb.FacetGrid(data = df, col = 'cat_var')
-g.map(plt.hist, "num_var")
-```
+- Bivariate Case Study:
 
-In the `map` call, just set the plotting function and variable to be plotted as positional arguments. Don't set them as keyword arguments, like `x = "num_var"`, or the mapping won't work properly.
+  - For example, rather than depicting the relationship between one numeric variable and one categorical variable using a violin plot or box plot, we could use faceting to look at a histogram of the numeric variable for subsets of the data divided by categorical variable levels.
+  - Seaborn's [FacetGrid](https://seaborn.pydata.org/generated/seaborn.FacetGrid.html) class facilitates the creation of faceted plots.
+  - There are two steps involved in creating a faceted plot.
+    - First, we need to create an instance of the FacetGrid object and specify the feature we want to facet by ("cat_var" in our example). 
+    - Then we use the map method on the FacetGrid object to specify the plot type and variable(s) that will be plotted in each subset (in this case, histogram on "num_var").
 
-![Facet Grid](Images/l4-c11-faceting1.png)
+    ```py
+    g = sb.FacetGrid(data = df, col = 'cat_var')
+    g.map(plt.hist, "num_var")
+    ```
 
-Notice that each subset of the data is being plotted independently. Each uses the default of ten bins from hist to bin together the data, and each plot has a different bin size. Despite that, the axis limits on each facet are the same to allow clear and direct comparisons between groups. It's still worth cleaning things a little bit more by setting the same bin edges on all facets. Extra visualization parameters can be set as additional keyword arguments to the map function.
+  - In the `map` call, just set the plotting function and variable to be plotted as positional arguments. Don't set them as keyword arguments, like `x = "num_var"`, or the mapping won't work properly.
 
-```py
-bin_edges = np.arange(-3, df['num_var'].max()+1/3, 1/3)
-g = sb.FacetGrid(data = df, col = 'cat_var')
-g.map(plt.hist, "num_var", bins = bin_edges)
-```
+  ![Facet Grid](Images/l4-c11-faceting1.png)
 
-![Facet Grid](Images/l4-c11-faceting2.png)
+  Notice that each subset of the data is being plotted independently. Each uses the default of ten bins from hist to bin together the data, and each plot has a different bin size. Despite that, the axis limits on each facet are the same to allow clear and direct comparisons between groups. It's still worth cleaning things a little bit more by setting the same bin edges on all facets. Extra visualization parameters can be set as additional keyword arguments to the map function.
 
-If you have many categorical levels to plot, then you might want to add more arguments to the FacetGrid object initialization to facilitate clarity in conveyance of information. Setting `col_wrap = 5` means that the plots will be organized into rows of five facets each, rather than a single long row of fifteen plots.
+  ```py
+  bin_edges = np.arange(-3, df['num_var'].max()+1/3, 1/3)
+  g = sb.FacetGrid(data = df, col = 'cat_var')
+  g.map(plt.hist, "num_var", bins = bin_edges)
+  ```
 
-Other operations may be performed to increase the immediate readability of the plots: setting each facet height to 2 inches ("size"), sorting the facets by group mean ("col_order"), limiting the number of bin edges, and changing the titles of each facet to just the categorical level name using the set_titles method and {col_name} template variable.
+  ![Facet Grid](Images/l4-c11-faceting2.png)
 
-```py
-group_means = df.groupby(['many_cat_var']).mean()
-group_order = group_means.sort_values(['num_var'], ascending = False).index
+  If you have many categorical levels to plot, then you might want to add more arguments to the FacetGrid object initialization to facilitate clarity in conveyance of information. Setting `col_wrap = 5` means that the plots will be organized into rows of five facets each, rather than a single long row of fifteen plots.
 
-g = sb.FacetGrid(data = df, col = 'many_cat_var', col_wrap = 5, size = 2,
-                 col_order = group_order)
-g.map(plt.hist, 'num_var', bins = np.arange(5, 15+1, 1))
-g.set_titles('{col_name}')
-```
+  Other operations may be performed to increase the immediate readability of the plots: setting each facet height to 2 inches ("size"), sorting the facets by group mean ("col_order"), limiting the number of bin edges, and changing the titles of each facet to just the categorical level name using the set_titles method and {col_name} template variable.
 
-![Facet Grid](Images/l4-c11-faceting3.png)
+  ```py
+  group_means = df.groupby(['many_cat_var']).mean()
+  group_order = group_means.sort_values(['num_var'], ascending = False).index
+
+  g = sb.FacetGrid(data = df, col = 'many_cat_var', col_wrap = 5, size = 2,
+                  col_order = group_order)
+  g.map(plt.hist, 'num_var', bins = np.arange(5, 15+1, 1))
+  g.set_titles('{col_name}')
+  ```
+
+  ![Facet Grid](Images/l4-c11-faceting3.png)
+
+- Multivariate Case Study:
+  - you can actually use any plot type, allowing you to facet bivariate plots to create a multivariate visualization.
+
+  ```py
+  g = sb.FacetGrid(data = df, col = 'cat_var1', size = 4)
+  g.map(sb.boxplot, 'cat_var2', 'num_var2')
+  ```
+
+  ![Multivariate Faceting](Images/l5-c05-faceting1.png)
+
+  - **FacetGrid** also allows for faceting a variable not just by columns, but also by rows. We can set one categorical variable on each of the two facet axes for one additional method of depicting multivariate trends.
+  
+  ```py
+  g = sb.FacetGrid(data = df, col = 'cat_var2', row = 'cat_var1', size = 2.5, margin_titles = True)
+  g.map(plt.scatter, 'num_var1', 'num_var2')
+  ```
+
+  Setting `margin_titles = True` means that instead of each facet being labeled with the combination of row and column variable, labels are placed separately on the top and right margins of the facet grid.
+
+  ![Multivariate Faceting](Images/l5-c05-faceting2.png)
 
 ### Helpful resources
 
