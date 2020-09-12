@@ -8,6 +8,11 @@ Cloud computing is the delivery of on-demand computing services -- from applicat
 - One benefit of using cloud computing services is that firms can avoid the upfront cost and complexity of owning and maintaining their own IT infrastructure
 - Providers of cloud computing services can benefit from significant economies of scale by delivering the same services to a wide range of customers.
 
+## Who is using cloud computing
+
+- Organizations of every type, size, and industry are using the cloud for a wide variety of use cases, such as data backup, disaster recovery, email, virtual desktops, software development and testing, big data analytics, and customer-facing web applications.
+- For example, healthcare companies are using the cloud to develop more personalized treatments for patients. Financial services companies are using the cloud to power real-time fraud detection and prevention. And video game makers are using the cloud to deliver online games to millions of players around the world.
+
 ## What available services
 
 - Cloud computing services cover a vast range of options now, from the basics of storage, networking, and processing power through to natural language processing and artificial intelligence.
@@ -47,3 +52,4 @@ Software-as-a-Service (SaaS) is the delivery of applications-as-a-service. The u
 ## References
 
 1. <https://www.zdnet.com/article/what-is-cloud-computing-everything-you-need-to-know-about-the-cloud/>
+2. <https://aws.amazon.com/what-is-cloud-computing/>
