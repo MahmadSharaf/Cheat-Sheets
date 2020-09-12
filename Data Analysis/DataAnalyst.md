@@ -118,7 +118,7 @@
       - [1. Bivariate Quantitative data](#1-bivariate-quantitative-data)
         - [Scatter Plot (Two Quantitative)](#scatter-plot-two-quantitative)
         - [Heat Map (Two Quantitative)](#heat-map-two-quantitative)
-        - [Line plot (Over Time OR TWo Quantitative)](#line-plot-over-time-or-two-quantitative)
+        - [Line plot (Over Time OR Two Quantitative)](#line-plot-over-time-or-two-quantitative)
       - [2. Bivariate Categorical Data](#2-bivariate-categorical-data)
         - [Violin Plot (Quantitative with Qualitative variables)](#violin-plot-quantitative-with-qualitative-variables)
         - [Box Plot (Quantitative with Qualitative variables) (Summarization)](#box-plot-quantitative-with-qualitative-variables-summarization)
@@ -128,28 +128,34 @@
       - [Bivariate Techniques](#bivariate-techniques)
         - [Overplotting, Transparency, and Jitter](#overplotting-transparency-and-jitter)
     - [Multivariate (More than two variables)](#multivariate-more-than-two-variables)
-      - [Non-Positional Encodings for Third Variables](#non-positional-encodings-for-third-variables)
+      - [Non-Positional Encodings for Third Variables (At Least Two Quantitative)](#non-positional-encodings-for-third-variables-at-least-two-quantitative)
         - [Encoding via Shape](#encoding-via-shape)
         - [Encoding via Size](#encoding-via-size)
         - [A Warning on Combining Encodings](#a-warning-on-combining-encodings)
         - [Encoding via Color](#encoding-via-color)
-      - [Faceting in Two Directions](#faceting-in-two-directions)
-      - [2-d histogram](#2-d-histogram)
-      - [2-d bar chart](#2-d-bar-chart)
-      - [Clustered Plots](#clustered-plots)
+      - [Faceting in Two Directions (Two Quantitative and One Qualtiative)](#faceting-in-two-directions-two-quantitative-and-one-qualtiative)
+      - [2-d histogram (Three Quantitative)](#2-d-histogram-three-quantitative)
+      - [2-d bar chart (Two Qualtiative and One Summarized Quantitative)](#2-d-bar-chart-two-qualtiative-and-one-summarized-quantitative)
+      - [Clustered Plots (Two Qualtiative and One Quantitative)](#clustered-plots-two-qualtiative-and-one-quantitative)
+      - [Plot Matrices (many pairs of variables)](#plot-matrices-many-pairs-of-variables)
+        - [Correlation Matrices (Correlation HeatMap for numeric variables)](#correlation-matrices-correlation-heatmap-for-numeric-variables)
     - [Visualization Techniques](#visualization-techniques)
       - [Absolute vs. Relative Frequency](#absolute-vs-relative-frequency)
       - [Counting Missing Data](#counting-missing-data)
       - [Descriptive Statistics, Outliers, and Axis Limits](#descriptive-statistics-outliers-and-axis-limits)
       - [Scales and Transformations](#scales-and-transformations)
       - [Faceting](#faceting)
+      - [Feature Engineering](#feature-engineering)
+      - [Polishing Plots](#polishing-plots)
+        - [Using Matplotlib to Polish Plots](#using-matplotlib-to-polish-plots)
     - [Helpful resources](#helpful-resources)
-  - [Communicating with data](#communicating-with-data)
+  - [Communicating with data (Explantory Visualization)](#communicating-with-data-explantory-visualization)
     - [Visuals can be bad if](#visuals-can-be-bad-if)
     - [Visuals can be good if](#visuals-can-be-good-if)
     - [Visuals Encoding](#visuals-encoding)
   - [Tips](#tips)
     - [Simpson's Paradox](#simpsons-paradox)
+    - [How much is too much](#how-much-is-too-much)
 
 ## Process Overview
 
@@ -1642,7 +1648,7 @@ When comparing two variables to one another.
 
   If you have too many cells in your heat map, then the annotations will end up being too overwhelming, too much to attend to. In cases like that, it's best to leave off the annotations and let the data and `colorbar` speak for themselves.
 
-##### Line plot (Over Time OR TWo Quantitative)
+##### Line plot (Over Time OR Two Quantitative)
 
 - Line plots are a common plot for viewing data over time or one numeric variable against values of a second variable.
 - These plots allow us to quickly identify overall trends, seasonal occurrences, peaks, and valleys in the data. You will commonly see these used in looking at stock prices over time, but really tracking anything over time can be easily viewed using these plots.
@@ -1958,7 +1964,7 @@ The jitter settings will cause each point to be plotted in a uniform ±0.2 range
 
 Scatter plot is used in case of multivariate plot with at least two of them are numeric, then using a non-positional encoding on the points to convey the value on the third variable, whether numeric or categorical.
 
-#### Non-Positional Encodings for Third Variables
+#### Non-Positional Encodings for Third Variables (At Least Two Quantitative)
 
 - Three main non-positional encodings stand out: shape, size, and color.
 - For Matplotlib and Seaborn, color is the easiest of these three encodings to apply for a third variable.
@@ -2089,11 +2095,11 @@ Scatter plot is used in case of multivariate plot with at least two of them are 
   - Agile Scientific: [No more rainbows!](https://agilescientific.com/blog/2017/12/14/no-more-rainbows)
   - Datawrapper: [How to Choose a Color Palette for Choropleth Maps](https://blog.datawrapper.de/how-to-choose-a-color-palette-for-choropleth-maps/) - Though this article discusses color in the context of maps and for a specific software tool, it's a useful reference if you want to create a non-linear normalization function.
 
-#### Faceting in Two Directions
+#### Faceting in Two Directions (Two Quantitative and One Qualtiative)
 
 Refer to [Faceting](#faceting) in [Visualization techniques](#visualization-techniques)
 
-#### 2-d histogram
+#### 2-d histogram (Three Quantitative)
 
 If we want to depict the mean of a third variable in a 2-d histogram, we need to change the weights of points in the `hist2d` function similar to how we changed the weights in the 1-d histogram.
 
@@ -2123,7 +2129,7 @@ plt.colorbar(label = 'mean(num_var3)');
 
 ![2-D Histogram](Images/l5-c06-adaptations1.png)
 
-#### 2-d bar chart
+#### 2-d bar chart (Two Qualtiative and One Summarized Quantitative)
 
 It is more likely to use the heat map if there is a lot of data to be aggregated.
 
@@ -2142,7 +2148,7 @@ Note how the "cbar_kws" provides an additional argument to the colorbar componen
 
 ![2-D bar chart](Images/l5-c06-adaptations2.png)
 
-#### Clustered Plots
+#### Clustered Plots (Two Qualtiative and One Quantitative)
 
 - Bar Chart
   ![Example](Images/More%20than%202%20varriables%20Bar%20Chart.png)
@@ -2196,6 +2202,56 @@ Note how the "cbar_kws" provides an additional argument to the colorbar componen
   ![Example](Images/more%20than%202%20Line%20Plot.png)
 - Stacked Line
 ![Example](Images/More%20than%202%20varriables%20Stacked%20Line.png)
+
+#### Plot Matrices (many pairs of variables)
+
+- In a plot matrix, a matrix of plots is generated.
+- Each row and column represents a different variable, and a subplot against those variables is generated in each plot matrix cell.
+- This contrasts with faceting, where rows and columns will subset the data, and the same variables are depicted in each subplot.
+- `Seaborn`'s [PairGrid](https://seaborn.pydata.org/generated/seaborn.PairGrid.html) class facilitates the creation of this kind of plot matrix.
+
+    ```py
+    g = sb.PairGrid(data = df, vars = ['num_var1', 'num_var2', 'num_var3'])
+    g.map_diag(plt.hist)
+    g.map_offdiag(plt.scatter)
+    ```
+
+  - By default, PairGrid only expects to depict numeric variables; a typical invocation of PairGrid plots the same variables on the horizontal and vertical axes.
+  - On the diagonals, where the row and column variables match, a histogram is plotted.
+  - Off the diagonals, a scatterplot between the two variables is created.
+
+    ![Scatter Plot PairGrid](Images/l5-c08-plotmatrices1.png)
+
+- The [pairplot](https://seaborn.pydata.org/generated/seaborn.pairplot.html) function can also be used to render this common use case in a single call.
+- For other relationships, the flexibility of PairGrid shines. For example, if we want to look at the relationship between the numeric and categorical variables in the data, we need to set the different variable types on the rows and columns, then use an appropriate plot type for all matrix cells.
+  
+    ```py
+    g = sb.PairGrid(data = df, x_vars = ['num_var1', 'num_var2', 'num_var3'],
+                y_vars = ['cat_var1','cat_var2'])
+    g.map(sb.violinplot, inner = 'quartile')
+    ```
+
+    ![Violin Plot GridPair](Images/l5-c08-plotmatrices2.png)
+
+- The time it takes to render the plot depends on the number of data points you have and the number of variables you want to plot. Increasing the number of variables increases the number of plots that need to be rendered in a quadratic fashion.
+- Increasing the number of variables means that the individual subplot size needs to be reduced in order to fit the matrix width on your screen.
+- If you have a lot of data, it might be difficult to see the relationships between variables due to overplotting, and it will take a long time to complete. One recommended approach is to take a random subset of the data to plot in the plot matrix instead.
+- Use the plot matrix to identify interesting variable pairs, and then follow it up with individual plots on the full data.
+
+##### Correlation Matrices (Correlation HeatMap for numeric variables)
+
+- It can be useful to create a correlation matrix as part of your exploration.
+- While it's true that the `.corr` function is perfectly fine for computing and returning a matrix of correlation coefficients, it's not too much trouble to plot the matrix as a heat map to make it easier to see the strength of the relationships.
+
+```py
+sb.heatmap(df.corr(), annot = True, fmt = '.2f', cmap = 'vlag_r', center = 0)
+```
+
+- Instead of using the default sequential color map, a diverging color map is specified and its center is set to 0. That way, we can use hue to tell if a correlation is positive or negative, and see its strength from the hue's intensity.
+
+  ![Correlation Matrix](Images/l5-c08-plotmatrices3.png)
+
+- Correlations are computed based on strength of linear relationship. Compare the correlation between "num_var2" and "num_var3" to the corresponding cell in the first plot matrix as an example of how a correlation statistic might be misleading.
 
 ### Visualization Techniques
 
@@ -2349,7 +2405,7 @@ Note that data is a pandas Series, so we can use the `apply` method for the func
 
   If you have many categorical levels to plot, then you might want to add more arguments to the FacetGrid object initialization to facilitate clarity in conveyance of information. Setting `col_wrap = 5` means that the plots will be organized into rows of five facets each, rather than a single long row of fifteen plots.
 
-  Other operations may be performed to increase the immediate readability of the plots: setting each facet height to 2 inches ("size"), sorting the facets by group mean ("col_order"), limiting the number of bin edges, and changing the titles of each facet to just the categorical level name using the set_titles method and {col_name} template variable.
+  Other operations may be performed to increase the immediate readability of the plots: setting each facet height to 2 inches ("size"), sorting the facets by group mean ("col_order"), limiting the number of bin edges, and changing the titles of each facet to just the categorical level name using the `set_titles` method and {col_name} template variable.
 
   ```py
   group_means = df.groupby(['many_cat_var']).mean()
@@ -2384,12 +2440,82 @@ Note that data is a pandas Series, so we can use the `apply` method for the func
 
   ![Multivariate Faceting](Images/l5-c05-faceting2.png)
 
+#### Feature Engineering
+
+- Feature engineering is a tool that you can leverage as you explore and learn about your data
+- As you explore a dataset, you might find that two variables are related in some way. Feature engineering is all about creating a new variable with a sum, difference, product, or ratio between those original variables that may lend a better insight into the research questions you seek to answer.
+- For example, if you have one variable that gives a count of crime incidents, and a second one that gives population totals, then you may want to engineer a new variable by dividing the former by the latter, obtaining an incident rate.
+- Another way that you can perform feature engineering is to use the cut function to divide a numeric variable into ordered bins. When we split a numeric variable into ordinal bins, it opens it up to more visual encodings.
+- For example, we might facet plots by bins of a numeric variable, or use discrete color bins rather than a continuous color scale. This kind of discretization step might help in storytelling by clearing up noise, allowing the reader to concentrate on major trends in the data.
+- Of course, the bins might also mislead if they're spaced improperly – check out this [PolicyViz post](https://policyviz.com/2017/11/02/choosing-map-bins/) if you'd like to see a deeper discussion in the context of map-based visualizations.
+
+#### Polishing Plots
+
+1. Choose an appropriate plot:
+    - choice of plot will depend on the number of variables that you have and their types: nominal, ordinal, discrete numeric, or continuous.
+    - Choice of plot also depends on the specific relationship that you want to convey.
+    - For example, whether you choose a violin plot, box plot, or adapted bar chart depends on how much data you have and whether distributions are significant or important. You'll be more likely to use a violin plot if you have a lot of data and the distributions are meaningful, and more inclined to use a box plot or bar chart if you have less data, or the distributions are less reliable.
+2. Choose appropriate encodings
+    - if you have three numeric variables, you shouldn't just assign x-position, y-position, and color encodings randomly.
+    - In many cases, the two variables that are most important should take the positional encodings; if one represents an outcome or dependent variable, then it should be plotted on the y-axis.
+    - In other cases, it makes sense to plot the dependent measure with color, as though you are taking a top-down view of the plane defined by the two independent measures plotted on the axes.
+3. Pay attention to design integrity
+    - Make sure that you **minimize chart junk** and **maximize the data-ink ratio**, as far as it maintains good interpretability of the data.
+    - When deciding whether or not to add **non-positional encodings**, make sure that they are **meaningful**.
+      - For example, using color in a frequency bar chart may not be necessary on its own, but will be useful if those colors are used again later in the same presentation, matched with their original groups. By the same token, avoid using the same color scheme for different variables to minimize the chance of reader confusion.
+    - You should also ensure that your plot **avoids lie factors** as much as possible.
+4. Label axes and choose appropriate tick marks
+    - Make sure you include axis labels.
+      - When you add an axis label, make sure you also provide the units of measurement, if applicable (e.g., stating "Height (cm)" rather than just "Height").
+    - At least three tick marks should be included on each axis.
+      - This is especially important for data that has been transformed
+      - If your values are very large or very small numbers, consider using abbreviations to relabel the ticks (e.g., use "250K" instead of "250000").
+5. Provide legends for non-positional variables
+    - Make sure that you add a legend for variables not depicted on the axes of your plot.
+    - For color encoding, you can add a color bar to the side of the plot.
+    - The most important new thing here is that you provide a descriptive label to your legend or color bar, just as you would the axes of your plot.
+6. Title your plot and include descriptive comments
+    - A descriptive title to the plot.
+    - If this is a key plot that presents important findings to others, aim to create a title that draws attention to those main points, rather than just state what variables are plotted.
+    - Realize that while a visualization might be the core mechanism by which you convey findings, it need not stand alone.
+    - Comments in the text below or surrounding the plot can provide valuable context to help the reader understand your message, or reinforce the main points that they should have gotten.
+
+##### Using Matplotlib to Polish Plots
+
+- [figure](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html) (Figure): Used to create a new figure. You'll use this first to initialize the figure, most often using the "figsize" parameter to set the figure dimensions.
+- [xlabel](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.xlabel.html) and [ylabel](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.ylabel.html) (Axes): Used for setting axis labels.
+- [xticks](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.xticks.html) and [yticks](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.yticks.html) (Axes): Used for setting tick marks.
+- [legend](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.legend.html) (Axes): Used to create and customize a legend. One key parameter to use is "title", which allows you to label what feature is being depicted in the legend. You might also need to make use of the "loc" and "ncol" parameters to move and shape the legend if it gets placed in an awkward location by default.
+- [colorbar](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.colorbar.html) (Axes): Used to add a colorbar to a plot. Use the "label" parameter to set the label on a colorbar.
+- [title](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.title.html) (Axes): Used for setting axis titles.
+- [suptitle](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.suptitle.html) (Figure): Used for setting figure titles. The main difference between `suptitle` and `title` is that the former sets a title for the Figure as a whole, and the latter for only a single Axes. This is an important distinction: if you're using faceting or subplotting, you'll want to use `suptitle` to set a title for the figure as a whole.
+
+  ```py
+  # loading in the data, sampling to reduce points plotted
+  fuel_econ = pd.read_csv('./data/fuel_econ.csv')
+
+  np.random.seed(2018)
+  sample = np.random.choice(fuel_econ.shape[0], 200, replace = False)
+  fuel_econ_subset = fuel_econ.loc[sample]
+
+  # plotting the data
+  plt.figure(figsize = [7,4])
+  plt.scatter(data = fuel_econ_subset, x = 'displ', y = 'comb', c = 'co2',
+              cmap = 'viridis_r')
+  plt.title('Fuel Efficiency and CO2 Output by Engine Size')
+  plt.xlabel('Displacement (l)')
+  plt.ylabel('Combined Fuel Eff. (mpg)')
+  plt.colorbar(label = 'CO2 (g/mi)');
+  ```
+
+  ![Polishing Example](Images/l6-c06-polishing1.png)
+
 ### Helpful resources
 
 1. Visualization Mind Map
 ![Visualization Mind Map](images/Visualization%20mind%20map.jpeg)
 
-## Communicating with data
+## Communicating with data (Explantory Visualization)
 
 1. **Understand the context** - this means knowing your audience and conveying a clear message about what you want your audience to know or do with the information you are providing.
 
@@ -2404,9 +2530,9 @@ Note that data is a pandas Series, so we can use the `apply` method for the func
 6. **Tell a story** - your visualizations should give the audience a story. The most powerful data visualizations move people to take action.
 
    1. Start with a Question
-   1. Repetition is a Good Thing
-   1. Highlight the Answer
-   1. Call Your Audience To Action
+   2. Repetition is a Good Thing
+   3. Highlight the Answer
+   4. Call Your Audience To Action
 
 ### Visuals can be bad if
 
@@ -2463,3 +2589,8 @@ Only use these additional encodings when absolutely necessary. Often these addit
 ### Simpson's Paradox
 
 - A Phenomenon that shows how powerful and dangerous statistics can be. Sometimes just grouping the data differently for analysis, can make conclusions disappear or even reversed.
+
+### How much is too much
+
+- It is so important to approach data exploration systematically, rather than just throw as many variables together as possible immediately. When you move from univariate visualizations to bivariate visualizations, you augment your previous understanding of individual distributions by seeing how they relate to one another. If you look at pairwise visualizations before putting together a trivariate plot, then you will have a clear view to how the interaction, if present, changes your previous understanding of the marginal pairwise relationship.
+- When you move on to explanatory data visualizations, try to limit the number of variables that are introduced at the same time and make sure that the encoding choices convey the main findings to your reader in the clearest way possible. While it's good to keep a soft limit of about three or four variables in a single visualization, you can exceed this if the trends are clear or you introduce features to your reader in a systematic way.
