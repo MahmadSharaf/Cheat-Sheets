@@ -45,7 +45,7 @@
       - [Sort and Rank](#sort-and-rank)
       - [Applying functions](#applying-functions)
       - [Plotting](#plotting)
-      - [Tips and Tricks](#tips-and-tricks)
+      - [Pandas Tips and Tricks](#pandas-tips-and-tricks)
       - [Logic in Python](#logic-in-python)
       - [Regular Expressions Examples](#regular-expressions-examples)
       - [Pandas References](#pandas-references)
@@ -70,6 +70,13 @@
   - [Machine Learning](#machine-learning)
     - [StatsModels](#statsmodels)
   - [Conventions](#conventions)
+  - [Speed Up Performance](#speed-up-performance)
+    - [Speed up execution time](#speed-up-execution-time)
+      - [Compare time](#compare-time)
+      - [Speed up techniques](#speed-up-techniques)
+    - [Speed up references](#speed-up-references)
+  - [Tips and Tricks](#tips-and-tricks)
+    - [Creating a Slide Deck with Jupyter](#creating-a-slide-deck-with-jupyter)
   - [Handful resources](#handful-resources)
 
 ## Dealing with files and folders
@@ -1288,8 +1295,9 @@ df = pd.DataFrame(
 ##### Reshaping Data
 
 - [df_new = df.copy() vs df_new = df](https://www.geeksforgeeks.org/python-difference-between-pandas-copy-and-copying-through-variables/)
-- [to_datetime] converts string to DateTime type
+- [to_datetime](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.to_datetime.html) converts string to DateTime type
 - [Merges()](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
+- [cut()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.cut.html)
 
 ```py
 # Gather columns into rows
@@ -1332,6 +1340,9 @@ df2 = df.copy()
 
 # Converts string to datetime object. But CSV will read this column as strings next time the file reopened, unless the it parsed into the CSV file. But pandas to_datetime provides more options than that of CSV.
 df['date_column'] = pd.to_datetime(df['date_column'])
+
+# Use cut when you need to segment and sort data values into bins. This function is also useful for going from a continuous variable to a categorical variable. For example, cut could convert ages to groups of age ranges. Supports binning into an equal number of bins, or a pre-specified array of bins.
+pd.cut(x, bins, right=True, labels=None, retbins=False, precision=3, include_lowest=False, duplicates='raise', ordered=True)
 ```
 
 ##### Subset Observations (rows)
@@ -1357,7 +1368,6 @@ df.sample(frac=0.5)
 
 # Randomly select n rows
 df.sample(n=10)
-
 
 # Select rows by position
 df.iloc[10:20]
@@ -1515,7 +1525,7 @@ df.plot.scatter(x='w', y='h')
 pd.plotting.scatter_matrix(df, figsize=(15,15));
 ```
 
-#### Tips and Tricks
+#### Pandas Tips and Tricks
 
 ```py
 # Get information about a function
@@ -1652,16 +1662,23 @@ pd.get_dummies(df['column_name'])
    ```
 
 - Data Distributions
+  - [errorbar()](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.errorbar.html)
 
    ```py
    # Plot a histogram
    ax1.hist(y)
+
+   # Plot a Heat Map
+   plt.hist2d(data = df, x = 'disc_var1', y = 'disc_var2', bins = [bins_x, bins_y])
 
    # Make a box-and-whisker plot
    ax3.boxplot(y)
 
    # Make a violin plot
    ax3.violinplot(z)
+
+   # Make Line Plots. Plot y versus x as lines and/or markers with attached errorbars.
+   plt.errorbar(data = df, x = 'num_var1', y = 'num_var2')
    ```
 
 - 2D Data
@@ -1749,8 +1766,11 @@ pd.get_dummies(df['column_name'])
     # Set limits for x-and y-axis
     ax.set(xlim=[0,10.5],ylim=[-1.5,1.5])
 
-    #Set limits for x-axis
+    # Set limits for x-axis
     ax.set_xlim(0,10.5)
+
+    # Scale the plot axis to one of Transformation {"linear", "log", "symlog", "logit", ...}
+    ax.xscale('log')
     ```
 
   - Legends
@@ -1771,27 +1791,30 @@ pd.get_dummies(df['column_name'])
 
     # Make y-ticks longer and go in and out
     ax.tick_params(axis='y', direction='inout', length=10)
+
+    # Rotate x-axis ticks
+    plt.xticks(rotation = 45)
     ```
 
   - Subplot Spacing
 
-   ```py
-   # Adjust the spacing between subplots
-   fig3.subplots_adjust(wspace=0.5, hspace=0.3, left=0.125, right=0.9, top=0.9, bottom=0.1)
+    ```py
+    # Adjust the spacing between subplots
+    fig3.subplots_adjust(wspace=0.5, hspace=0.3, left=0.125, right=0.9, top=0.9, bottom=0.1)
 
-   # Fit subplot(s) in to the figure area
-   fig.tight_layout()
-   ```
+    # Fit subplot(s) in to the figure area
+    fig.tight_layout()
+    ```
 
   - Axis Spines
 
-   ```py
-   # Make the top axis line for a plot invisible
-   ax1.spines['top'].set_visible(False)
+    ```py
+    # Make the top axis line for a plot invisible
+    ax1.spines['top'].set_visible(False)
 
-   # Move the bottom axis line outward
-   ax1.spines['bottom'].set_position(('outward',10))
-   ```
+    # Move the bottom axis line outward
+    ax1.spines['bottom'].set_position(('outward',10))
+    ```
 
 #### Save Plot
 
@@ -1890,8 +1913,7 @@ sb.set()
 sb.set_style("whitegrid")
 
 # Set the matplotlib parameters
-sb.set_style("ticks",
-               {"xtick.major.size":8,"ytick.major.size":8})
+sb.set_style("ticks", {"xtick.major.size":8,"ytick.major.size":8})
 
 # Return a dict of params or use `with` to temporarily set the style
 sb.axes_style("whitegrid")
@@ -1924,6 +1946,7 @@ sb.set_palette(flatui)
 ##### Step 3: Plotting
 
 - Axis Grids
+- [FacetGrid](https://seaborn.pydata.org/generated/seaborn.FacetGrid.html)
 
 ```py
 # Subplot grid for plotting conditional relationships
@@ -2152,6 +2175,145 @@ plt.close()
 
 1. [Google Style Guide for Python](https://google.github.io/styleguide/pyguide.html)
 2. [pep8](http://pep8online.com/)
+
+## Speed Up Performance
+
+Performance may refer to many different factors in a solution (e.g. execution time, CPU usage, memory usage, etc.)
+
+### Speed up execution time
+
+The improvement in the execution time of a new solution can be computed as simply as making a division. That is, we’ll be dividing the execution time of the old (or non-optimized) solution by the new (or optimized) solution: Told / Tnew. This metric is commonly referred to as speedup.
+
+#### Compare time
+
+```py
+import time
+
+def compute_speedup(slow_func, opt_func, func_name, tp=None):
+  x = range(int(1e5))
+  if tp: x = list(map(tp, x))  slow_start = time.time()
+  slow_func(x)
+  slow_end = time.time()
+  slow_time = slow_end - slow_start  opt_start = time.time()
+  opt_func(x)
+  opt_end = time.time()
+  opt_time = opt_end - opt_start  speedup = slow_time/opt_time
+  print('{} speedup: {}'.format(func_name, speedup))
+```
+
+In order to obtain significant results, we’ll be using a relatively large array (100.000 elements), and pass it to both functions as an argument. We’ll then compute the execution time using the time module and finally deliver the obtained speedup.
+
+Note that we are also passing an optional argument that would allow us to change the type of our list elements.
+
+#### Speed up techniques
+
+1. Avoid concatenating strings with the + operator
+
+   Python’s strings were created to be immutable, and therefore cannot be modified. That means that every time we use the + operator, Python is actually creating a new string based on both substrings and returning the new string.
+
+   ```py
+   def slow_join(x):
+      s = ''
+      for n in x:
+         s += n
+    ```
+
+   a cheaper solution using join(), such as in the following example:
+
+   ```py
+   def opt_join(x):
+      s = ''.join(x)
+   ```
+
+   This solution takes the array of substrings and joins them with the empty string separator. Let’s check our performance improvement:
+
+   ```py
+   compute_speedup(slow_join, opt_join, 'join', tp=str)
+   ```
+
+   I’m getting a speedup factor of 7,25!
+
+2. Use the map function
+
+   ```py
+   def slow_map(x):
+      l = (str(n) for n in x)
+      for n in l:
+         pass
+   ```
+
+   ```py
+   def opt_map(x):
+      l = map(str, x)
+      for n in l:
+         pass
+   ```
+
+   ```py
+   compute_speedup(slow_map, opt_map, 'map')
+   ```
+
+   I’m obtaining a speedup of 1,55.
+
+3. Avoid reevaluating functions
+
+   ```py
+   y = []
+   for n in x:
+      y.append(n)
+      y.append(n**2)
+      y.append(n**3)
+
+   # OR
+
+   def slow_loop(x):
+   y = []
+   for n in x:
+      y.append(n)
+   ```
+
+   ```py
+   def opt_loop(x):
+   y = []
+   append = y.append
+   for n in x:
+      append(n)
+   ```
+
+   ```py
+   compute_speedup(slow_loop, opt_loop, 'loop')
+   ```
+
+   I’m obtaining a speedup of 2,07!
+
+### Speed up references
+
+- [Medium Article](https://towardsdatascience.com/3-techniques-to-make-your-python-code-faster-193ffab5eb36)
+
+## Tips and Tricks
+
+### Creating a Slide Deck with Jupyter
+
+- Jupyter notebooks include a tool, [nbconvert](https://nbconvert.readthedocs.io/en/latest/), that can export notebooks in an HTML slides format.
+  - To start, you need to categorize the type of slide element that each cell will correspond with. From the menu bar, select **View > Cell Toolbar > Slideshow**. You'll see a drop down appear in the upper right hand corner of each cell, from which you can assign slide element types.
+  - Set Slide Types:
+    - For cells that you want readers to see, you'll choose the *Slide*, *Sub-Slide*, or *Fragment* types.
+    - *Slides* will form the main flow of the presentation, while *sub-slides* are children of slides in the main flow. *Fragments* are attached to preceding *slides* or *sub-slides*, and allow for gradual reveals of information on the same slide.
+      - Example presentation found on the [reveal.js](https://revealjs.com/) homepage (the library that is behind the nbconvert slide functionality).
+    - Cells that you don't want users to see should be in the Skip or Notes types. Skip-type cells will never show up in a slide flow, while Notes cells can only be seen by the presenter in a speaker notes window.
+  - In addition to setting slide types, make sure that all of your code cells have been run and produce the output that you want to show. `nbconvert` will only export elements of the notebook as-is, and won't run the notebook cells as is. It is recommended that you use the Kernel > Restart & Run All menu option to do a clean run-through of all of your cells as a final preparatory action.
+  - Once your notebook has been prepared, save it and shut down your notebook server.
+    - On the command line, you can render the notebook as slides using the following expression as a base.
+    - `jupyter nbconvert presentation.ipynb --to slides`
+  - By default, code cell inputs and outputs are both rendered in the slides. To hide the code in your presentation, you can specify a template file using the --template option. The template file available at [this link](https://s3.amazonaws.com/video.udacity-data.com/topher/2018/March/5abe98f3_output-toggle/output-toggle.tpl), will hide code cells from nbconvert.
+  - In order to serve the slides, you would need to install a local copy of reveal.js ([Installation documentation](https://github.com/hakimel/reveal.js#installation)), make sure that your HTML slides point to the library correctly (using the --reveal-prefix option), and then start a local http server (e.g., via python -m http.server).
+    - Alternatively, you can add the --post serve option to your expression to make use of a public, online version of reveal.js, start up a server, and immediately open a tab in your web browser with the slide deck ready to navigate.
+  - If you're at home with HTML, css, and web engine templating, then you have a lot of potential room for customizing your slide deck work. Otherwise, you can just use an expression like the following to get a basic slide deck up and running.
+
+      ```cmd
+      jupyter nbconvert presentation.ipynb --to slides --template output-toggle.tpl
+      --post serve
+      ```
 
 ## Handful resources
 
