@@ -69,6 +69,7 @@
     - [Resources](#resources)
   - [Machine Learning](#machine-learning)
     - [StatsModels](#statsmodels)
+    - [Apache MXNet](#apache-mxnet)
   - [Conventions](#conventions)
   - [Speed Up Performance](#speed-up-performance)
     - [Speed up execution time](#speed-up-execution-time)
@@ -1248,6 +1249,9 @@ df.std()
 # Count of Null values in each column
 df.isna().sum()
 
+# Count of Null values in each row
+df.isna().sum(axis=1)
+
 # List unique values in the df['name'] column
 df.column_name.unique()
 
@@ -1416,6 +1420,9 @@ df.at[[0],['col_name']] # Get scalar/single value. It's a very fast loc
 
 # Select rows meeting logical condition, and only in the specific columns
 df.loc[df['a'] > 10, ['a','c']]
+
+# Crosstab lets you select multiple columns and then see how many records, there are that overlap for different values of these columns.
+pd.crosstab(df.col1,df.col2, aggFunc=sum, margins=True, normalize=True).plot(kind='bar')
 ```
 
 #### Handling Missing Data
@@ -1427,8 +1434,16 @@ s.drop(['a','c'])
 # Remove rows or columns by specifying label names and corresponding axis, or by specifying directly index or column names. When using a multi-index, labels on different levels can be removed by specifying the level.
 df.drop(labels=None, axis=0, index=None, columns=None, level=None, inplace=False, errors='raise')
 
-# Remove missing values
+# Remove rows with NULL values
 df.dropna()
+
+# Remove columns with NULL values
+df.dropna(axis=1)
+
+# More dropna rules
+df.dropna(how='all')
+df.dropna(thresh=4)
+df.dropna(subset=['Fruits'])
 
 # Fills the missing values with value and if inplace is true it will replace the column with new data.
 df['column_name'].fillna(value, inplace=True)
@@ -2171,6 +2186,71 @@ plt.close()
    results.summary()
    ```
 
+### Apache MXNet
+
+1. Installation:
+   1. MXNet:
+      1. Basic: a version of MXNet that will use the CPU for computation.
+
+         ```py
+         pip install mxnet
+         ```
+
+      2. CPU Optimized: for an Intel CPU, a version of MXNet that uses Intel's Math kernel Library. All of the CPU cores will be used with this version for potential boost and performance.
+         1. Install Intel MKL for windows [here](https://software.intel.com/content/www/us/en/develop/tools/math-kernel-library/choose-download/windows.html)
+         2. Install MXNet MKL version
+
+            ```py
+            pip install mxnet-mkl
+            ```
+
+      3. GPU Optimized: If you have an Nvidia GPU, you can use the CUDA optimized version of MXNet. Make sure that CUDA is installed beforehand and find its version to make sure that you get the corresponding version of MXNet.
+         1. Check if the [GPU supports CUDA](https://developer.nvidia.com/cuda-gpus)
+         2. Check if CUDA installed `nvcc --version`. If yes, jump to step 5
+         3. Install the [CUDA toolkit](https://developer.nvidia.com/cuda-downloads?)
+         4. Install cuDNN on Windows 10 which is compatible with CUDA version.
+            1. Download [cuDNN](https://developer.nvidia.com/cudnn)
+            2. Extract the downloaded files
+            3. Copy the 3 folders and the text file to the location where NVIDIA GPU Computing Toolkit is located. ex: `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2`
+            4. Add path on environmental variables for
+               - `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\bin`
+               - `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\libnvvp`
+            5. Install MXNet [related version](https://mxnet.apache.org/versions/1.7/get_started?platform=windows&language=python&processor=gpu&environ=pip&) library
+
+               ```cmd
+               pip install mxnet-cu102
+
+               # OR
+
+               pip install mxnet-cu102 -f https://dist.mxnet.io/python
+               ```
+
+            - Reference:
+              - [Medium Article](https://medium.com/analytics-vidhya/cuda-toolkit-on-windows-10-20244437e036)
+              - [Python 3 Microsoft Visual C++ 14.0 is required](https://www.scivision.dev/python-windows-visual-c-14-required/)
+      4. Combine both CPU and GPU optimized versions
+
+         ```cmd
+         pip install mxnet-cu101mkl
+
+         # OR
+
+         pip install mxnet-cu102mkl==1.6.0 -f https://dist.mxnet.io/python
+         ```
+
+   2. GluonCV:
+      1. Stable
+
+         ```py
+         pip install gluoncv
+         ```
+
+      2. Nightly
+
+         ```py
+         pip install gluoncv --pre
+         ```
+
 ## Conventions
 
 1. [Google Style Guide for Python](https://google.github.io/styleguide/pyguide.html)
@@ -2335,15 +2415,20 @@ Note that we are also passing an optional argument that would allow us to change
       4. Deactivate Environment `deactivate`
    2. Using Virtual Wrapper (recommended):
       1. Install Virtual Env `pip install virtualenv`
-      2. Install Virtual Wrapper `pip install virtualenvwrapper` or for Windows `pip install virtualenvwrapper-win`
-      3. Add virtualenvwrapper.sh path in the Bash profile `source {path/to/Python}/Scripts/virtualenvwrapper.sh`
-      4. Reload the startup
-      5. Create a new environment `mkvirtualenv {VirEnv Name}`
-      6. Deactivate current environment `deactivate`
-      7. Use an enviroment `workon {VirEnv Name}`
-      8. Remove an environment `rmvirtualenv {VirEnv Name}`
-      9. List all available environments `workon`
-      10. [Medium Article](https://medium.com/the-andela-way/configuring-python-environment-with-virtualenvwrapper-8745c2895745)
+      2. Install Virtual Wrapper:
+         1. For Bash (recommended): 
+            1. Install: `pip install virtualenvwrapper`
+            2. Add virtualenvwrapper.sh path in the Bash profile `source {path/to/Python}/Scripts/virtualenvwrapper.sh`
+         2. For Windows PowerShell: `pip install virtualenvwrapper-win`
+      3. Reload the startup
+      4. Create a new environment `mkvirtualenv {VirEnv Name}`
+      5. Deactivate current environment `deactivate`
+      6. Use an enviroment `workon {VirEnv Name}`
+      7. Remove an environment `rmvirtualenv {VirEnv Name}`
+      8. List all available environments `workon`
+      9. Resources:
+          1. [Medium Article](https://medium.com/the-andela-way/configuring-python-environment-with-virtualenvwrapper-8745c2895745)
+          2. [Virtual Wrapper Docs](https://virtualenvwrapper.readthedocs.io/en/latest/index.html)
 3. [Jupyter Notebook](http://jupyter.org)
    1. How to install Jupyter without anaconda
       1. `python -m pip install --upgrade pip`
