@@ -8,6 +8,7 @@
   - [Lists](#lists)
   - [While loop](#while-loop)
   - [Tricks](#tricks)
+  - [Desktop App using Tkinter](#desktop-app-using-tkinter)
   - [Draw on screen using Turtle module](#draw-on-screen-using-turtle-module)
   - [Classes](#classes)
   - [HTTP servers](#http-servers)
@@ -31,7 +32,7 @@
         - [Read and Write from CSV](#read-and-write-from-csv)
         - [Read and write from Excel](#read-and-write-from-excel)
         - [Read and Write to SQL Query or Database Table](#read-and-write-to-sql-query-or-database-table)
-      - [Retrieveing Information](#retrieveing-information)
+      - [Retrieving Information](#retrieving-information)
         - [Basic Information](#basic-information)
         - [Summary](#summary)
       - [Data Wrangling](#data-wrangling)
@@ -181,8 +182,8 @@ There are 5 approaches for achieving this on python (Python 3):
    As of python 3.6+, you can now also use f-strings, to substitute variables within a string. This method is similar to the the .format() method described above, and in my opinion is a better upgrade to the str.format() method. To use this method all you have to do is state f before your opening quote when defining a string and then, within the string use the format, {[variable name goes here]} for this to work. For example, to make your print statement work, using this method, you can do:
 
    ```py
-   print(f"The Enemy's health is {EnemyHealth}. The Enemy is {EnemyIs}.")
-   # output = "The Enemy's health is 0. The Enemy is dead."
+   print(f"The Enemy's health is {EnemyHealth}. The Enemy's tall avg  {EnemyAvg:.2f}.")
+   # output = "The Enemy's health is 0. The Enemy's tall avg 181.21."
    ```
 
    using this method, the variable name is being instantiated directly within the curly brackets {}.
@@ -266,6 +267,141 @@ print("Blastoff!")
    # convert array to list
    lst = list(arr)
    ```
+
+## Desktop App using Tkinter
+
+1. Import the library
+
+   ```py
+   import tkinter as tk
+   ```
+
+2. Create a window
+
+   ```py
+   # Define a window
+   window = tk.Tk()
+
+   # Define window title
+   window.title("My first GUI")
+
+   # Define window size
+   window.geometry("300x200")
+   ```
+
+3. Widgets
+
+   - The basic syntax of widget is:
+
+   ```py
+   # parent is the window variable
+   tk.Widget_name(parent,options)
+   ```
+
+   1. Entry
+   Entry fields are used to get some inputs.
+
+      ```py
+      tk.Entry(parent,width=25)
+      ```
+
+   2. Button:
+   Buttons are used to make some events.
+
+      ```py
+      tk.Button(parent, text="Click Here")
+      ```
+
+   3. Checkbutton:
+   It is used to check some conditions and terms.
+
+      ```py
+      tk.Checkbutton(parent,text="Remember me",variable=tk.IntVar())
+      ```
+
+   4. Label
+   It is used to display some text or image
+
+      ```py
+      tk.Label(text="Hello world",, font=("Times new roman", 20))
+      ```
+
+   5. OptionMenu
+   It is used to select an option from a drop-down menu.
+
+      ```py
+      tk.OptionMenu(parent,tk.IntVar(),"Age","15+","25+","40+")
+      ```
+
+   6. Scrollbar
+   It is used to scroll the app.
+
+      ```py
+      tk.Scrollbar(parent,orient=tk.VERTICAL)
+      ```
+
+   7. Radiobutton
+   It is used to provide multiple options in which the only one of them can be selected.
+
+      ```py
+      tk.Radiobutton(parent,text="Male",variable=tk.IntVar(),value=5)
+      ```
+
+   8. Text
+   It is used to add text and print them on the GUI.
+
+      ```py
+      tk.Text(parent,height=20,width=10)
+      ```
+
+   - There are some more widgets available like the list box, progress bar, scale, spinbox, etc. You can learn more about widgets [here](http://tkdocs.com/tutorials/widgets.html).
+
+4. `pack` and `grid`
+
+   - We can arrange the widgets using the `pack()` method instead of the `grid()`. The problem with `pack()` is that it packs things as close as possible. You can’t even give space or change the rows and columns, or change the order of widgets. That is why` pack()` is not often used, instead, `grid()` is used mostly.
+
+      ```py
+      widget_name.grid(column=col_pos,row=row_pos)
+      ```
+
+5. Bind Function
+   - It is used to bound a function with a button after an event is fired.
+
+   ```py
+   # We use window as the first argument of the Button method, to connect the button to our window.
+   button_name = tk.Button(window, text = "some text")
+   button_name.grid(column=1,row=0)
+
+   # An function to be called after the trigger is fired
+   def fn():
+      print("Event Triggered")
+
+   # Bound it to the window of the app using the bind method.
+   # The first parameter is the event. <Button-1> is the left click short key of the mouse.
+   # The second parameter is the name of the event function.
+   button_name.bind("<Button-1>",fn)
+   ```
+
+6. Connecting Entries with Buttons
+
+   - We can connect a button with entries using the keyword command and assigning it a function name.
+
+   ```py
+   button = tk.Button(text="click",command=function_name)
+   ```
+
+   - Also, we can get the value from the entry using `get()` method.  
+
+      ```py
+      name_entry.get()
+      ```
+
+7. Load the app
+   - This function is like `main()` in C. It is used to start the app
+
+      ```py
+      window.mainloop()
+      ```
 
 ## Draw on screen using Turtle module
 
@@ -1180,7 +1316,7 @@ pd.read_sql_query("SELECT * FROM my_table;", engine)
 pd.to_sql('my_DF', engine)
 ```
 
-#### Retrieveing Information
+#### Retrieving Information
 
 ##### Basic Information
 
@@ -2416,7 +2552,7 @@ Note that we are also passing an optional argument that would allow us to change
    2. Using Virtual Wrapper (recommended):
       1. Install Virtual Env `pip install virtualenv`
       2. Install Virtual Wrapper:
-         1. For Bash (recommended): 
+         1. For Bash (recommended):
             1. Install: `pip install virtualenvwrapper`
             2. Add virtualenvwrapper.sh path in the Bash profile `source {path/to/Python}/Scripts/virtualenvwrapper.sh`
          2. For Windows PowerShell: `pip install virtualenvwrapper-win`
