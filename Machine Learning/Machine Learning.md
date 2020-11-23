@@ -1,19 +1,41 @@
-# Applied Machine Learning with Python
+# Machine Learning
 
-- [Applied Machine Learning with Python](#applied-machine-learning-with-python)
-  - [About this course](#about-this-course)
-  - [What is covered in this course](#what-is-covered-in-this-course)
-  - [What is not covered](#what-is-not-covered)
-  - [Setting up environment](#setting-up-environment)
+- [Machine Learning](#machine-learning)
   - [Introduction](#introduction)
     - [Definition Machine Learning (ML)](#definition-machine-learning-ml)
     - [Types of Machine Learning](#types-of-machine-learning)
       - [1. Supervised ML](#1-supervised-ml)
       - [2. Unsupervised ML](#2-unsupervised-ml)
-    - [Basic Machine Learning Workflow](#basic-machine-learning-workflow)
+      - [3. Reinforcement ML](#3-reinforcement-ml)
+    - [The Machine Learning Pipeline](#the-machine-learning-pipeline)
   - [Getting Started](#getting-started)
-    - [Preprocessing](#preprocessing)
-    - [Splitting dataset](#splitting-dataset)
+    - [Data preparation and preprocessing](#data-preparation-and-preprocessing)
+      - [Data Collection](#data-collection)
+      - [Data Preparation](#data-preparation)
+      - [Data Cleaning](#data-cleaning)
+      - [Data Preprocessing](#data-preprocessing)
+      - [Data Visualization](#data-visualization)
+    - [Model Training](#model-training)
+      - [Algorithms](#algorithms)
+      - [Formatting data](#formatting-data)
+      - [Testing and validation techniques](#testing-and-validation-techniques)
+        - [Splitting data](#splitting-data)
+        - [Cross-validation](#cross-validation)
+      - [Model training concepts](#model-training-concepts)
+    - [Model Evaluation](#model-evaluation)
+      - [Bias Variance Tradeoff](#bias-variance-tradeoff)
+      - [Model Metrics](#model-metrics)
+        - [Classification Metrics](#classification-metrics)
+        - [Regression Metrics](#regression-metrics)
+      - [Validation Curve](#validation-curve)
+    - [Feature Engineering](#feature-engineering)
+      - [Feature Extraction](#feature-extraction)
+      - [Feature Selection](#feature-selection)
+      - [Feature Creation and transformation](#feature-creation-and-transformation)
+    - [Model Training/Tuning](#model-trainingtuning)
+      - [Hyperparameter tuning](#hyperparameter-tuning)
+        - [Grid Search](#grid-search)
+        - [Random Search](#random-search)
     - [Choosing the ML model](#choosing-the-ml-model)
       - [Supervised Machine Learning Algorithms](#supervised-machine-learning-algorithms)
         - [Neural Networks](#neural-networks)
@@ -24,17 +46,13 @@
         - [K-nearest neighbor](#k-nearest-neighbor)
         - [Linear Model](#linear-model)
     - [Model Training/Tunning](#model-trainingtunning)
-      - [Bias Variance Tradeoff](#bias-variance-tradeoff)
       - [Learning Curve](#learning-curve)
       - [Model Debugging](#model-debugging)
       - [Regularization](#regularization)
-      - [Hyperparameter tuning](#hyperparameter-tuning)
-        - [Grid Search](#grid-search)
-        - [Random Search](#random-search)
       - [Model Tuning](#model-tuning)
         - [Training Data Tuning](#training-data-tuning)
         - [Feature Set Tuning](#feature-set-tuning)
-        - [Feature Extraction](#feature-extraction)
+        - [Feature Extraction](#feature-extraction-1)
         - [Model Tuning: Bagging/Boosting](#model-tuning-baggingboosting)
   - [Aspects to be considered](#aspects-to-be-considered)
   - [ML Data Readiness](#ml-data-readiness)
@@ -45,9 +63,6 @@
       - [Online Predictions](#online-predictions)
       - [Online training](#online-training)
     - [Business metrics vs Model Metrics](#business-metrics-vs-model-metrics)
-      - [Metrics for Logistic Regression](#metrics-for-logistic-regression)
-        - [Confusion Matrix](#confusion-matrix)
-        - [Metrics for Linear Regression](#metrics-for-linear-regression)
     - [Storage](#storage)
     - [Model and Pipeline Persistence](#model-and-pipeline-persistence)
     - [Model Deployment](#model-deployment)
@@ -55,196 +70,177 @@
     - [Maintenance](#maintenance)
   - [Common Mistakes](#common-mistakes)
 
-## About this course
-
-This course will introduce the learner to applied machine learning, focusing more on the techniques and methods than on the statistics behind these methods. The course will start with a discussion of how machine learning is different than descriptive statistics, and introduce the scikit learn toolkit through a tutorial. The issue of dimensionality of data will be discussed, and the task of clustering data, as well as evaluating those clusters, will be tackled. Supervised approaches for creating predictive models will be described, and learners will be able to apply the scikit learn predictive modelling methods while understanding process issues related to data generalizability (e.g. cross validation, overfitting). The course will end with a look at more advanced techniques, such as building ensembles, and practical limitations of predictive models. By the end of this course, students will be able to identify the difference between a supervised (classification) and unsupervised (clustering) technique, identify which technique they need to apply for a particular dataset and need, engineer features to meet that need, and write python code to carry out an analysis.
-
-## What is covered in this course
-
-- Understand basic ML concepts and workflow
-- How to properly apply 'black-box' machine learning
-components and features
-- Learn how to apply machine learning algorithms in
-Python using the scikit-learn package
-
-## What is not covered
-
-- Underlying theory of statistical machine learning
-- Lower-level details of how particular ML components work
-- In-depth material on more advanced concepts like deep learning.
-
-## Setting up environment
-
-1. ### `scikit-learn`: Python Machine Learning Library
-
-    1. scikit-learn Homepage: <http://scikit-learn.org/>
-    2. scikit-learn User Guide: <http://scikit-learn.org/stable/user_guide.html>
-    3. scikit-learn API reference: <http://scikit-learn.org/stable/modules/classes.html>
-
-        ```python
-        from sklearn.model_selection import train_test_split
-        from sklearn.tree import DecisionTreeClassifier
-        ```
-
-2. ### Python Environment with below libraries
-
-    1. `SciPy` Library: Scientific Computing Tools
-
-        - Provides a variety of useful scientific computing     tools, including statistical distributions,     optimization of functions, linear algebra, and a    variety of specialized mathematical functions.
-        - With scikit-learn, it provides support for sparse     matrices, a way to store large tables that consist  mostly of zeros.
-
-            ```python
-            import scipy as sp
-            ```
-
-    2. `NumPy`: Scientific Computing Library
-
-        - Provides fundamental data structures used by  scikit-learn, particularly multi-dimensional arrays.
-        - Typically, data that is input to scikit-learn will    be in the form of a NumPy array.
-        hat consist  mostly of zeros.
-
-            ```python
-            import numpy as np
-            ```
-
-    3. `Pandas`: Data Manipulation and Analysis
-
-        - Provides key data structures like DataFrame
-        - Also, support for reading/writing data in different   formats
-        hat consist  mostly of zeros.
-
-            ```python
-            import pandas as pd
-            ```
-
-    4. `matplotlib` and other plotting libraries
-
-        - We typically use matplotlib's pyplot module:
-
-            ```python
-            import matplotlib.pyplot as plt
-            ```
-
-        - We also sometimes use the seaborn visualization
-        library (<http://seaborn.pydata.org/)>
-
-            ```python
-            import seaborn as sn
-            ```
-
-        - And sometimes the graphviz plotting library:
-
-            ```python
-            import graphviz
-            ```
-
-    5. Libraries versions used in this course
-
-        | Library name | Minimum version |
-        | ------------ | --------------- |
-        | scikit-learn | 0.18.1          |
-        | scipy        | 0.19.0          |
-        | numpy        | 1.12.1          |
-        | pandas       | 0.19.2          |
-        | matplotlib   | 2.0.1           |
-        | seaborn      | 0.7.1           |
-        | graphviz     | 0.7             |
-
 ## Introduction
 
 ### Definition Machine Learning (ML)
 
-- The study of computer programs (algorithms)
-that can learn by example
-- ML algorithms can generalize from existing
-examples of a task
+- The study of computer programs (algorithms) that can learn by example.
+- ML algorithms can generalize from existing examples of a task.
 
 ### Types of Machine Learning
 
 #### 1. Supervised ML
 
-Learn to predict target values from labelled data.
+- Learn to predict target values from labelled data.
 
-1. Classification: Target values with discrete classes  
-    eg: Differentiate between fruit types
+1. Classification: Target values with discrete classes
+   1. Binary Classification: To identify targets with two classes
+      - eg: Fraud detection or Spam email identification
+   2. Multi-class identification: To identify targets with more than two classes.
+      - eg: Differentiate between fruit types
 2. Regression: Target values are continuous values.  
-    eg: Predict house price
+     - eg: Predict house price
 
 #### 2. Unsupervised ML
 
-Find structure in unlabeled data
+- Find structure in unlabeled data
 
 1. Clustering: Find groups of similar instances in the data.  
   eg: Finding clusters of similar users.
-2. Outlier detection: Detecting abnormal server access patterns.  
-  eg: Predict house price
 
-### Basic Machine Learning Workflow
+#### 3. Reinforcement ML
 
-1. Representation  
-    Choose:
-    - A feature representation
-    - Type of classifier to use  
-        e.g. image pixels, with k-nearest neighbor classifier
-2. Evaluation  
-    Choose:
-    - What criterion distinguishes good vs. bad classifiers?  
-        e.g. % correct predictions on test set
-3. Optimization  
-    Choose:
-    - How to search for the settings/parameters that give the best classifier for this evaluation criterion.  
-        e.g. try a range of values for "k" parameter in k-nearest neighbor classifier
+- Learning through Trial and Error
+
+### The Machine Learning Pipeline
+
+1. Business Problem:
+   - Identify the problem that could benefit from ML
+2. Business Formulation: Preparing the problem
+   - Identify ML model type (Classification, Regression)
+   - Frame the simplest solution without losing important information
+   - Choosing the data:
+     - How much is it?
+     - Where is it?
+     - Do I have access to it?
+   - Get a domain expert:
+     - An expert for the business case.
+     - Can identify the important features
+     - Decide whether the data is representative for the real world
+   - Evaluate the data quality
+   - Identifying the features and the label
+   - Does the problem needs a lot of labeled data?
+   - Identify the metrics:
+     - Model performance metric
+       - Used during model training and evaluation
+     - Business goal metric
+       - Used after model deployment
+       - Measures how well the model is performing
+3. Data preparation and preprocessing
+   - Data collection and integration
+   - Determine where data comes from
+   - Data Preprocessing and visualization
+   - Design data for the model
+4. Model Training and Tuning
+5. Model Evaluation:
+   - Testing the model on new data and assess the results
+6. Optimization
+   - Data Augmentation:
+     - Modify the data
+   - Feature Engineering:
+     - Create new features
+7. Model Deployment
 
 ## Getting Started
 
-### Preprocessing
+### Data preparation and preprocessing
 
-Look at what kind of feature preprocessing is typically needed.
+#### Data Collection
 
-- Missing data.
-  - Check for missing values by using pandas functions `df.isnull()`.
-  - If there are missing values, the below can be done:
-    - Drop missing values by `df.dropna()`.
-      - Risks of dropping rows:
-        - Losing too much data, Overfitting, wider confidence intervals, etc.
-        - May bias sample
-      - Risks of dropping columns:
-        - May lose information in features (Underfitting)
-    - Impute the missing values:
-      - It can be replaced by using an estimated value such as Mean, Median, Most Frequent(for categoricals), etc.
-      - Evaluate the cause of missingness to determine the best imputation process.
+- It can be structured or unstructured data.
+- It can be collected from many sources like: server, database, disk, clickstream, multimedia, IoT and sensors, Social media.
+- When in the cloud, Data Lake is used. It can store and serve both structured and unstructured data.
 
-        ```py
-        from sklearn.preprocessing import Imputer
-        import numpy as np
+#### Data Preparation
 
-        arr = np.array([[5,3,2,2],[3,None,1,9],[5,2,7,None]])
+- Reformat the collected data from (CSV, JSON, Pickle, ..etc) into a tabular format.
+- Make sure that the data is imported properly by importing the first few rows
+- Understand the data dimensions, column names
+- Checking for missing data, duplicates, wrong data types
 
-        imputer = Imputer(strategy = 'mean')
-        imp = imputer.fit(arr)
-        imputer.transform(arr)
+#### Data Cleaning
 
-        # array([[5,3,2,2],
-        #        [3,2.5,1,9],
-        #        [5,2,7,5.5]])
-        ```
-
+- Missing Data:
+  - Sources:
+    - Undefined values, collection errors, left joins, etc..
+  - Issues:
+    - Many learning algorithms can't handle missing values.
+    - Makes it hard to interpret a target relationship
+  - Identifying the cause can determine whether to delete or impute them.
+    - What were the mechanisms that caused the missing values?
+    - Is it random and which kind of values are missing?
+    - Are there rows or columns missing that not aware of?
+  - Dropping:
+    - Risk of dropping rows:
+      - Not enough training samples (overfitting)
+      - May bias sample
+    - Risk of dropping columns:
+      - May lose information in features (underfitting)
+  - Imputation:
+    - Unit Non-Response:
+      - Refers to entire rows of missing data
+      - Imputation Methods include: Weight-Class Adjustments
+    - Item Non-Response
+      - Specific cells of a column are missing
+      - Types:
+        - MCAR: stands for Missing Completely at Random.
+          - This happens when missing values are missing independently from all the features as well as the target.
+        - MAR: stands for Missing at Random.
+          - This occurs when the missing value is dependant on a variable, but independent from itself.
+        - MNAR: stands for Missing Not at Random.
+          - This is the case where the missingness of a value is dependent on the value itself.
+      - Methods:
+        - Weight-Class Adjustments
+        - Deductive Imputation
+        - Mean/Median/Mode Imputation
+        - Hot-Deck Imputation
+        - Model-Based Imputation (Regression, Bayesian, etc)
+        - Proper Multiple Stochastic Regression
+        - Pattern Submodel Approach
+    - Python libraries:
+      - SciKit learn:
+        - `sklearn.preprocessing.SimpleImputer`
       - Advanced methods for Imputation:
         - MICE (Multiple Imputation by chained Equations).
         `sklearn.impute.MICEImpute` (v0.20)
         - Python (not sklearn) `fancyimpute` package (KNN impute, SoftImpute, MICE, etc..)
-- Gain insight on what machine learning model might be appropriate, if any.
-- Get a sense of how difficult the program might be.
-- Encoding Labels:
+    - References:
+      - [A Comprehensive Guide To Data Imputation](https://towardsdatascience.com/a-comprehensive-guide-to-data-imputation-e82eadc22609)
+      - [Matt Brems Repo](https://github.com/matthewbrems/missing-data-workshop?fbclid=IwAR1LGjaIen-ITLndPN1ODV1lYZBvxsHDs0DgIaPkuxpXMsQRBT8eAPI-0sI)
+- Inconsistency
+- Column values with different units
+- Wrong or unrelated column values
+- Outliers:
+  - It can:
+    - Add richness to the data
+    - Make accurate predictions more difficult
+    - Indicate that the data point belongs to another column
+  - Types:
+    - Artificial: when the outlier doesn't belong to the real world
+      - eg: Age is 150
+      - It needs to be deleted
+    - Natural: when the outlier can be actually genuine
+      - eg: Salary of CEO vs other employees
+      - Transform the outlier
+        - Ex: Use the natural log of each value in the column to reduce the extreme variation between the values.
+      - Impute a new value for the outlier
+        - Ex: Use the mean of that column
+
+#### Data Preprocessing
+
+- Descriptive Statistics:
+  - Categorical vs Numerical stats
+  - Understanding Mean and Median
+- Encoding Labels for categorical features:
   - It is converting categorical variable into a numerical variable.
   - Ordinal:
     - SciKit Learn library, LabelEncoder, converts categorical variable to numerical variable that starts with 0 and increase with 1. But if this applied to non-nominal categorical type, may lead to wrong computations or wrong usages. So, it is recommended to be used with Ordinal type that has relationships with each other.
 
       ```py
-      from sklearn.preprocessing import LabelEncoder
+        from sklearn.preprocessing import LabelEncoder
 
-      loan_enc = LabelEncoder()
-      y = group_enc.fit_transform(df['loan_approved'])
+        loan_enc = LabelEncoder()
+        y = group_enc.fit_transform(df['loan_approved'])
       ```
 
   - Nominal:
@@ -269,108 +265,398 @@ Look at what kind of feature preprocessing is typically needed.
       pd.get_dummies(df)
       ```
 
-    - Encoding with many classes:
-      - Define a hierarchy structure.
-      - Try to group the levels by similarity to reduce the overall number of groups.
+  - Encoding with many classes:
+    - Define a hierarchy structure.
+    - Try to group the levels by similarity to reduce the overall number of groups.
 
-- Feature Engineering
-  - Scaling Transformation:
+#### Data Visualization
 
-    Critical aspects to Feature Engineering:
-    - The scalar is fit to training data only, then transform both train and validation data.
-    1. Apply the same scalar object to both training and testing data.
-    2. Training the scalar object on the training data and not on the test data. If it trained on the test data, it will cause a phenomena called Data Leakage, where the training phase has information that is leaked from the test set.
+- Categorical data visualization:
+  - Bar Charts
+- Numerical data:
+  - Histograms
+    - How many peaks
+    - Is there any skewness
+    - Is the data normally distributed
+  - Density plot
+    - Identify Skewness
+    - Detect outliers
+  - Box plot
+    - Detect outliers
+    - Visualize mean, std, IQR
+- Multivariate stats
+  - Benefits:
+    - Identify correlation between features.
+    - High correlation between features can sometimes lead to poor model performance
+  - Visualization techniques:
+    - Scatterplot
+    - Scatterplot with labels identification
+    - Scatterplot matrix
+    - Correlation matrix with Heatmap
 
-    - Mean/variance standardization:
-      - Centering the values around mean $\mu_j = 0$ with standard deviation $\sigma_j = 1$ for each column.
-      - This can be achieved by removing the mean from the variable and divide it with the standard variance.
+### Model Training
 
-        $$x_{i,j}^* = \frac{x_{i,j} - \mu_j}{\sigma_j}$$
+- The goal of training is to create an accurate model that answers the business question accurately as often as you need it or more.
 
-        ```py
-        from sklearn.preprocessing import StandardScalar
+#### Algorithms
 
-        scale = StandardScalar()
-        arr = np.array([[5,3,2,2],[2,3,1,9],[5,2,7,6]],dtype=float)
-        print(scale.fit_transform(arr))
-        print(scale.scale_)
-        ```
+1. Supervised Learning
+   1. Classification
+      1. Binary
+         1. Linear learner
+         2. XGBoost
+      2. Multi-class
+         1. XGBoost
+         2. KNN
+   2. Regression
+      1. XGBoost
+      2. KNN
+      3. Linear learner
+      4. Factorization machines
+   3. Recommendation
+      1. Factorization machines
+2. Unsupervised Learning
+   1. Clustering
+      1. K-means
+      2. LDA
+   2. Topic modeling
+      1. LDA
+   3. Embeddings
+      1. Object2Vec
+   4. Anomaly detection
+      1. Random cut forest
+      2. IP insights
+   5. Dimensionality reduction
+      1. PCA
 
+#### Formatting data
+
+- Common types for algorithms:
+  - CSV: Comma separated values
+    - Label on the left
+  - rec: Record-IO protobuf
+
+#### Testing and validation techniques
+
+##### Splitting data
+
+- We split the data to avoid overfitting and get generalized performance. The data is split into three sets:
+  - Training set:
+    - It is used in the model training phase to see patterns.
+    - It ranges around 80% of the full data
+  - Validation/Evaluation set:
+    - It is used also in the training phase but used to give an estimate of model performance and/or compare performance across different models.
+    - It ranges around 10% of the full data.
+  - Testing set:
+    - It is used to evaluate the predictive quality of the model.
+    - It ranges around 10% of the full data.
+- Python SciKit learn `sklearn.model_selection.train_test_split` can be used for splitting
+
+##### Cross-validation
+
+- It compares the performance of multiple models
+- It basically gives more stable and reliable estimates of how the classifiers likely to perform on average by running multiple different training test splits and then averaging the results.
+- It gives information about how sensitive the model is, to the nature of the specific training set.
+- It does take more time and computation to do cross-validation.
+- The records might need shuffling to avoid possible bias in the ordering by class label. For example, the first 20% of the data has the same label.
+
+1. K-Fold Cross Validation:
+![K-Fold validation](ML%20images/K-Fold_CV.png)
+   - Used when there is a small dataset
+   - Most commonly used with K set to 5 or 10.
+   - As K increases, TIME and Variance in test data increases and BIAS decreases
+   - Eg: to do five-fold cross-validation, the original dataset is partitioned into five parts of equal or close to equal sizes. Each of these parts is called a "fold". Then a series of five models is trained and validated using a different fold. In such that Model one, is trained using folds 2 through 5 as the training set and evaluated using fold 1 as the validation set. Model 2, is trained using Folds 1, 3, 4, and 5 as the training set, and evaluated using Fold 2 as the validation set, and so on. When this process is done, we have five accuracy values, one per fold.
+2. Iterated K-Fold validation with shuffling  
+   - ![Iterated K-Fold validation](ML%20images/Iterated_K-Fold_CV.png)
+   - It is the same as K-Fold validation but with extra K iteration. The difference between each iteration is that the data set is shuffled differently in each iteration.
+   - Eg: In K = 3, the first iteration is occurred same as 3-Fold validation which the average of the 3 models is taken, then two more iteration of this 3-Fold validation but with shuffling the data before splitting them. Then the average of the 3 iterations is taken.
+3. Leave-one-out cross-validation:
+   - It is used for very small datasets.
+   - Test set is one data point.
+4. Stratified K-Fold cross-validation:
+   - Distributes label class across training and testing datasets.
+   - For imbalanced data.
+
+- SciKit Learn library `sklearn.model_selection.cross_val_score` can be used for cross validation:
+  - In Classification problem, SciKit Learn do "Stratified K-fold Cross-validation". The Stratified Cross-validation means that when splitting the data, the proportions of classes in each fold are made as close as possible to the actual proportions of the classes in the overall data set.
+  - In regression, SciKit Learn uses regular k-fold cross-validation.
+
+#### Model training concepts
+
+- How training the model works:
+  - ![Training Concept](ML%20images/Model-Training-Concept.png)
+  - The model is given a specific set of features.
+  - The model predicts the classes for these features based upon the weights that was given to the features.
+  - Then the predictions are compared with the actual labels to compute the loss.
+  - Based on the loss computed, the model parameters (features weights) are updated to minimize the loss.
+- What is loss function  
+![Loss function](ML%20images/Error_Parameter_plot.png)
+  - Loss function is the measure of the error in the model predictions, given a certain weights.
+- Types of loss functions:
+  - RMSE (Root mean square error):
+    - Describes the sample standard deviation of the differences between predicted and observed values.
+    - $$\sqrt{\frac{\sum_{i=1}^n(Y_{\text{target},i}-Y_{\text{pred},i})^2}{n}}$$
+  - Logs Likelihood loss:
+    - Considers the logarithm of probabilities of each class.
+    - In Binary classification: $-(y\log{p} + (1-y) \log{(1-p)})$
+- Optimization:  
+![Loss function](ML%20images/Error_Parameter_plot_Global_Minima.png)
+  - It is used to find the Minima.
+  - Minima is the minimum point in the plot between loss and parameters or the point with the least amount of error.
+  - It is often that there might more than one local Minima, in which the model might get stuck in local Minima instead of the Global Minima.
+  - Ways to find the Global Minima:
+    - Comparing all possible values which is inefficient way.
+    - Gradient Descent  
+    ![Gradient Descent](ML%20images/Gradient%20Descent.png)  
+      - It is the searching for the Minima by taking a step into the direction where the point on the graph with negative gradient. Until it finds an positive gradient, then it reverses the direction to another point where has negative gradient. This process occurs until the Minima is found
+      - Learning Rate:
+        - It is how big is the step to be taken.
+        - If it too big, the local Minima will be hard to be found.
+        - If it too small, it will too much time to be found.
+      - Drawbacks:
+        - Updates the parameters only after a pass through all the data (one epoch)
+        - Can't be used when data is too large to fit entirely in memory.
+        - Can get stuck at local Minima or fail to reach Global Minima.
+    - Stochastic Gradient Descent:
+      - It is the same as gradient descent except that the weights is updated at every data point.
+      - It is very fast to converge.
+      - The drawback is that it is very noisy, in such that the steps might be in several directions.
+    - Mini-Batch Gradient Descent:
+      - It uses mini batch of records, and then the parameters is updated.
+      - It is slower than SGD but faster than Gradient Descent.
+      - It doesn't consume much memory as SGD
+    - Gradient Descent Variations:  
+    ![Gradient Descent Variations](ML%20images/Gradient_Descent_Variations.png)
+  - To find the Minima, an equation is calculated which is the derivative of the plot when it is equals to zero. Which is the point where the slope is neither increase nor decreases.
+
+### Model Evaluation
+
+#### Bias Variance Tradeoff
+
+![Variance vs Bias](ML%20images/Variance_vs_Bias.png)
+
+- Bias:
+  - It is the gap between predicted value and actual value.
+  - It is an error from flawed assumptions in the algorithm.
+  - High bias can cause an algorithm to miss important relationships between features and target outputs resulting in ***underfitting***.
+  - Bias = $E[\hat{f}(x)] - f(x)$, Where $f(x)$ is the true model, $\hat{f}(x)$ is the estimated model.
+  - Solution:
+    - Increase the number of features
+    - Decrease degree of regularization
+
+- Variance:
+  - How dispersed the predicted values are
+  - It is an error from sensitivity to small variations in the training data. High variance can cause an algorithm to model random noise in the training set, resulting in ***overfitting***.
+  - Variance = $E[(\hat{f}(x)-E[\hat{f}(x)])^2]$, Where $f(x)$ is the true model, $\hat{f}(x)$ is the estimated model.
+  - Solution:
+    - Increase training data
+    - Reduce model complexity
+      - Decrease the number of features
+      - Increase the degree of regularization
+
+- Total Error $(x) = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$
+
+#### Model Metrics
+
+##### Classification Metrics
+
+- Confusion Matrix:
+  - True Positive (TP): When model predicts Positive outcome as Positive
+  - True Negative (TN): When model predicts Negative Outcome as Negative
+  - False Positive (FP): When model predicts Positive outcome as Negative
+  - False Negative (FN): When model predicts Negative outcome as Positive
+
+To determine how well is the Logistic Model, the are some some metrics:
+
+- **Accuracy**:
+  - Accuracy (also called Score) is the proportion of correctly labeled rows divided by the total number of rows in data set. There are some cases when Accuracy won't work well, when there are large class imbalances in the dataset.
+
+$$\text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN}$$
+
+- **Precision**:
+  - Out of all the items labeled as positive, how many truly belong to the positive class.
+
+$$\text{Precision} = \frac{TP}{TP+FP}$$
+
+- **Recall**:
+  - Out of all the items that are truly positive, how many were correctly classified as positive. Or simply, how many positive items were 'recalled' from the dataset.
+
+$$\text{Recall} = \frac{TP}{TP+FN}$$
+
+- **F1 score**:
+  - It helps express precision and recall with a single value.
+
+$$\text{F1 Score} = \frac{2 . \text{Precision} . \text{Recall}}{\text{Precision} + \text{Recall}}$$
+
+- **AUC - ROC**:
+  - AUC: Area-under-curve (degree or measure of separability).
+  - ROC: Receiver-operator characteristic curve (probability curve).
+  - AUC - ROC curve:
+    - A performance measurement for a classification problem at various threshold settings
+  - The optimum model has 1 AUC value
+
+    ![AUC - ROC Curve](ML%20images/AUC-ROC.png)
+
+##### Regression Metrics
+
+- **MSE** (Mean Squared Error)
+  - Average squared error over entire dataset
+  - Mean squared error(MSE) = $\frac{1}{N}\sum_{i=1}^N(\widehat{y} - y_i)^2$
+  - Very commonly used
+  - SciKit-learn: `sklearn.metrics.mean_squared_error`
+- **$R^2$ error**
+  - $R^2 = 1 - \frac{\text{Sum of Squared Error (SSE)}}{\text{Var}(y)}$ which is between 0 and 1
+  - Interpretation: Fraction of variance accounted for by the model
+  - Basically, standardized version of MSE
+  - Good $R^2$ are determined by actual problem
+  - $R^2$ always increase when more variables are added to the model.
+  - Highest $R^2$ may not be the best model.
+- **Adjusted $R^2$**
+  - Adjusted $R^2= 1-(1-R^2)\frac{\text{no. of data pts.} -1}{\text{no. of data pts. - no. of variables}-1}$
+  - Takes into account of the effect of adding more variables such that it only increases when the added variables have significant effect in prediction.
+  - It is a better metric for multiple variates regression.
+  - SciKit-learn: `sklearn.metrics.r2_score`
+- **Confidence Interval**
+  - An average computed on a sample is merely an estimate of the true population mean.
+  - Confidence interval: Quantifies margin-of-error between sample metric and true metric due to sampling randomness
+  - Informal interpretation: with x% confidence, true metric lies within the interval.
+  - Precisely: If the true distribution is as stated, then with x% probability the observed value is in the interval.
+  - Z-score: Quantifies how much the value is above or below the mean in terms of its standard deviation
+
+#### Validation Curve
+
+- A validation curve is typically drawn between some parameter of the model and the model’s score. Two curves are present in a validation curve – one for the training set score and one for the cross-validation score.
+- To evaluate the effect that an important parameter of a model has on the cross-validation scores.
+- Like cross-value score, validation curve will do threefold cross-validation by default but it can be adjusted with the CV parameter as well.
+- Unlike `cross_val_score`, you can also specify a classifier, parameter name, and set of parameter values, you want to sweep across.
+- So you first pass in the estimator object, or that is the classifier or regression object to use, followed by the data set samples X and target values Y, the name of the parameter to sweep, and the array of parameter values that that parameter should take on in doing the sweep.
+- It will return two two-dimensional arrays corresponding to evaluation on the training set and the test set. Each array has one row per parameter value in the sweep, and the number of columns is the number of cross-validation folds that are used.
+
+    ```python
+    from sklearn.svm import SVC
+    from sklearn.model_selection import validation_curve
+
+    param_range = np.logspace(-3, 3, 4)
+    train_scores, test_scores = validation_curve(SVC(), X, y,
+                                    param_name='gamma',
+                                    param_range=param_range, cv=3)
+    ```
+
+### Feature Engineering
+
+- It is the science/art of extracting more information from the existing data in order to improve the model's predictive power.
+- There are two ways:
+  - Reduce the dataset dimensionality using Feature Extraction and Feature Selection.
+  - Increase the dataset dimensionality using Feature Creation and Transformation.
+- This leads to Curse of Dimensionality where the model performance reaches its optimal state at certain number of features, however it drastically decreases by increasing the number of features any further.
+- ![Curse of dimensionality graph](ML%20images/Dimensionality_Curse.png)
+
+#### Feature Extraction
+
+- It is a technique used to reduce the dimensionality of the dataset.
+- It is the extraction of new features from the existing features in the dataset.
+- It is considered old school and deep learning techniques are more efficient now.
+- It is used in:
+  - Images: extracting a certain components of the image to identify the image.
+  - NLP: Popular words excluding articles and prepositions.
+  - Structured data: Principle component analysis (PCA) or t-distributed stochastic neighbor embedding (T-SNE)
+
+#### Feature Selection
+
+- It is a technique used to reduce the dimensionality of the dataset.
+- It is by leaving only one of the highly correlated features.
+- Filtering is a technique in Feature selection, which is eliminating the irrelevant data.
+
+#### Feature Creation and transformation
+
+- It is a technique used to increase the dimensionality of the dataset.
+- It is the creation of new features using already existing data.
+  - For example:
+    - Creating a feature which is the multiplication of two other features.
+    - Or creating new features by splitting an already existing feature.
+- Techniques for Numerical Data:
+  - Logarithmic transformation:
+    - It is about changing the shape of the distribution plot.
+    - It can be applied to right skewed plots.
+    - It can not be applied to 0 or -ve values.
+  - Square:
+    - It can not be applied to negative values
+    - It has moderate impact on distribution
+    - Ex: Area of apartment
+  - Cube:
+    - It can be applied to negative numbers
+    - It has high impact on distribution
+    - Volume of rainfall in a year.
+  - Binning:
+    - It is the converting the values of a feature into features of ranges of the numbers.:
+      - Ex: Converting Age column into columns of ranges. (0 to 7 years), (8 - 16 years) ....
+  - Scaling:
+    - It is the normalization of the feature values:
+    - Techniques:
+      - **Mean/Variance standardization**:
+        - Centering the values around mean $\mu_j = 0$ with standard deviation $\sigma_j = 1$ for each column.
+        - This can be achieved by removing the mean from the variable and divide it with the standard variance.
+        - $$x_{i,j}^* = \frac{x_{i,j} - \mu_j}{\sigma_j}$$
         - Advantages:
           - Many algorithms behave better with smaller values
           - Keeps outlier information, but reduces impact.
-
-    - MinMax Scaling: transform all the input variables, so they're all on the same scale between zero and one.
-
-        $$x_{i,j}^* = \frac{x_{i} - \min x_j}{\max x_j - \min x_j}$$
-
-      ```python
-      from sklearn.preprocessing import MinMaxScaler
-      scaler = MinMaxScaler()
-      scaler.fit(x_train)   # compute the min and max feature   values for each feature in this training dataset.
-      X_trained_scaled = scaler.transform(X_train)
-      X_test_scaled = scaler.transform(X_test)
-      clf = Ridge().fit(X_train_scaled, y_train)
-      r2_score = clf.score(X_test_scaled, y_test)
-      # or more efficiently fit and transform in one step
-      X_train_scaled = scaler.fit_transform(X_train)
-      ```
-
-      - Advantages:
-        - Robust to small standard deviations
-
-    - MaxAbs scaling:
-      - Diving each element by the maximum absolute value in the feature.
+        - SciKit-learn: `sklearn.preprocessing.StandardScalar`
+      - **MinMax Scaling**:
+        - It is the transformation of all the features, so they're all on the same scale between zero and one.
+        - $$x_{i,j}^* = \frac{x_{i} - \min x_j}{\max x_j - \min x_j}$$
+        - Advantages:
+          - Robust to small standard deviations
+        - SciKit-learn: `sklearn.preprocessing.MinMaxScaler`
+      - **MaxAbs scaling**:
+        - Divides each element by the maximum absolute value in the feature.
         $$x_{i,j}^* = \frac{x_{i,j}}{\max (|x_j|)}$$
-      - scikit-learn: `sklearn.preprocessing.MaxAbsScaler`
-      - Advantages:
-        - It doesn't destroy sparsity, because there observations are not centered around any measurement
-
-    - Robust scaling
-      - It is applied to particle features
-        $$x_{i}^* = \frac{x_{i} - Q_{50}(x)}{Q_{75}(x) - Q_{25}(x)}$$
-      - scikit-learn: `sklearn.preprocessing.RobustScaler`
-      - Advantages:
-        - After transformation, it will be robust outliers
-  - Normalizer:
-    - It is applied to rows.
-    - Scaled values are scaled with standard deviation $\sigma_j = 1$
-      $$x_{i,j}^* = \frac{x_{i,j}}{\sigma_j}$$
-    - scikit-learn: `sklearn.preprocessing.Normalizer`
-    - Rescales $x_j$ to unit norm based on:
-      - L1 norm
-      - L2 norm
-      - Max norm
-    - It is widely used in text analysis.
-  - Polynomial Transformation
+        - Advantages:
+          - It doesn't destroy sparsity, because there observations are not centered around any measurement
+        - SciKit-learn: `sklearn.preprocessing.MaxAbsScaler`
+      - **Robust scaling**
+        - It is applied to particular features.
+          $$x_{i}^* = \frac{x_{i} - Q_{50}(x)}{Q_{75}(x) - Q_{25}(x)}$$
+        - Advantages:
+          - Minimizes the impact of large marginal outliers.
+          - After transformation, it will be robust outliers
+        - SciKit-learn: `sklearn.preprocessing.RobustScaler`
+      - **Normalizer**:
+        - It is applied to rows.
+        - Scaled values are scaled with standard deviation $\sigma_j = 1$
+          $$x_{i,j}^* = \frac{x_{i,j}}{\sigma_j}$$
+        - SciKit-learn: `sklearn.preprocessing.Normalizer`
+        - Rescales $x_j$ to unit norm based on:
+          - L1 norm
+          - L2 norm
+          - Max norm
+        - It is widely used in text analysis.
+    - Critical aspects to Feature Engineering:
+      - The scalar is fit to the training data only, then transform both train and validation data.
+        1. Apply the same scalar object to both training and testing data.
+        2. Training the scalar object on the training data and not on the test data. If it trained on the test data, it will cause a phenomena called Data Leakage, where the training phase has information that is leaked from the test set.
+      - The scaling should applied to the real world numbers not only to that available in the dataset. For example: If the dataset has Age column that ranges from 20 to 50, this doesn't neglect the fact that Ages in real world can range from 0 to 80 or 100. So, this should be taken in consideration while scaling in order to generalize the model to the real world.
+      - Scaling is applied differently to each column
     - Polynomial Features
-      ![Polynomial-Features_equation](images/Polynomial&#32;features&#32;equation.jpg)
-      - Generate new features consisting of all polynomial combinations of the original two features 𝑥0,𝑥1.
+      ![Polynomial-Features_equation](ML%20images/Polynomial&#32;features&#32;equation.jpg)
+      - Generate new features consisting of all polynomial combinations of the original two features $𝑥_0,𝑥_1$.
       - The degree of the polynomial specifies how many variables participate at a time in each new feature (above example: degree 2).
-      - This is still a weighted linear combination of features, so it's still a linear model, and can use same least-squares estimation method for w and b.
+      - This is still a weighted linear combination of features, so it's still a linear model, and can use same least-squares estimation method for $w$ and $b$.
       - Adding these extra polynomial features allows us a much richer set of complex functions that we can use to fit to the data.
       - This intuitively as allowing polynomials to be fit to the training data instead of simply a straight line, but using the same least-squares criterion that minimizes mean squared error.
       - We want to transform the data this way to capture interactions between the original features by adding them as features to the linear model.
       - Polynomial feature expansion with high as this can lead to complex models that over-fit.
       - Polynomial feature expansion is often combined with a regularized learning method like ridge regression.
-
-        ```python
-        from sklearn.linear_model import LinearRegression
-        from sklearn.linear_model import Ridge
-        from sklearn.preprocessing import PolynomialFeatures
-
-        X_train, X_test, y_train, y_test =  train_test_split(x    y, random_state = 0)
-
-        linreg = LinearRegression().fit(X_train, y_train)
-
-        poly = PolynomialFeatures(degree=2)
-        X_poly = poly.fit_transform(x)
-
-        X_train, X_test, y_train, y_test =  train_test_split(X_poly,y, random_state = 0)
-
-        linreg = LinearRegression().fit(X_train, y_train)
-        ```
-
+- Techniques for categorical data:
+  - Ordinal categories:
+    - Convert binary classifications to 0 and 1
+    - Mapping multi categorical features to numerics with the assistance of the domain expert. For example: mapping Small, Medium, Large to 5, 10, and 20.
+  - Nominal categories:
+    - One Hot Encoding:
+      - It is creating a binary column for each of the classes in the feature.
+      - Pandas: `pandas.get_dummies()`
+    - Grouping:
+      - Create a binary column for a group of features together.
+- Other techniques:
   - Radial Basis Function
     - Transform: $f(x) = f(||x - c||)$
     - Widely used in Support Vector Machine as a kernel and in Radial Basis Networks (RBNNs)
@@ -393,59 +679,44 @@ Look at what kind of feature preprocessing is typically needed.
       - Stateless mapper from text to term index
       - scikit-learn: `sklearn.feature_extraction.text.HashingVectorizer`
 
-### Splitting dataset
+### Model Training/Tuning
 
-Split dataset into features X and labels y
+#### Hyperparameter tuning
 
-1. Split X and y
+It is an Estimator parameter that is NOT fitted in the data
 
-   - With a percentage for training the algorithm and the remaining for testing its accuracy
+- Hyperparameters must be optimized separately
+- Techniques:
+  - Grid Search
+  - Random Search
 
-       ```python
-       from sklearn.model_selection import train_test_split
+##### Grid Search
 
-       X_train, X_test, y_train, y_test =
-       train_test_split(X, y, random_state=0)
-       ```
+- Allows you to search for the best parameter combination over a set of parameters
+- Compute intensive
+- scikit-learn: sklearn.grid_search.GridSearchCV
 
-2. Cross Validation:
-   - Cross-validation is a method that goes beyond evaluating a single model using a single Train/Test split of the data by using multiple Train/Test splits, each of which is used to train and evaluate a separate model.
-   - So why is this better than our original method of a single Train/Test split? Bec. the accuracy score you get from running a classifier can vary quite a bit just by chance depending on the specific samples that happen to end up in the training set.
-   - Cross-validation basically gives more stable and reliable estimates of how the classifiers likely to perform on average by running multiple different training test splits and then averaging the results.
-   - The most common type of cross-validation is k-fold cross-validation most commonly with K set to 5 or 10. For example, to do five-fold cross-validation, the original dataset is partitioned into five parts of equal or close to equal size. Each of these parts is called a "fold". Then a series of five models is trained one per fold. The first model: Model one, is trained using folds 2 through 5 as the training set and evaluated using fold 1 as the test set. The second model: Model 2, is trained using Folds 1, 3, 4, and 5 as the training set, and evaluated using Fold 2 as the test set, and so on. When this process is done, we have five accuracy values, one per fold.
-   - One benefit of computing the accuracy of a model on multiple splits instead of a single split, is that it gives us potentially useful information about how sensitive the model is to the nature of the specific training set. It does take more time and computation to do cross-validation.
-   - One problem with this is that the records are sorted or at least show some bias in the ordering by class label. For example, the first 20% of the data has the same label. `scikit-learn` do cross-validation for a classification task, it actually does instead what's called "Stratified K-fold Cross-validation". The Stratified Cross-validation means that when splitting the data, the proportions of classes in each fold are made as close as possible to the actual proportions of the classes in the overall data set as shown here. While for regression, `scikit-learn` uses regular k-fold cross-validation.
+    ```py
+    from sklean.datasets import make_classification
+    from sklearn import svm
+    from sklearn.model_selection import GridSearchCV
 
-    ```python
-    from sklearn.model_selection import cross_val_score
+    plt.figure(4)
+    X2, Y2 = make_classification(n_features = 5, n_redundant = 0, n_informative = 2)
 
-    clf = KNeighborsClassifier(n_neighbors = 5)
-    X = X_fruits_2d.as_matrix()
-    y = y_fruits_2d.as_matrix()
-    cv_scores = cross_val_score(clf, X, y, cv = 3)
-    # clf: the model you want to evaluate
-    # X, y: dataset
-    # cv: the corresponding ground truth target labels or values. By default, cross_val_score does threefold cross-validation.
-    print('Cross-validation scores (3-fold):', cv_scores)
-    print('Mean cross-validation score (3-fold): {:.3f}'.format(np.mean(cv_scores)))
+    parameters = {'kernel':('linear','rbf'), 'C':[1,5,10,15], 'degree':[2,3,4,5]}
+    svc = svm.SVC()
+    clf = GridSearchCV(svc, parameters)
+    clf.fit(X2, Y2)
+
+    clf.best_params_
+
+    # {'C': 5, 'degree':2, 'kernel':'rbf'}
     ```
 
-3. Validation Curve:
-    - To evaluate the effect that an important parameter of a model has on the cross-validation scores.
-    - Like cross-value score, validation curve will do threefold cross-validation by default but it can be adjusted with the CV parameter as well.
-    - Unlike cross_val_score, you can also specify a classifier, parameter name, and set of parameter values, you want to sweep across.
-    - So you first pass in the estimator object, or that is the classifier or regression object to use, followed by the data set samples X and target values Y, the name of the parameter to sweep, and the array of parameter values that that parameter should take on in doing the sweep.
-    - It will return two two-dimensional arrays corresponding to evaluation on the training set and the test set. Each array has one row per parameter value in the sweep, and the number of columns is the number of cross-validation folds that are used.
+##### Random Search
 
-        ```python
-        from sklearn.svm import SVC
-        from sklearn.model_selection import validation_curve
-
-        param_range = np.logspace(-3, 3, 4)
-        train_scores, test_scores = validation_curve(SVC(), X, y,
-                                        param_name='gamma',
-                                        param_range=param_range, cv=3)
-        ```
+- Each setting is sampled from a distribution over possible parameter values.
 
 ### Choosing the ML model
 
@@ -532,7 +803,7 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
 - It can get stable, but potentially inaccurate predictions.
 
 1. Linear Regression  
-    ![equation](images/Linear&#32;equation.jpg)  
+    ![equation](ML%20images/Linear&#32;equation.jpg)  
     $$
     \hat{y} = \hat{w_0}x_0 + \hat{w_1} x_1 + ... \hat{w_n} x_n + \hat{b}
     $$
@@ -549,7 +820,7 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
     - The learning algorithm then computes or searches for the set of w, b parameters that optimize an objective function, typically to minimize the total of this loss function over all training points.
 
     1. Least Squares:  
-        ![Least-squares_equation](images/Least-squares&#32;Equation.jpg)
+        ![Least-squares_equation](ML%20images/Least-squares&#32;Equation.jpg)
         - The most popular way to estimate w and b parameters is using what's called least-squares linear regression or ordinary least-squares. Least-squares finds the values of w and b that minimize the total sum of squared differences between the predicted y value and the actual y value in the training set. Or equivalently it minimizes the mean squared error of the model.
         - This technique is designed to find the slope, the w value, and the b value of the y intercept, that minimize this squared error, this mean squared error.
         - The mean squared error is the square difference between predicted and actual values, and then all these are added up, and then divided by the number of training points, take the average, that will be the mean squared error of the model.
@@ -571,7 +842,7 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
             ```
 
     2. Ridge Regression:  
-        ![ridge_equation](images/Ridge&#32;Equation.jpg)
+        ![ridge_equation](ML%20images/Ridge&#32;Equation.jpg)
         - Ridge regression uses the same least-squares criterion, but with one difference. During the training phase, it adds a penalty for large feature weights in w parameters.
         - Once the parameters are learned, its prediction formula is the same as ordinary least-squares.
         - The addition of a parameter penalty is called regularization. Regularization prevents over fitting by restricting the model, typically to reduce its complexity.
@@ -593,7 +864,7 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
             ```
 
     3. Lasso Regression
-        ![Lasso_equation](images/Lasso&#32;Equation.jpg)
+        ![Lasso_equation](ML%20images/Lasso&#32;Equation.jpg)
         - Like ridge regression, lasso regression adds a regularization penalty term to the ordinary least-squares objective, that causes the model W-coefficients to shrink towards zero.
         - Lasso regression is another form of regularized linear regression that uses an L1 regularization penalty for training (instead of ridge's L2 penalty).
         - L1 Penalty: minimizes the sum of the absolute values of the coefficients.
@@ -636,8 +907,8 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
       - For classification, data may not be linearly separable.
 
 3. Logistic Regression  
-    ![Flowchart box](images/Logistic&#32;Regression&#32;flow&#32;chart.jpg)  
-    ![Logistic fn](images/Logistic&#32;Regression&#32;function.jpg)
+    ![Flowchart box](ML%20images/Logistic&#32;Regression&#32;flow&#32;chart.jpg)  
+    ![Logistic fn](ML%20images/Logistic&#32;Regression&#32;function.jpg)
    - It is a kind of generalized linear model.
    - In spite of being called a regression measure, it is actually used for classification
    - like ordinary least squares and other regression methods, logistic regression takes a set input variables, the features, and estimates a target value.
@@ -662,7 +933,7 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
    - It is a very powerful extension of linear support vector machines, it can provide more complex models that can go beyond linear decision boundaries.
    - SVMs can be used for both classification and regression.
    - one way to think about what kernelized SVMs do, is they take the original input data space and transform it to a new higher dimensional feature space, where it becomes much easier to classify the transform to data using a linear classifier. (eg. instead of y(x) it became y(x,x^2) like polynomial feature).  
-   ![example](images/SVM&#32;1-dim&#32;to&#32;2-dim.jpg)  
+   ![example](ML%20images/SVM&#32;1-dim&#32;to&#32;2-dim.jpg)  
    The above figure shows at the right that the points can be separated by a straight line after converting it to a two dimensional space, while on the left is the original one dimensional points in which the straight line is converted to a parabola.
    - An example of how it can be done using scikit-learn in Python.
 
@@ -698,7 +969,7 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
 
 5. Decision tree
 
-    ![Decision Tree Example](images/Descision&#32;Tree&#32;Example.jpg)
+    ![Decision Tree Example](ML%20images/Descision&#32;Tree&#32;Example.jpg)
     - It can be used for both regression and classification.
     - It learns a series of explicit `if then` rules on feature values that result in a decision that predicts the target value. In this way any given object can be categorized as either matching the target object the first person is thinking of or not, according to its features as determined by asking the series of yes or no questions. We can form these questions into a tree with a node representing one question and the yes or no possible answers as the left and right branches from that node that connect the node to the next level of the tree. One question being answered at each level. At the bottom of the tree are nodes called leaf nodes that represent actual objects as the possible answers. For any object there's a path from the root of the tree to that object that is determined by the answers to the specific yes or no questions at each level.
 
@@ -741,26 +1012,6 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
 
 Machine learning models depend on input data, output data, and understanding the relationship between the two. *bias* and *variance* affect the relationship between input and output data.
 
-#### Bias Variance Tradeoff
-
-- Bias:
-  - It is an error from flawed assumptions in the algorithm. High bias can cause an algorithm to miss important relationships between features and target outputs resulting in underfitting.
-  - Bias = $E[\hat{f}(x)] - f(x)$, Where $f(x)$ is the true model, $\hat{f}(x)$ is the estimated model.
-  - Solution:
-    - Increase the number of features
-    - Decrease degree of regularization
-
-- Variance:
-  - It is an error from sensitivity to small variations in the training data. High variance can cause an algorithm to model random noise in the training set, resulting in overfitting.
-  - Variance = $E[(\hat{f}(x)-E[\hat{f}(x)])^2]$, Where $f(x)$ is the true model, $\hat{f}(x)$ is the estimated model.
-  - Solution:
-    - Increase training data
-    - Reduce model complexity
-      - Decrease the number of features
-      - Increase the degree of regularization
-
-- Total Error $(x) = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$
-
 #### Learning Curve
 
 - It used to detect if the model is underfitting or overfitting, and impact of training data size the error.
@@ -791,43 +1042,6 @@ Machine learning models depend on input data, output data, and understanding the
 - Two standard types:
   - L1 regularization, Lasso
   - L2 regularization, Ridge
-
-#### Hyperparameter tuning
-
-It is an Estimator parameter that is NOT fitted in the data
-
-- Hyperparameters must be optimized separately
-- Techniques:
-  - Grid Search
-  - Random Search
-
-##### Grid Search
-
-- Allows you to search for the best parameter combination over a set of parameters
-- Compute intensive
-- scikit-learn: sklearn.grid_search.GridSearchCV
-
-    ```py
-    from sklean.datasets import make_classification
-    from sklearn import svm
-    from sklearn.model_selection import GridSearchCV
-
-    plt.figure(4)
-    X2, Y2 = make_classification(n_features = 5, n_redundant = 0, n_informative = 2)
-
-    parameters = {'kernel':('linear','rbf'), 'C':[1,5,10,15], 'degree':[2,3,4,5]}
-    svc = svm.SVC()
-    clf = GridSearchCV(svc, parameters)
-    clf.fit(X2, Y2)
-
-    clf.best_params_
-
-    # {'C': 5, 'degree':2, 'kernel':'rbf'}
-    ```
-
-##### Random Search
-
-- Each setting is sampled from a distribution over possible parameter values.
 
 #### Model Tuning
 
@@ -961,54 +1175,6 @@ Feature extraction and selection are relatively manual processes. Bagging and bo
 - Business metrics may not be the same as the performance metrics that are optimized during training. Why?
   - click-through rate
 - Ideally, performance metrics are highly correlated with business metrics.
-
-#### Metrics for Logistic Regression
-
-##### Confusion Matrix
-
-- True Positive (TP): When model predicts Positive outcome as Positive
-- True Negative (TN): When model predicts Negative Outcome as Negative
-- False Positive (FP): When model predicts Positive outcome as Negative
-- False Negative (FN): When model predicts Negative outcome as Positive
-
-To determine how well is the Logistic Model, the are some some metrics:
-
-- **Accuracy**:
-  - Accuracy (also called Score) is the proportion of correctly labeled rows divided by the total number of rows in data set. There are some cases when Accuracy won't work well, when there are large class imbalances in the dataset.
-
-$$\text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN}$$
-
-- **Precision**:
-  - Out of all the items labeled as positive, how many truly belong to the positive class.
-
-$$\text{Precision} = \frac{TP}{TP+FP}$$
-
-- **Recall**:
-  - Out of all the items that are truly positive, how many were correctly classified as positive. Or simply, how many positive items were 'recalled' from the dataset.
-
-$$\text{Recall} = \frac{TP}{TP+FN}$$
-
-##### Metrics for Linear Regression
-
-- Mean Squared Error
-  - Average squared error over entire dataset
-  - Mean squared error(MSE) = $\frac{1}{N}\sum_{i=1}^N(\widehat{y} - y_i)^2$
-  - Very commonly used
-  - scikit-learn: sklearn.metrics.mean_squared_error
-- $R^2$ error
-  - $R^2 = 1 - \frac{\text{Sum of Squared Error (SSE)}}{\text{Var}(y)}$ which is between 0 and 1
-  - Interpretation: Fraction of variance accounted for by the model
-  - Basically, standardized version of MSE
-  - Good $R^2$ are determined by actual problem
-  - $R^2$ always increase when more variables are added tp the model
-  - Adjusted $R^2 = 1-(1-R^2)\frac{\text{no. of data pts.} -1}{\text{no. of data pts. - no. of variables}-1}$
-  - Takes into account of the effect of adding more variables such that it only increases when the added variables have significant effect in prediction
-- Confidence Interval
-  - An average computed on a sample is merely an estimate of the true population mean.
-  - Confidence interval: Quantifies margin-of-error between sample metric and true metric due to sampling randomness
-  - Informal interpretation: with x% confidence, true metric lies within the interval.
-  - Precisely: If the true distribution is as stated, then with x% probability the observed value is in the interval.
-  - Z-score: Quantifies how much the value is above or below the mean in terms of its standard deviation
 
 ### Storage
 
