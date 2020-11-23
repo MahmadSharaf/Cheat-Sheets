@@ -70,6 +70,7 @@
     - [Resources](#resources)
   - [Machine Learning](#machine-learning)
     - [StatsModels](#statsmodels)
+    - [Scikit learn](#scikit-learn)
     - [Apache MXNet](#apache-mxnet)
   - [Conventions](#conventions)
   - [Speed Up Performance](#speed-up-performance)
@@ -2321,6 +2322,127 @@ plt.close()
    # Show results summary
    results.summary()
    ```
+
+### Scikit learn
+
+1. Installation
+
+   ```py
+   import sklearn
+   ```
+
+2. Preprocessing
+   1. Imputation:
+
+      - `sklearn.preprocessing.imputer`
+
+        ```py
+        from sklearn.preprocessing import Imputer
+        import numpy as np
+
+        arr = np.array([[5,3,2,2],[3,None,1,9],[5,2,7,None]])
+
+        imputer = Imputer(strategy = 'mean')
+        imp = imputer.fit(arr)
+        imputer.transform(arr)
+
+        # array([[5,3,2,2],
+        #        [3,2.5,1,9],
+        #        [5,2,7,5.5]])
+        ```
+
+      - `sklearn.impute.MICEImpute` (v0.20)
+
+   2. Encoding:
+      1. `sklearn.preprocessing.LabelEncoder`
+
+         ```py
+         from sklearn.preprocessing import LabelEncoder
+
+         loan_enc = LabelEncoder()
+         y = group_enc.fit_transform(df['loan_approved'])
+         ```
+
+      2. `sklearn.preprocessing.OneHotEncoder`
+
+         ```py
+         from sklearn.preprocessing import OneHotEncoder
+
+         df = pd.DataFrame({"Fruits":["Apple","Banana","Banana","Mango","Banana"]})
+         num_type = group_enc.fit_transform(df['Fruits'])
+         type_enc = OneHotEncoder()
+         type_enc.fit(num_type.reshape(-1,1))
+         ```
+
+3. Splitting the data
+
+   ```py
+   from sklearn.model_selection import train_test_split
+
+   # random_state is used to randomize the data
+
+   X_train, X_test, y_train, y_test =
+   train_test_split(X, y,test_size=0.2, random_state=0)
+   ```
+
+4. Cross validation
+
+   ```py
+   from sklearn.model_selection import cross_val_score
+
+   # model: the model you want to evaluate
+   # X, y: dataset
+   # cv: the corresponding ground truth target labels or values. By default, cross_val_score does threefold cross-validation.
+   cv_scores = cross_val_score(model, X, y, cv = 3)
+   print('Cross-validation scores (3-fold):', cv_scores)
+   print('Mean cross-validation score (3-fold): {:.3f}'.format(np.mean(cv_scores)))
+   ```
+
+5. Feature Engineering
+
+   - Mean/Variance Standardization
+
+     ```py
+     from sklearn.preprocessing import StandardScalar
+
+     scale = StandardScalar()
+     arr = np.array([[5,3,2,2],[2,3,1,9],[5,2,7,6]],dtype=float)
+     print(scale.fit_transform(arr))
+     print(scale.scale_)
+     ```
+
+   - MinMax Scaler
+
+     ```py
+     from sklearn.preprocessing import MinMaxScaler
+     scaler = MinMaxScaler()
+     scaler.fit(x_train)   # compute the min and max feature   values for each feature in this training dataset.
+     X_trained_scaled = scaler.transform(X_train)
+     X_test_scaled = scaler.transform(X_test)
+     clf = Ridge().fit(X_train_scaled, y_train)
+     r2_score = clf.score(X_test_scaled, y_test)
+     # or more efficiently fit and transform in one step
+     X_train_scaled = scaler.fit_transform(X_train)
+     ```
+
+   - Polynomial features
+
+     ```py
+      from sklearn.linear_model import LinearRegression
+      from sklearn.linear_model import Ridge
+      from sklearn.preprocessing import PolynomialFeatures
+
+      X_train, X_test, y_train, y_test =  train_test_split(x, y, random_state = 0)
+
+      linreg = LinearRegression().fit(X_train, y_train)
+
+      poly = PolynomialFeatures(degree=2)
+      X_poly = poly.fit_transform(x)
+
+      X_train, X_test, y_train, y_test =  train_test_split(X_poly,y, random_state = 0)
+
+      linreg = LinearRegression().fit(X_train, y_train)
+     ```
 
 ### Apache MXNet
 
