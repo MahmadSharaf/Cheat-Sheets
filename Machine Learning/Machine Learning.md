@@ -28,14 +28,20 @@
         - [Classification Metrics](#classification-metrics)
         - [Regression Metrics](#regression-metrics)
       - [Validation Curve](#validation-curve)
+      - [Learning Curve](#learning-curve)
+      - [Model Debugging](#model-debugging)
     - [Feature Engineering](#feature-engineering)
       - [Feature Extraction](#feature-extraction)
       - [Feature Selection](#feature-selection)
       - [Feature Creation and transformation](#feature-creation-and-transformation)
+      - [Bagging/Boosting](#baggingboosting)
     - [Model Training/Tuning](#model-trainingtuning)
+      - [Training Data Tuning](#training-data-tuning)
+      - [Regularization](#regularization)
       - [Hyperparameter tuning](#hyperparameter-tuning)
         - [Grid Search](#grid-search)
-        - [Random Search](#random-search)
+        - [Randomized Search](#randomized-search)
+        - [Bayesian Search](#bayesian-search)
     - [Choosing the ML model](#choosing-the-ml-model)
       - [Supervised Machine Learning Algorithms](#supervised-machine-learning-algorithms)
         - [Neural Networks](#neural-networks)
@@ -45,16 +51,6 @@
           - [Recurrent neural networks](#recurrent-neural-networks)
         - [K-nearest neighbor](#k-nearest-neighbor)
         - [Linear Model](#linear-model)
-    - [Model Training/Tunning](#model-trainingtunning)
-      - [Learning Curve](#learning-curve)
-      - [Model Debugging](#model-debugging)
-      - [Regularization](#regularization)
-      - [Model Tuning](#model-tuning)
-        - [Training Data Tuning](#training-data-tuning)
-        - [Feature Set Tuning](#feature-set-tuning)
-        - [Feature Extraction](#feature-extraction-1)
-        - [Model Tuning: Bagging/Boosting](#model-tuning-baggingboosting)
-  - [Aspects to be considered](#aspects-to-be-considered)
   - [ML Data Readiness](#ml-data-readiness)
   - [Productizing a ML Model](#productizing-a-ml-model)
     - [Aspects to consider](#aspects-to-consider)
@@ -435,6 +431,8 @@
 
 ![Variance vs Bias](ML%20images/Variance_vs_Bias.png)
 
+- Machine learning models depend on input data, output data, and understanding the relationship between the two. *bias* and *variance* affect the relationship between input and output data.
+
 - Bias:
   - It is the gap between predicted value and actual value.
   - It is an error from flawed assumptions in the algorithm.
@@ -542,6 +540,28 @@ $$\text{F1 Score} = \frac{2 . \text{Precision} . \text{Recall}}{\text{Precision}
                                     param_range=param_range, cv=3)
     ```
 
+#### Learning Curve
+
+- It used to detect if the model is underfitting or overfitting, and impact of training data size the error.
+- It plots the training dataset and validation dataset error or accuracy against training set size.
+- scikit-learn: `sklearn.learning_curve.learning_curve`
+  - Uses stratified k-fold cross-validation by default if output is binary or multiclass (preserves percentage of samples in each class)
+  - Note: `sklearn.model_selection.learning_curve` in v0.18
+
+#### Model Debugging
+
+- Filter on failed predictions and manually look for patterns.
+  - Data problems (eg, many variants for same word)
+  - Labeling errors (eg, data mislabelled)
+  - Under/over-represented subclasses (eg, too many examples of one type)
+  - Discriminating information is not captured in features (eg, customer location)
+- This helps pivot on target, key attributes, and failure type, and build histograms of error counts.
+
+    ```py
+    pred = clf.predict(train[col])
+    error_df = test[pred != test['target']]
+    ```
+
 ### Feature Engineering
 
 - It is the science/art of extracting more information from the existing data in order to improve the model's predictive power.
@@ -554,12 +574,38 @@ $$\text{F1 Score} = \frac{2 . \text{Precision} . \text{Recall}}{\text{Precision}
 #### Feature Extraction
 
 - It is a technique used to reduce the dimensionality of the dataset.
+  - a.k.a data compression
 - It is the extraction of new features from the existing features in the dataset.
 - It is considered old school and deep learning techniques are more efficient now.
+- Motivation:
+  - Improves computational efficiency
+  - Reduces curse of dimensionality
 - It is used in:
   - Images: extracting a certain components of the image to identify the image.
   - NLP: Popular words excluding articles and prepositions.
   - Structured data: Principle component analysis (PCA) or t-distributed stochastic neighbor embedding (T-SNE)
+- Techniques
+  - Principle component analysis (PCA)
+    - It is unsupervised linear approach to feature extraction
+    - Finds pattern based on correlations between features
+    - Constructs principal components: orthogonal axes in directions of maximum variance.
+    - scikit-learn: `sklearn.decomposition.PCA`
+
+        ```py
+        pca = PCA(n_components=2)
+        X_train_pca = pca.fit_transform(X_train_std)
+        lr = LogisticRegression()
+        lr.fit(X_train_pca)
+        ```
+
+  - Linear discriminant analysis (LDA)
+    - A supervised linear approach to feature extraction
+    - Transforms to subspace that maximizes class separability
+    - Assumes data is normally distributed
+    - Used for dimensionality reduction of features
+    - Can reduce to at most #classes-1 components
+    - scikit-learn: `sklearn.discriminant_analysis.LinearDiscriminantAnalysis`
+  - Kernel versions of these for fundamentally non-linear data
 
 #### Feature Selection
 
@@ -679,44 +725,116 @@ $$\text{F1 Score} = \frac{2 . \text{Precision} . \text{Recall}}{\text{Precision}
       - Stateless mapper from text to term index
       - scikit-learn: `sklearn.feature_extraction.text.HashingVectorizer`
 
+#### Bagging/Boosting
+
+Feature extraction and selection are relatively manual processes. Bagging and boosting are automated or semi-automated approaches to determining which features to include.
+
+- Bagging (Bootstrapping Aggregation)
+  - Generate a group of weak learners that when combined together generate higher accuracy
+  - Reduces variance
+  - Keeps bias the same
+  - sklearn:
+    - `sklearn.ensemble.BaggingClassifier`
+    - `sklearn.ensemble.BaggingRegressor`
+
+- Boosting
+  - Assign strengths to each weak learner
+  - Iteratively train learners using misclassified examples by previous weak learners.
+  - It is used for models that have a high bias and accepts weights on individual samples
+  - sklearn:
+    - sklearn.ensemble.AdaBoostClassifier
+    - sklearn.ensemble.AdaBoostRegressor
+    - sklearn.ensemble.GradientBoostingClassifier
+  - XGBoost library
+
 ### Model Training/Tuning
+
+#### Training Data Tuning
+
+- If training set too small, then Sample and Label more data if possible
+- If training set biased against or missing some important scenarios, then Sample and Label more data for those scenarios if possible.
+- If it is not easy to sample or label more, then consider creating synthetic data (duplication or techniques like SMOTE)
+- IMPORTANT: Training data doesn't need to be exactly representative, but yor test set does.
+
+#### Regularization
+
+- Overfitting often caused by overly-complex models capturing idiosyncrasies in training set.
+- Regularization is a technique used to reduce the errors by fitting the function appropriately on the given training set and avoid overfitting.
+- Adding penalty score for complexity to cost function.
+- $\text{cost}_{reg} = \text{cost} + \frac{\alpha}{2}\text{penalty}$
+- Idea: Large weights corresponds to higher complexity.
+- Two standard types:
+  - L1 regularization, Lasso
+  - L2 regularization, Ridge
 
 #### Hyperparameter tuning
 
 It is an Estimator parameter that is NOT fitted in the data
 
+- Hyperparameter types:
+  - Model Hyperparameter:
+    - It helps to define the model itself.
+    - Ex: Filter size, pooling, stride, padding
+  - Optimizer Hyperparameter:
+    - It is how the model learns patterns on data
+    - Ex: Gradient Descent, Stochastic Gradient Descent
+  - Data Hyperparameter:
+    - It defines attributes for the data itself
+    - Useful for small/homogenous datasets
 - Hyperparameters must be optimized separately
-- Techniques:
+- Methods for tuning hyperparameters:
+  - Manually:
+    - Manually select Hyperparameters based on one's intuition and experience.
+    - Often too shallow and inefficient of an approach
   - Grid Search
   - Random Search
+  - Bayesian Search
+- Hyperparameter tuning doesn't always improve the model.
+- Best practices:
+  - Don't adjust every hyperparameter
+  - Limit range of values to what's most effective.
+  - Run one training job at a time rather in parallel.
 
 ##### Grid Search
 
-- Allows you to search for the best parameter combination over a set of parameters
+- It finds the optimum combination of hyperparameters by exhaustive search over specified parameter values.
 - Compute intensive
-- scikit-learn: sklearn.grid_search.GridSearchCV
+- scikit-learn: `sklearn.grid_search.GridSearchCV`
+  - `GridSearchCV(estimator, param_grid, scoring=None`):
+    - `estimator` is the ML model types. ex: `tree` for decision tree
+    - `scoring` is your choice of model performance metric
+    - `param_grid` is the hyperparameters values
+      - ex: `param_grid ={ max_depth: [5, 10, 50, 100, 250], min_samples_leaf: [15, 20, 25, 30, 35]}`
+    - `GridSearchCV` can be used as an estimator, with a fit and predict methods, it is also performing 5-fold Cross Validation by default for each combination of hyperparameters.
+    - For the above example, 25 combinations of hyperparameters and with 5-fold CV for each combination, that would train 125 models. That will take time to complete.
+    - Once all the combinations are evaluated, the model with the set of parameters which give the top metric is considered to be the best.
+    - `GridSearchCV` returns the best combination of the hyperparameters, the best estimator equipped with these best hyperparameters, and will also report the performance metric of this best estimator.
 
-    ```py
-    from sklean.datasets import make_classification
-    from sklearn import svm
-    from sklearn.model_selection import GridSearchCV
+##### Randomized Search
 
-    plt.figure(4)
-    X2, Y2 = make_classification(n_features = 5, n_redundant = 0, n_informative = 2)
-
-    parameters = {'kernel':('linear','rbf'), 'C':[1,5,10,15], 'degree':[2,3,4,5]}
-    svc = svm.SVC()
-    clf = GridSearchCV(svc, parameters)
-    clf.fit(X2, Y2)
-
-    clf.best_params_
-
-    # {'C': 5, 'degree':2, 'kernel':'rbf'}
-    ```
-
-##### Random Search
-
+- Trained and scored on random combinations of hyperparameters
 - Each setting is sampled from a distribution over possible parameter values.
+- A more efficient implementation of hyperparameter tuning.
+- `RandomizedSearchCV(estimator, param_distributions, n_iter=10, scoring=None)`
+  - `estimator` is the ML model types. ex: `tree` for decision tree
+  - `scoring` is your choice of model performance metric
+  - `param_grid` is the hyperparameters values
+    - ex: `param_grid ={max_depth: [5, 10, 50, 100, 250], min_samples_leaf: uniform(15,35,5)}`
+  - `n_tier` (default 10) is the number of random parameter settings that are sampled. It trades off runtime vs quality of the solution.
+- In contrast to `GridSearchCV`, not all parameter values are tried out, but rather a fixed number of parameter settings is sampled from the specified distributions. The number of parameter settings that are tried is given by `n_iter`.
+- `RandomizedSearchCV` also performs 5-fold CV by default for each combination of hyperparameters.
+- Can sample from distributions (sampling with replacement is used), if at least one parameter is given as a distribution.
+- If all parameters are presented as a list, sampling without replacement is performed.
+- If at least one parameter is given as a distribution, sampling with replacement is used.
+- It is highly recommended to use continuous distributions for continuous parameters.
+
+##### Bayesian Search
+
+- Make guesses about hyperparameter combinations, then uses regressions to refine the combinations.
+- It keeps track of previous hyperparameter evaluations and builds a probabilistic model.
+- It tries to balance exploration (uncertain hyperparameter set) and exploitation (hyperparameters with a good chance of being optimum)
+- It prefers points near the ones that worked well.
+- AWS SageMaker uses Bayesian Search for hyperparameter optimization.
 
 ### Choosing the ML model
 
@@ -1008,128 +1126,6 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
       - Even after tuning, decision trees can often still overfit.
       - Usually need an ensemble of trees for better generalization performance.
 
-### Model Training/Tunning
-
-Machine learning models depend on input data, output data, and understanding the relationship between the two. *bias* and *variance* affect the relationship between input and output data.
-
-#### Learning Curve
-
-- It used to detect if the model is underfitting or overfitting, and impact of training data size the error.
-- It plots the training dataset and validation dataset error or accuracy against training set size.
-- scikit-learn: `sklearn.learning_curve.learning_curve`
-  - Uses stratified k-fold cross-validation by default if output is binary or multiclass (preserves percentage of samples in each class)
-  - Note: `sklearn.model_selection.learning_curve` in v0.18
-
-#### Model Debugging
-
-- Filter on failed predictions and manually look for patterns.
-  - Data problems (eg, many variants for same word)
-  - Labeling errors (eg, data mislabelled)
-  - Under/over-represented subclasses (eg, too many examples of one type)
-  - Discriminating information is not captured in features (eg, customer location)
-- This helps pivot on target, key attributes, and failure type, and build histograms of error counts.
-
-    ```py
-    pred = clf.predict(train[col])
-    error_df = test[pred != test['target']]
-    ```
-
-#### Regularization
-
-- Motivation: Overfitting often caused by overly-complex models capturing idiosyncrasies in training set.
-- Regularization: Adding penalty score for complexity to cost function. $\text{cost}_{reg} = \text{cost} + \frac{\alpha}{2}\text{penalty}$
-- Idea: Large weights corresponds to higher complexity.
-- Two standard types:
-  - L1 regularization, Lasso
-  - L2 regularization, Ridge
-
-#### Model Tuning
-
-##### Training Data Tuning
-
-- If training set too small, then Sample and Label more data if possible
-- If training set biased against or missing some important scenarios, then Sample and Label more data for those scenarios if possible.
-- If it is not easy to sample or label more, then consider creating synthetic data (duplication or techniques like SMOTE)
-- IMPORTANT: Training data doesn't need to be exactly representative, but yor test set does.
-
-##### Feature Set Tuning
-
-- Add features that help capture pattern classes of errors
-- Try different transformations of the same feature.
-  - Example: Square the values of a feature.
-- Apply dimensionality reduction to reduce impact of weak features.
-
-##### Feature Extraction
-
-- Maps data into smaller feature space that captures the bulk of the information in the data
-  - a.k.a data compression
-- Motivation:
-  - Improves computational efficiency
-  - Reduces curse of dimensionality
-- Techniques
-  - Principle component analysis (PCA)
-    - It is unsupervised linear approach to feature extraction
-    - Finds pattern based on correlations between features
-    - Constructs principal components: orthogonal axes in directions of maximum variance.
-    - scikit-learn: `sklearn.decomposition.PCA`
-
-        ```py
-        pca = PCA(n_components=2)
-        X_train_pca = pca.fit_transform(X_train_std)
-        lr = LogisticRegression()
-        lr.fit(X_train_pca)
-        ```
-
-  - Linear discriminant analysis (LDA)
-    - A supervised linear approach to feature extraction
-    - Transforms to subspace that maximizes class separability
-    - Assumes data is normally distributed
-    - Used for dimensionality reduction of features
-    - Can reduce to at most #classes-1 components
-    - scikit-learn: `sklearn.discriminant_analysis.LinearDiscriminantAnalysis`
-  - Kernel versions of these for fundamentally non-linear data
-
-##### Model Tuning: Bagging/Boosting
-
-Feature extraction and selection are relatively manual processes. Bagging and boosting are automated or semi-automated approaches to determining which features to include.
-
-- Bagging (Bootstrapping Aggregation)
-  - Generate a group of weak learners that when combined together generate higher accuracy
-  - Reduces variance
-  - Keeps bias the same
-  - sklearn:
-    - `sklearn.ensemble.BaggingClassifier`
-    - `sklearn.ensemble.BaggingRegressor`
-
-- Boosting
-  - Assign strengths to each weak learner
-  - Iteratively train learners using misclassified examples by previous weak learners.
-  - It is used for models that have a high bias and accepts weights on individual samples
-  - sklearn:
-    - sklearn.ensemble.AdaBoostClassifier
-    - sklearn.ensemble.AdaBoostRegressor
-    - sklearn.ensemble.GradientBoostingClassifier
-  - XGBoost library
-
-## Aspects to be considered
-
-1. ### Overfitting
-
-    Informally, overfitting typically occurs when we try to fit a complex model with an inadequate amount of training data. And overfitting model uses its ability to capture complex patterns by being great at predicting lots and lots of specific data samples or areas of local variation in the training set. But it often misses seeing global patterns in the training set that would help it generalize well on the unseen test set.
-
-2. ### Underfitting
-
-    The model is too simple for the actual trends that are present in the data. It doesn't even do well on the training data and thus, is not at all likely to generalize well to test data.
-
-- To avoid these, the below points would help:
-  1. First, try to draw the data with respect to the labels and try to figure out the relationship between, whether its linear, quadratic, polynomial and so on.
-  2. Reduce the number of features.
-     1. Manually select which features to keep.
-     2. Use a model selection algorithm.
-  3. Regularization
-     1. Keep all the features, but reduce the magnitude of parameters.
-     - It works well when there are a lot of slightly useful features.
-
 ## ML Data Readiness
 
 - ML data readiness is the capability to evaluate readiness, or worthiness, of datasets for use in an ML based predictive solution.
@@ -1153,6 +1149,23 @@ Feature extraction and selection are relatively manual processes. Bagging and bo
 - Data and model security and encryption
 - Customer privacy, fairness, and trust
 - Data provider contractual constraints (eg., attribution, cross-fertilization)
+
+1. ### Overfitting
+
+    Informally, overfitting typically occurs when we try to fit a complex model with an inadequate amount of training data. And overfitting model uses its ability to capture complex patterns by being great at predicting lots and lots of specific data samples or areas of local variation in the training set. But it often misses seeing global patterns in the training set that would help it generalize well on the unseen test set.
+
+2. ### Underfitting
+
+    The model is too simple for the actual trends that are present in the data. It doesn't even do well on the training data and thus, is not at all likely to generalize well to test data.
+
+- To avoid these, the below points would help:
+  1. First, try to draw the data with respect to the labels and try to figure out the relationship between, whether its linear, quadratic, polynomial and so on.
+  2. Reduce the number of features.
+     1. Manually select which features to keep.
+     2. Use a model selection algorithm.
+  3. Regularization
+     1. Keep all the features, but reduce the magnitude of parameters.
+     - It works well when there are a lot of slightly useful features.
 
 ### Types of Production environments
 
@@ -1208,6 +1221,7 @@ Feature extraction and selection are relatively manual processes. Bagging and bo
 
 ### Model Deployment
 
+- It is the integration of the model and its resources into a production environment so that it can be used to create predictions.
 - Technology transfer: Experimental framework may not suffice for production
   - A/B testing or shadow testing: Helps catch production issues early
 
