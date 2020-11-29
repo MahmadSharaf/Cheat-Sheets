@@ -5,7 +5,15 @@
   - [Computer Vision Model](#computer-vision-model)
   - [Computer Vision History](#computer-vision-history)
   - [Neural Networks](#neural-networks)
-    - [Convolutional Neural Network](#convolutional-neural-network)
+    - [Neural Network Types](#neural-network-types)
+      - [Convolutional Neural Network](#convolutional-neural-network)
+    - [Neural Networks Training](#neural-networks-training)
+      - [Three steps of training](#three-steps-of-training)
+      - [Backward pass](#backward-pass)
+        - [Gradient Descent and its importance](#gradient-descent-and-its-importance)
+        - [Gradient Descent computation](#gradient-descent-computation)
+        - [Backpropagation](#backpropagation)
+      - [Optimizer](#optimizer)
   - [Computer Vision Tasks](#computer-vision-tasks)
     - [Image Classification](#image-classification)
       - [Image Classification Data sets](#image-classification-data-sets)
@@ -83,7 +91,9 @@ $$\begin{bmatrix}
   -1 & 0 & 1
 \end{bmatrix}$$
 
-### Convolutional Neural Network
+### Neural Network Types
+
+#### Convolutional Neural Network
 
 - It is much more common in practice than Fully connected Neural Network, due to its limitations. One of the limitations is fully connected layer treats every pixel independently of its original spatial position and another one is the large number of parameters that need to be learned which takes large memory and slows the computation speed.
 - Convolutional neural networks learn local patterns from small neighborhoods of pixels, unlike fully connected networks that learned patterns across all pixels of the image. It's possible to learn large-scale spatial relationships by stacking convolutional layers and learning a hierarchy of features.
@@ -104,6 +114,67 @@ $$\begin{bmatrix}
   - When the spatial dimensions are reduced, the memory footprint of the model is also reduced, which means more features can be extracted.
   - Another advantage of max-pooling is that it can introduce a certain amount of invarianced rotation, which is a useful characteristic for most real-world computer vision tasks.
   - So, how max pooling works. We find the maximum value from the values in this window and use this for the output. It's common to apply max-pooling with stride. So instead of moving the window one pixel at a time, we move the window two pixels at a time in each direction. As a result, we half the amount of output values in each dimension. When adding this after our convolution, we can reduce the spatial dimensions by half.
+
+### Neural Networks Training
+
+- The general procedure to train neural networks involves an algorithmic technique called backpropagation.
+
+#### Three steps of training
+
+- Neural network training consists of repeating three simple steps over and over until the parameters of the model converge to a good solution.
+
+  1. First step is know as Forward step:
+     - It involves passing the data through the model to obtain the output, also called the model prediction.
+     - The model prediction is then compared to the ground truth label via a loss function which gives an estimate of how well our model is performing at the current task. The model loss is what we want to minimize during neural network training.
+  2. The next step is the backward step:
+     - This involves computing the gradient of the loss function with respect to the parameters of the network. Typically, this is done in reverse.
+     - The gradient of the loss with respect to the last layer parameters are computed first and then the upstream gradients are computed recursively using the chain rule.
+     - Computing the gradients this way is efficient and is what makes training deep neural networks computationally tractable.
+  3. The final step is the optimize or optimization step:
+     - In this step, we use the gradients computed from the backward step to update the model parameters in a way that improves the model and minimizes the loss.
+     - Repeating these steps several times causes the model parameters to evolve towards a good solution during model training.
+
+#### Backward pass
+
+##### Gradient Descent and its importance
+
+- The gradient of a function at a given point is the value of the first derivative of the function at the point.
+- Visually, you can think of the gradient as the slope of a tangent line to the function at that point.
+- For a function that depends on more than one parameter, you can express the gradient of the function with respect to each parameter as a vector.
+- The gradient of the function at the point gives the direction of steepest increase, this means that the negative gradient gives the direction of steepest decline. Therefore, by following the direction of the negative gradient, you eventually arrive at a local minimum for that function.
+- This procedure is what is known as gradient descent, and was introduced by French mathematician, Augustin Louis Cauchy in the middle of the 19th century.
+
+##### Gradient Descent computation
+
+- For simple functions, you can compute gradients analytically by taking advantage of the product rule or the quotient rule from differential calculus. However, for complex functions like the last functions of deep convolutional neural networks, that are the results of complex chained operations, computing the gradients analytically in one go is not feasible so we turned to automatic differentiation.
+- Automatic differentiation is a way to numerically compute the derivatives of a function at a point. It takes advantage of the fact that any function that can be expressed as a computer program will execute a sequence of arithmetic operations and simple functions with known derivatives.
+- Typically automatic differentiation proceeds by recording the operations to build a computational graph of the function. Then, it repeatedly apply the chain rule to the operations in the computational graph to compute the derivatives.
+
+##### Backpropagation
+
+- Backpropagation is an efficient algorithm for training neural networks that uses automatic differentiation and dynamic programming to update the network parameters.
+- The three-step iterative process to train neural networks that was introduced earlier is informed by the backpropagation algorithm.
+- For backpropagation to be effective, we store in the forward pass the intermediate outputs of the hidden layers of the neural network, and then the value of the loss function as well.
+- In the backward pass, we use the chain rule to compute the gradients of the lastly first, working backwards from the loss to the input layer.
+- During the backward pass, we use the stored intermediate outputs and gradients of later layers to compute the gradient of earlier layers. Once we obtain the gradient for all parameters, the gradients are then used to improve the parameter values.
+
+#### Optimizer
+
+- It is an implementation of a gradient descent algorithm that is responsible for performing a updates step to the model parameters.
+- An optimizer updates the model parameters to minimize the loss and improve the model. It does this by nudging the parameter step by step towards values that minimize the loss function. This improves the model accuracy or the performance metric.
+- Optimizers used in deep learning are almost always implementations of a variant of the gradient descent algorithm. However, it is possible to have optimizers that are not directly based on gradient descent.
+- Optimizer use the gradient to an approximation of the gradient. The gradient here is that of the loss with respect to the current parameter values. But sometimes optimizers also use previously recorded historical parameters or gradients.
+- Different optimizers have different rates of convergence for the same learning task.
+- One simple example of an optimizer is stochastic gradient descent.
+  - Stochastic Gradient Descent is a variant of the gradient descent algorithm. A general purpose function minimizer.
+  - In Stochastic Gradient Descent, only a subset of the data, called the minibatch is used during the forward pass and backward pass. And that every iteration, the model parameters are updated using only the error signals from the current subset of the data. This means that the lost is computed using the outputs of the model on one minibatch of data.
+  - This minibatch last gradient provide an approximation of the full batch last gradient that is less computationally intensive but still guarantees convergence to a minimum.
+  - Once the minibatch last gradients are computed the parameters of the model updated according to the same update rule as gradient descent, by going in the direction of the negative gradient.
+- The LR term is what is known as the learning rate.
+  - Learning rate is a hyper parameter that controls how big of a step the optimizer takes to update current parameters in the direction of the negative gradient.
+  - A hyper parameter, is a parameter that is not strictly part of the model, or learned during model training but still affects overall model performance.
+  - The learning rate can be tweaked as necessary to fit different stages of the training process according to predefined schedule. One popular technique is to the learning rate by a little bit as training progresses. Based on the intuition that at later stages of training the model, parameters are close to the optimal values and only need to change ever so slightly.
+  - In addition, some optimizers use an adaptive learning rate technique where each parameter gets its own learning rate.
 
 ## Computer Vision Tasks
 
@@ -138,8 +209,7 @@ $$\begin{bmatrix}
 
   ![Object Detection Example](CV%20images/Object-Detection.png)
 
-- Unlike image classification, with object detection, we can have multiple objects.
-from different classes in the same image. 
+- Unlike image classification, with object detection, we can have multiple objects from different classes in the same image.
 - The task localizes the objects with boxes on the input image and for each localization it classifies the object in the box. Also, the model assigns a name to each box.
 - However, the box is not accurate enough, because objects are usually not shaped like rectangular boxes.
 - It's got a wide range of practical applications. Everything from medical image analysis to collision avoidance systems, and self-driving cars.
