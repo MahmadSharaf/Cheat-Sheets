@@ -1,5 +1,31 @@
 # SQL Cheat Sheet
 
+- [SQL Cheat Sheet](#sql-cheat-sheet)
+  - [SQL Types](#sql-types)
+    - [Text and Strings](#text-and-strings)
+    - [Numeric types](#numeric-types)
+    - [Date and time types](#date-and-time-types)
+    - [Resources](#resources)
+  - [Arithmetic Operators](#arithmetic-operators)
+  - [Logical Operators](#logical-operators)
+  - [SQL Statements](#sql-statements)
+  - [Formatting Best Practices](#formatting-best-practices)
+  - [SQL clauses](#sql-clauses)
+    - [Date and time functions](#date-and-time-functions)
+    - [CASE statements](#case-statements)
+    - [Database manipulation](#database-manipulation)
+    - [JOINS](#joins)
+      - [Pro Tip](#pro-tip)
+  - [Alias](#alias)
+  - [Nulls](#nulls)
+  - [Aggregators](#aggregators)
+  - [Subquery](#subquery)
+    - [Subquery Formatting](#subquery-formatting)
+    - [WITH statement or Common Table Expression (CTE)](#with-statement-or-common-table-expression-cte)
+  - [Data Cleaning](#data-cleaning)
+  - [Rules for normalized tables](#rules-for-normalized-tables)
+    - [References](#references)
+
 ## SQL Types
 
 ### Text and Strings
