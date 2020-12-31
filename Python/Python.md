@@ -146,6 +146,13 @@ There are 5 approaches for achieving this on python (Python 3):
    # output = "The Enemy's health is 0. The Enemy is dead."
    ```
 
+   or multiplying the same string
+
+   ```py
+   print('='*10)
+   # ==========
+   ```
+
 2. Taking advantage of Python 3's print() function which can take multiple parameter arguments:
 
    Here your `print()` statement similar to the concatenation statement above, except where ever I use + to concatenate you need to replace it with ,. The advantage of using this, is that different data types will be automatically converted to string, i.e. no longer needing the str() function. For example:
@@ -192,6 +199,13 @@ There are 5 approaches for achieving this on python (Python 3):
    For more [info](https://realpython.com/python-f-strings/#simple-syntax)
 
 ### String formatting
+
+- Adding `r` before a string, treating it as a raw.
+
+   ```py
+   print(r'The n in "\n" will be printed not parsed as a new line')
+   # The n in "\n" will be printed not skipped
+   ```
 
 Python [format cookbook](https://mkaz.blog/code/python-string-format-cookbook/)
 
@@ -2443,6 +2457,28 @@ plt.close()
 
       linreg = LinearRegression().fit(X_train, y_train)
      ```
+
+6. Hyperparameter tuning:
+
+- Grid Search
+
+   ```py
+   from sklean.datasets import make_classification
+   from sklearn import svm
+   from sklearn.model_selection import GridSearchCV
+
+   plt.figure(4)
+   X2, Y2 = make_classification(n_features = 5, n_redundant = 0, n_informative = 2)
+
+   parameters = {'kernel':('linear','rbf'), 'C':[1,5,10,15], 'degree':[2,3,4,5]}
+   svc = svm.SVC()
+   clf = GridSearchCV(svc, parameters)
+   clf.fit(X2, Y2)
+
+   clf.best_params_
+
+   # {'C': 5, 'degree':2, 'kernel':'rbf'}
+   ```
 
 ### Apache MXNet
 
