@@ -79,7 +79,7 @@
     - The final activation can depend on multiple factors. It depends on the activations from the previous layer, and the connection weights between units. But the activations from the previous layer depend on the layer before that.
   - Backward Step is to improve the network's performance:
     - When learning parameters from scratch, you begin by randomly initializing the parameters and then improve them slightly one small step at a time.
-    - It can be improved by the loss function, that measures the performance of our network. It takes the network predictions and compass them to the ground truth labels. Returning a score that's often called the loss.
+    - It can be improved by the loss function, that measures the performance of our network. It takes the network predictions and compare them to the ground truth labels. Returning a score that's often called the loss.
     - When the predictions are similar to the labels, the loss will be small. So during training we try to minimize the loss.
     - A loss function is always chosen to be differentiable so that we can calculate the gradient of the loss with respect to every parameter of the network.
     - We start by calculating the gradients of the parameters in the last layer. Once we know the gradient for each parameter, we know how to change each parameter to slightly reduce the overall loss.
