@@ -21,11 +21,7 @@
       - [1. Measure of center](#1-measure-of-center)
         - [1.1 The Mean](#11-the-mean)
         - [1.2 The Median](#12-the-median)
-          - [1.2.1 Median for Odd Values](#121-median-for-odd-values)
-          - [1.2.2 Median for Even Values](#122-median-for-even-values)
         - [1.3 The Mode](#13-the-mode)
-          - [1.3.1 No Mode](#131-no-mode)
-          - [1.3.2 Many Modes](#132-many-modes)
       - [2. Measures of Spread](#2-measures-of-spread)
         - [Calculating the 5 Number Summary](#calculating-the-5-number-summary)
         - [2.1 Range](#21-range)
@@ -42,10 +38,10 @@
     - [Probability Rules](#probability-rules)
     - [Probability Terminologies](#probability-terminologies)
     - [Probability Methods](#probability-methods)
-      - [1. Binomial Distribution](#1-binomial-distribution)
-        - [1.1 Unconditional Probability (Independent)](#11-unconditional-probability-independent)
-        - [1.2 Conditional Probability (Dependent)](#12-conditional-probability-dependent)
-      - [2. Bayes Rule](#2-bayes-rule)
+      - [1. Unconditional Probability (Independent)](#1-unconditional-probability-independent)
+        - [Binomial Distribution](#binomial-distribution)
+      - [2. Conditional Probability (Dependent)](#2-conditional-probability-dependent)
+        - [Bayes Rule](#bayes-rule)
       - [3. Normal Distribution](#3-normal-distribution)
   - [Inferential Statistics](#inferential-statistics)
     - [1. Sampling Distribution](#1-sampling-distribution)
@@ -196,9 +192,7 @@ It takes on numeric values that allow us to perform mathematical operations (lik
 - **Interval data**: numeric values where absolute differences are meaningful (addition and subtraction operations can be made)
 - **Ratio data**: numeric values where relative differences are meaningful (multiplication and division operations can be made)
 
-  All quantitative-type variables also come in one of two varieties: discrete and continuous.
-
-  All quantitative-type variables also come in one of two varieties. We can think of quantitative data as being either continuous or discrete.
+- All quantitative-type variables also come in one of two varieties: discrete and continuous.
 
   - **Continuous** data can be split into smaller and smaller units, and still a smaller unit exists. An example of this is the age of the dog - we can measure the units of the age in years, months, days, hours, seconds, but there are still smaller units that could be associated with the age.
   - **Discrete** data only takes on countable values. The number of dogs we interact with is an example of a discrete data type.
@@ -252,7 +246,7 @@ How Inferential Statistics differs from Descriptive Statistics.
 
 2. Inferential Statistics
 
-    Inferential Statistics is about using our collected data to draw conclusions to a larger population. Performing inferential statistics well requires that we take a sample that accurately represents our population of interest.
+    Inferential Statistics is about using our collected data to draw conclusions to a larger population. Performing inferential statistics will require that we take a sample that accurately represents our population of interest.
 
     A common way to collect data is via a survey. However, surveys may be extremely biased depending on the types of questions that are asked, and the way the questions are asked. This is a topic you should think about when tackling the first project.
 
@@ -299,13 +293,13 @@ The mean is often called the average or the expected value in mathematics. We ca
 
 The median splits our data so that 50% of our values are lower and 50% are higher.
 
-###### 1.2.1 Median for Odd Values
+- Median for Odd Values
 
-If we have an odd number of observations, the median is simply the number in the direct middle. For example, if we have 7 observations, the median is the fourth value when our numbers are ordered from smallest to largest. If we have 9 observations, the median is the fifth value.
+  If we have an odd number of observations, the median is simply the number in the direct middle. For example, if we have 7 observations, the median is the fourth value when our numbers are ordered from smallest to largest. If we have 9 observations, the median is the fifth value.
 
-###### 1.2.2 Median for Even Values
+- 1.2.2 Median for Even Values
 
-If we have an even number of observations, the median is the average of the two values in the middle. For example, if we have 8 observations, we average the fourth and fifth values together when our numbers are ordered from smallest to largest.
+  If we have an even number of observations, the median is the average of the two values in the middle. For example, if we have 8 observations, we average the fourth and fifth values together when our numbers are ordered from smallest to largest.
 
 **In order to compute the median, we MUST sort our values first.
 Whether we use the mean or median to describe a dataset is largely dependent on the shape of our dataset and if there are any outliers.**
@@ -315,17 +309,17 @@ Whether we use the mean or median to describe a dataset is largely dependent on 
 The mode is the most frequently observed value in our dataset.
 There might be multiple modes for a particular dataset, or no mode at all.
 
-###### 1.3.1 No Mode
+- 1.3.1 No Mode
 
-If all observations in our dataset are observed with the same frequency, there is no mode.  
-If we have the dataset: 1, 1, 2, 2, 3, 3, 4, 4  
-There is no mode, because all observations occur the same number of times.
+  If all observations in our dataset are observed with the same frequency, there is no mode.  
+  If we have the dataset: 1, 1, 2, 2, 3, 3, 4, 4  
+  There is no mode, because all observations occur the same number of times.
 
-###### 1.3.2 Many Modes
+- 1.3.2 Many Modes
 
-If two (or more) numbers share the maximum value, then there is more than one mode.  
-If we have the dataset: 1, 2, 3, 3, 3, 4, 5, 6, 6, 6, 7, 8, 9  
-There are two modes 3 and 6, because these values share the maximum frequencies at 3 times, while all other values only appear once.
+  If two (or more) numbers share the maximum value, then there is more than one mode.  
+  If we have the dataset: 1, 2, 3, 3, 3, 4, 5, 6, 6, 6, 7, 8, 9  
+  There are two modes 3 and 6, because these values share the maximum frequencies at 3 times, while all other values only appear once.
 
 #### 2. Measures of Spread
 
@@ -350,7 +344,7 @@ Calculating each of these values was essentially just finding the median of a bu
 
 ##### 2.1 Range
 
-The range is then calculated as the difference between the **maximum** and the **minimum**.
+The range is the difference between the **maximum** and the **minimum**.
 
 ##### 2.2 IQR
 
@@ -372,7 +366,7 @@ Rearrange: 1, 1, 2, 3, 4, 5, 8, 8, 10, 12
 
    1. Mean: 54/10=5.4
    2. Median=Q2: (4+5)/2=4.5
-   3. Mode: 8
+   3. Mode: 1,8
 
 3. Measure of spread
    1. Range: Max-Min=12-1=11
@@ -402,13 +396,16 @@ Rearrange: 1, 2, 3, 4, 5, 8, 8, 10, 12
 
 ##### 2.3 Standard Deviation
 
-The standard deviation is one of the most common measures for talking about the spread of data. It is defined as **the average distance of each observation from the mean.**  
-![standard deviation](Images/deviation2.png)
+- The standard deviation is one of the most common measures for talking about the spread of data. It is defined as
+- It is **the average distance of each observation from the mean.**
+$\sqrt{\frac{1}{n}\sum_{i=1}^n(x_i - \bar{x})^2}$
+<!-- ![standard deviation](Images/deviation2.png) -->
 
 ##### 2.4 Variance
 
-The variance average squared difference of each observation from the mean.  
-![variance equation](Images/variance.png)
+- The variance average squared difference of each observation from the mean.
+- ${\frac{1}{n}\sum_{i=1}^n(x_i - \bar{x})^2}$
+<!-- ![variance equation](Images/variance.png) -->
 
 Example3:  
 For the following set of data provide the value of the variance.  
@@ -507,11 +504,7 @@ If you aren't sure if your data are normally distributed, there are plots called
 
 ### Probability Methods
 
-#### 1. Binomial Distribution
-
-The Binomial Distribution helps us determine the probability of a string of independent events with exactly two outcomes 'coin flip like events'.
-
-##### 1.1 Unconditional Probability (Independent)
+#### 1. Unconditional Probability (Independent)
 
 Formulas:
 
@@ -540,7 +533,11 @@ The truth is that in practice, you will commonly be working with data, which mig
 
 One of the most popular places you see the Binomial distribution is in logistic regression.
 
-##### 1.2 Conditional Probability (Dependent)
+##### Binomial Distribution
+
+The Binomial Distribution helps us determine the probability of a string of independent events with exactly two outcomes 'coin flip like events'.
+
+#### 2. Conditional Probability (Dependent)
 
 Often events are not independent like with coin flips and dice rolling. Instead, the outcome of one event depends on an earlier event.
 
@@ -557,7 +554,7 @@ P(positive∣disease) = P(disease) / P(positive ∩ disease)​.
 
 where | represents "given" and ∩ represents "and".
 
-#### 2. Bayes Rule
+##### Bayes Rule
 
 It describes the probability of an event, based on prior knowledge of conditions that might be related to the event.
 
@@ -604,16 +601,16 @@ It is the basis of statistics in such that all of the testing and confidence int
 
 Formula:
 
-Where N is the number of event, x  , μ mean, σ^2 variance,
+Where N is the number of event, x  , μ mean, $σ^2$ variance,
 
 ![Normal Distribution Formula](images/Normal_Distribution_Formula.png)
 ![Normal Distribution Curve](images/Normal_Distribution_Curve.png)
 
-- (x-μ)^2: makes the formula quadratic.
-- σ^2: the division by variance flattens the curve in direct proprtion relationship.
+- $(x-μ)^2$: makes the formula quadratic.
+- $σ^2$: the division by variance flattens the curve in direct proportion relationship.
 - -1/2: the negative sign inverses the curve and multiplication by 1/2 increases the flatness.
-- The maximum value for this term is when x equals μ which leads to e^0=1
-- The minimum value will be when x equals to ±∞ which leads to (e^-∞).
+- The maximum value for this term is when x equals μ which leads to $e^0=1$
+- The minimum value will be when x equals to ±∞ which leads to $(e^{-∞})$.
 - The area underneath the formula curve doesn't add to 1 it adds to √(2πσ^2 ) that is why it has to be normalized with this value.
 
 ## Inferential Statistics
@@ -636,7 +633,7 @@ A sampling distribution is the distribution of a statistic when we look at the d
 1. The sampling distribution is centered on the original parameter value.
 2. The sampling distribution decreases its variance depending on the sample size used. Specifically, the variance of the sampling distribution is equal to the variance of the original data divided by the sample size used. This is always true for the variance of a sample mean!
 
-In notation, we say if we have a random variable, **X**, with variance of σ^2, then the distribution of X¯ (the sampling distribution of the sample mean) has a variance of σ^2/n.
+In notation, we say if we have a random variable, **X**, with variance of $σ^2$, then the distribution of $\bar{X}$ (the sampling distribution of the sample mean) has a variance of $σ^2/n$.
 
 #### Important mathematical theorems
 
@@ -675,7 +672,7 @@ Two important mathematical theorems for working with sampling distributions incl
 ### 2. Bootstrapping
 
 - Bootstrapping is a technique where we sample from a group with replacement.
-- Bootstrapping is sampling with replacement. Using random.choice in python actually samples in this way. Where the probability of any number in our set stays the same regardless of how many times it has been chosen. Flipping a coin and rolling a die are kind of like bootstrap sampling as well, as rolling a 6 in one scenario doesn't mean that 6 is less likely later.
+- Bootstrapping is sampling with replacement. Using `random.choice` in python actually samples in this way. Where the probability of any number in our set stays the same regardless of how many times it has been chosen. Flipping a coin and rolling a die are kind of like bootstrap sampling as well, as rolling a 6 in one scenario doesn't mean that 6 is less likely later.
 - We can use bootstrapping to simulate the creation of sampling distribution.
 - By bootstrapping and then calculating repeated values of our statistics, we can gain an understanding of the sampling distribution of our statistics.
 - No more data needed to gain a better understanding of the parameter.
@@ -714,26 +711,26 @@ It is important to understand the way that your sample size and confidence level
 
 #### Hypothesis Testing Rules
 
-- First thing, translate a question into two competing hypotheses, H0: Null Hypothesis, H1: Alternative Hypothesis.
-- The H0​ is true before you collect any data.
-- The H0​ usually states there is no effect or that two groups are equal.
-- The H0H​ and H1​ are competing, non-overlapping hypotheses.
-- H1​ is what we would like to prove to be true.
-- H0​ contains an equal sign of some kind - either =, ≤, or ≥.
-- H1​ contains the opposition of the null - either ≠, >, or <.
+- First thing, translate a question into two competing hypotheses, $H_0$: Null Hypothesis, $H_1$: Alternative Hypothesis.
+- The $H_0​$ is true before you collect any data.
+- The $H_0​$ usually states there is no effect or that two groups are equal.
+- The $H_0$​ and $H_1$​ are competing, non-overlapping hypotheses.
+- $H_1$​ is what we would like to prove to be true.
+- $H_0$ contains an equal sign of some kind - either =, ≤, or ≥.
+- $H_1$​​ contains the opposition of the null - either ≠, >, or <.
 
 #### Hypothesis Testing Case Studies
 
 - Case Study #1:
   - The statement, "Innocent until proven guilty" is one that suggests the following hypotheses are true:
-    - H0​: Innocent
-    - H1​: Guilty
+    - $H_0$​​: Innocent
+    - $H_1$​​: Guilty
   - We can relate this to the idea that "innocent" is true before we collect any data. Then the alternative must be a competing, non-overlapping hypothesis. Hence, the alternative hypothesis is that an individual is guilty.
 
 - Case Study #2:
   - We wanted to test if a new page was better than an existing page, we set that up in the alternative. Two indicators are that the null should hold the equality, and the statement we would like to be true should be in the alternative. Therefore, it would look like this:
-  - H0​:μ1​≤μ2​
-  - H1​:μ1​>μ2
+  - $H_0​​:μ1​≤μ2​$
+  - $H_1​​:μ1​>μ2$
   - Here μ1​ represents the population mean return from the new page. Similarly, μ2​ represents the population mean return from the old page.
   - Depending on your question of interest, you would change your null and alternative hypotheses to match.
 
@@ -742,11 +739,11 @@ It is important to understand the way that your sample size and confidence level
 - **Type I**:
   1. You should set up your null and alternative hypotheses, so that the worse of your errors is the type I error.
   2. They are denoted by the symbol α.
-  3. The definition of a type I error is: Deciding the alternative (H1​) is true, when actually (H0) is true.
+  3. The definition of a type I error is: Deciding the alternative ($H_1$​​) is true, when actually ($H_0$​) is true.
   4. Type I errors are often called false positives.
 - **Type II**:
   1. They are denoted by the symbol β.
-  2. The definition of a type II error is: Deciding the null (H0) is true, when actually (H1​) is true.
+  2. The definition of a type II error is: Deciding the null ($H_0$​) is true, when actually ($H_1$​​) is true.
   3. Type II errors are often called false negatives.
 
  In the most extreme case, we can always choose one hypothesis (say always choosing the null) to ensure that a particular error never occurs (never a type I error assuming we always choose the null). However, more generally, there is a relationship where with a single set of data decreasing your chance of one type of error, increases the chance of the other error occurring.
@@ -982,7 +979,7 @@ A rule of thumb for judging the strength:
   - $\beta_0$ is the actual average response value for the population when the explanatory variable is zero.
   - $\beta_1$ is the actual average change in the response for the population with every one unit increase in the explanatory variable.
 
-- [Here](https://stats.stackexchange.com/questions/7948/when-is-it-ok-to-remove-the-intercept-in-a-linear-regression-model) is a Post on the need of an intercept in nearly all cases of regression. Although, there are very few cases where you do not need to include an intercept in a linear model.
+- [Here](https://stats.stackexchange.com/questions/7948/when-is-it-ok-to-remove-the-intercept-in-a-linear-regression-model) a Post on the need of an intercept in nearly all cases of regression. Although, there are very few cases where you do not need to include an intercept in a linear model.
 - The units need to be consistent in every column or you will create an ineffective model.
 
 ##### Hypothesis P-Values
