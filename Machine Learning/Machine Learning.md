@@ -11,6 +11,8 @@
   - [Getting Started](#getting-started)
     - [Data preparation and preprocessing](#data-preparation-and-preprocessing)
       - [Data Collection](#data-collection)
+        - [Data Sampling](#data-sampling)
+        - [Labeling](#labeling)
       - [Data Preparation](#data-preparation)
       - [Data Cleaning](#data-cleaning)
       - [Data Preprocessing](#data-preprocessing)
@@ -96,7 +98,7 @@
 
 #### 3. Reinforcement ML
 
-- Learning through Trial and Error
+- Models learn by taking actions that can earn rewards.
 
 ### The Machine Learning Pipeline
 
@@ -134,7 +136,7 @@
    - Data Augmentation:
      - Modify the data
    - Feature Engineering:
-     - Create new features
+     - Create or remove features
 7. Model Deployment
 
 ## Getting Started
@@ -143,9 +145,64 @@
 
 #### Data Collection
 
+- It is the process of acquiring training and/or test data.
 - It can be structured or unstructured data.
-- It can be collected from many sources like: server, database, disk, clickstream, multimedia, IoT and sensors, Social media.
+- It is collected for:
+  - Initial datasets for training models and measuring success.
+  - Additional data for tuning
+  - Replacements for flawed or outdated sets
+  - Data and model maintenance post-production
+- It can be collected from many sources like:
+  - Server
+  - Database
+  - Disk
+  - Clickstream
+  - Multimedia
+  - IoT and sensors
+  - Social media
+  - Web sites
+  - Data providers
 - When in the cloud, Data Lake is used. It can store and serve both structured and unstructured data.
+
+##### Data Sampling
+
+Selecting a subset of instances for training and testing
+
+- Representativity:
+  - Sample needs to be representative of the expected production population; i.e., unbiased
+  - Especially important for testing and measurement sets
+  - It's also important for training sets to get good generalization
+
+- Random sampling:
+  - Sampling so that each source data point has equal probability of being selected.
+  - With random sampling, rare subpopulations can be underrepresented (or not represented at all). Stratified sampling can fix this issue.
+  - Stratified sampling: Apply random sampling to each subpopulation separately.
+
+- Other issues of sampling:
+  - Seasonality: Time of day, special events, holidays
+    - Stratified sampling across these can minimize bias.
+    - Visualization can help
+  - Trends: Patterns can shift over time, and new patterns can emerge.
+    - To detect, try comparing models trained over different time periods
+    - Visualization can help
+  - Train/test bleed: Inadvertent overlap of training and test data when sampling to create datasets
+    - Sample form fresh data
+    - Filter out already selected instances
+    - Partition source data along some dimension (but avoid bias)
+    - Be especially careful with time-series data and data with duplicate entries.
+  - Leakage: Using information during training or validation that is not available in production
+
+##### Labeling
+
+- Obtaining gold-standard answers for supervised learning
+- Often, labels are not readily available in sampled data.
+- Examples:
+  - Search: The results a customer wanted to receive
+  - Music categorization: The genre of a piece
+  - Sentiment analysis: The overall attitude of the writer
+  - Digitization: The transcription of handwriting
+  - Object detection: The localization of objects in images
+- Human labels can be preferable to minimize bias, capture subtleties, etc.
 
 #### Data Preparation
 
@@ -308,9 +365,13 @@ This is in contrast to unsupervised machine learning where we don't have labels 
 
 ###### Neural network architecture
 
+- Layers of nodes connected together
+- Each node is one multivariate linear function, with an univariate nonlinear transformation.
+- Trained via stochastic gradient descent
+- Can represent any non-linear function (very expressive)
 - Generally hard to interpret.
 - Expensive to train, fast to predict
-- Scikit-learn: sklearn.neural_network.MLPClassifier.
+- Scikit-learn: `sklearn.neural_network.MLPClassifier`.
 - Deep Learning Frameworks:
   - MXNet
   - TensorFlow
@@ -404,7 +465,7 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
             ```python
             from sklearn.linear_model import LinearRegression
 
-            X_train, X_test, y_train, y_test=train_test_split(X_R1, y_R1, random_state=0)
+            X_train, X_test, y_train, y_test=train_test_split(X, y, random_state=0)
 
             linreg = LinearRegression().fit(X_train,y_train)
 
@@ -470,24 +531,7 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
               - Many small/medium sized effects: use ridge.
               - Only a few variables with medium/large effect: use lasso.
 
-2. Linear Classification
-    1. Support Vector Machines (SVC):
-        - Linear models are also used for classification, starting with binary classification.
-        - This approach uses the same linear functional form as for regression. But instead of predicting a continuous target value, we take the output of the linear function and apply the sine function to produce a binary output with two possible values, corresponding to the two possible class labels.
-        - One way to define a good classifier is to reward classifiers for the amount of separation that can provide between the two classes (classifier margin). The margin is the width that the decision boundary can be increased perpendicularly before hitting a data point. The classifier that has the maximum margin is called the Linear Support Vector Machine, also known as an LSVM or a support vector machine with linear kernel.
-        - How tolerant the support vector machine is of misclassifying training points, as compared to its objective of minimizing the margin between classes is controlled by a regularization parameter called C which by default is set to 1.0. Larger values of C represent less regularization and will cause the model to fit the training set with these few errors as possible, even if it means using a small immersion decision boundary. Very small values of C on the other hand use more regularization that encourages the classifier to find a large marge on decision boundary, even if that decision boundary leads to more points being misclassified.
-
-    - **Linear Model Pros**:
-      - Simple and easy to train.
-      - Fast prediction.
-      - Scales well to very large dataset.
-      - Works well with sparse data.
-      - Reasons for prediction are relatively easy to interpret.
-    - **Linear Model Cons**:
-      - For lower-dimensional data, other models may have superior generalization performance.
-      - For classification, data may not be linearly separable.
-
-3. Logistic Regression  
+2. Logistic Regression  
     ![Flowchart box](ML%20images/Logistic&#32;Regression&#32;flow&#32;chart.jpg)  
     ![Logistic fn](ML%20images/Logistic&#32;Regression&#32;function.jpg)
    - It is a kind of generalized linear model.
@@ -510,17 +554,34 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
      - Parameter C controls amount of regularization (default 1.0)
      - As with regularized linear regression, it can be important to normalize all features so that they are on the same scale.
 
-4. Kernelized Support Vector Machines (SVMs)
+3. Linear Support Vector Machines (LSVM):
+   - Linear models are also used for classification, starting with binary classification.
+   - This approach uses the same linear functional form as for regression. But instead of predicting a continuous target value, we take the output of the linear function and apply the sine function to produce a binary output with two possible values, corresponding to the two possible class labels.
+   - One way to define a good classifier is to reward classifiers for the amount of separation that can provide between the two classes (classifier margin). The margin is the width that the decision boundary can be increased perpendicularly before hitting a data point. The classifier that has the maximum margin is called the Linear Support Vector Machine, also known as an LSVM or a support vector machine with linear kernel.
+   - How tolerant the support vector machine is of misclassifying training points, as compared to its objective of minimizing the margin between classes is controlled by a regularization parameter called C which by default is set to 1.0. Larger values of C represent less regularization and will cause the model to fit the training set with these few errors as possible, even if it means using a small immersion decision boundary. Very small values of C on the other hand use more regularization that encourages the classifier to find a large marge on decision boundary, even if that decision boundary leads to more points being misclassified.
+   - scikit-learn: `sklearn.svm.SVC`
+
+   - **Linear Model Pros**:
+     - Simple and easy to train.
+     - Fast prediction.
+     - Scales well to very large dataset.
+     - Works well with sparse data.
+     - Reasons for prediction are relatively easy to interpret.
+   - **Linear Model Cons**:
+     - For lower-dimensional data, other models may have superior generalization performance.
+     - For classification, data may not be linearly separable.
+
+4. Kernelized Support Vector Machines (KSVMs)
    - It is a very powerful extension of linear support vector machines, it can provide more complex models that can go beyond linear decision boundaries.
    - SVMs can be used for both classification and regression.
-   - one way to think about what kernelized SVMs do, is they take the original input data space and transform it to a new higher dimensional feature space, where it becomes much easier to classify the transform to data using a linear classifier. (eg. instead of y(x) it became y(x,x^2) like polynomial feature).  
+   - One way to think about what kernelized SVMs do, is they take the original input data space and transform it to a new higher dimensional feature space, where it becomes much easier to classify the transform to data using a linear classifier. (eg. instead of $y(x)$ it became $y(x,x^2)$ like polynomial feature).  
    ![example](ML%20images/SVM&#32;1-dim&#32;to&#32;2-dim.jpg)  
    The above figure shows at the right that the points can be separated by a straight line after converting it to a two dimensional space, while on the left is the original one dimensional points in which the straight line is converted to a parabola.
    - An example of how it can be done using scikit-learn in Python.
 
         ```python
         from sklearn.svm import SVC
-        from adspy_shared_utilities import              plot_class_regions_for_classifier
+        from adspy_shared_utilities import plot_class_regions_for_classifier
 
         X_train, X_test, y_train, y_test = train_test_split(X_D2, y_D2, random_state = 0)
 
@@ -552,17 +613,20 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
 
     ![Decision Tree Example](ML%20images/Descision&#32;Tree&#32;Example.jpg)
     - It can be used for both regression and classification.
-    - It learns a series of explicit `if then` rules on feature values that result in a decision that predicts the target value. In this way any given object can be categorized as either matching the target object the first person is thinking of or not, according to its features as determined by asking the series of yes or no questions. We can form these questions into a tree with a node representing one question and the yes or no possible answers as the left and right branches from that node that connect the node to the next level of the tree. One question being answered at each level. At the bottom of the tree are nodes called leaf nodes that represent actual objects as the possible answers. For any object there's a path from the root of the tree to that object that is determined by the answers to the specific yes or no questions at each level.
+    - How it works:
+      - Nodes are split based on the feature that has the largest information gain (IG) between parent and its split nodes.
+      - One metric to quantify IG is to compare entropy before and after splitting.
+      - In a binary case:
+        - Entropy is 0 if all samples belong to the same class for a node (i.e., pure)
+        - Entropy is 1 if samples contains both classes with equal proportion (i.e., 50% for each class, chaos)
+      - The splitting procedure can go iteratively at each child node until the end-nodes (or leaves) are pure  (i.e., there is only one class in each node).
+        - But the splitting procedure usually stops at certain criteria to prevent overfitting.
+    - How to implement it:
 
         ```python
-        from sklearn.datasets import load_iris
         from sklearn.tree import DecisionTreeClassifier
-        from sklearn.model_selection import train_test_split
 
-        iris = load_iris()
-
-        X_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target, random_state = 3)
-        clf = DecisionTreeClassifier(max_depth = 3, min_samples_leaf = 8).fit(X_train, y_train)
+        Model = DecisionTreeClassifier(max_depth = 3, min_samples_leaf = 8)
         ```
 
         - `max_depth`: controls maximum depth (number of split points). Most common way to reduce tree complexity and overfitting.
@@ -588,6 +652,16 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
     - **Cons**:
       - Even after tuning, decision trees can often still overfit.
       - Usually need an ensemble of trees for better generalization performance.
+
+6. Random Forest:
+   - Set of decision trees, each learned from a different randomly sampled subset with replacement.
+   - Features to split on for each tree, randomly selected subset from original features.
+   - Prediction: Average output probabilities
+   - Increases diversity through random selection of training dataset and subset of features for each tree
+   - Reduces variance through averaging
+   - Each tree typically does not need to be pruned
+   - More expensive to train and run
+   - scikit-learn: `sklearn.ensemble.RandomForestClassifier`
 
 ### Model Training
 
@@ -740,9 +814,25 @@ K-nearest neighbors doesn't make a lot of assumptions about the structure of the
 - Adding penalty score for complexity to cost function.
 - $\text{cost}_{reg} = \text{cost} + \frac{\alpha}{2}\text{penalty}$
 - Idea: Large weights corresponds to higher complexity.
-- Two standard types:
-  - L1 regularization, Lasso
-  - L2 regularization, Ridge
+- Regularization types:
+  - Lasso(Least Absolute Shrinkage and Selection Operator):
+    - A regression model which uses L1 Regularization technique
+    - Lasso Regression adds “absolute value of magnitude” of coefficient as penalty term to the loss function.
+    - The gradients of the loss function are INDEPENDENT of parameters, so some parameters can be set all the way to zero, hence completely ignored.
+    - SciKit Learn: `sklearn.linear_model.Lasso`
+  - Ridge:
+    - A regression model that uses L2 regularization.
+    - Ridge regression adds “squared magnitude” of coefficient as penalty term to the loss function.
+    - The gradients of the loss function are DEPENDENT linearly on the parameters, so the parameters can never be zero. This means that no parameter is entirely ignored, and every parameter always has at least a very minimal effect on predictions.
+    - SciKit Learn: `sklearn.linear_model.Ridge`
+  - Elastic-Net:
+    - Elastic-Net is a regularized regression method that linearly combines the L1 and L2 penalties of the LASSO and Ridge methods respectively
+    - SciKit Learn: `sklearn.linear_model.ElasticNet`
+- During Regularization the output function($\hat{y}$) does not change. The change is only in the loss function.
+- References:
+  - [Geeks for Geeks](https://www.geeksforgeeks.org/regularization-in-machine-learning/)
+  - [Towards Data Science](https://towardsdatascience.com/regularization-what-why-when-and-how-d4a329b6b27f)
+  - [Medium article](https://medium.com/analytics-vidhya/understanding-regularization-algorithms-450777fa0ed3)
 
 #### Hyperparameter tuning
 
@@ -792,7 +882,7 @@ It is an Estimator parameter that is NOT fitted in the data
 - Trained and scored on random combinations of hyperparameters
 - Each setting is sampled from a distribution over possible parameter values.
 - A more efficient implementation of hyperparameter tuning.
-- `RandomizedSearchCV(estimator, param_distributions, n_iter=10, scoring=None)`
+- Sci-kit Learn library: `sklearn.model_selection.RandomizedSearchCV(estimator, param_distributions, n_iter=10, scoring=None)`
   - `estimator` is the ML model types. ex: `tree` for decision tree
   - `scoring` is your choice of model performance metric
   - `param_grid` is the hyperparameters values
@@ -952,7 +1042,7 @@ $$\text{F1 Score} = \frac{2 . \text{Precision} . \text{Recall}}{\text{Precision}
 
 ### Feature Engineering
 
-- It is the science/art of extracting more information from the existing data in order to improve the model's predictive power.
+- It is the art of extracting more information from the existing data in order to improve the model's predictive power.
 - There are two ways:
   - Reduce the dataset dimensionality using Feature Extraction and Feature Selection.
   - Increase the dataset dimensionality using Feature Creation and Transformation.
@@ -1161,11 +1251,17 @@ Feature extraction and selection are relatively manual processes. Bagging and bo
 
 1. ### Overfitting
 
-    Informally, overfitting typically occurs when we try to fit a complex model with an inadequate amount of training data. And overfitting model uses its ability to capture complex patterns by being great at predicting lots and lots of specific data samples or areas of local variation in the training set. But it often misses seeing global patterns in the training set that would help it generalize well on the unseen test set.
+   - Failure to generalize: Model performs well on training set but poorly on test set
+   - Typically indicates that model is too flexible for amount of training data
+   - Flexibility allows it to "memorize" the data, including noise
+   - Corresponds to high variance - small changes in the training data lead to big changes in the results
 
 2. ### Underfitting
 
-    The model is too simple for the actual trends that are present in the data. It doesn't even do well on the training data and thus, is not at all likely to generalize well to test data.
+   - Failure to capture important patterns in the training data set
+   - Typically indicates model is too simple or there are too few explanatory variables
+   - Not flexible enough to model real patterns
+   - Corresponds to high bias - the results show systematic lack of fit in certain regions
 
 - To avoid these, the below points would help:
   1. First, try to draw the data with respect to the labels and try to figure out the relationship between, whether its linear, quadratic, polynomial and so on.
