@@ -1,6 +1,6 @@
-# AWS services Cheat sheet
+# AWS AI services Cheat sheet
 
-- [AWS services Cheat sheet](#aws-services-cheat-sheet)
+- [AWS AI services Cheat sheet](#aws-ai-services-cheat-sheet)
   - [AI services](#ai-services)
     - [Amazon Rekognition](#amazon-rekognition)
     - [Amazon Polly](#amazon-polly)
@@ -12,12 +12,13 @@
     - [Amazon Personalize](#amazon-personalize)
   - [ML services (SageMaker)](#ml-services-sagemaker)
     - [Amazon SageMaker Ground Truth](#amazon-sagemaker-ground-truth)
-    - [Amazon SageMaker notebooks](#amazon-sagemaker-notebooks)
+    - [Amazon SageMaker Notebooks](#amazon-sagemaker-notebooks)
     - [Algorithms](#algorithms)
     - [Amazon SageMaker Model Training Jobs](#amazon-sagemaker-model-training-jobs)
     - [Amazon SageMaker Automatic Model Tuner](#amazon-sagemaker-automatic-model-tuner)
     - [Amazon SageMaker Neo](#amazon-sagemaker-neo)
     - [Amazon SageMaker Endpoint](#amazon-sagemaker-endpoint)
+    - [Amazon Elastic Inference](#amazon-elastic-inference)
   - [ML Frameworks & Infrastructure services](#ml-frameworks--infrastructure-services)
     - [Frameworks](#frameworks)
     - [Infrastructure](#infrastructure)
@@ -93,7 +94,7 @@ hands-on with the machine learning workflow.
 - It supplements the labeling process with a technique called active learning,
 which reduces costs and speeds up the labeling process.
 
-### Amazon SageMaker notebooks
+### Amazon SageMaker Notebooks
 
 - It is a fully managed Jupyter server.
 - It can be used to explore datasets through a visual interface or orchestrate the machine learning workflow.
@@ -104,6 +105,33 @@ which reduces costs and speeds up the labeling process.
 ### Algorithms
 
 - There are algorithms for computer vision, natural language processing, time series forecasting, to name a few.
+- Supervised Learning:
+  - Linear:
+    - Linear Learner: Linear + Logistic Regression
+  - Non-Linear:
+    - XGBoost
+    - Factorization Machines
+      - Good for high dimensional sparse datasets
+      - e.g. click prediction & item recommendation
+- Unsupervised Learning
+  - Clustering
+    - K-means Clustering
+  - Anomaly Detection
+    - Random Cut Forest
+    - It is available in Kinesis Data Analytics
+  - Topic Modeling
+    - Latent Dirichlet Allocation (LDA)
+    - It is available on Amazon Comprehend
+  - Principle Component Analysis (PCA)
+    - Reduces dataset dimensionality
+- Deep Learning
+  - Image Classification
+    - CNN (ResNet)
+  - Sequence to Sequence (seq2seq)
+    - RNN for text summarization, transition, TTS
+  - Neural Topic Modeling (NTM)
+  - DeepAR Forecasting
+    - Time Series Prediction
 
 ### Amazon SageMaker Model Training Jobs
 
@@ -132,6 +160,20 @@ which reduces costs and speeds up the labeling process.
 
 - You can host models with a single click and generate predictions in real-time using HTTP requests.
 - You can also auto-scale endpoints and spread them across multiple availability zones to deliver both high performance and high availability.
+
+### Amazon Elastic Inference
+
+- Accelerated compute service for Amazon SageMaker and Amazon EC2.
+- Choose the instance type that suits the ML needs and independently specify the amount of inference accelerators.
+- Respond to change in demand
+- Reduce inference costs by up to 75%
+- TensorFlow, ONNX, mxnet model support
+- How it works:
+  - Instances communicate with accelerators
+  - Model serving platforms for these frameworks automatically use EI accelerators
+  - Models loaded
+  - Inference calls
+- Amazon EI accelerator available in medium, large, and xlarge sizes
 
 ## ML Frameworks & Infrastructure services
 
