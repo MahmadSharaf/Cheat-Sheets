@@ -16,6 +16,17 @@
       - [Fargate](#fargate)
       - [Lambda](#lambda)
     - [Cloud Compute additional resources](#cloud-compute-additional-resources)
+  - [Analytics](#analytics)
+    - [Streaming (data-ingestion) services](#streaming-data-ingestion-services)
+      - [Amazon MSK](#amazon-msk)
+      - [AWS Kinesis](#aws-kinesis)
+      - [MSK vs Kinesis](#msk-vs-kinesis)
+      - [Reference](#reference)
+    - [Query services](#query-services)
+      - [Amazon Athena](#amazon-athena)
+    - [Data Transformation](#data-transformation)
+      - [AWS Data Pipeline](#aws-data-pipeline)
+      - [Amazon EMR](#amazon-emr)
   - [Global Infrastructure and Reliability](#global-infrastructure-and-reliability)
     - [Region](#region)
     - [Availability Zone](#availability-zone)
@@ -33,6 +44,12 @@
     - [VPC](#vpc)
       - [Subnets](#subnets)
       - [Network traffic in a VPC](#network-traffic-in-a-vpc)
+      - [Network access control lists (NACLs)](#network-access-control-lists-nacls)
+      - [Security Group](#security-group)
+      - [Network Address Translation (NAT) Gateway](#network-address-translation-nat-gateway)
+      - [Elastic IP (EIP)](#elastic-ip-eip)
+      - [PrivateLink](#privatelink)
+      - [VPC Endpoint](#vpc-endpoint)
     - [AWS Direct Connect](#aws-direct-connect)
     - [Amazon Route 53](#amazon-route-53)
     - [Networking additional resources](#networking-additional-resources)
@@ -45,6 +62,7 @@
     - [File Storage](#file-storage)
       - [EFS](#efs)
       - [FSx](#fsx)
+      - [Storage types speed comparison](#storage-types-speed-comparison)
     - [Storage additional resources](#storage-additional-resources)
   - [Databases](#databases)
     - [RDS](#rds)
@@ -273,6 +291,164 @@ Containers:
 - [Category Deep Dive: Serverless](https://aws.amazon.com/getting-started/deep-dive-serverless/)
 - [AWS Customer Stories: Serverless](https://aws.amazon.com/solutions/case-studies/?customer-references-cards.sort-by=item.additionalFields.publishedDate&customer-references-cards.sort-order=desc&awsf.customer-references-location=*all&awsf.customer-references-segment=*all&awsf.customer-references-product=product%23vpc%7Cproduct%23api-gateway%7Cproduct%23cloudfront%7Cproduct%23route53%7Cproduct%23directconnect%7Cproduct%23elb&awsf.customer-references-category=category%23serverless)
 
+## Analytics
+
+### Streaming (data-ingestion) services
+
+#### Amazon MSK
+
+- [Apache Kafka](https://kafka.apache.org/intro) is an open-source stream-processing software platform developed by LinkedIn, donated to Apache Software Foundation, and written in Scala and Java.
+- [Amazon Managed Streaming Service for Kafka (Amazon MSK)](https://aws.amazon.com/msk/) takes away the operational burden of managing an Apache Kafka cluster.
+- APIs allow producers to publish data streams to topics. A topic is a partitioned log of records with each partition being ordered and immutable.Consumers can subscribe to topics.
+- Kafka can run on a cluster of brokers with partitions split across cluster nodes.
+- Kafka has five core APIs:
+  - The **Producer** API allows applications to send streams of data to topics in the Kafka cluster.
+  - The **Consumer** API allows applications to read streams of data from topics in the Kafka cluster.
+  - The **Streams** API allows transforming streams of data from input topics to output topics.
+  - The **Connect** API allows implementing connectors that continually pull from some source system or application into Kafka or push from Kafka into some sink system or application.
+  - The **AdminClient** API allows managing and inspecting topics, brokers, and other Kafka objects.
+- Kafka has the following feature for real-time streams of data collection and big data real-time analytics:
+  - **Performance**: Works with the huge volume of real-time data streams. Handles high throughput for both publishing and subscribing
+  - **Scalability**: Highly scales distributed systems with no downtime in all four dimensions: producers, processors, consumers, and connectors
+  - **Fault tolerance**: Handles failures with the masters and databases with zero downtime and zero data loss
+  - **Data Transformation**: Offers provisions for deriving new data streams using the data streams from producers
+  - **Durability**: Uses Distributed commit logs to support messages persisting on disk
+  - **Replication**: Replicates the messages across the clusters to support multiple subscribers
+
+#### AWS Kinesis
+
+- [Amazon Kinesis](https://aws.amazon.com/kinesis) is a platform for streaming data on AWS.
+- It can be used for ingesting and processing stream of data.
+- AWS Kinesis offers key capabilities to cost-effectively process streaming data at any scale, along with the flexibility to choose the tools that best suit the requirements of your application.
+- Amazon Kinesis software is modeled after an existing Open Source system, Apache Kafka.
+- Amazon Kinesis has four capabilities:
+  1. **Kinesis Video Streams**:
+     - Securely stream video from connected devices to AWS for analytics, machine learning, playback, and other processing.
+  2. **Kinesis Data Streams** (KDS):
+     - Collect and process large streams of data records in real time as same as Apache Kafka.
+  3. **Kinesis Data Firehose**:
+     - Batch and compress the data to generate incremental views
+  4. **Kinesis Data Analytics**:
+     - Process the data that is streaming through Kinesis Data Streams or Kinesis Data Firehose using SQL
+- Other capabilities:
+  1. **Amazon Kinesis Client Library** (KCL):
+     - Reads the data from Amazon Kinesis
+  2. **Amazon Kinesis Producer Library** (KPL):
+     - Writes the data to other services
+
+The high-level architecture on Kinesis Data Streams:
+
+- The producers put records (data ingestion) into KDS. AWS provides Kinesis Producer Library (KPL) to simplify producer application development and to achieve high write throughput to a Kinesis data stream.
+- A Kinesis data Stream a set of shards. Each shard has a sequence of data records. Data records are composed of a sequence number, a partition key, and a data blob (up to 1 MB), which is an immutable sequence of bytes.
+- The consumers get records from Kinesis Data Streams and process them. You can build your applications using either Kinesis Data Analytics, Kinesis API or Kinesis Client Library (KCL).
+
+Kinesis Data Streams has the following benefits:
+
+- **Fully managed**: Kinesis is fully managed and runs your streaming applications without requiring you to manage any infrastructure
+- **Scalability**: Handle any amount of streaming data and process data from hundreds of thousands of sources with very low latencies
+- **Durability**: Kinesis Data Streams application can start consuming the data from the stream almost immediately after the data is added.
+- **Elasticity**: Scale the stream up or down, so the data records never lose before they expire
+- **Fault tolerance**: The Kinesis Client Library enables fault-tolerant consumption of data from streams and provides scaling support for Kinesis Data Streams applications
+- **Security**: Data can be secured at-rest by using server-side encryption and AWS KMS master keys on sensitive data within Kinesis Data Streams. Access data privately via your Amazon Virtual Private Cloud (VPC)
+
+[Pricing](https://aws.amazon.com/kinesis/data-streams/pricing/)
+
+- KDS has no upfront cost, and you only pay for the resources you use (e.g., $0.015 per Shard Hour.)
+
+#### MSK vs Kinesis
+
+- Both Apache Kafka and AWS Kinesis Data Streams are good choices for real-time data streaming platforms. If you need to keep messages for more than 7 days with no limitation on message size per blob, Apache Kafka should be your choice. However, Apache Kafka requires extra effort to set up, manage, and support. If your organization lacks Apache Kafka experts and/or human support, then choosing a fully-managed AWS Kinesis service will let you focus on the development. AWS Kinesis is catching up in terms of overall performance regarding throughput and events processing.
+- Both services are publish-subscribe (pub-sub) systems, which means producers publish messages to Kinesis/MSK and consumers subscribe to Kinesis/MSK to read those messages. An inherent benefit of adopting pub-sub systems is the decoupling of message producers from message consumers.
+- Availability, Scalability, and Ease of Management:
+  - Kinesis:
+    - It synchronously replicates data across three availability zones.
+    - One shard provides an ingest capacity of 1MB/sec or 1000 records/sec.
+    - Provides auto-scaling capabilities using APIs that can trigger scaling actions based on usage metrics, or to auto-scale based on record throughput.
+    - The Kinesis streams remain fully functional during the scaling process and producers & consumers can continue to read/write to the streams during these operations.
+  - MSK:
+    - It requires a cluster-sizing exercise prior to resource provisioning.
+    - When an MSK cluster is configured , the brokers are spread across three availability zones by default.
+    - Using MSK APIs you can scale out your MSK cluster by adding more brokers.
+  - With low volumes of data, Kinesis is a preferred service because of its ease of use and minimal operational management. However, if you currently operate a Kafka cluster on-premise or have high volume workloads and are evaluating your options in AWS, MSK may be the correct choice.
+- Integration with other AWS Services
+  - Kinesis:
+    - **Kinesis Firehose**: To load data into S3/Redshift/Amazon ElasticSearch/Splunk.
+    - **Kinesis Data Analytics**: To build and deploy SQL or Flink applications.
+    - **AWS Lambda**: Serverless compute-to-perform custom stream processing.
+    - **AWS EMR**: To process big data leveraging the Spark or Flink framework.
+    - **EC2 / Fargate / EKS**: To build custom streaming applications.
+  - MSK:
+    - **Kinesis Data Analytics**: To build and deploy SQL or Flink applications.
+    - **Amazon EMR**: To process big data leveraging the Spark or Flink framework.
+    - **EC2 / Fargate / EKS**: To build custom streaming applications. There are some very powerful, easy to use, open source streaming frameworks specific to Kafka, like KSQL and the Streams API that expedite pipeline development. However, these do require operational expertise to be deployed in a scalable manner.
+- Price and Cost:
+  - [Kinesis](https://aws.amazon.com/kinesis/data-streams/pricing/):
+    - Uses a pay-as-you-go pricing model.
+    - Pricing is based on Shard-Hour and per 25KB payload.
+    - One shard provides ingest capacity of 1MB/sec or 1000 records/sec.
+    - A Shard Hour is the number of shards used by your stream, charged at an hourly rate.
+  - [MSK](https://aws.amazon.com/msk/pricing/):
+    - You pay for the number of instances in your cluster and the storage volumes attached to them.
+- Message Delivery:
+  - Message delivery semantics are critical to building fault-tolerant streaming data pipelines.
+  - There are three message delivery semantics:
+    - **At-least-once delivery** - In the event a system fails or a network issue occurs, a message producer may continue to retry a message until it receives a successful acknowledgement. This can cause message duplication in the streaming platform. Hence, consumer applications must handle these scenarios by explicitly de-duplicating messages.
+    - **At-most-once delivery** — If message producers are configured to not retry messages, it can lead to data loss if the streaming platform fails to commit and acknowledge the message. Consumers are only guaranteed messages that were successfully written to the streaming platform. Data loss is a serious problem for most businesses but its significance can vary based on your use case, specially if the original message can be recovered or reproduced easily
+    - **Exactly-once delivery** — The perfect world where a producer sends a message, it is written exactly once to the streaming platform and no duplication of messages or data loss occurs when a consumer reads that message.
+  - Kinesis provides at-least-once message delivery, to anticipate and handle Kinesis duplicate records, refer to the [guidance provided](https://docs.aws.amazon.com/streams/latest/dev/kinesis-record-processor-duplicates.html). while MSK (Kafka) provides exactly-once delivery, to utilize usage of its transactions API, refer to this [article](https://www.confluent.io/blog/transactions-apache-kafka/).
+- [Another comparison](https://cloudonaut.io/versus/messaging/kinesis-data-streams-vs-msk/)
+
+#### Reference
+
+- [Medium article](https://medium.com/faun/apache-kafka-vs-apache-kinesis-57a3d585ef78)
+- [Another Medium article](https://medium.com/slalom-build/a-guide-to-choosing-the-right-streaming-solution-for-you-on-aws-57089f03e034)
+
+### Query services
+
+#### Amazon Athena
+
+- [Amazon Athena](https://docs.aws.amazon.com/athena/latest/ug/what-is.html) is an interactive query service that makes it easy to analyze data directly in Amazon Simple Storage Service (Amazon S3) using standard [SQL](https://docs.aws.amazon.com/athena/latest/ug/ddl-sql-reference.html).
+- Athena is serverless and scales automatically.
+- Athena helps you analyze unstructured, semi-structured, and structured data stored in Amazon S3. Examples include CSV, JSON, or columnar data formats such as Apache Parquet and Apache ORC.
+- You can use Athena to run ad-hoc queries using ANSI SQL, without the need to aggregate or load the data into Athena.
+- Athena integrates with Amazon QuickSight for easy data visualization.
+- You can use Athena to generate reports or to explore data with business intelligence tools or SQL clients connected with a JDBC or an ODBC driver.
+- Athena integrates with the AWS Glue Data Catalog. This allows you to create tables and query data in Athena based on a central metadata store available throughout your AWS account and integrated with the ETL and data discovery features of AWS Glue.
+- You can access Athena using the AWS Management Console, a JDBC or ODBC connection, the Athena API, the Athena CLI, the AWS SDK, or AWS Tools for Windows PowerShell.
+- In Athena, tables and databases are containers for the metadata definitions that define a schema for underlying source data. For each dataset, a table needs to exist in Athena. The metadata in the table tells Athena where the data is located in Amazon S3, and specifies the structure of the data, for example, column names, data types, and the name of the table. Databases are a logical grouping of tables, and also hold only metadata and schema information for a dataset.
+- When you query an existing table, under the hood, Amazon Athena uses Presto, a distributed SQL engine.
+- In regions where AWS Glue is supported, Athena uses the AWS Glue Data Catalog as a central location to store and retrieve table metadata throughout an AWS account.
+
+### Data Transformation
+
+#### AWS Data Pipeline
+
+- [AWS Data Pipeline](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/what-is-datapipeline.html) is a web service that you can use to automate the movement and transformation of data.
+- With AWS Data Pipeline, you can define data-driven workflows, so that tasks can be dependent on the successful completion of previous tasks.
+- You define the parameters of your data transformations and AWS Data Pipeline enforces the logic that you've set up.
+- AWS Data Pipeline workflow:
+  - A [**pipeline definition**](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-writing-pipeline-definition.html) specifies the business logic of your data management.
+  - A **pipeline** schedules and runs tasks by creating Amazon EC2 instances to perform the defined work activities.
+  - [**Task Runner**](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-how-remote-taskrunner-client.html) polls for tasks and then performs those tasks. For example, Task Runner could copy log files to Amazon S3 and launch Amazon EMR clusters.
+- You can create, access, and manage your pipelines using: AWS Management Console, AWS CLI, AWS SDKs, and Query API
+- AWS Data Pipeline works with the following services to store data:
+  - Amazon DynamoDB
+  - Amazon RDS
+  - Amazon Redshift
+  - Amazon S3
+- AWS Data Pipeline works with the following compute services to transform data:
+  - Amazon EC2
+  - Amazon EMR
+- [Pricing](https://aws.amazon.com/datapipeline/pricing/)
+
+![Data Pipeline example](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/images/dp-how-dp-works-v2.png)
+
+#### Amazon EMR
+
+- [Amazon EMR](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html) is a managed cluster platform that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, on AWS to process and analyze vast amounts of data.
+- By using these frameworks and related open-source projects, such as Apache Hive and Apache Pig, you can process data for analytics purposes and business intelligence workloads.
+- Additionally, you can use Amazon EMR to transform and move large amounts of data into and out of other AWS data stores and databases, such as Amazon Simple Storage Service (Amazon S3) and Amazon DynamoDB.
+
 ## Global Infrastructure and Reliability
 
 ### Region
@@ -370,7 +546,7 @@ Slash notation:
 
 - [Amazon Virtual Private Cloud (VPC)](https://aws.amazon.com/vpc/) is a networking service that you can use to establish boundaries around your AWS resources
 - Provision a private, isolated virtual network on the AWS cloud.
-- Have complete control over your virtual networking environment.
+- Have a complete control over your virtual networking environment.
 - A virtual network over a physical network.
 - VPC is created inside a region and can stretch across Availability Zones (AZs) inside this region.
 
@@ -378,7 +554,7 @@ Slash notation:
 
 - A subnet is a section of a VPC in which can group resources,such as Amazon EC2 instances, based on security or operational needs.
 - Subnets can be public or private.
-- Subnets consists of Route Tables. Route Tables are used for communication within the subnets inside the VPC and outside.
+- Subnets consists of Route Tables. Route Tables are used for communication between the subnets inside the VPC and outside.
 - All subnets have Local route by default that allows communication with each other.
 
 Public Subnet:
@@ -388,7 +564,7 @@ Public Subnet:
 
 Private Subnet
 
-- If a subnet has VPG (Virtual Private Gateway) route, then it considered as VPN only subnet.
+- If a subnet has VPG (Virtual Private Gateway) route, then it is considered as VPN only subnet.
 - The virtual private gateway is the component that allows protected internet traffic to enter into the VPC.
 - A virtual private gateway enables you to establish a virtual private network (VPN) connection between your VPC and a private network, such as an on-premises data center or internal corporate network.
 - A virtual private gateway allows traffic into the VPC only if it is coming from an approved network. This connection is through the public internet but with end-to-end encryption.
@@ -399,7 +575,7 @@ Private Subnet
 - It enters into a VPC through an internet gateway. Before a packet can enter into a subnet or exit from a subnet, it checks for permissions. These permissions indicate who sent the packet and how the packet is trying to communicate with the resources in a subnet.
 - The VPC component that checks packet permissions for subnets is a network [access control list (ACL)](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html).
 
-Network access control lists (ACLs)
+#### Network access control lists (NACLs)
 
 - A network access control list (ACL) is a virtual firewall that controls inbound and outbound traffic at the subnet level.
 - Each AWS account includes a default network ACL.
@@ -412,7 +588,7 @@ Network access control lists (ACLs)
 - After a packet has entered a subnet, it must have its permissions evaluated for resources within the subnet, such as Amazon EC2 instances.
 - The VPC component that checks packet permissions for an Amazon EC2 instance is a [security group](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html).
 
-Security Group
+#### Security Group
 
 - A security group is a virtual firewall that controls inbound and outbound traffic for an Amazon EC2 instance.
 - By default, a security group denies all inbound traffic and allows all outbound traffic.
@@ -420,6 +596,26 @@ Security Group
 - Stateful packet filtering
   - Security groups perform stateful packet filtering. They remember previous decisions made for incoming packets.
   - When a packet response for that request returns to the instance, the security group remembers your previous request. The security group allows the response to proceed, regardless of inbound security group rules.
+
+#### Network Address Translation (NAT) Gateway
+
+- A managed NAT gateway
+- Allow instances in Private Subnets to access the Internet, to download software, access public services, etc., but not the other way around
+- Charges hourly + traffic
+
+#### Elastic IP (EIP)
+
+- An AWS-owned public IP address that can be allocated and associated to instances
+- Once allocated, an EIP is dedicated to the user until it is released
+- Instances with EIP associated do not change their public IP addresses after rebooting
+
+#### PrivateLink
+
+- A term used to describe the internal networking mechanism that allows user to access AWS services without going through public Internet
+
+#### VPC Endpoint
+
+- A private endpoint powered by PrivateLink that allows private access to S3, DynamoDB, etc.
 
 ### AWS Direct Connect
 
@@ -433,6 +629,8 @@ Security Group
   - Manage the DNS records for domain names.
   - Register new domain names directly in Route 53.
   - Transfer DNS records for existing domain names managed by other domain registrars.
+
+![VPC Overview](https://theawsdotblog.files.wordpress.com/2020/05/image-14.png)
 
 ### Networking additional resources
 
@@ -618,7 +816,22 @@ Pricing
 
 #### FSx
 
-- Windows files system
+- Microsoft Windows files system
+- The highest storage throughput
+
+#### Storage types speed comparison
+
+- Comparison of the relative (to Amazon EFS) images per second that each file system can load
+
+    | File System | Relative Speed |
+    | ----------- | -------------- |
+    | Amazon S3   | <1.00          |
+    | Amazon EFS  | 1              |
+    | Amazon EBS  | 1.29           |
+    | NVMe        | 1.4            |
+    | RAMDisk     | 1.44           |
+    | BeeGFS      | 1.6            |
+    | Amazon FSx  | >1.60          |
 
 ### Storage additional resources
 
