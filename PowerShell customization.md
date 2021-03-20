@@ -26,30 +26,33 @@ Import-Module posh-git
 ## Customization
 
 1. Install fonts
+   1. Download all fonts
 
-    ```cmd
-    <!-- Download fonts -->
-    Invoke-WebRequest -Uri 'https://github.com/powerline/fonts/archive/master.zip' -OutFile .\powerlinefonts.zip
-    <!-- Extract fonts zipped file -->
-    Expand-Archive .\powerlinefonts.zip
-    <!-- Bypass restriction -->
-    Set-ExecutionPolicy Bypass
-    <!-- Install fonts -->
-    .\powerlinefonts\fonts-master\install.ps1
-    <!-- Remove unneeded files/folders -->
-    Remove-Item .\powerlinefonts.zip
-    Remove-Item .\powerlinefonts -Recurse
-    ```
+        ```cmd
+        <!-- Download fonts -->
+        Invoke-WebRequest -Uri 'https://github.com/powerline/fonts/archive/master.zip' -OutFile .\powerlinefonts.zip
+        <!-- Extract fonts zipped file -->
+        Expand-Archive .\powerlinefonts.zip
+        <!-- Bypass restriction -->
+        Set-ExecutionPolicy Bypass
+        <!-- Install fonts -->
+        .\powerlinefonts\fonts-master\install.ps1
+        <!-- Remove unneeded files/folders -->
+        Remove-Item .\powerlinefonts.zip
+        Remove-Item .\powerlinefonts -Recurse
+        ```
+
+   2. Choose from this [website](https://www.nerdfonts.com/font-downloads)
 
 2. Choose font
 
    - Right-click on the PowerShell window top-bar for more options, go to Properties and then to Font.
-   - Select `Space Mono for Powerline` from the available options and click OK
+   - Select `agave Nerd Font Mono r` from the available options and click OK
 
 3. Choose Theme
 
-- Check for available themes, `get-theme`
-- Set the chosen theme, `set-theme Agnoster`
+- Check for available themes, `Get-PoshThemes`
+- Set the chosen theme, `Set-PoshPrompt -Theme Agnoster`
 
 ## Creating a profile file
 
