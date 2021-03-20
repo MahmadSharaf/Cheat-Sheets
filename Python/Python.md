@@ -1,11 +1,28 @@
 # Python Cheat sheet
 
 - [Python Cheat sheet](#python-cheat-sheet)
+  - [Module Importing](#module-importing)
+    - [Using `import` statement](#using-import-statement)
+    - [Using `reload` function vs `import`](#using-reload-function-vs-import)
+    - [Using `from` statement vs `import`](#using-from-statement-vs-import)
+    - [Using exec to Run Module Files](#using-exec-to-run-module-files)
+  - [Data types](#data-types)
+    - [Strings](#strings)
+      - [Indexing](#indexing)
+      - [Slicing](#slicing)
+      - [Immutable](#immutable)
+      - [String with variables inside](#string-with-variables-inside)
+      - [String formatting](#string-formatting)
+    - [Lists](#lists)
+      - [Lists Specific Operations](#lists-specific-operations)
+      - [Lists Nesting](#lists-nesting)
+      - [Comprehensions and Generators](#comprehensions-and-generators)
+    - [Dictionaries](#dictionaries)
+      - [Dict Nesting](#dict-nesting)
+      - [Dict Tricks](#dict-tricks)
+      - [Iteration and Optimization](#iteration-and-optimization)
+    - [Tuples](#tuples)
   - [Dealing with files and folders](#dealing-with-files-and-folders)
-  - [Strings](#strings)
-    - [String with variables inside](#string-with-variables-inside)
-    - [String formatting](#string-formatting)
-  - [Lists](#lists)
   - [While loop](#while-loop)
   - [Tricks](#tricks)
   - [Desktop App using Tkinter](#desktop-app-using-tkinter)
@@ -82,36 +99,96 @@
     - [Creating a Slide Deck with Jupyter](#creating-a-slide-deck-with-jupyter)
   - [Handful resources](#handful-resources)
 
-## Dealing with files and folders
+## Module Importing
 
-```py
-import os
+### Using `import` statement
 
-# Get the current working directory
-os.getcwd()
+- Imports working only once per module per session by default. Later imports will do nothing, even the module is changed.
 
-# Change the working directory
-os.chdir(file_path)
+   ```py
+   # File 'script1' contains the below code
+   print(2**100)
+   print('Spam!'*10)
+   ```
 
-# Rename file names
-os.rename(current_filename,new_filename)
-```
+   ```cmd
+   >>> import script1
+   1267650600228229401496703205376
+   Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
+   >>> import script1
+   >>> import script1
+   ```
 
-```py
-# Open a file, read it and close it
-f = open("file_path", w+)
-# "w" letter indicates write and will create a file if it does not exist in library
-# Plus sign indicates both read and write.
-# The available option beside "w" are, "r" for read, and "a" for append
-f.write("string")
-f.close()
-```
+- This is by design; imports are too expensive operation to repeat more than once per file, per program run. As, imports must find files, compile them to byte code, and run the code.
 
-## Strings
+### Using `reload` function vs `import`
+
+   ```cmd
+   >>> import script1
+   1267650600228229401496703205376
+   Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
+   >>> import script1
+   >>> from importlib import reload
+
+   ...Change script1.py in a text edit window to print 2 ** 16..
+
+   >>> reload(script1)
+   65536
+   Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
+   <module 'script1' from '.\\script1.py'>
+   ```
+
+### Using `from` statement vs `import`
+
+- `from` statement in a sense defeats the namespace partitioning purpose of modules—because the from copies variables from one file to another, it can cause same-named variables in the importing file to be overwritten, and won’t warn you if it does. This essentially collapses namespaces together, at least in terms of the copied variables
+
+   ```py
+   # File 'threenames.py'
+   a = 'dead'                      # Define three attributes
+   b = 'parrot'                    # Exported to other files
+   c = 'sketch'
+   print(a, b, c)                  # Also used in this file (in 2.X: print a, b, c)
+   ```
+
+   ```cmd
+   >>> from threenames import a,b
+   >>> a
+   'dead'
+   >>> b
+   'parrot'
+   ```
+
+   ```cmd
+   >>> import threenames
+   >>> threenames.a
+   'dead'
+   >>> threenames.c
+   'sketch'
+   ```
+
+### Using exec to Run Module Files
+
+- The exec(open('module.py').read()) built-in function call is another way to launch files from the interactive prompt without having to import and later reload. Each such exec runs the current version of the code read from a file, without requiring later reloads
+
+   ```cmd
+   >>> exec(open('script1.py').read())
+   win32
+   65536
+   Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
+
+   ...Change script1.py in a text edit window to print 2 ** 32...
+
+   >>> exec(open('script1.py').read())
+   win32
+   4294967296
+   Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
+   ```
+
+## Data types
+
+### Strings
 
 ```python
-# strings are immutable (they cannot be changed).
-
 # Join: joins two strings together
 result = '1234'.join("567")
 ===
@@ -121,17 +198,88 @@ result = '1234' + '567'
 # Methods
 s = "apple"
 s.startswith("a")
+# True
 s.endswith("e")
+# True
 s.isdigit()
+# False
 s.isspace()
+# False
 s.lower()
+# 'apple'
+s.upper()
+# 'APPLE'
+len(s)
+# 5
 "box" in "box of life"
+# True
 1 in [1,2,3]
+# True
 'abracadabra'.find('cad')
+# 4
 'badger badger badger mushroom'.count('bad')
+# 3
 ```
 
-### String with variables inside
+#### Indexing
+
+```py
+s[0]
+# 'a'
+s[-1]
+# 'e'
+s[len(s)-1]
+# 'e'
+s[-2]
+# 'p'
+```
+
+#### Slicing
+
+```py
+s[1:3]
+# 'pp'
+s[1:]
+# 'pple'
+s[:3]
+# 'ap'
+s[:-1]
+# 'appl'
+```
+
+#### Immutable
+
+- strings are immutable (they cannot be changed).
+
+```py
+S
+'Spam'
+
+S[0] = 'z'   # Immutable objects cannot be changed
+# ...error text omitted...
+# TypeError: 'str' object does not support item assignment
+
+S = 'z' + S[1:]   # But we can run expressions to make new objects
+S
+# 'zpam'
+
+S = 'shrubbery'
+L = list(S)    # Expand to a list: [...]
+L
+# ['s', 'h', 'r', 'u', 'b', 'b', 'e', 'r', 'y']
+L[1] = 'c'  # Change it in place
+''.join(L)  # Join with empty delimiter
+# 'scrubbery'
+
+B = bytearray(b'spam')  # A bytes/list hybrid (ahead)
+B.extend(b'eggs')    # 'b' needed in 3.X, not 2.X
+B  # B[i] = ord(c) works here too
+bytearray(b'spameggs')
+B.decode()  # Translate to normal string
+'spameggs'
+```
+
+#### String with variables inside
 
 Credits to this, goes to "SShah" as an answer to [StackOverflow question](https://stackoverflow.com/questions/52155591/how-to-insert-string-into-a-string-as-a-variable)
 
@@ -198,7 +346,7 @@ There are 5 approaches for achieving this on python (Python 3):
 
    For more [info](https://realpython.com/python-f-strings/#simple-syntax)
 
-### String formatting
+#### String formatting
 
 - Adding `r` before a string, treating it as a raw.
 
@@ -209,16 +357,35 @@ There are 5 approaches for achieving this on python (Python 3):
 
 Python [format cookbook](https://mkaz.blog/code/python-string-format-cookbook/)
 
-## Lists
+### Lists
 
 ```python
 # Mutable. That means you can change the items in a list after it has been created.
 
 words = ["echidna", "dingo", "crocodile", "bunyip"]
 
+len(words)
+# 4
+
+words[0]
+# 'echidna'
+
+words[-1]
+# 'bunyip'
+
+words + [4, 5.4]
+# ["echidna", "dingo", "crocodile", "bunyip", 4, 5.4]
+
+words * 2
+# ["echidna", "dingo", "crocodile", "bunyip", "echidna", "dingo", "crocodile", "bunyip"]
+
 # Adds its argument as a single item to the end of the list. It only ever adds one item to a list.
 words.append("platypus")
+```
 
+#### Lists Specific Operations
+
+```py
 # Treats its argument as a sequence and adds each item in the sequence to the end of the list. In other words, it adds a sequence of items to a list.
 words.extend("abc")
 # ['echidna', 'dingo', 'crocodile', 'bunyip', 'platypus', 'a', 'b', 'c']
@@ -231,6 +398,190 @@ words.reverse()
 
 # Sort the list in ascending order
 words.sort()
+
+# delete an item
+words.pop(2)
+# ["echidna", "dingo", "bunyip"]
+```
+
+#### Lists Nesting
+
+```py
+M = [[1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]]
+```
+
+#### Comprehensions and Generators
+
+```py
+col2 = [row[1] for row in M] # Collect the items in column 2
+# [2, 5, 8]
+
+[row[1] for row in M if row[1] % 2 == 0]  # Filter out odd items
+# [2, 8]
+```
+
+```py
+G = (sum(row) for row in M)   # Create a generator of row sums
+next(G)  # iter(G) not required here
+# 6
+next(G)  # Run the iteration protocol next()
+# 15
+next(G)
+# 24
+```
+
+```py
+[ord(x) for x in 'spaam'] # List of character ordinals
+# [115, 112, 97, 97, 109]
+{ord(x) for x in 'spaam'} # Sets remove duplicates
+# {112, 97, 115, 109}
+{x: ord(x) for x in 'spaam'} # Dictionary keys are unique
+# {'p': 112, 'a': 97, 's': 115, 'm': 109}
+(ord(x) for x in 'spaam') # Generator of values
+# <generator object <genexpr> at 0x000000000254DAB0>
+```
+
+### Dictionaries
+
+- They are mutable
+- They are not sequences at all, but are instead known as mappings.
+- They store objects by key instead of by relative position.
+
+```py
+D = {'apple': 'Spam', 'quantity': 4, 'color': 'pink'}
+
+D['food']   # Fetch value of key 'food'
+# 'Spam'
+
+D['quantity'] += 1     # Add 1 to 'quantity' value
+D['quantity']
+# 5
+```
+
+- They can be build up
+
+```py
+D = {}
+D['name'] = 'Bob'      # Create keys by assignment
+D['job']  = 'dev'
+D['age']  = 40
+D
+# {'age': 40, 'job': 'dev', 'name': 'Bob'}
+
+bob1 = dict(name='Bob', job='dev', age=40)   # Keywords
+bob1
+#{'age': 40, 'name': 'Bob', 'job': 'dev'}
+
+bob2 = dict(zip(['name', 'job', 'age'], ['Bob', 'dev', 40]))   # Zipping
+bob2
+#{'job': 'dev', 'name': 'Bob', 'age': 40}
+
+```
+
+- Dictionary keys is scrambled, they’ll come back in a different order than the typed.
+
+#### Dict Nesting
+
+```py
+rec = {'name': {'first': 'Bob', 'last': 'Smith'},
+           'jobs': ['dev', 'mgr'],
+           'age':  40.5}
+
+rec['name']   # 'name' is a nested dictionary
+#{'last': 'Smith', 'first': 'Bob'}
+
+rec['name']['last'] # Index the nested dictionary
+#'Smith'
+
+rec['jobs']   # 'jobs' is a nested list
+#['dev', 'mgr']
+rec['jobs'][-1]  # Index the nested list
+#'mgr'
+
+rec['jobs'].append('janitor')   # Expand Bob's job description in place
+rec
+#{'age': 40.5, 'jobs': ['dev', 'mgr', 'janitor'], 'name': {'last': 'Smith', 'first': 'Bob'}}
+```
+
+#### Dict Tricks
+
+- Although Dictionaries aren't sequential, it can be `Print`ed in order with respect to keys
+
+```py
+D = {'a': 1, 'b': 2, 'c': 3}
+D
+#{'a': 1, 'c': 3, 'b': 2}
+
+for key in sorted(D):
+   print(key, '=>', D[key])
+
+# a => 1
+# b => 2
+# c => 3
+```
+
+#### Iteration and Optimization
+
+- In a nutshell, an object is *iterable* if it is either a physically stored sequence in memory, or an object that generates one item at a time in the context of an iteration operation—a sort of “virtual” sequence. More formally, both types of objects are considered *iterable* because they support the *iteration protocol* —they respond to the `iter` call with an object that advances in response to `next` calls and raises an exception when finished producing values.
+
+### Tuples
+
+- Immutable, like `strings`
+- Sequential, like `Lists`
+- Functionally, they’re used to represent fixed collections of items: the components of a specific calendar date, for instance.
+
+```py
+T = (1, 2, 3, 4)  # A 4-item tuple
+
+len(T)   # Length
+# 4
+
+T + (5, 6)  # Concatenation
+# (1, 2, 3, 4, 5, 6)
+
+T[0]  # Indexing, slicing, and more
+# 1
+
+T[0] = 2 # Tuples are immutable
+# ...error text omitted...
+# TypeError: 'tuple' object does not support item assignment
+
+T = (2,) + T[1:]  # Make a new tuple for a new value
+T
+(2, 2, 3, 4)
+
+T = 'spam', 3.0, [11, 22, 33]
+T[1]
+# 3.0
+T[2][1]
+# 22
+```
+
+## Dealing with files and folders
+
+```py
+import os
+
+# Get the current working directory
+os.getcwd()
+
+# Change the working directory
+os.chdir(file_path)
+
+# Rename file names
+os.rename(current_filename,new_filename)
+```
+
+```py
+# Open a file, read it and close it
+f = open("file_path", w+)
+# "w" letter indicates write and will create a file if it does not exist in library
+# Plus sign indicates both read and write.
+# The available option beside "w" are, "r" for read, and "a" for append
+f.write("string")
+f.close()
 ```
 
 ## While loop
@@ -373,7 +724,7 @@ print("Blastoff!")
 
 4. `pack` and `grid`
 
-   - We can arrange the widgets using the `pack()` method instead of the `grid()`. The problem with `pack()` is that it packs things as close as possible. You can’t even give space or change the rows and columns, or change the order of widgets. That is why` pack()` is not often used, instead, `grid()` is used mostly.
+   - We can arrange the widgets using the `pack()` method instead of the `grid()`. The problem with `pack()` is that it packs things as close as possible. You can’t even give space or change the rows and columns, or change the order of widgets. That is why `pack()` is not often used, instead, `grid()` is used mostly.
 
       ```py
       widget_name.grid(column=col_pos,row=row_pos)
