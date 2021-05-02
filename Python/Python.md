@@ -22,7 +22,12 @@
       - [Dict Tricks](#dict-tricks)
       - [Iteration and Optimization](#iteration-and-optimization)
     - [Tuples](#tuples)
+    - [Sets](#sets)
+      - [Sets Operations](#sets-operations)
+      - [Sets Comprehensions](#sets-comprehensions)
+      - [Sets Tricks](#sets-tricks)
   - [Dealing with files and folders](#dealing-with-files-and-folders)
+    - [Binary Bytes Files](#binary-bytes-files)
   - [While loop](#while-loop)
   - [Tricks](#tricks)
   - [Desktop App using Tkinter](#desktop-app-using-tkinter)
@@ -88,6 +93,8 @@
   - [Machine Learning](#machine-learning)
     - [StatsModels](#statsmodels)
     - [Scikit learn](#scikit-learn)
+    - [YellowBrick](#yellowbrick)
+    - [MLxtend](#mlxtend)
     - [Apache MXNet](#apache-mxnet)
   - [Conventions](#conventions)
   - [Speed Up Performance](#speed-up-performance)
@@ -96,6 +103,7 @@
       - [Speed up techniques](#speed-up-techniques)
     - [Speed up references](#speed-up-references)
   - [Tips and Tricks](#tips-and-tricks)
+    - [Shared References and In-Place Changes](#shared-references-and-in-place-changes)
     - [Creating a Slide Deck with Jupyter](#creating-a-slide-deck-with-jupyter)
   - [Handful resources](#handful-resources)
 
@@ -355,6 +363,14 @@ There are 5 approaches for achieving this on python (Python 3):
    # The n in "\n" will be printed not skipped
    ```
 
+- Built-in function `repr()`, converts objects to display strings.
+
+```py
+repr('lion')
+# "'lion'"
+
+```
+
 Python [format cookbook](https://mkaz.blog/code/python-string-format-cookbook/)
 
 ### Lists
@@ -559,7 +575,138 @@ T[2][1]
 # 22
 ```
 
+### Sets
+
+- Neither mappings nor sequences
+- Unordered collections of unique and immutable objects.
+  - Can be used to filter duplicates out of other collections, though items may be reordered in the process because sets are unordered in general.
+
+```py
+X = set('spam')  # Make a set out of a sequence in 2.X and 3.X
+Y = {'h', 'a', 'm'} # Make a set with set literals in 3.X and 2.7
+```
+
+- Perform order-neutral equality tests by converting to a set before the test, because order doesn’t matter in a set.
+  - Two sets are equal if and only if every element of each set is contained in the other, regardless of order.
+
+```py
+L1, L2 = [1, 3, 5, 2, 4], [2, 5, 3, 4, 1]
+L1 == L2   # Order matters in sequences
+# False
+set(L1) == set(L2)  # Order-neutral equality
+# True
+sorted(L1) == sorted(L2)  # Similar but results ordered
+# True
+'spam' == 'asmp', set('spam') == set('asmp'), sorted('spam') == sorted('asmp')
+# (False, True, True)
+```
+
+#### Sets Operations
+
+- Support the usual mathematical set operations
+
+```py
+X = set('spam')
+Y = {'h', 'a', 'm'}
+
+X, Y # A tuple of two sets without parentheses
+# ({'m', 'a', 'p', 's'}, {'m', 'a', 'h'})
+
+X & Y   # Intersection
+# {'m', 'a'}
+X | Y   # Union
+# {'m', 'h', 'a', 'p', 's'}
+X - Y   # Difference
+# {'p', 's'}
+X > Y   # Superset
+# False
+
+X, Y # A tuple of two sets without parentheses
+# ({'m', 'a', 'p', 's'}, {'m', 'a', 'h'})
+
+X.intersection(Y)   # Intersection
+# {'m', 'a'}
+X.union(Y)   # Union
+# {'m', 'h', 'a', 'p', 's'}
+Y.issubset(X)   # Subset
+# False
+```
+
+#### Sets Comprehensions
+
+```py
+# Set comprehensions in 3.X and 2.7
+{n ** 2 for n in [1, 2, 3, 4]}  
+#{16, 1, 4, 9}
+
+>>> {x for x in 'spam'}                    # Same as: set('spam')
+{'m', 's', 'p', 'a'}
+
+# Set of collected expression results
+{c * 4 for c in 'spam'}  
+# {'pppp', 'aaaa', 'ssss', 'mmmm'}
+{c * 4 for c in 'spamham'}
+# {'pppp', 'aaaa', 'hhhh', 'ssss', 'mmmm'}
+
+S = {c * 4 for c in 'spam'}
+S | {'mmmm', 'xxxx'}
+# {'pppp', 'xxxx', 'mmmm', 'aaaa', 'ssss'}
+S & {'mmmm', 'xxxx'}
+# {'mmmm'}
+```
+
+#### Sets Tricks
+
+```py
+S1 = {1, 2, 3, 4}
+
+S1 - {1, 2, 3, 4}   # Empty sets print differently
+# set()
+type({})   # Because {} is an empty dictionary
+# <class 'dict'>
+
+S = set()  # Initialize an empty set
+S.add(1.23)
+S
+# {1.23}
+```
+
+- Sets can only contain immutable (a.k.a. “hashable”) object types. Hence, lists and dictionaries cannot be embedded in sets, but tuples can.
+
+```py
+S
+# {1.23}
+S.add([1, 2, 3]) # Only immutable objects work in a set
+# TypeError: unhashable type: 'list'
+S.add({'a':1})
+# TypeError: unhashable type: 'dict'
+S.add((1, 2, 3))
+S # No list or dict, but tuple OK
+# {1.23, (1, 2, 3)}
+
+S | {(4, 5, 6), (1, 2, 3)}   # Union: same as S.union(...)
+# {1.23, (4, 5, 6), (1, 2, 3)}
+(1, 2, 3) in S   # Membership: by complete values
+# True
+(1, 4, 3) in S
+# False
+```
+
+- Sets themselves are mutable, and so cannot be nested in other sets directly. The `frozenset` built-in call works just like set but creates an immutable set that cannot change and thus can be embedded in other sets.
+
 ## Dealing with files and folders
+
+```py
+data = open('data.bin', 'rb').read()  # Open/read binary data file
+data # 10 bytes, unaltered
+# b'\x00\x00\x00\x07spam\x00\x08'
+data[4:8]  # Slice bytes in the middle
+# b'spam'
+list(data) # A sequence of 8-bit bytes
+# [0, 0, 0, 7, 115, 112, 97, 109, 0, 8]
+struct.unpack('>i4sh', data) # Unpack into objects again
+# (7, b'spam', 8
+```
 
 ```py
 import os
@@ -582,6 +729,24 @@ f = open("file_path", w+)
 # The available option beside "w" are, "r" for read, and "a" for append
 f.write("string")
 f.close()
+```
+
+### Binary Bytes Files
+
+- *binary files* represent content as a special bytes string and allow you to access file content unaltered.
+- *binary files* are useful for processing media, accessing data created by C programs
+
+```py
+# Writing Binary bytes to a file
+import struct
+packed = struct.pack('>i4sh', 7, b'spam', 8)   # Create packed binary data
+packed  # 10 bytes, not objects or text
+# b'\x00\x00\x00\x07spam\x00\x08'
+
+file = open('data.bin', 'wb')   # Open binary output file
+file.write(packed)  # Write packed binary data
+# 10
+file.close()
 ```
 
 ## While loop
@@ -1944,7 +2109,8 @@ df.dropna(axis=1)
 
 # More dropna rules
 df.dropna(how='all')
-df.dropna(thresh=4)
+# specify the threshold equals 4, means that dropping the coulmn if it has 4 missing values or more.
+df.dropna(thresh=4, axis=1)
 df.dropna(subset=['Fruits'])
 
 # Fills the missing values with value and if inplace is true it will replace the column with new data.
@@ -1952,6 +2118,15 @@ df['column_name'].fillna(value, inplace=True)
 
 # Replace all null data with value
 df.fillna(value)
+# Method 'Pad' uses the previous record and use to impute the value. `limit` parameter limits the number of consecutive imputations
+df.fillna(method = 'pad', limit=1)
+# Method 'bfill' is the backfill technique, it fills the missing value with the value of the next one.
+df.fillna(method = 'bfill')
+# Method 'ffill' is the forward technique, it fills the missing value with the value of the previous one.
+df.fillna(method = 'ffill')
+
+# Substitute missing values using the existing one using interpolation technique
+df.interpolate()
 ```
 
 #### Group Data
@@ -2739,6 +2914,19 @@ plt.close()
          type_enc.fit(num_type.reshape(-1,1))
          ```
 
+      3. Convert a collection of text documents to a matrix of token counts `sksklearn.feature_extraction.text.CountVectorizer`
+
+         ```py
+         from sklearn.feature_extraction.text import CountVectorizer
+
+         count_vectorizer = CountVectorizer()
+         x_train_count = count_vectorizer.fit_transform(data.text)
+
+         count_vectorizer.vocabulary_
+         ```
+
+      4. Convert a collection of raw documents to a matrix of TF-IDF features. Equivalent to `:class:CountVectorizer` followed by `:class:TfidfTransformer`. `sklearn.feature_extraction.text.TfidfVectorizer`
+
 3. Splitting the data
 
    ```py
@@ -2763,7 +2951,63 @@ plt.close()
    print('Mean cross-validation score (3-fold): {:.3f}'.format(np.mean(cv_scores)))
    ```
 
-5. Feature Engineering
+5. Models
+   1. Supervised:
+      1. Regression:
+         1. Linear Regression `sklearn.linear_model .LinearRegression`
+         2. Lasso Regression `sklearn.linear_model .Lasso`
+         3. Ridge Regression `sklearn.linear_model .Ridge`
+         4. Stochastic Gradient Descent Regression `sklearn.linear_model .SGDRegressor`
+      2. Classification:
+         1. Logistic Regression `sklearn.linear_model .LogisticRegression`
+         2. Naive Bayes `sklearn.naive_bayes.GaussianNB`
+         3. Support Vector Machine `sklearn.svm.SVC`
+         4. K-Nearest Neighbor `sklearn.neighbors.KNeighborsClassifier`
+         5. Decision Tree `sklearn.tree.DecisionTreeClassifier`
+         6. Random Forest `sklearn.ensemble.RandomForestClassifier`
+   2. Unsupervised:
+      1. Clustering
+         1. K-Means `sklearn.cluster.KMeans`
+
+   ```py
+   # Create Estimator
+   model = model_fn()
+   # Fit the training data
+   model.fit(x_train, y_train)
+   # Pedict the test data
+   y_pred = model.predict(x_test)
+   ```
+
+6. Model Evaluation
+   1. Regression:
+
+      - R2 Score
+
+         ```py
+         # R2 Score
+         from sklearn.metrics import r2_score
+         score = r2_score(y_test, y_pred)
+         # or using the built-in function
+         model.score(x_test, y_test)
+         ```
+
+   2. Classification:
+
+      - Confusion Matrix `sklearn.metrics.confusion_matrix`
+
+      - Accuracy `sklearn.metrics.accuracy_score`
+      - Precision `sklearn.metrics.precision_score`
+      - Recall `sklearn.metrics.recall_score`
+
+   3. Clustering
+      - Silhouette score `sklearn.metrics.silhouette_score`
+      - Homogeneity score `sklearn.metrics.homogeneity_score`
+      - Completeness Score `sklearn.metrics.completeness_score`
+      - V measure `sklearn.metrics.v_measure_score`
+      - Adjusted Random Score `sklearn.metrics.adjusted_rand_score`
+      - Adjusted Mutual Information Score `sklearn.metrics.adjusted_mutual_info_score`
+
+7. Feature Engineering
 
    - Mean/Variance Standardization
 
@@ -2809,7 +3053,74 @@ plt.close()
       linreg = LinearRegression().fit(X_train, y_train)
      ```
 
-6. Hyperparameter tuning:
+   - Feature Selection
+     - Filtering methods
+
+         ```py
+         # Select the best K features
+         from sklearn.feature_selection import SelectKBest
+         
+         # Statistical technique to create a univariate linear regression that calculates the correlation between each regressor and target
+         from sklearn.feature_selection import f_regression
+
+         select_univariate = SelectKBest(f_regression, k=5).fit(features, target)
+
+         # Get the mask for the best K=5 features
+         feature_mask = select_univariate.get_support()
+         # Get the best 5 features
+         features.columns[feature_mask]
+         # Get the cscore of each feature (Higher is better)
+         select_univariate.scores_
+
+         ```
+
+     - Wrapping methods
+         1. Recursive Feature Elimnation: Selects features by recursively considering smaller subsets of features by pruning the least important feature at each step.
+
+            ```py
+            from sklearn.linear_model import LinearRegression
+            # Recursive Feature Elimnation
+            from sklearn.feature_selection import RFE
+
+            linear_regression = LinearRegression()
+
+            rfe = RFE(estimator = linear_regression, # The estimator that will be used to train the model on different set of features
+            n_features_to_select = 5, # Select the most 5 relevant features
+            step = 1)
+
+            # Fit the data
+            rfe.fit(features,target)
+
+            # Get the 5 most relevant features
+            rfe_features = features.columns[rfe.support_]
+            
+            # View rankings of all the features. The selected features are assigned a rank of 1
+            pd.DataFrame({'FeatureName': features.columns, 
+              'Rank': rfe.ranking_}).sort_values(by='Rank')
+            ```
+
+     - Embedded methods
+        1. Regularization techniques
+
+            ```py
+            from sklearn.linear_model import  Lasso
+
+            lasso = Lasso(alpha=1.0) # strength of Regularization, 1 is the strogest effect
+
+            lasso.fit(features, target)
+
+            # lasso.coef_ shows the regularization coefficient of each feature
+            
+            lasso_coef = pd.DataFrame({'Feature': features.columns, 
+                           'LassoCoef': lasso.coef_}).sort_values(by = 'LassoCoef',
+                                                                  ascending =False)
+            
+            lasso_coef['LassoCoef'] = abs(lasso_coef['LassoCoef'])
+
+            lasso_coef.sort_values(by='LassoCoef', ascending=False)
+            ```
+
+8. Hyperparameter tuning:
 
 - Grid Search
 
@@ -2830,6 +3141,73 @@ plt.close()
 
    # {'C': 5, 'degree':2, 'kernel':'rbf'}
    ```
+
+### YellowBrick
+
+[Yellowbrick](https://www.scikit-yb.org/en/latest/) is suite of visual analysis and diagnostic tools for machine learning.
+
+1. Installation
+
+   ```py
+   pip install yellowbrick
+   ```
+
+2. Feature Correlation
+
+   - Pearson Correlation
+
+      ```py
+      from yellowbrick.target import FeatureCorrelation
+
+      visualizer = FeatureCorrelation(labels = feature_names, method='pearson')
+
+      visualizer.fit(features, target)
+
+      visualizer.poof()
+      ```
+
+   - Mutual Information: Mutual information between features and the dependent variable.
+
+      ```py
+      visualizer = FeatureCorrelation(method='mutual_info-regression',
+                                    feature_names=feature_names, sort=True)
+
+      visualizer.fit(features, target)
+      visualizer.poof()
+      ```
+
+### MLxtend
+
+[Mlxtend](https://github.com/rasbt/mlxtend) (machine learning extensions) is a Python library of useful tools for the day-to-day data science tasks.
+
+1. Installation
+
+   ```cmd
+   pip install mlxtend
+   ```
+
+2. Feature Engineering
+   - Feature Selection
+     - Wrapping methods
+
+         1. Backward feature selection: In backward elimination, we start with all the features and removes the least significant feature at each iteration which improves the performance of the model. We repeat this until no improvement is observed on removal of features.
+         2. Forward feature selection: Forward selection is an iterative method in which we start with having no feature in the model. In each iteration, we keep adding the feature which best improves our model till an addition of a new variable does not improve the performance of the model.
+
+            ```py
+            from mlxtend.feature_selection import SequentialFeatureSelector
+            from sklearn.linear_model import LinearRegression
+
+            feature_selector = SequentialFeatureSelector(LinearRegression(), # Estimator
+                                             k_features=5, # Best relevant features to chosen
+                                             forward=False, # Backward or Forward
+                                             scoring='neg_mean_squared_error', # Higher value indicates a better model.
+                                             cv=4)
+
+            feature_filtered = feature_selector.fit(features, target)
+
+            # The name of the features
+            backward_features = list(feature_filtered.k_feature_names_)
+            ```
 
 ### Apache MXNet
 
@@ -3016,6 +3394,19 @@ Note that we are also passing an optional argument that would allow us to change
 - [Medium Article](https://towardsdatascience.com/3-techniques-to-make-your-python-code-faster-193ffab5eb36)
 
 ## Tips and Tricks
+
+### Shared References and In-Place Changes
+
+- There are objects and operations that perform in-place object changes—Python’s mutable types, including `lists`, `dictionaries`, and `sets`. For instance, an assignment to an offset in a `list` actually changes the `list` object itself in place, rather than generating a brand-new `list` object.
+
+```py
+L1 = [2, 3, 4]
+L2 = L1
+L1[0] = 1
+L2[0]
+
+>> 1
+```
 
 ### Creating a Slide Deck with Jupyter
 
