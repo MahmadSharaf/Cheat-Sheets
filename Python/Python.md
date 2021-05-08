@@ -10,9 +10,12 @@
     - [Strings](#strings)
       - [Indexing](#indexing)
       - [Slicing](#slicing)
-      - [Immutable](#immutable)
-      - [String with variables inside](#string-with-variables-inside)
-      - [String formatting](#string-formatting)
+      - [String Mutability](#string-mutability)
+      - [String Conversion Tools](#string-conversion-tools)
+      - [String Formatting](#string-formatting)
+      - [Advanced String Formatting](#advanced-string-formatting)
+      - [Strings tips and tricks](#strings-tips-and-tricks)
+      - [String References](#string-references)
     - [Lists](#lists)
       - [Lists Specific Operations](#lists-specific-operations)
       - [Lists Nesting](#lists-nesting)
@@ -112,89 +115,92 @@
 ### Using `import` statement
 
 - Imports working only once per module per session by default. Later imports will do nothing, even the module is changed.
-
-   ```py
-   # File 'script1' contains the below code
-   print(2**100)
-   print('Spam!'*10)
-   ```
-
-   ```cmd
-   >>> import script1
-   1267650600228229401496703205376
-   Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
-   >>> import script1
-   >>> import script1
-   ```
+  
+  ```py
+  # File 'script1' contains the below code
+  print(2**100)
+  print('Spam!'*10)
+  ```
+  
+  ```cmd
+  >>> import script1
+  1267650600228229401496703205376
+  Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
+  >>> import script1
+  >>> import script1
+  ```
 
 - This is by design; imports are too expensive operation to repeat more than once per file, per program run. As, imports must find files, compile them to byte code, and run the code.
 
 ### Using `reload` function vs `import`
 
-   ```cmd
-   >>> import script1
-   1267650600228229401496703205376
-   Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
-   >>> import script1
-   >>> from importlib import reload
+```cmd
+>>> import script1
+1267650600228229401496703205376
+Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
+>>> import script1
+>>> from importlib import reload
 
-   ...Change script1.py in a text edit window to print 2 ** 16..
+...Change script1.py in a text edit window to print 2 ** 16..
 
-   >>> reload(script1)
-   65536
-   Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
-   <module 'script1' from '.\\script1.py'>
-   ```
+>>> reload(script1)
+65536
+Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
+<module 'script1' from '.\\script1.py'>
+```
 
 ### Using `from` statement vs `import`
 
 - `from` statement in a sense defeats the namespace partitioning purpose of modules—because the from copies variables from one file to another, it can cause same-named variables in the importing file to be overwritten, and won’t warn you if it does. This essentially collapses namespaces together, at least in terms of the copied variables
-
-   ```py
-   # File 'threenames.py'
-   a = 'dead'                      # Define three attributes
-   b = 'parrot'                    # Exported to other files
-   c = 'sketch'
-   print(a, b, c)                  # Also used in this file (in 2.X: print a, b, c)
-   ```
-
-   ```cmd
-   >>> from threenames import a,b
-   >>> a
-   'dead'
-   >>> b
-   'parrot'
-   ```
-
-   ```cmd
-   >>> import threenames
-   >>> threenames.a
-   'dead'
-   >>> threenames.c
-   'sketch'
-   ```
+  
+  ```py
+  # File 'threenames.py'
+  a = 'dead'                      # Define three attributes
+  b = 'parrot'                    # Exported to other files
+  c = 'sketch'
+  print(a, b, c)                  # Also used in this file (in 2.X: print a, b, c)
+  ```
+  
+  ```cmd
+  >>> from threenames import a,b
+  >>> a
+  'dead'
+  >>> b
+  'parrot'
+  ```
+  
+  ```cmd
+  >>> import threenames
+  >>> threenames.a
+  'dead'
+  >>> threenames.c
+  'sketch'
+  ```
 
 ### Using exec to Run Module Files
 
 - The exec(open('module.py').read()) built-in function call is another way to launch files from the interactive prompt without having to import and later reload. Each such exec runs the current version of the code read from a file, without requiring later reloads
-
-   ```cmd
-   >>> exec(open('script1.py').read())
-   win32
-   65536
-   Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
-
-   ...Change script1.py in a text edit window to print 2 ** 32...
-
-   >>> exec(open('script1.py').read())
-   win32
-   4294967296
-   Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
-   ```
+  
+  ```cmd
+  >>> exec(open('script1.py').read())
+  win32
+  65536
+  Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
+  
+  ...Change script1.py in a text edit window to print 2 ** 32...
+  
+  >>> exec(open('script1.py').read())
+  win32
+  4294967296
+  Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
+  ```
 
 ## Data types
 
 ### Strings
+
+- Immutable (they cannot be changed).
+- Sequences (Can be indexed and sliced).
 
 ```python
 # Join: joins two strings together
@@ -250,44 +256,88 @@ s[1:3]
 s[1:]
 # 'pple'
 s[:3]
-# 'ap'
+# 'app'
 s[:-1]
 # 'appl'
 ```
 
-#### Immutable
-
-- strings are immutable (they cannot be changed).
+- Slicing with step size
 
 ```py
-S
-'Spam'
+s[1:3:2]
+# 'p'
+s[3:1:-2]
+# 'l'
+```
+
+#### String Mutability
+
+- Strings are Immutable. They can not be changed in place
+
+```py
+S = 'Sharaf'
 
 S[0] = 'z'   # Immutable objects cannot be changed
 # ...error text omitted...
 # TypeError: 'str' object does not support item assignment
-
-S = 'z' + S[1:]   # But we can run expressions to make new objects
-S
-# 'zpam'
-
-S = 'shrubbery'
-L = list(S)    # Expand to a list: [...]
-L
-# ['s', 'h', 'r', 'u', 'b', 'b', 'e', 'r', 'y']
-L[1] = 'c'  # Change it in place
-''.join(L)  # Join with empty delimiter
-# 'scrubbery'
-
-B = bytearray(b'spam')  # A bytes/list hybrid (ahead)
-B.extend(b'eggs')    # 'b' needed in 3.X, not 2.X
-B  # B[i] = ord(c) works here too
-bytearray(b'spameggs')
-B.decode()  # Translate to normal string
-'spameggs'
 ```
 
-#### String with variables inside
+- Ways to change strings
+
+```py
+S = 'Sharaf'
+'z' + S[1:]   # But we can run expressions to make new objects
+# 'zpam'
+
+
+L = list(S)    # Expand to a list: [...]
+L
+
+# ['s', 'h', 'a', 'r', 'a', 'f']
+
+L[2] = 'e'  # Change it in place
+''.join(L)  # Join with empty delimiter
+# 'sheraf'
+
+S.replace('a','e')
+# 'Sheref'
+```
+
+- Or use `bytearray`, which is mutable and so may be changed in place. `bytearray` objects aren’t really text strings; they’re sequences of small, 8-bit integers. However, they support most of the same operations as normal strings and print as ASCII characters when displayed.
+
+```py
+B = bytearray(b'spam')  # A bytes/list hybrid (ahead)
+B.extend(b'eggs')    # 'b' needed in 3.X, not 2.X
+B  
+# bytearray(b'spameggs')
+B.decode()  # Translate to normal string
+# 'spameggs'
+
+B[1] = ord('c')
+B.decode()
+# 'scameggs'
+```
+
+#### String Conversion Tools
+
+- The `int` function converts a string to a number.
+- The `float` function converts a string to a float number.
+- The `str` function converts a number to its string representation.
+- The `repr` function converts an object to its string representation, but returns the object as a string of code that can be rerun to recreate the object.
+- The `eval` function runs a string containing Python expression code.
+- The `ord` function converts a character to ASCII or Unicode
+- The `chr` function converts an ASCII number to the character.
+- The `ascii` function same as repr(), return a string containing a printable representation of an object, but escape the non-ASCII characters in the string returned by repr()
+
+```py
+int("42"), str(42)
+# (42, '42')
+
+str('spam'), repr('spam')
+# ('spam', "'spam'")
+```
+
+#### String Formatting
 
 Credits to this, goes to "SShah" as an answer to [StackOverflow question](https://stackoverflow.com/questions/52155591/how-to-insert-string-into-a-string-as-a-variable)
 
@@ -318,60 +368,380 @@ There are 5 approaches for achieving this on python (Python 3):
    # output = "The Enemy's health is 0. The Enemy is dead."
    ```
 
-3. Using your string replacement approach
+3. `%` Operator:
 
-   The reason your code doesn't work, is because %d means you will replace it with an integer and therefore to make your code work, for the string stored on the variable EnemyIs needs to be replaced with %s which is used to state that it will be replaced with a string. Therefore to solve your problem you need to do:
+   - Same syntax for `printf` function of c-programming language.
+   - Add `%` and one of the types of below table next to it, ex: %d, inside a string. To be replaced with values, beside `%`, where stated after the string.
+   - The values, if more than one, should be inside brackets and separated with a comma. Same as tuples.
+   - Conversion Types:
+
+      | Code| Meaning|
+      | ------ | ------ |
+      |d|Decimal (base-10 integer)|
+      |i|Integer|
+      |o|Octal integer (base 8)|
+      |u|Same as d (obsolete: no longer unsigned)|
+      |x|Hex integer (base 16)|
+      |X|Same as x, but with uppercase letters|
+      |e|Floating point with exponent, lowercase|
+      |E|Same as e, but uses uppercase letters|
+      |f|Floating-point decimal|
+      |F|Same as f, but uses uppercase letters|
+      |g|Floating-point e or f (defaults to 6 precision-point)|
+      |G|Floating-point E or F (defaults to 6 precision-point)|
+      |c|Character (int or str)|
+      |r|Same as s, but uses repr, not str|
+      |s|String (or any object’s str(X) string)|
+      |%|Literal % (coded as %%)|
 
    ```py
    print("The Enemy's health is %d. The Enemy is %s." % (EnemyHealth, EnemyIs))
    # output = "The Enemy's health is 0. The Enemy is dead."
    ```
 
-4. The format() method for python strings (This is the best approach to use)
+4. `format()` Method:
 
-   This is a built in method for all strings in python, which allow you to easily replace the placeholder {} within python strings, with any variables. Unlike solution number 3 above, this format() method doesn't require you to express or convert different data types to string, as it would automatically do this for you. For example, to make your print statement work you can do:
+   - The `format()` method for python strings.
+   - This is a built-in method for all strings in python, which allow you to easily replace the placeholder {} within python strings, with any variables.
+   - Unlike modulo operator, this `format()` method doesn't require to express or convert different data types to string, as it would automatically do this.
+   - **{[name][component][!conversion][:format_spec]}**
+     - **[name]**: indicates which argument from the argument list is inserted into the Python format string in the given location.
 
-   ```py
-   print("The Enemy's health is {}. The Enemy is {}.".format(EnemyHealth, EnemyIs))
+        ```py
+        print("The Enemy's health is {}. The Enemy is {}.".format(0, 'dead'))
+        
+        # OR
+        
+        print("The Enemy's health is {0}. The Enemy is {1}.".format(0, 'dead'))
+        
+        # OR
+        
+        print("The Enemy's health is {Health}. The Enemy is {Status}.".format(Health=0, Status='dead'))
+        
+        # output = "The Enemy's health is 0. The Enemy is dead."
+        ```
 
-   # OR
+     - **[component]**: is a string of zero or more “.name” or “[index]” references used to fetch attributes and indexed values of the argument, which may be omitted to use the whole argument value.
 
-   print("The Enemy's health is {0}. The Enemy is {1}.".format(EnemyHealth, EnemyIs))
+       - Access an element inside a list
 
-   # output = "The Enemy's health is 0. The Enemy is dead."
-   ```
+         ```py
+         a = ['foo', 'bar', 'baz']
+         '{0[0]}, {0[2]}'.format(a)
+         # 'foo, baz'
+         ```
+
+       - Access key-reference in dictionary
+
+         ```py
+         d = {'key1': 'foo', 'key2': 'bar'}
+         
+         '{0[key1]}'.format(d)
+         # 'foo'
+
+         '{my_dict[key2]}'.format(my_dict=d)
+         # 'bar'
+         ```
+
+       - Access Object attributes
+
+         ```py
+         z = 3+5j
+
+         'real = {0.real}, imag = {0.imag}'.format(z)
+         # 'real = 3.0, imag = 5.0'
+         ```
+
+   - **[!conversion]**: used to convert string using three different built-in functions
+
+      |Value|Meaning|
+      |-----|-------|
+      | !s  | Convert with str() |
+      | !r  | Convert with repr()|
+      | !a  | Convert with ascii()|
+
+      ```py
+      '{0!s}'.format(42)
+      # '42'
+      '{0!r}'.format(42)
+      # '42'
+      '{0!a}'.format(42)
+      # '42'
+      ```
+
+   - `:<format_spec>` for advanced string control discussed in the next section. They represented as :[[fill]align][sign][#][0][width][group][.prec][type]
 
 5. F-Strings
 
-   As of python 3.6+, you can now also use f-strings, to substitute variables within a string. This method is similar to the the .format() method described above, and in my opinion is a better upgrade to the str.format() method. To use this method all you have to do is state f before your opening quote when defining a string and then, within the string use the format, {[variable name goes here]} for this to work. For example, to make your print statement work, using this method, you can do:
+   - F-strings are introduced in python 3.6+, , to substitute variables within a string.
+   - This method is similar to the the `.format()` method described above, and in my opinion is a better upgrade to the str.format() method.
+   - To use this method, state `f` before the opening quote when defining a string and then, within the string use the format, {[variable name goes here]} for this to work.
 
    ```py
    print(f"The Enemy's health is {EnemyHealth}. The Enemy's tall avg  {EnemyAvg:.2f}.")
    # output = "The Enemy's health is 0. The Enemy's tall avg 181.21."
    ```
 
-   using this method, the variable name is being instantiated directly within the curly brackets {}.
+   - By using this method, the variable name is being instantiated directly within the curly brackets {}.
+   - Limitations:
+     - F-string expression can’t contain a backslash (`\`) character. You can get around this limitation by creating a temporary variable that contains the escape sequence you want to insert.
+     - An expression in an f-string that is triple-quoted can’t contain comments
 
    For more [info](https://realpython.com/python-f-strings/#simple-syntax)
 
-#### String formatting
+#### Advanced String Formatting
+
+1. `%` Operator:
+   - **%[(key name)][flags][width][.precision]conversion type %values**
+    1. **%**: Required. The ‘%’ character, which marks the start of the specifier.
+    2. **(key name)**: Optional. A key for indexing the dictionary used on the right side of the expression
+
+         ```py
+         '%(name)s' %{'name':'Sharaf'}
+         # 'Sharaf'
+
+         reply = """
+         My name is %(name)s!
+         My age is %(age)s
+         """
+
+         values = {'name': 'Sharaf', 'age': 30}
+         print(reply % values) 
+         # My is Sharaf!
+         # My age is 30
+         ```
+
+    3. **flags**: Optional. Conversion flags, which affect the result of some conversion types.
+       - `#`: The value conversion will use the “alternate form”
+
+         ```py
+         "%x" % 17
+         # '11'
+         "%#x" % 17
+         # '0x11
+         ```
+
+       - `0`: The conversion will be zero padded for numeric values.
+
+         ```py
+         "%03d" % 1
+         # '003'
+         ```
+
+       - `-`: The converted value is left adjusted (overrides the ‘0’ conversion if both are given).
+
+         ```py
+         "%-5d" % 1
+         # '1    '
+         ```
+
+       - ` `: A blank should be left before a positive number (or empty string) produced by a signed conversion.
+
+         ```py
+         '%d' % 1
+         # '1'
+         '% d' % 1
+         # ' 1'
+         ```
+
+       - `+`: A sign character ('+' or '-') will precede the conversion (overrides a “space” flag).
+
+         ```py
+         '%+d' % 1
+         #'+1'
+         '%+d' % -1
+         #'-1'
+         ```
+
+    4. **width**: Optional. Minimum field width. If specified as an ‘*’ (asterisk), the actual width is read from the next element of the tuple in values, and the object to convert comes after the minimum field width and optional precision.
+
+         ```py
+         '%10d' %(150)
+         # '       150'
+         '%*d' %(10,150)
+         # '       150'
+         ```
+
+    5. **precision**: Optional. Precision, given as a ‘.’ (dot) followed by the precision. If specified as ‘*’ (an asterisk), the actual width is read from the next element of the tuple in values, and the value to convert comes after the precision.
+
+         ```py
+         '%.10f' %(1.5)
+         # '1.5000000000'
+        '%.*f' %(10,1.5)
+         # '1.5000000000'
+         ```
+
+         ```py
+         # 1
+         dict = {'Name':'Sharaf','Age':30}
+         "My name is %(Name)s and I have %(Age)s years old" %(dict)
+         # 'My name is Sharaf and I have 30 years old'
+
+         # 2
+         x = 123.456
+         f'{x:010}'
+         # '000123.456'
+         f'{x:10}'
+         # '   123.456'
+         f'{x:+10}'
+         # '  +123.456'
+         ```
+
+   [Reference](https://python-reference.readthedocs.io/en/latest/docs/str/formatting.html)
+
+2. `format()` method:
+   - **:[[fill]align][sign][#][0][width][group][.prec][type]**
+   1. `:`: Separates the <format_spec> from the rest of the replacement field
+
+   2. **align**: Specifies how to justify values that don’t occupy the entire field width
+      - `<`: left-justified
+      - `>`: right-justified
+      - `^`: centered
+      - `=`: (Numeric Only) When numeric output includes a sign, it appears at the left edge of the output field, and padding is placed in between the sign and the number.
+
+         ```py
+         '{0:+8d}'.format(123)
+         # '    +123'
+         '{0:=+8d}'.format(123)
+         # '+    123'
+         ```
+
+   3. **fill**: Specifies how to pad values that don’t occupy the entire field width
+
+         ```py
+         '{0:->8s}'.format('foo')
+         # '-----foo'
+         '{0:#<8d}'.format(123)
+         # '123#####'
+         '{0:*^8s}'.format('foo')
+         # '**foo***'
+         ```
+
+       - If you specify a value for `<fill>`, then you should also include a value for `<align>` as well.
+
+   4. **sign**: Controls whether a leading sign is included for numeric values
+
+      ```py
+      '{0:+6d}'.format(123)
+      # '  +123'
+      '{0:+6d}'.format(-123)
+      # '  -123'
+
+      '{0:-6d}'.format(123)
+      # '   123'
+      '{0:-6d}'.format(-123)
+      # '  -123'
+
+      '{0:*> 6d}'.format(123)
+      # '** 123'
+      '{0:*>6d}'.format(123)
+      # '***123'
+      '{0:*> 6d}'.format(-123)
+      # '**-123'
+      ```
+
+   5. **`#`**: The value conversion will use the “alternate form”
+
+      ```py
+      '{0:b}, {0:#b}'.format(16)
+      # '10000, 0b10000'
+      '{0:o}, {0:#o}'.format(16)
+      # '20, 0o20'
+      '{0:x}, {0:#x}'.format(16)
+      # '10, 0x10'
+      '{0:.0f}, {0:#.0f}'.format(123)
+      # '123, 123.'
+      '{0:.0e}, {0:#.0e}'.format(123)
+      # '1e+02, 1.e+02'
+      ```
+
+   6. **`0`**: The conversion will be zero padded for numeric values instead of ASCII.
+
+      ```py
+      '{0:05d}'.format(123)
+      # '00123'
+      '{0:08.1f}'.format(12.3)
+      # '000012.3'
+      
+      '{0:>06s}'.format('foo')
+      # '000foo'
+
+      '{0:*>05d}'.format(123)
+      # '**123'
+      ```
+
+   7. **width**: Specifies the minimum width of the output
+
+      ```py
+      '{0:8s}'.format('foo')
+      # 'foo     '
+      '{0:8d}'.format(123)
+      # '     123'
+
+      '{1:{0}f}'.format(10, 123.456)
+      # '123.456000'
+      ```
+
+   8. **group**: Specifies a grouping character for numeric output
+
+      ```py
+      '{0:,d}'.format(1234567)
+      # '1,234,567'
+      '{0:_b}'.format(0b111010100001)
+      # '1110_1010_0001'
+      ```
+
+   9. **.prec**: Specifies the number of digits after the decimal point for floating-point presentation types, and the maximum output width for string presentations types
+
+      ```py
+      '{0:8.2f}'.format(1234.5678)
+      # ' 1234.57'
+      '{0:8.4f}'.format(1.23)
+      # '  1.2300'
+
+      '{:.4s}'.format('foobar')
+      # 'foob'
+
+      '{2:{0}.{1}f}'.format(10, 2, 123.456)
+      # '    123.46'
+      ```
+
+   10. **type**: Specifies the presentation type, which is the type of conversion performed on the corresponding argument.
+
+      - Differences between Modulo operator
+
+         |Type| `.format()` Method | `%` Operator |
+         | -- | -- | -- |
+         | b  | Designates binary integer conversion | Not supported
+         | i,u| Not supported | Designates integer conversion
+         | c  | Designates character conversion, and the corresponding value must be an integer | Designates character conversion, but the corresponding value may be either an integer or a single-character string
+         | g,G| Chooses between floating point or exponential output, but the rules governing the choice are slightly more complicated | Chooses between floating point or exponential output, depending on the magnitude of the exponent and the value specified for `<prec>`|
+         |r, a| Not supported (though the functionality is provided by the !r and !a conversion components in the replacement field) | Designates conversion with repr() or ascii(), respectively
+         | %  | Converts a numeric argument to a percentage | Inserts a literal '%' character into the output
+
+3. F-string:
+   - All the `<format_spec>` components that work with .format() also work with f-strings.
+
+#### Strings tips and tricks
 
 - Adding `r` before a string, treating it as a raw.
-
-   ```py
-   print(r'The n in "\n" will be printed not parsed as a new line')
-   # The n in "\n" will be printed not skipped
-   ```
+  
+  ```py
+  print(r'The n in "\n" will be printed not parsed as a new line')
+  # The n in "\n" will be printed not skipped
+  ```
 
 - Built-in function `repr()`, converts objects to display strings.
+  
+  ```py
+  repr('lion')
+  # "'lion'"
+  ```
 
-```py
-repr('lion')
-# "'lion'"
+#### String References
 
-```
-
-Python [format cookbook](https://mkaz.blog/code/python-string-format-cookbook/)
+- [Real Python](https://realpython.com/python-formatted-output/)
+- Python [format cookbook](https://mkaz.blog/code/python-string-format-cookbook/)
 
 ### Lists
 
@@ -493,7 +863,6 @@ bob1
 bob2 = dict(zip(['name', 'job', 'age'], ['Bob', 'dev', 40]))   # Zipping
 bob2
 #{'job': 'dev', 'name': 'Bob', 'age': 40}
-
 ```
 
 - Dictionary keys is scrambled, they’ll come back in a different order than the typed.
@@ -766,7 +1135,7 @@ print("Blastoff!")
 
    ```python
    # The effect of n = n + 1 and n += 1 is the same. The latter is called an augmented assignment statement, because it's an assignment statement but it augments the existing value rather than replacing it.
-
+   
    # So augmented assignment is not only shorter, but also can catch some errors that otherwise might creep into the code.
    n += 1
    n -= 1
@@ -788,13 +1157,13 @@ print("Blastoff!")
    import numpy as np
    # convert string to int
    int("123")
-
+   
    # convert int to string
    str(123)
-
+   
    # convert list to array
    arr = np.array([0,1,2])
-
+   
    # convert array to list
    lst = list(arr)
    ```
@@ -812,10 +1181,10 @@ print("Blastoff!")
    ```py
    # Define a window
    window = tk.Tk()
-
+   
    # Define window title
    window.title("My first GUI")
-
+   
    # Define window size
    window.geometry("300x200")
    ```
@@ -830,83 +1199,83 @@ print("Blastoff!")
    ```
 
    1. Entry
-   Entry fields are used to get some inputs.
+      Entry fields are used to get some inputs.
 
       ```py
       tk.Entry(parent,width=25)
       ```
 
    2. Button:
-   Buttons are used to make some events.
+      Buttons are used to make some events.
 
       ```py
       tk.Button(parent, text="Click Here")
       ```
 
    3. Checkbutton:
-   It is used to check some conditions and terms.
+      It is used to check some conditions and terms.
 
       ```py
       tk.Checkbutton(parent,text="Remember me",variable=tk.IntVar())
       ```
 
    4. Label
-   It is used to display some text or image
+      It is used to display some text or image
 
       ```py
       tk.Label(text="Hello world",, font=("Times new roman", 20))
       ```
 
    5. OptionMenu
-   It is used to select an option from a drop-down menu.
+      It is used to select an option from a drop-down menu.
 
       ```py
       tk.OptionMenu(parent,tk.IntVar(),"Age","15+","25+","40+")
       ```
 
    6. Scrollbar
-   It is used to scroll the app.
+      It is used to scroll the app.
 
       ```py
       tk.Scrollbar(parent,orient=tk.VERTICAL)
       ```
 
    7. Radiobutton
-   It is used to provide multiple options in which the only one of them can be selected.
+      It is used to provide multiple options in which the only one of them can be selected.
 
       ```py
       tk.Radiobutton(parent,text="Male",variable=tk.IntVar(),value=5)
       ```
 
    8. Text
-   It is used to add text and print them on the GUI.
+      It is used to add text and print them on the GUI.
 
       ```py
       tk.Text(parent,height=20,width=10)
       ```
 
    - There are some more widgets available like the list box, progress bar, scale, spinbox, etc. You can learn more about widgets [here](http://tkdocs.com/tutorials/widgets.html).
-
 4. `pack` and `grid`
 
    - We can arrange the widgets using the `pack()` method instead of the `grid()`. The problem with `pack()` is that it packs things as close as possible. You can’t even give space or change the rows and columns, or change the order of widgets. That is why `pack()` is not often used, instead, `grid()` is used mostly.
 
-      ```py
-      widget_name.grid(column=col_pos,row=row_pos)
-      ```
+     ```py
+     widget_name.grid(column=col_pos,row=row_pos)
+     ```
 
 5. Bind Function
+
    - It is used to bound a function with a button after an event is fired.
 
    ```py
    # We use window as the first argument of the Button method, to connect the button to our window.
    button_name = tk.Button(window, text = "some text")
    button_name.grid(column=1,row=0)
-
+   
    # An function to be called after the trigger is fired
    def fn():
       print("Event Triggered")
-
+   
    # Bound it to the window of the app using the bind method.
    # The first parameter is the event. <Button-1> is the left click short key of the mouse.
    # The second parameter is the name of the event function.
@@ -921,18 +1290,19 @@ print("Blastoff!")
    button = tk.Button(text="click",command=function_name)
    ```
 
-   - Also, we can get the value from the entry using `get()` method.  
+   - Also, we can get the value from the entry using `get()` method.
 
-      ```py
-      name_entry.get()
-      ```
+     ```py
+     name_entry.get()
+     ```
 
 7. Load the app
+
    - This function is like `main()` in C. It is used to start the app
 
-      ```py
-      window.mainloop()
-      ```
+     ```py
+     window.mainloop()
+     ```
 
 ## Draw on screen using Turtle module
 
@@ -1004,7 +1374,7 @@ turtle.done()
        # Define Constructor (Initialization function) that runs whenever an    instance is created
        # self is the instance object name
        def __init__(self, movie_title, movie_storyline, poster_image,  trailer_youtube):
-
+   
            #define Instance variables
            self.title = movie_title
            self.storyline = movie_storyline
@@ -1013,16 +1383,16 @@ turtle.done()
        # Define Instance methods
        def show_trailer(self):
            webbrowser.open(self.trailer_youtube_url)
-
+   
    # Create an inheritance class
    class Stats(Movie):
        def __init__(self, movie_title, movie_storyline, poster_image,  trailer_youtube,cast,budget):
            Movie.__init__(self, movie_title, movie_storyline, poster_image,    trailer_youtube)
            self.cast = cast
            self.budget = budget
-
+   
    # Note that parent method can be overridden by creating the method in the child class
-
+   
    # Predefined class variables:
    __doc__ # documentation for the class
    __name__
@@ -1052,27 +1422,27 @@ turtle.done()
    ```python
    # 1. Import http.server, or at least the pieces of it that you need.
    from http.server import HTTPServer, BaseHTTPRequestHandler
-
+   
    # 2. Create a subclass of `http.server.BaseHTTPRequestHandler`. This is your handler class.
    class HelloHandler(BaseHTTPRequestHandler):
    # 3. Define a method on the handler class for each **HTTP verb** you want to handle.
    def do_GET(self):
    # Inside the method, call built-in methods of the handler class to read the HTTP request and write the response.
-
+   
        # First, send a 200 OK response.
        self.send_response(200)
-
+   
        # Then send headers.
        self.send_header('Content-type', 'text/plain; charset=utf-8')
        self.end_headers()
-
+   
        # Now, write the response body.
        paths = self.path # This instance returns the request path
        # The name wfile stands for writeable file.
        # self.wfile represents the connection from the server to the client; and it is write-only; hence the name
        # to send a string over the HTTP connection, you have to encode the string into a bytes object.
        self.wfile.write(path[1,:].encode())
-
+   
     # This code will run when we run this module as a Python program,rather than importing it.
     if __name__ == '__main__':
     server_address = ('', 8000)  # Serve on all addresses, port 8000.
@@ -1120,16 +1490,16 @@ turtle.done()
    {}
    </pre>
    '''
-
+   
    class MessageHandler(BaseHTTPRequestHandler):
        def do_GET(self):
        # First, send a 200 OK response.
        self.send_response(200)
-
+   
        # Then send headers.
        self.send_header('Content-type', 'text/html; charset=utf-8')
        self.end_headers()
-
+   
        # Send the form with the messages in it.
        msg = form.format("\n".join(memory))
        self.wfile.write(msg.encode())
@@ -1142,7 +1512,7 @@ turtle.done()
       ```py
       from http.server import BaseHTTPRequestHandler, HTTPServer
       from urllib.parse import parse_qs
-
+      
       def form(title, button):
            return f'''
             <form
@@ -1154,13 +1524,13 @@ turtle.done()
             <input type="submit" value="{button}">
             </form>
             '''
-
+      
        class WebServerHandler(BaseHTTPRequestHandler):
-
+      
            def do_GET(self):
                 if self.path.endswith("/restaurants/new"):
                     form("Add new restaurant","Add")
-
+      
            def do_POST(self):
                if self.path.endswith("/restaurants/new"):
                    length = int(self.headers.get('Content-length'0))
@@ -1174,7 +1544,7 @@ turtle.done()
       ```py
       from http.server import BaseHTTPRequestHandler, HTTPServer
       import cgi
-
+      
       def form(title, button):
            return f'''
             <form
@@ -1186,13 +1556,13 @@ turtle.done()
             <input type="submit" value="{button}">
             </form>
             '''
-
+      
        class WebServerHandler(BaseHTTPRequestHandler):
-
+      
            def do_GET(self):
                 if self.path.endswith("/restaurants/new"):
                     form("Add new restaurant","Add")
-
+      
            def do_POST(self):
                if self.path.endswith("/restaurants/new"):
                     # ? Method 1:
@@ -1204,7 +1574,7 @@ turtle.done()
                         fields = cgi.parse_multipart(self.rfile, pdict)
                     message = fields.get('message')
                     messagecontent = message[0]
-
+      
                     # ? Method 2:
                     form = cgi.FieldStorage(fp=self.rfile, headers=self.headers, environ={'REQUEST_METHOD': 'POST', 'CONTENT_TYPE': self.headers['Content-Type'], })
                     messagecontent = form['message'].value
@@ -1221,16 +1591,15 @@ turtle.done()
    7. Custom Headers
    8. Cookies
    9. and many [more](https://2.python-requests.org//en/master/user/quickstart/) ...
-
 7. Concurrency
 
    ```python
    import threading
    from socketserver import ThreadingMixIn
-
+   
    class ThreadHTTPServer(ThreadingMixIn, http.server.HTTPServer):
        "This is an HTTPServer that supports thread-based concurrency."
-
+   
    if __name__ == '__main__':
    port = int(os.environ.get('PORT', 8000))
    server_address = ('', port)
@@ -1246,7 +1615,7 @@ turtle.done()
 
    ```python
    from http.cookies import SimpleCookie, CookieError
-
+   
    out_cookie = SimpleCookie()
    out_cookie["bearname"] = "Smokey Bear"
    out_cookie["bearname"]["max-age"] = 600
@@ -1276,33 +1645,26 @@ turtle.done()
 
 For a full reference to the Python DB-API, see [the specification](https://www.python.org/dev/peps/pep-0249/) and the documentation for specific database modules, such as [sqlite3](https://docs.python.org/2/library/sqlite3.html) and [psycopg2](http://initd.org/psycopg/docs/).
 
-- `module.connect(…)`  
+- `module.connect(…)`
   Connect to a database. The arguments to connect differ from module to module; see the documentation for details. connect returns a Connection object or raises an exception.
-
+  
   For the methods below, note that you don't literally call (for instance) Connection.cursor() in your code. You make a Connection object, save it in a variable (maybe called db) and then call db.cursor().
-
-- `Connection.cursor()`  
+- `Connection.cursor()`
   Makes a Cursor object from a connection. Cursors are used to send SQL statements to the database and fetch results.
-
 - `Connection.commit()`
   Commits changes made in the current connection. You must call commit before closing the connection if you want changes (such as inserts, updates, or deletes) to be saved. Uncommitted changes will be visible from your currect connection, but not from others.
-
-- `Connection.rollback()`  
+- `Connection.rollback()`
   Rolls back (undoes) changes made in the current connection. You must roll back if you get an exception if you want to continue using the same connection.
-
-- `Connection.close()`  
+- `Connection.close()`
   Closes the connection. Connections are always implicitly closed when your program exits, but it's a good idea to close them manually especially if your code might run in a loop.
-
-- `Cursor.execute(statement)`  
-  `Cursor.execute(statement, tuple)`  
+- `Cursor.execute(statement)`
+  `Cursor.execute(statement, tuple)`
   Execute an SQL statement on the database. If you want to substitute variables into the SQL statement, use the second form — see the documentation for details.
-
+  
   If your statement doesn't make sense (like if it asks for a column that isn't there), or if it asks the database to do something it can't do (like delete a row of a table that is referenced by other tables' rows) you will get an exception.
-
-- `Cursor.fetchall()`  
+- `Cursor.fetchall()`
   Fetch all the results from the current statement.
-
-- `Cursor.fetchone()`  
+- `Cursor.fetchone()`
   Fetch just one result. Returns a tuple, or None if there are no results.
 
 ## PostgreSQL ("psycopg2" [module](http://initd.org/psycopg/docs/usage.html))
@@ -1346,7 +1708,7 @@ cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar
 
 - Pass data to fill a query placeholders and let Psycopg perform the correct conversion ([**no more SQL injections**!](https://bobby-tables.com))
 
-**Warning:**  
+**Warning:**
 **_Never, never, NEVER use Python string concatenation (+) or string parameters interpolation (%) to pass variables to a SQL query string. Not even at gunpoint._**
 
 ```python
@@ -1378,7 +1740,7 @@ conn.close()
 ```
 
 - TIPs
-
+  
   - How to use placeholders
 
     1. For variables:
@@ -1392,7 +1754,7 @@ conn.close()
 
        ```py
        from psycopg2 import sql
-
+       
        c.execute(
        sql.SQL("""
            WITH A AS (SELECT x,y FROM {schema}.{table1}),
@@ -1411,7 +1773,6 @@ conn.close()
 
 - Bleach is an allowed-list-based HTML sanitizing library that escapes or strips markup and attributes.
 - Bleach is intended for sanitizing text from untrusted sources. If you find yourself jumping through hoops to allow your site administrators to do lots of things, you’re probably outside the use cases. Either trust those users, or don’t.
-
 - Installing Bleach
 
 ```cmd
@@ -1424,7 +1785,7 @@ pip install bleach
 import bleach
 
 bleach.clean('an <script>evil()</script> example')
-# u'an &lt;script&gt;evil()&lt;/script&gt; example'
+# u'an <script>evil()</script> example'
 
 bleach.linkify('an http://example.com url')
 # u'an <a href="http://example.com" rel="nofollow">http://example.com</a> url'
@@ -1591,7 +1952,7 @@ Create a file for CRUD operation
 
      ```py
      from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-
+     
      app = Flask(__name__)
      ```
 
@@ -1607,12 +1968,12 @@ Create a file for CRUD operation
 
    - You can take a variable from the GET request and map to the decorater function
 
-      ```py
-      @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
-      def menuItemJSON(restaurant_id, menu_id):
-         menuItem = session.query(MenuItem).filter_by(id=menu_id).one()
-         return jsonify(MenuItem=menuItem.serialize)
-      ```
+     ```py
+     @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+     def menuItemJSON(restaurant_id, menu_id):
+        menuItem = session.query(MenuItem).filter_by(id=menu_id).one()
+        return jsonify(MenuItem=menuItem.serialize)
+     ```
 
 2. Templates
 
@@ -1684,7 +2045,7 @@ Create a file for CRUD operation
      ```html
      <div class="flash">
        {% with messages = get_flashed_messages() %} {% if messages %}
-
+     
        <ul>
          {% for message in messages %}
          <li><strong> {{ message }} </strong></li>
@@ -1723,7 +2084,7 @@ Create a file for CRUD operation
 
      ```py
      import jsonify
-
+     
      @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
      def menuItemJSON(restaurant_id, menu_id):
         menuItem = CRUD.read_menuitem(menu_id)
@@ -1760,6 +2121,7 @@ Create a file for CRUD operation
 #### NumPy Modules
 
 1. Random: it helps to simulate random events like coin flips.
+
    1. [randint(low = 0, high, size)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.randint.html?highlight=randint#numpy.random.randint): it generates a list of [size] numbers and each element value can be any value between [low] and [high-1].
    2. [choice(a, size, replace=True, p=None)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html?highlight=choice#numpy.random.choice): generates a random sample of size [size] from given 1-D array [a] and [p] is the probability of each value in [a]. [replace] is for bootstraping, as whether values could be chosen more than once or not.
    3. [binomial(n,p,size=None)](https://numpy.org/doc/stable/reference/random/generated/numpy.random.binomial.html?highlight=binomial#numpy.random.binomial): Draw samples from a binomial distribution, Samples are drawn from a binomial distribution with specified parameters, n trials and p probability of success where n an integer >= 0 and p is in the interval [0,1]. (n may be input as a float, but it is truncated to an integer in use)
@@ -1769,13 +2131,13 @@ Create a file for CRUD operation
 
    ```py
    import numpy as py
-
+   
    np.random.randint(2, size=10)
    # [1,0,0,1,1,0,1,1,0,0]
-
+   
    np.random.choice([0,1], size=10000, p=[0.8, 0.2]).mean()
    # 0.203199999999 which shows that the probility of 1 is 20%
-
+   
    np.random.binomial(n=10, p=.5)
    # 5
    # the above is the same as the below
@@ -1784,7 +2146,7 @@ Create a file for CRUD operation
    # The below will give the results of the above test 1000 times
    np.random.binomial(n=10, p=.5, size=1000)
    # result of flipping a coin 10 times, tested 1000 times.
-
+   
    np.random.normal(70,std,10000)
    # returns a normal distribution of 10000 sample with center at 70 and has 2.5 wide spread.
    ```
@@ -2285,182 +2647,183 @@ pd.get_dummies(df['column_name'])
 #### Create Plot
 
 - Import the library
-
-   ```py
-   import matplotlib.pyplot as plt
-
-   # view the plots in the notebook
-   %matplotlib inline
-   ```
+  
+  ```py
+  import matplotlib.pyplot as plt
+  
+  # view the plots in the notebook
+  %matplotlib inline
+  ```
 
 - Create figure
-
-   ```py
-   fig = plt.figure()
-   fig2 = plt.figure(figsize=plt.figaspect(2.0))
-   ```
+  
+  ```py
+  fig = plt.figure()
+  fig2 = plt.figure(figsize=plt.figaspect(2.0))
+  ```
 
 - Axes: All plotting is done with respect to an Axes. In most cases, a subplot will fit your needs. A subplot is an axes on a grid system.
-
-   ```py
-   fig.add_axes()
-   ax1 = fig.add_subplot(221) # row-col-num
-   ax3 = fig.add_subplot(212)
-   fig3, axes = plt.subplots(nrows=2,ncols=2)
-   fig4, axes2 = plt.subplots(ncols=3)
-   ```
+  
+  ```py
+  fig.add_axes()
+  ax1 = fig.add_subplot(221) # row-col-num
+  ax3 = fig.add_subplot(212)
+  fig3, axes = plt.subplots(nrows=2,ncols=2)
+  fig4, axes2 = plt.subplots(ncols=3)
+  ```
 
 #### Plotting Routines
 
 - 1D Data
-
-   ```py
-   # Draw points with lines or markers connecting them
-   lines = ax.plot(x,y
-
-   # Draw unconnected points, scaled or colored
-   ax.scatter(x,y)
-
-   # Plot vertical rectangles (constant width)
-   axes[0,0].bar([1,2,3],[3,4,5]
-
-   # Plot horiontal rectangles (constant height)
-   axes[1,0].barh([0.5,1,2.5],[0,1,2]
-
-   # Draw a horizontal line across axes
-   axes[1,1].axhline(0.45)
-
-   # Draw a vertical line across axes
-   axes[0,1].axvline(0.65)
-
-   # Draw filled polygons
-   ax.fill(x,y,color='blue')
-
-   # Fill between y-values and 0
-   ax.fill_between(x,y,color='yellow')
-   ```
+  
+  ```py
+  # Draw points with lines or markers connecting them
+  lines = ax.plot(x,y
+  
+  # Draw unconnected points, scaled or colored
+  ax.scatter(x,y)
+  
+  # Plot vertical rectangles (constant width)
+  axes[0,0].bar([1,2,3],[3,4,5]
+  
+  # Plot horiontal rectangles (constant height)
+  axes[1,0].barh([0.5,1,2.5],[0,1,2]
+  
+  # Draw a horizontal line across axes
+  axes[1,1].axhline(0.45)
+  
+  # Draw a vertical line across axes
+  axes[0,1].axvline(0.65)
+  
+  # Draw filled polygons
+  ax.fill(x,y,color='blue')
+  
+  # Fill between y-values and 0
+  ax.fill_between(x,y,color='yellow')
+  ```
 
 - Vector Fields
-
-   ```py
-   # Add an arrow to the axes
-   axes[0,1].arrow(0,0,0.5,0.5)
-
-   # Plot a 2D field of arrows
-   axes[1,1].quiver(y,z)
-
-   # Plot 2D vector fields
-   axes[0,1].streamplot(X,Y,U,V)
-   ```
+  
+  ```py
+  # Add an arrow to the axes
+  axes[0,1].arrow(0,0,0.5,0.5)
+  
+  # Plot a 2D field of arrows
+  axes[1,1].quiver(y,z)
+  
+  # Plot 2D vector fields
+  axes[0,1].streamplot(X,Y,U,V)
+  ```
 
 - Data Distributions
+  
   - [errorbar()](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.errorbar.html)
-
-   ```py
-   # Plot a histogram
-   ax1.hist(y)
-
-   # Plot a Heat Map
-   plt.hist2d(data = df, x = 'disc_var1', y = 'disc_var2', bins = [bins_x, bins_y])
-
-   # Make a box-and-whisker plot
-   ax3.boxplot(y)
-
-   # Make a violin plot
-   ax3.violinplot(z)
-
-   # Make Line Plots. Plot y versus x as lines and/or markers with attached errorbars.
-   plt.errorbar(data = df, x = 'num_var1', y = 'num_var2')
-   ```
+  
+  ```py
+  # Plot a histogram
+  ax1.hist(y)
+  
+  # Plot a Heat Map
+  plt.hist2d(data = df, x = 'disc_var1', y = 'disc_var2', bins = [bins_x, bins_y])
+  
+  # Make a box-and-whisker plot
+  ax3.boxplot(y)
+  
+  # Make a violin plot
+  ax3.violinplot(z)
+  
+  # Make Line Plots. Plot y versus x as lines and/or markers with attached errorbars.
+  plt.errorbar(data = df, x = 'num_var1', y = 'num_var2')
+  ```
 
 - 2D Data
-
-   ```py
-   # Colormapped or RGB arrays
-   fig, ax = plt.subplots()
-   im = ax.imshow(img, cmap='gist_earth', interpolation='nearest', vmin=-2,vmax=2)
-
-   # Pseudocolor plot of 2D array
-   axes2[0].pcolor(data2)
-
-   # Pseudocolor plot of 2D array
-   axes2[0].pcolormesh(data
-
-   # Plot contours
-   CS = plt.contour(Y,X,U
-
-   # Plot filled contours
-   axes2[2].contourf(data1)
-
-   # Label a contour plot
-   axes2[2]= ax.clabel(CS)
-   ```
+  
+  ```py
+  # Colormapped or RGB arrays
+  fig, ax = plt.subplots()
+  im = ax.imshow(img, cmap='gist_earth', interpolation='nearest', vmin=-2,vmax=2)
+  
+  # Pseudocolor plot of 2D array
+  axes2[0].pcolor(data2)
+  
+  # Pseudocolor plot of 2D array
+  axes2[0].pcolormesh(data
+  
+  # Plot contours
+  CS = plt.contour(Y,X,U
+  
+  # Plot filled contours
+  axes2[2].contourf(data1)
+  
+  # Label a contour plot
+  axes2[2]= ax.clabel(CS)
+  ```
 
 #### Customize Plot
 
 - Colors, Color Bars & Color Maps
-
-   ```py
-   plt.plot(x, x, x, x**2, x, x**3)
-   ax.plot(x, y, alpha = 0.4)
-   ax.plot(x, y, c='k')
-   fig.colorbar(im, orientation='horizontal')
-   im = ax.imshow(img, cmap='seismic')
-   ```
+  
+  ```py
+  plt.plot(x, x, x, x**2, x, x**3)
+  ax.plot(x, y, alpha = 0.4)
+  ax.plot(x, y, c='k')
+  fig.colorbar(im, orientation='horizontal')
+  im = ax.imshow(img, cmap='seismic')
+  ```
 
 - Markers
-
-   ```py
-   fig, ax = plt.subplots()
-   ax.scatter(x,y,marker=".")
-   ax.plot(x,y,marker="o")
-   ```
+  
+  ```py
+  fig, ax = plt.subplots()
+  ax.scatter(x,y,marker=".")
+  ax.plot(x,y,marker="o")
+  ```
 
 - Linestyles
-
-   ```py
-   plt.plot(x,y,linewidth=4.0)
-   plt.plot(x,y,ls='solid')
-   plt.plot(x,y,ls='--')
-   plt.plot(x,y,'--',x**2,y**2,'-.')
-   plt.setp(lines,color='r',linewidth=4.0)
-   ```
+  
+  ```py
+  plt.plot(x,y,linewidth=4.0)
+  plt.plot(x,y,ls='solid')
+  plt.plot(x,y,ls='--')
+  plt.plot(x,y,'--',x**2,y**2,'-.')
+  plt.setp(lines,color='r',linewidth=4.0)
+  ```
 
 - Text & Annotations
-
-   ```py
-   ax.text(1, -2.1, 'Example Graph', style='italic')
-   ax.annotate("Sine",
-               xy=(8, 0),
-               xycoords='data',
-               xytext=(10.5, 0),
-               textcoords='data',
-               arrowprops=dict(arrowstyle="->", connectionstyle="arc3"),)
-   ```
+  
+  ```py
+  ax.text(1, -2.1, 'Example Graph', style='italic')
+  ax.annotate("Sine",
+              xy=(8, 0),
+              xycoords='data',
+              xytext=(10.5, 0),
+              textcoords='data',
+              arrowprops=dict(arrowstyle="->", connectionstyle="arc3"),)
+  ```
 
 - Mathtext
-
-   ```py
-   plt.title(r'$sigma_i=15$', fontsize=20)
-   ```
+  
+  ```py
+  plt.title(r'$sigma_i=15$', fontsize=20)
+  ```
 
 - Limits, Legends & Layouts
-
+  
   - Limits & Autoscaling
 
     ```py
     # Add padding to a plot
     ax.margins(x=0.0,y=0.1)
-
+    
     # Set the aspect ratio of the plot to 1
     ax.axis('equal')
-
+    
     # Set limits for x-and y-axis
     ax.set(xlim=[0,10.5],ylim=[-1.5,1.5])
-
+    
     # Set limits for x-axis
     ax.set_xlim(0,10.5)
-
+    
     # Scale the plot axis to one of Transformation {"linear", "log", "symlog", "logit", ...}
     ax.xscale('log')
     ```
@@ -2470,7 +2833,7 @@ pd.get_dummies(df['column_name'])
     ```py
     # Set a title and x-and y-axis labels
     ax.set(title='An Example Axes', ylabel='Y-Axis', xlabel='X-Axis')
-
+    
     # No overlapping plot elements
     ax.legend(loc='best')
     ```
@@ -2480,10 +2843,10 @@ pd.get_dummies(df['column_name'])
     ```py
     # Manually set x-ticks
     ax.xaxis.set(ticks=range(1,5),ticklabels=[3,100,-12,"foo"])
-
+    
     # Make y-ticks longer and go in and out
     ax.tick_params(axis='y', direction='inout', length=10)
-
+    
     # Rotate x-axis ticks
     plt.xticks(rotation = 45)
     ```
@@ -2493,7 +2856,7 @@ pd.get_dummies(df['column_name'])
     ```py
     # Adjust the spacing between subplots
     fig3.subplots_adjust(wspace=0.5, hspace=0.3, left=0.125, right=0.9, top=0.9, bottom=0.1)
-
+    
     # Fit subplot(s) in to the figure area
     fig.tight_layout()
     ```
@@ -2503,39 +2866,39 @@ pd.get_dummies(df['column_name'])
     ```py
     # Make the top axis line for a plot invisible
     ax1.spines['top'].set_visible(False)
-
+    
     # Move the bottom axis line outward
     ax1.spines['bottom'].set_position(('outward',10))
     ```
 
 #### Save Plot
 
-   ```py
-   #Save figures
-   plt.savefig('foo.png')
+```py
+#Save figures
+plt.savefig('foo.png')
 
-   # Save transparent figures
-   plt.savefig('foo.png', transparent=True)
-   ```
+# Save transparent figures
+plt.savefig('foo.png', transparent=True)
+```
 
 #### Show Plot
 
-   ```py
-   plt.show()
-   ```
+```py
+plt.show()
+```
 
 #### Close & Clear
 
-   ```py
-   # Clear an axis
-   plt.cla()
+```py
+# Clear an axis
+plt.cla()
 
-   # Clear an entire figure
-   plt.clf()
+# Clear an entire figure
+plt.clf()
 
-   # Close a window
-   plt.close()
-   ```
+# Close a window
+plt.close()
+```
 
 #### Matplotlib references
 
@@ -2551,15 +2914,15 @@ pd.get_dummies(df['column_name'])
 
 #### Import seaborn library
 
-   ```py
-   import matplotlib.pyplot as plt
-   import seaborn as sb
+```py
+import matplotlib.pyplot as plt
+import seaborn as sb
 
-   # countplot Draws a bar chart for categorical variables. By default, each category is given a different color. we take the first color to be the color for all bars.
-   base_color = sb.color_palette()[0]
-   cat_order = df['col_name'].value_counts().index
-   sb.countplot(data = df, x = 'col_name', color = base_color, order = cat_order)
-   ```
+# countplot Draws a bar chart for categorical variables. By default, each category is given a different color. we take the first color to be the color for all bars.
+base_color = sb.color_palette()[0]
+cat_order = df['col_name'].value_counts().index
+sb.countplot(data = df, x = 'col_name', color = base_color, order = cat_order)
+```
 
 #### Basic Steps for creating plots with Seaborn
 
@@ -2674,7 +3037,7 @@ sb.jointplot("sepal_length", "sepal_width", data=iris, kind='kde')
    ## Scatterplot
    # Scatterplot with one categorical variable
    sb.stripplot(x="species", y="petal_length", data=iris)
-
+   
    # Categorical scatterplot with non-overlapping points
    sb.swarmplot(x="species", y="petal_length", data=iris)
    ```
@@ -2691,18 +3054,18 @@ sb.jointplot("sepal_length", "sepal_width", data=iris, kind='kde')
    ```py
    # Show count of observations
    sb.countplot(x="deck", data=titanic, palette="Greens_d")
-
+   
    # Convert the column into an ordered categorical data type.
    # By default, pandas reads in string data as object types, and will plot the bars in the order in which the unique values were seen. By converting the data into an ordered type, the order of categories becomes innate to the feature, and we won't need to specify an "order" parameter each time it's required in a plot.
    level_order = ['Alpha', 'Beta', 'Gamma', 'Delta']
    ordered_cat = pd.api.types.CategoricalDtype(ordered = True,categories = level_order)
    # this method requires pandas v0.21 or later
    df['cat_var'] = df['cat_var'].astype(ordered_cat)
-
+   
    # # use this method if you have pandas v0.20.3 or earlier
    # df['cat_var'] = df['cat_var'].astype('category', ordered = True,
    #                                      categories = level_order)
-
+   
     base_color = sb.color_palette()[0]
     sb.countplot(data = df, x = 'cat_var', color = base_color)
    ```
@@ -2719,7 +3082,7 @@ sb.jointplot("sepal_length", "sepal_width", data=iris, kind='kde')
    ```py
    # Boxplot
    sb.boxplot(x="alive", y="age", hue="adult_male", data=titanic)
-
+   
    # Boxplot with wide-form data
    sb.boxplot(data=iris,orient="h")
    ```
@@ -2841,6 +3204,7 @@ plt.close()
 ### StatsModels
 
 1. Linear Regression:
+
    1. First you need to add an intercept column to the dataset as statsmodels doesn't add it at its own.
    2. Then provide y and x variables to [OLS model](http://www.statsmodels.org/dev/regression.html)
    3. Fit the model
@@ -2848,7 +3212,7 @@ plt.close()
 
    ```py
    import statsmodels.api as sm
-
+   
    # Add intercept column to the dataset
    df['intercept'] = 1
    # Here providing OLS method for x and y variables.
@@ -2872,6 +3236,7 @@ plt.close()
    ```
 
 2. Preprocessing
+
    1. Imputation:
 
       - `sklearn.preprocessing.imputer`
@@ -2879,13 +3244,13 @@ plt.close()
         ```py
         from sklearn.preprocessing import Imputer
         import numpy as np
-
+        
         arr = np.array([[5,3,2,2],[3,None,1,9],[5,2,7,None]])
-
+        
         imputer = Imputer(strategy = 'mean')
         imp = imputer.fit(arr)
         imputer.transform(arr)
-
+        
         # array([[5,3,2,2],
         #        [3,2.5,1,9],
         #        [5,2,7,5.5]])
@@ -2898,7 +3263,7 @@ plt.close()
 
          ```py
          from sklearn.preprocessing import LabelEncoder
-
+         
          loan_enc = LabelEncoder()
          y = group_enc.fit_transform(df['loan_approved'])
          ```
@@ -2907,7 +3272,7 @@ plt.close()
 
          ```py
          from sklearn.preprocessing import OneHotEncoder
-
+         
          df = pd.DataFrame({"Fruits":["Apple","Banana","Banana","Mango","Banana"]})
          num_type = group_enc.fit_transform(df['Fruits'])
          type_enc = OneHotEncoder()
@@ -2918,22 +3283,21 @@ plt.close()
 
          ```py
          from sklearn.feature_extraction.text import CountVectorizer
-
+         
          count_vectorizer = CountVectorizer()
          x_train_count = count_vectorizer.fit_transform(data.text)
-
+         
          count_vectorizer.vocabulary_
          ```
 
       4. Convert a collection of raw documents to a matrix of TF-IDF features. Equivalent to `:class:CountVectorizer` followed by `:class:TfidfTransformer`. `sklearn.feature_extraction.text.TfidfVectorizer`
-
 3. Splitting the data
 
    ```py
    from sklearn.model_selection import train_test_split
-
+   
    # random_state is used to randomize the data
-
+   
    X_train, X_test, y_train, y_test =
    train_test_split(X, y,test_size=0.2, random_state=0)
    ```
@@ -2942,7 +3306,7 @@ plt.close()
 
    ```py
    from sklearn.model_selection import cross_val_score
-
+   
    # model: the model you want to evaluate
    # X, y: dataset
    # cv: the corresponding ground truth target labels or values. By default, cross_val_score does threefold cross-validation.
@@ -2952,6 +3316,7 @@ plt.close()
    ```
 
 5. Models
+
    1. Supervised:
       1. Regression:
          1. Linear Regression `sklearn.linear_model .LinearRegression`
@@ -2979,41 +3344,40 @@ plt.close()
    ```
 
 6. Model Evaluation
+
    1. Regression:
 
       - R2 Score
 
-         ```py
-         # R2 Score
-         from sklearn.metrics import r2_score
-         score = r2_score(y_test, y_pred)
-         # or using the built-in function
-         model.score(x_test, y_test)
-         ```
+        ```py
+        # R2 Score
+        from sklearn.metrics import r2_score
+        score = r2_score(y_test, y_pred)
+        # or using the built-in function
+        model.score(x_test, y_test)
+        ```
 
    2. Classification:
 
       - Confusion Matrix `sklearn.metrics.confusion_matrix`
-
       - Accuracy `sklearn.metrics.accuracy_score`
       - Precision `sklearn.metrics.precision_score`
       - Recall `sklearn.metrics.recall_score`
-
    3. Clustering
+
       - Silhouette score `sklearn.metrics.silhouette_score`
       - Homogeneity score `sklearn.metrics.homogeneity_score`
       - Completeness Score `sklearn.metrics.completeness_score`
       - V measure `sklearn.metrics.v_measure_score`
       - Adjusted Random Score `sklearn.metrics.adjusted_rand_score`
       - Adjusted Mutual Information Score `sklearn.metrics.adjusted_mutual_info_score`
-
 7. Feature Engineering
 
    - Mean/Variance Standardization
 
      ```py
      from sklearn.preprocessing import StandardScalar
-
+     
      scale = StandardScalar()
      arr = np.array([[5,3,2,2],[2,3,1,9],[5,2,7,6]],dtype=float)
      print(scale.fit_transform(arr))
@@ -3037,110 +3401,112 @@ plt.close()
    - Polynomial features
 
      ```py
-      from sklearn.linear_model import LinearRegression
+     from sklearn.linear_model import LinearRegression
       from sklearn.linear_model import Ridge
       from sklearn.preprocessing import PolynomialFeatures
-
+     
       X_train, X_test, y_train, y_test =  train_test_split(x, y, random_state = 0)
-
+     
       linreg = LinearRegression().fit(X_train, y_train)
-
+     
       poly = PolynomialFeatures(degree=2)
       X_poly = poly.fit_transform(x)
-
+     
       X_train, X_test, y_train, y_test =  train_test_split(X_poly,y, random_state = 0)
-
+     
       linreg = LinearRegression().fit(X_train, y_train)
      ```
 
    - Feature Selection
+
      - Filtering methods
 
-         ```py
-         # Select the best K features
-         from sklearn.feature_selection import SelectKBest
-         
-         # Statistical technique to create a univariate linear regression that calculates the correlation between each regressor and target
-         from sklearn.feature_selection import f_regression
-
-         select_univariate = SelectKBest(f_regression, k=5).fit(features, target)
-
-         # Get the mask for the best K=5 features
-         feature_mask = select_univariate.get_support()
-         # Get the best 5 features
-         features.columns[feature_mask]
-         # Get the cscore of each feature (Higher is better)
-         select_univariate.scores_
-
-         ```
+       ```py
+       # Select the best K features
+       from sklearn.feature_selection import SelectKBest
+       
+       # Statistical technique to create a univariate linear regression that calculates the correlation between each regressor and target
+       from sklearn.feature_selection import f_regression
+       
+       select_univariate = SelectKBest(f_regression, k=5).fit(features, target)
+       
+       # Get the mask for the best K=5 features
+       feature_mask = select_univariate.get_support()
+       # Get the best 5 features
+       features.columns[feature_mask]
+       # Get the cscore of each feature (Higher is better)
+       select_univariate.scores_
+       ```
 
      - Wrapping methods
-         1. Recursive Feature Elimnation: Selects features by recursively considering smaller subsets of features by pruning the least important feature at each step.
 
-            ```py
-            from sklearn.linear_model import LinearRegression
-            # Recursive Feature Elimnation
-            from sklearn.feature_selection import RFE
+       1. Recursive Feature Elimnation: Selects features by recursively considering smaller subsets of features by pruning the least important feature at each step.
 
-            linear_regression = LinearRegression()
-
-            rfe = RFE(estimator = linear_regression, # The estimator that will be used to train the model on different set of features
-            n_features_to_select = 5, # Select the most 5 relevant features
-            step = 1)
-
-            # Fit the data
-            rfe.fit(features,target)
-
-            # Get the 5 most relevant features
-            rfe_features = features.columns[rfe.support_]
-            
-            # View rankings of all the features. The selected features are assigned a rank of 1
-            pd.DataFrame({'FeatureName': features.columns, 
-              'Rank': rfe.ranking_}).sort_values(by='Rank')
-            ```
+          ```py
+          from sklearn.linear_model import LinearRegression
+          # Recursive Feature Elimnation
+          from sklearn.feature_selection import RFE
+          
+          linear_regression = LinearRegression()
+          
+          rfe = RFE(estimator = linear_regression, # The estimator that will be used to train the model on different set of features
+          n_features_to_select = 5, # Select the most 5 relevant features
+          step = 1)
+          
+          # Fit the data
+          rfe.fit(features,target)
+          
+          # Get the 5 most relevant features
+          rfe_features = features.columns[rfe.support_]
+          
+          # View rankings of all the features. The selected features are assigned a rank of 1
+          pd.DataFrame({'FeatureName': features.columns, 
+            'Rank': rfe.ranking_}).sort_values(by='Rank')
+          ```
 
      - Embedded methods
-        1. Regularization techniques
 
-            ```py
-            from sklearn.linear_model import  Lasso
+       1. Regularization techniques
 
-            lasso = Lasso(alpha=1.0) # strength of Regularization, 1 is the strogest effect
-
-            lasso.fit(features, target)
-
-            # lasso.coef_ shows the regularization coefficient of each feature
-            
-            lasso_coef = pd.DataFrame({'Feature': features.columns, 
-                           'LassoCoef': lasso.coef_}).sort_values(by = 'LassoCoef',
-                                                                  ascending =False)
-            
-            lasso_coef['LassoCoef'] = abs(lasso_coef['LassoCoef'])
-
-            lasso_coef.sort_values(by='LassoCoef', ascending=False)
-            ```
+          ```py
+          from sklearn.linear_model import  Lasso
+          
+          lasso = Lasso(alpha=1.0) # strength of Regularization, 1 is the strogest effect
+          
+          lasso.fit(features, target)
+          
+          # lasso.coef_ shows the regularization coefficient of each feature
+          
+          lasso_coef = pd.DataFrame({'Feature': features.columns, 
+                         'LassoCoef': lasso.coef_}).sort_values(by = 'LassoCoef',
+                                                                ascending =False)
+          
+          lasso_coef['LassoCoef'] = abs(lasso_coef['LassoCoef'])
+          
+          lasso_coef.sort_values(by='LassoCoef', ascending=False)
+          ```
 
 8. Hyperparameter tuning:
 
 - Grid Search
-
-   ```py
-   from sklean.datasets import make_classification
-   from sklearn import svm
-   from sklearn.model_selection import GridSearchCV
-
-   plt.figure(4)
-   X2, Y2 = make_classification(n_features = 5, n_redundant = 0, n_informative = 2)
-
-   parameters = {'kernel':('linear','rbf'), 'C':[1,5,10,15], 'degree':[2,3,4,5]}
-   svc = svm.SVC()
-   clf = GridSearchCV(svc, parameters)
-   clf.fit(X2, Y2)
-
-   clf.best_params_
-
-   # {'C': 5, 'degree':2, 'kernel':'rbf'}
-   ```
+  
+  ```py
+  from sklean.datasets import make_classification
+  from sklearn import svm
+  from sklearn.model_selection import GridSearchCV
+  
+  plt.figure(4)
+  X2, Y2 = make_classification(n_features = 5, n_redundant = 0, n_informative = 2)
+  
+  parameters = {'kernel':('linear','rbf'), 'C':[1,5,10,15], 'degree':[2,3,4,5]}
+  svc = svm.SVC()
+  clf = GridSearchCV(svc, parameters)
+  clf.fit(X2, Y2)
+  
+  clf.best_params_
+  
+  # {'C': 5, 'degree':2, 'kernel':'rbf'}
+  ```
 
 ### YellowBrick
 
@@ -3156,25 +3522,25 @@ plt.close()
 
    - Pearson Correlation
 
-      ```py
-      from yellowbrick.target import FeatureCorrelation
-
-      visualizer = FeatureCorrelation(labels = feature_names, method='pearson')
-
-      visualizer.fit(features, target)
-
-      visualizer.poof()
-      ```
+     ```py
+     from yellowbrick.target import FeatureCorrelation
+     
+     visualizer = FeatureCorrelation(labels = feature_names, method='pearson')
+     
+     visualizer.fit(features, target)
+     
+     visualizer.poof()
+     ```
 
    - Mutual Information: Mutual information between features and the dependent variable.
 
-      ```py
-      visualizer = FeatureCorrelation(method='mutual_info-regression',
-                                    feature_names=feature_names, sort=True)
-
-      visualizer.fit(features, target)
-      visualizer.poof()
-      ```
+     ```py
+     visualizer = FeatureCorrelation(method='mutual_info-regression',
+                                   feature_names=feature_names, sort=True)
+     
+     visualizer.fit(features, target)
+     visualizer.poof()
+     ```
 
 ### MLxtend
 
@@ -3187,32 +3553,34 @@ plt.close()
    ```
 
 2. Feature Engineering
+
    - Feature Selection
      - Wrapping methods
 
-         1. Backward feature selection: In backward elimination, we start with all the features and removes the least significant feature at each iteration which improves the performance of the model. We repeat this until no improvement is observed on removal of features.
-         2. Forward feature selection: Forward selection is an iterative method in which we start with having no feature in the model. In each iteration, we keep adding the feature which best improves our model till an addition of a new variable does not improve the performance of the model.
+       1. Backward feature selection: In backward elimination, we start with all the features and removes the least significant feature at each iteration which improves the performance of the model. We repeat this until no improvement is observed on removal of features.
+       2. Forward feature selection: Forward selection is an iterative method in which we start with having no feature in the model. In each iteration, we keep adding the feature which best improves our model till an addition of a new variable does not improve the performance of the model.
 
-            ```py
-            from mlxtend.feature_selection import SequentialFeatureSelector
-            from sklearn.linear_model import LinearRegression
-
-            feature_selector = SequentialFeatureSelector(LinearRegression(), # Estimator
-                                             k_features=5, # Best relevant features to chosen
-                                             forward=False, # Backward or Forward
-                                             scoring='neg_mean_squared_error', # Higher value indicates a better model.
-                                             cv=4)
-
-            feature_filtered = feature_selector.fit(features, target)
-
-            # The name of the features
-            backward_features = list(feature_filtered.k_feature_names_)
-            ```
+          ```py
+          from mlxtend.feature_selection import SequentialFeatureSelector
+          from sklearn.linear_model import LinearRegression
+          
+          feature_selector = SequentialFeatureSelector(LinearRegression(), # Estimator
+                                           k_features=5, # Best relevant features to chosen
+                                           forward=False, # Backward or Forward
+                                           scoring='neg_mean_squared_error', # Higher value indicates a better model.
+                                           cv=4)
+          
+          feature_filtered = feature_selector.fit(features, target)
+          
+          # The name of the features
+          backward_features = list(feature_filtered.k_feature_names_)
+          ```
 
 ### Apache MXNet
 
 1. Installation:
    1. MXNet:
+
       1. Basic: a version of MXNet that will use the CPU for computation.
 
          ```py
@@ -3220,6 +3588,7 @@ plt.close()
          ```
 
       2. CPU Optimized: for an Intel CPU, a version of MXNet that uses Intel's Math kernel Library. All of the CPU cores will be used with this version for potential boost and performance.
+
          1. Install Intel MKL for windows [here](https://software.intel.com/content/www/us/en/develop/tools/math-kernel-library/choose-download/windows.html)
          2. Install MXNet MKL version
 
@@ -3228,23 +3597,26 @@ plt.close()
             ```
 
       3. GPU Optimized: If you have an Nvidia GPU, you can use the CUDA optimized version of MXNet. Make sure that CUDA is installed beforehand and find its version to make sure that you get the corresponding version of MXNet.
+
          1. Check if the [GPU supports CUDA](https://developer.nvidia.com/cuda-gpus)
          2. Check if CUDA installed `nvcc --version`. If yes, jump to step 5
          3. Install the [CUDA toolkit](https://developer.nvidia.com/cuda-downloads?)
          4. Install cuDNN on Windows 10 which is compatible with CUDA version.
+
             1. Download [cuDNN](https://developer.nvidia.com/cudnn)
             2. Extract the downloaded files
             3. Copy the 3 folders and the text file to the location where NVIDIA GPU Computing Toolkit is located. ex: `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2`
             4. Add path on environmental variables for
+
                - `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\bin`
                - `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\libnvvp`
             5. Install MXNet [related version](https://mxnet.apache.org/versions/1.7/get_started?platform=windows&language=python&processor=gpu&environ=pip&) library
 
                ```cmd
                pip install mxnet-cu102
-
+               
                # OR
-
+               
                pip install mxnet-cu102 -f https://dist.mxnet.io/python
                ```
 
@@ -3255,13 +3627,14 @@ plt.close()
 
          ```cmd
          pip install mxnet-cu101mkl
-
+         
          # OR
-
+         
          pip install mxnet-cu102mkl==1.6.0 -f https://dist.mxnet.io/python
          ```
 
    2. GluonCV:
+
       1. Stable
 
          ```py
@@ -3319,7 +3692,7 @@ Note that we are also passing an optional argument that would allow us to change
       s = ''
       for n in x:
          s += n
-    ```
+   ```
 
    a cheaper solution using join(), such as in the following example:
 
@@ -3335,7 +3708,6 @@ Note that we are also passing an optional argument that would allow us to change
    ```
 
    I’m getting a speedup factor of 7,25!
-
 2. Use the map function
 
    ```py
@@ -3357,7 +3729,6 @@ Note that we are also passing an optional argument that would allow us to change
    ```
 
    I’m obtaining a speedup of 1,55.
-
 3. Avoid reevaluating functions
 
    ```py
@@ -3366,9 +3737,9 @@ Note that we are also passing an optional argument that would allow us to change
       y.append(n)
       y.append(n**2)
       y.append(n**3)
-
+   
    # OR
-
+   
    def slow_loop(x):
    y = []
    for n in x:
@@ -3413,23 +3784,26 @@ L2[0]
 - Jupyter notebooks include a tool, [nbconvert](https://nbconvert.readthedocs.io/en/latest/), that can export notebooks in an HTML slides format.
   - To start, you need to categorize the type of slide element that each cell will correspond with. From the menu bar, select **View > Cell Toolbar > Slideshow**. You'll see a drop down appear in the upper right hand corner of each cell, from which you can assign slide element types.
   - Set Slide Types:
+
     - For cells that you want readers to see, you'll choose the *Slide*, *Sub-Slide*, or *Fragment* types.
     - *Slides* will form the main flow of the presentation, while *sub-slides* are children of slides in the main flow. *Fragments* are attached to preceding *slides* or *sub-slides*, and allow for gradual reveals of information on the same slide.
       - Example presentation found on the [reveal.js](https://revealjs.com/) homepage (the library that is behind the nbconvert slide functionality).
     - Cells that you don't want users to see should be in the Skip or Notes types. Skip-type cells will never show up in a slide flow, while Notes cells can only be seen by the presenter in a speaker notes window.
   - In addition to setting slide types, make sure that all of your code cells have been run and produce the output that you want to show. `nbconvert` will only export elements of the notebook as-is, and won't run the notebook cells as is. It is recommended that you use the Kernel > Restart & Run All menu option to do a clean run-through of all of your cells as a final preparatory action.
   - Once your notebook has been prepared, save it and shut down your notebook server.
+
     - On the command line, you can render the notebook as slides using the following expression as a base.
     - `jupyter nbconvert presentation.ipynb --to slides`
   - By default, code cell inputs and outputs are both rendered in the slides. To hide the code in your presentation, you can specify a template file using the --template option. The template file available at [this link](https://s3.amazonaws.com/video.udacity-data.com/topher/2018/March/5abe98f3_output-toggle/output-toggle.tpl), will hide code cells from nbconvert.
   - In order to serve the slides, you would need to install a local copy of reveal.js ([Installation documentation](https://github.com/hakimel/reveal.js#installation)), make sure that your HTML slides point to the library correctly (using the --reveal-prefix option), and then start a local http server (e.g., via python -m http.server).
+
     - Alternatively, you can add the --post serve option to your expression to make use of a public, online version of reveal.js, start up a server, and immediately open a tab in your web browser with the slide deck ready to navigate.
   - If you're at home with HTML, css, and web engine templating, then you have a lot of potential room for customizing your slide deck work. Otherwise, you can just use an expression like the following to get a basic slide deck up and running.
 
-      ```cmd
-      jupyter nbconvert presentation.ipynb --to slides --template output-toggle.tpl
-      --post serve
-      ```
+    ```cmd
+    jupyter nbconvert presentation.ipynb --to slides --template output-toggle.tpl
+    --post serve
+    ```
 
 ## Handful resources
 
@@ -3447,7 +3821,7 @@ L2[0]
    1. Using Virtual Env:
       1. Install Virtual Env `pip install virtualenv`
       2. Create a new virtual environment in the directory `python3 -m venv {VirEnv Name}`
-      3. Use the environment `source {VirEnv Name}/Scripts/activate`  
+      3. Use the environment `source {VirEnv Name}/Scripts/activate`
       4. Deactivate Environment `deactivate`
    2. Using Virtual Wrapper (recommended):
       1. Install Virtual Env `pip install virtualenv`
@@ -3463,8 +3837,8 @@ L2[0]
       7. Remove an environment `rmvirtualenv {VirEnv Name}`
       8. List all available environments `workon`
       9. Resources:
-          1. [Medium Article](https://medium.com/the-andela-way/configuring-python-environment-with-virtualenvwrapper-8745c2895745)
-          2. [Virtual Wrapper Docs](https://virtualenvwrapper.readthedocs.io/en/latest/index.html)
+         1. [Medium Article](https://medium.com/the-andela-way/configuring-python-environment-with-virtualenvwrapper-8745c2895745)
+         2. [Virtual Wrapper Docs](https://virtualenvwrapper.readthedocs.io/en/latest/index.html)
 3. [Jupyter Notebook](http://jupyter.org)
    1. How to install Jupyter without anaconda
       1. `python -m pip install --upgrade pip`
