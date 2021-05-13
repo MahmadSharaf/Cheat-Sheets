@@ -309,7 +309,7 @@ How to ingest the data into the data lakes
 - Categorical data can be converted to numerical data.
   - Binary class can be encoded to 0s and 1s
   - Ordinal can mapped to numerical values
-  - For ordinal, one-hot encoding is used.
+  - For non-ordinal, one-hot encoding is used.
 
 ##### Scaling
 
