@@ -17,11 +17,14 @@
       - [Strings tips and tricks](#strings-tips-and-tricks)
       - [String References](#string-references)
     - [Lists](#lists)
+      - [Mutability](#mutability)
+        - [Assignment](#assignment)
       - [Lists Specific Operations](#lists-specific-operations)
       - [Lists Nesting](#lists-nesting)
       - [Comprehensions and Generators](#comprehensions-and-generators)
     - [Dictionaries](#dictionaries)
       - [Dict Nesting](#dict-nesting)
+      - [Dict methods](#dict-methods)
       - [Dict Tricks](#dict-tricks)
       - [Iteration and Optimization](#iteration-and-optimization)
     - [Tuples](#tuples)
@@ -29,6 +32,7 @@
       - [Sets Operations](#sets-operations)
       - [Sets Comprehensions](#sets-comprehensions)
       - [Sets Tricks](#sets-tricks)
+    - [Common operations/methods for data types](#common-operationsmethods-for-data-types)
   - [Dealing with files and folders](#dealing-with-files-and-folders)
     - [Binary Bytes Files](#binary-bytes-files)
   - [While loop](#while-loop)
@@ -99,6 +103,7 @@
     - [YellowBrick](#yellowbrick)
     - [MLxtend](#mlxtend)
     - [Apache MXNet](#apache-mxnet)
+    - [OpenCV](#opencv)
   - [Conventions](#conventions)
   - [Speed Up Performance](#speed-up-performance)
     - [Speed up execution time](#speed-up-execution-time)
@@ -737,7 +742,6 @@ There are 5 approaches for achieving this on python (Python 3):
   repr('lion')
   # "'lion'"
   ```
-
 #### String References
 
 - [Real Python](https://realpython.com/python-formatted-output/)
@@ -745,50 +749,131 @@ There are 5 approaches for achieving this on python (Python 3):
 
 ### Lists
 
-```python
-# Mutable. That means you can change the items in a list after it has been created.
+- Mutable: changed in place.
+- Index and slice Assignment
+- Sequences: supports indexing, slicing, and concatenation.
 
-words = ["echidna", "dingo", "crocodile", "bunyip"]
+#### Mutability
 
-len(words)
-# 4
+Mutable. That means you can change the items in a list after it has been created.
 
-words[0]
-# 'echidna'
+   ```python
+   words = ["echidna", "dingo", "crocodile", "bunyip"]
 
-words[-1]
-# 'bunyip'
+   len(words)
+   # 4
 
-words + [4, 5.4]
-# ["echidna", "dingo", "crocodile", "bunyip", 4, 5.4]
+   words[0]
+   # 'echidna'
 
-words * 2
-# ["echidna", "dingo", "crocodile", "bunyip", "echidna", "dingo", "crocodile", "bunyip"]
+   words[-1]
+   # 'bunyip'
 
-# Adds its argument as a single item to the end of the list. It only ever adds one item to a list.
-words.append("platypus")
-```
+   words + [4, 5.4]
+   # ["echidna", "dingo", "crocodile", "bunyip", 4, 5.4]
+
+   words * 2
+   # ["echidna", "dingo", "crocodile", "bunyip", "echidna", "dingo", "crocodile", "bunyip"]
+   ```
+
+##### Assignment
+
+- Both index and slice assignments are in-place changes—they modify the subject list directly, rather than generating a new list object for the result.
+
+1. Index Assignment
+
+   ```py
+   L = [1,2,3,4]
+   L[1] = 1
+   L
+   # [1,1,3,4]
+   ```
+
+2. Slice Assignment
+
+   ```py
+   L[0:2]=[0,1,2] # Insertion/Replacement
+   L
+   # [0,1,2,3,4]
+
+   L[1:1] = [0.5] # Insertion
+   L
+   # [0,0.5,1,2,3,4]
+
+   L[1:2] = [] # Deletion
+   L
+   # [0,1,2,3,4]
+   ```
+
+- It can be though as a combination of two steps:
+  - Deletion of the part specified on the left "`L[1:2]`"
+  - Insertion of the items on the right "`[0,1,2]`" at the place where the old slice was deleted.
+- This isn’t what really happens, but it can help clarify why the number of items inserted doesn’t have to match the number of items deleted.
 
 #### Lists Specific Operations
 
-```py
-# Treats its argument as a sequence and adds each item in the sequence to the end of the list. In other words, it adds a sequence of items to a list.
-words.extend("abc")
-# ['echidna', 'dingo', 'crocodile', 'bunyip', 'platypus', 'a', 'b', 'c']
+- Growing:
 
-# Adds each item of this list to the end of the words list
-words.extend(["kangaroo", "wallaby"])
+   ```py
+   words = ["echidna", "dingo", "crocodile", "bunyip"] 
+   # Adds its argument as a single item to the end of the list.
+   words.append("platypus")
+   
+   # Treats its argument as a sequence and adds each item in the sequence to the end of the list. In other words, it adds a sequence of items to a list.
+   words.extend("abc")
+   # ['echidna', 'dingo', 'crocodile', 'bunyip', 'platypus', 'a', 'b', 'c']
 
-# reverse the order of the list
-words.reverse()
+   # Adds each item of this list to the end of the words list
+   words.extend(["kangaroo", "wallaby"])
 
-# Sort the list in ascending order
-words.sort()
+   # Insert object before index.
+   words.insert(1,'a')
+   ```
 
-# delete an item
-words.pop(2)
-# ["echidna", "dingo", "bunyip"]
-```
+- Searching:
+
+   ```py
+   # Return first index of value. Raises ValueError if the value is not present.
+   words.index('a')
+   # 1
+   words.index('a',2)
+   # 8
+   words.count('a')
+   # 2
+   ```
+
+- Sorting
+
+   ```py
+
+   # reverse the order of the list
+   words.reverse()
+
+   # Sort the list in ascending order
+   words.sort()
+
+   # The key argument gives a one-argument function that returns the value to be used in sorting
+   words.sort(key=str.lower, reverse=True)
+   ```
+
+- Shrinking
+
+   ```py
+   words = ["echidna", "dingo", "crocodile", "bunyip"]
+   # delete an item
+   words.pop(2)
+   # ["echidna", "dingo", "bunyip"]
+   words.remove('echidna')
+   # ["dingo", "bunyip"]
+
+   del words[i]
+
+   del words[i:j]
+
+   words[i:j] = []
+
+   words.clear()
+   ```
 
 #### Lists Nesting
 
@@ -831,9 +916,18 @@ next(G)
 
 ### Dictionaries
 
-- They are mutable
-- They are not sequences at all, but are instead known as mappings.
-- They store objects by key instead of by relative position.
+- They are:
+  - Accessed by key, not offset position.
+    - They store objects by key instead of by relative position.
+  - Unordered collections
+  - Variable-length, heterogeneous, and arbitrarily nestable.
+    - Can shrink and grow
+    - Can contain any type of object
+    - Can be nested into other dictionaries
+  - Mutable that can change in place.
+  - They are not sequences at all, but are instead known as mappings.
+  - Tables of object references (hash tables)
+    - Dictionaries are implemented as hash tables (data structures that support very fast retrieval), which start small and grow on demand.
 
 ```py
 D = {'apple': 'Spam', 'quantity': 4, 'color': 'pink'}
@@ -888,6 +982,43 @@ rec['jobs'][-1]  # Index the nested list
 rec['jobs'].append('janitor')   # Expand Bob's job description in place
 rec
 #{'age': 40.5, 'jobs': ['dev', 'mgr', 'janitor'], 'name': {'last': 'Smith', 'first': 'Bob'}}
+```
+
+#### Dict methods
+
+```py
+# Membership: key present test
+'age' in rec
+
+# all keys
+rec.key()
+
+# all values
+rec.values()
+
+# all key+value tuples,
+rec.items()
+
+# copy (top-level)
+rec.copy()
+
+# clear (remove all items)
+rec.clear()
+
+# merge by keys
+rec.update(D2)
+
+# fetch by key, if absent default (or None)
+rec.get(key, default?)
+
+# remove by key, if absent default (or error)
+rec.pop(key, default?)
+
+# fetch by key, if absent set default (or None)
+rec.setdefault(key, default?)
+
+# remove/return any (key, value) pair; etc.
+rec.popitem()
 ```
 
 #### Dict Tricks
@@ -1062,6 +1193,19 @@ S | {(4, 5, 6), (1, 2, 3)}   # Union: same as S.union(...)
 ```
 
 - Sets themselves are mutable, and so cannot be nested in other sets directly. The `frozenset` built-in call works just like set but creates an immutable set that cannot change and thus can be embedded in other sets.
+
+### Common operations/methods for data types
+
+1. `sorted()`: Sorts collections
+2. `len()`: Returns the length of a collection
+3. `in` membership: test whether an item is in a collection
+   1. Strings
+   2. Dictionaries
+   3. Lists
+
+```py
+
+```
 
 ## Dealing with files and folders
 
@@ -3646,6 +3790,65 @@ plt.close()
          ```py
          pip install gluoncv --pre
          ```
+
+### OpenCV
+
+1. Installation:
+   1. Packages for standard desktop environments (Windows, macOS, almost any GNU/Linux distribution):
+      1. Main modules package: `pip install opencv-python`
+      2. Full package (contains both main modules and contrib/extra modules): `pip install opencv-contrib-python` (check contrib/extra modules listing from [OpenCV documentation](https://docs.opencv.org/master/))
+   2. Packages for server (headless) environments (such as Docker, cloud environments etc.), no GUI library dependencies
+      1. Headless main modules package: `pip install opencv-python-headless`
+      2. Headless full package (contains both main modules and contrib/extra modules): `pip install opencv-contrib-python-headless` (check contrib/extra modules listing from [OpenCV documentation](https://docs.opencv.org/master/))
+   3. GPU Optimized: If you have an Nvidia GPU, you can use the CUDA optimized version of OpenCV. Make sure that CUDA is installed beforehand and find its version to make sure that you get the corresponding version of OpenCV.
+      1. Check if the [GPU supports CUDA](https://developer.nvidia.com/cuda-gpus)
+      2. Install Visual Studio with C Desktop Development
+      3. [Download](https://cmake.org/download/) and Install CMake
+      4. Check if CUDA installed `nvcc --version`. If yes, jump to step 5
+      5. Install the [CUDA toolkit](https://developer.nvidia.com/cuda-downloads?)
+      6. Install cuDNN on Windows 10 which is compatible with CUDA version.
+         1. Download [cuDNN](https://developer.nvidia.com/cudnn)
+         2. Extract the downloaded files
+         3. Copy the 3 folders and the text file to the location where NVIDIA GPU Computing Toolkit is located. ex: `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.x`
+         4. Add path on environmental variables for
+            - `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\bin`
+            - `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\libnvvp`
+      7. Download [OpenCV](https://opencv.org/releases/) Sources and [Contrib](https://github.com/opencv/opencv_contrib/releases) files. But the two folders in the same folder and extract one separately.
+      8. Build OpenCV
+         1. Open CMake GUI
+         2. Choose OpenCV source folder
+         3. Choose where the BUILD will be placed
+         4. Unmark GROUPED check
+         5. Configure to WIN x64
+         6. For Virtual Environment, add its path in CMake > Environment > Path
+         7. Build
+         8. Check the logs in CMake, and look for "OpenCV modules:". If "python3" exists beside "Unavailable", then numpy library needs to be updated.
+            1. Click on File and Delete Cache
+            2. Update numpy `pip install --upgrade numpy`
+         9. Mark below Libraries:
+            1. `WITH_CUDA`
+            2. `OPENCV_DNN_CUDA`
+            3. `ENABLE_FAST_MATH`
+            4. `BUILD_opencv_world`
+            5. `BUILD_opencv_python3`
+            6. `OPENCV_EXTRA_MODULES_PATH` :opencv_contrib-4.5.2\modules
+         10. Click on 'Configure' Button.
+             1. After the configurations are finished, check the logs for 'CUDA' and 'cuDNN' are detected.
+         11. Search for below libraries:
+             1. Enable `CUDA_FAST_MATH`
+             2. Search for `CUDA_ARCH_BIN`, and edit the value to include only the [CUDA version](https://en.wikipedia.org/wiki/CUDA) that supports the GPU. For example, Nvidia RTX 3060 Ti supports CUDA version 8.6
+             3. Change Installation folder if needed `CMAKE_INSTALL_PREFIX`
+             4. Remove Debug from `CMAKE_CONFIGURATION_TYPES`
+         12. Click on `Configure` Button.
+         13. Click on `Generate` Button.
+         14. Once finished, close CMake
+         15. Open CMD, and run command `cmake --build "C:\OpenCV_Build\build" --target INSTALL --config Release`
+2. Import the package: `import cv2`
+
+- Reference
+  - [pypi](https://pypi.org/project/opencv-python/)
+  - [YouTube video](https://www.youtube.com/watch?v=YsmhKar8oOc)
+  - [cv-tricks](https://cv-tricks.com/how-to/installation-of-opencv-4-1-0-in-windows-10-from-source/)
 
 ## Conventions
 
