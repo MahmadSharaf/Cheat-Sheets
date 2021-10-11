@@ -23,8 +23,11 @@
       - [Lists Nesting](#lists-nesting)
       - [Comprehensions and Generators](#comprehensions-and-generators)
     - [Dictionaries](#dictionaries)
+      - [Common dictionary literals and operations](#common-dictionary-literals-and-operations)
+      - [Dictionary methods](#dictionary-methods)
+      - [Dictionary comprehensions](#dictionary-comprehensions)
+      - [Dictionary views](#dictionary-views)
       - [Dict Nesting](#dict-nesting)
-      - [Dict methods](#dict-methods)
       - [Dict Tricks](#dict-tricks)
       - [Iteration and Optimization](#iteration-and-optimization)
     - [Tuples](#tuples)
@@ -752,6 +755,7 @@ There are 5 approaches for achieving this on python (Python 3):
 - Mutable: changed in place.
 - Index and slice Assignment
 - Sequences: supports indexing, slicing, and concatenation.
+- Store object references (not copies, unless asked explicitly)
 
 #### Mutability
 
@@ -919,47 +923,178 @@ next(G)
 - They are:
   - Accessed by key, not offset position.
     - They store objects by key instead of by relative position.
-  - Unordered collections
+  - ~~Unordered~~ Ordered collections starting Python 3.7
   - Variable-length, heterogeneous, and arbitrarily nestable.
-    - Can shrink and grow
+    - Can shrink and grow in place (without new copies being made).
     - Can contain any type of object
     - Can be nested into other dictionaries
   - Mutable that can change in place.
   - They are not sequences at all, but are instead known as mappings.
   - Tables of object references (hash tables)
     - Dictionaries are implemented as hash tables (data structures that support very fast retrieval), which start small and grow on demand.
+  - They store object references (not copies, unless asked explicitly)
+- They are not:
+  - Sequences: because there’s no notion of ordering among their items, things like concatenation (an ordered joining) and slicing (extracting a contiguous section) simply don’t apply.
+
+#### Common dictionary literals and operations
 
 ```py
-D = {'apple': 'Spam', 'quantity': 4, 'color': 'pink'}
-
-D['food']   # Fetch value of key 'food'
-# 'Spam'
-
-D['quantity'] += 1     # Add 1 to 'quantity' value
-D['quantity']
-# 5
-```
-
-- They can be build up
-
-```py
+# Empty dictionary
 D = {}
-D['name'] = 'Bob'      # Create keys by assignment
-D['job']  = 'dev'
-D['age']  = 40
-D
-# {'age': 40, 'job': 'dev', 'name': 'Bob'}
 
-bob1 = dict(name='Bob', job='dev', age=40)   # Keywords
-bob1
-#{'age': 40, 'name': 'Bob', 'job': 'dev'}
+# Two-item dictionary
+D = {'name': 'Bob', 'age': 40}
 
-bob2 = dict(zip(['name', 'job', 'age'], ['Bob', 'dev', 40]))   # Zipping
-bob2
-#{'job': 'dev', 'name': 'Bob', 'age': 40}
+# Nesting
+E = {'cto': {'name': 'Bob', 'age': 40}}
+
+# Alternative construction techniques:
+## Keywords
+D = dict(name='Bob', age=40)
+## key/value pairs
+D = dict([('name', 'Bob'), ('age', 40)])
+## zipped key/value pairs
+D = dict(zip(keyslist, valueslist))
+## key lists
+D = dict.fromkeys(['name', 'age'])
+
+# Indexing by key
+D['name']
+E['cto']['age']
+
+# Membership: key present test
+'age' in D
 ```
 
-- Dictionary keys is scrambled, they’ll come back in a different order than the typed.
+#### Dictionary methods
+
+```py
+# Fetch all keys
+D.keys()
+
+# Fetch all values
+D.values()
+
+# Fetch all key+value tuples
+D.items()
+
+# copy (top-level)
+D.copy()
+
+# clear (remove all items)
+D.clear()
+
+# merge by keys
+D.update(D2)
+D |= D2 # Python 3.9
+
+# concatenate two dicts and return a new dictionary
+z = x | y          # NOTE: 3.9+ ONLY
+z = {**x, **y}     # NOTE: 3.5+
+
+# fetch by key, if absent default (or None)
+D.get(key, default?)
+
+# remove by key, if absent default (or error)
+D.pop(key, default?)
+
+# Insert key with a value of default. Return key value if present, else default
+D.setdefault(key, default?)
+
+# remove/return any (key, value) pair; etc.
+D.popitem()
+
+# Get dictionary length
+len(D)
+
+# Adding/Changing keys
+D[key] = value
+
+# Deleting entries by key
+del D[key]
+```
+
+#### Dictionary comprehensions
+
+```py
+D = {x: x*2 for x in range(10)}
+# {0: 0, 1: 2, 2: 4, 3: 6, 4: 8, 5: 10, 6: 12, 7: 14, 8: 16, 9: 18}
+D = {x: x ** 2 for x in [1, 2, 3, 4]}
+# {1: 1, 2: 4, 3: 9, 4: 16}
+D = {k: v for (k, v) in zip(['a', 'b', 'c'], [1, 2, 3])}
+# {'b': 2, 'c': 3, 'a': 1}
+D = {c: c * 4 for c in 'SPAM'}
+# {'S': 'SSSS', 'P': 'PPPP', 'A': 'AAAA', 'M': 'MMMM'}
+```
+
+#### Dictionary views
+
+- `D.keys`, `D.values`, and `D.items`.
+
+   ```py
+   D = {'b': 2, 'c': 3, 'a': 1}
+
+   K = D.keys()
+   # dict_keys(['b', 'c', 'a'])
+   V = D.values()
+   # dict_values([2, 3, 1])
+   D.items()
+   dict_items([('b', 2), ('c', 3), ('a', 1)])
+   ```
+
+- They are:
+  - Iterable,
+  - Retain the original order of dictionary components,
+  - and reflect future changes.
+
+   ```py
+   # Iterable
+   for key in D: print(key)
+   # b
+   # c
+   # a
+
+   # reflect future changes
+   del D['b']
+   list(K)
+   # ['c', 'a']
+   ```
+
+- They are not:
+  - Lists
+  - do not directly support operations like indexing or the list sort method,
+  - and do not display their items as a normal list when printed
+
+- `D.keys` return set-like object, and support set operations such as intersection and union.
+- `D.values` are not set-like, since their items are not necessarily unique or immutable.
+- `D.items` results are set-like, if their (key, value) pairs are unique and hashable (immutable).
+
+```py
+D = {'a': 1, 'b': 2, 'c': 3}
+
+D.keys() & {'b'} # Intersect keys and set
+# {'b'}
+D.keys() & {'b': 1} # Intersect keys and dict
+# {'b'}
+D.keys() | {'b', 'c', 'd'} # # Union keys and set
+# {'b', 'c', 'a', 'd'}
+
+D = {'a': 1}
+
+list(D.items()) # Items set-like if hashable
+# [('a', 1)]
+D.items() | D.keys() # Union view and view
+# {('a', 1), 'a'}
+
+D.items() | D # dict treated same as its keys
+# {('a', 1), 'a'}
+
+D.items() | {('c', 3), ('d', 4)} # Set of key/value pairs
+# {('d', 4), ('a', 1), ('c', 3)}
+
+dict(D.items() | {('c', 3), ('d', 4)}) # dict accepts iterable sets too
+# {'c': 3, 'a': 1, 'd': 4}
+```
 
 #### Dict Nesting
 
@@ -984,58 +1119,38 @@ rec
 #{'age': 40.5, 'jobs': ['dev', 'mgr', 'janitor'], 'name': {'last': 'Smith', 'first': 'Bob'}}
 ```
 
-#### Dict methods
-
-```py
-# Membership: key present test
-'age' in rec
-
-# all keys
-rec.key()
-
-# all values
-rec.values()
-
-# all key+value tuples,
-rec.items()
-
-# copy (top-level)
-rec.copy()
-
-# clear (remove all items)
-rec.clear()
-
-# merge by keys
-rec.update(D2)
-
-# fetch by key, if absent default (or None)
-rec.get(key, default?)
-
-# remove by key, if absent default (or error)
-rec.pop(key, default?)
-
-# fetch by key, if absent set default (or None)
-rec.setdefault(key, default?)
-
-# remove/return any (key, value) pair; etc.
-rec.popitem()
-```
-
 #### Dict Tricks
 
 - Although Dictionaries aren't sequential, it can be `Print`ed in order with respect to keys
 
 ```py
 D = {'a': 1, 'b': 2, 'c': 3}
-D
-#{'a': 1, 'c': 3, 'b': 2}
+# {'a': 1, 'c': 3, 'b': 2}
+
+Ks = list(Ks)
+Ks.sort()
+for k in Ks: print(k, D[k])
+# a 1
+# b 2
+# c 3
 
 for key in sorted(D):
-   print(key, '=>', D[key])
+   print(key, D[key])
+# a 1
+# b 2
+# c 3
+```
 
-# a => 1
-# b => 2
-# c => 3
+- Search a dict by value instead of key
+
+```py
+table = {'1975': 'Holy Grail',
+         '1979': 'Life of Brian',
+         '1983': 'The Meaning of Life'}
+[year for (year, title) in table.items() if title == 'Holy Grail']
+# OR
+[year for year in table if table[year] == 'Holy Grail']
+# ['1975']
 ```
 
 #### Iteration and Optimization
@@ -1202,10 +1317,6 @@ S | {(4, 5, 6), (1, 2, 3)}   # Union: same as S.union(...)
    1. Strings
    2. Dictionaries
    3. Lists
-
-```py
-
-```
 
 ## Dealing with files and folders
 
