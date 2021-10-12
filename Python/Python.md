@@ -31,6 +31,13 @@
       - [Dict Tricks](#dict-tricks)
       - [Iteration and Optimization](#iteration-and-optimization)
     - [Tuples](#tuples)
+      - [Common tuple literals and operations](#common-tuple-literals-and-operations)
+      - [Conversions, methods, and immutability](#conversions-methods-and-immutability)
+      - [Tricks](#tricks)
+    - [Namedtuples](#namedtuples)
+      - [Common namedtuple literals and operations](#common-namedtuple-literals-and-operations)
+      - [Namedtuple Conversion Operations](#namedtuple-conversion-operations)
+      - [Namedtuples references](#namedtuples-references)
     - [Sets](#sets)
       - [Sets Operations](#sets-operations)
       - [Sets Comprehensions](#sets-comprehensions)
@@ -39,7 +46,7 @@
   - [Dealing with files and folders](#dealing-with-files-and-folders)
     - [Binary Bytes Files](#binary-bytes-files)
   - [While loop](#while-loop)
-  - [Tricks](#tricks)
+  - [Tricks](#tricks-1)
   - [Desktop App using Tkinter](#desktop-app-using-tkinter)
   - [Draw on screen using Turtle module](#draw-on-screen-using-turtle-module)
   - [Classes](#classes)
@@ -1159,36 +1166,173 @@ table = {'1975': 'Holy Grail',
 
 ### Tuples
 
-- Immutable, like `strings`
+- Immutable, like `strings` (can't changed in-place)
 - Sequential, like `Lists`
+- Ordered collections (main objects positions)
+- Accessed by offset (indexing and slicing)
+- Arrays of object references (store objects access points or references)
 - Functionally, they’re used to represent fixed collections of items: the components of a specific calendar date, for instance.
 
+#### Common tuple literals and operations
+
 ```py
-T = (1, 2, 3, 4)  # A 4-item tuple
+# Empty tuple
+T = ()
 
-len(T)   # Length
-# 4
+# A one-item tuple (not an expression)
+T = (0,)
 
-T + (5, 6)  # Concatenation
-# (1, 2, 3, 4, 5, 6)
+# A four-item tuple
+T = (0, 'Ni', 1.2, 3)
 
-T[0]  # Indexing, slicing, and more
-# 1
+# Another four-item tuple (same as prior line)
+T = 0, 'Ni', 1.2, 3
 
-T[0] = 2 # Tuples are immutable
-# ...error text omitted...
-# TypeError: 'tuple' object does not support item assignment
+# Nested tuples
+T = ('Bob', ('dev', 'mgr'))
 
-T = (2,) + T[1:]  # Make a new tuple for a new value
-T
-(2, 2, 3, 4)
+# Tuple of items in an iterable
+T = tuple('spam')
 
-T = 'spam', 3.0, [11, 22, 33]
-T[1]
-# 3.0
-T[2][1]
-# 22
+# Index
+T[i]
+
+# index of index
+T[i][j]
+
+# slice
+T[i:j]
+
+# length
+len(T)
+
+# Concatenate
+T1 + T2
+
+# repeat
+T * 3
+
+# Iteration
+for x in T: print(x)
+
+# membership
+'spam' in T
+[x ** 2 for x in T]
+
+# Search
+T.index(value,[offset])
+
+# Count
+T.count(value)
+
+# Named tuple extension type
+namedtuple('Emp', ['name', 'jobs'])
 ```
+
+#### Conversions, methods, and immutability
+
+```py
+# Conversion
+L = list(T)
+T = tuple(L)
+
+# Sorting
+L.sort()
+T = tuple(L)
+# OR
+sorted(T)
+
+```
+
+#### Tricks
+
+- Immutability applies only to the top level of the tuple itself, not its contents. A list inside a tuple, for instance, can be changed as usual
+- Tuples can be used as dictionary keys
+- Tuples can be unpacked using *
+
+```py
+{*range(4), 4, *(5, 6, 7)}
+# {0, 1, 2, 3, 4, 5, 6, 7}
+```
+
+### Namedtuples
+
+- A type of container like dictionaries called “namedtuple()” present in module, “collections“.
+- They can be used similarly to struct or other common record types, except that they are immutable.
+- Like dictionaries the1y contain keys that are hashed to a particular value. But on contrary, it supports both access from key value and iteration, the functionality that dictionaries lack.
+- `namedtuples` should be used instead of `tuples` anywhere object notation will make the code more pythonic and more easily readable.
+
+#### Common namedtuple literals and operations
+
+```py
+# Import from collections module
+from collections import namedtuple 
+
+# Declaring namedtuple()  
+Student = namedtuple('Student',['name','age','DOB'])
+
+# Adding values  
+S = Student('Jack','19','2541997') 
+
+# Access using index  
+S[1]
+# 19 
+      
+# Access using key   
+S.name
+# Jack
+
+# Access using getattr
+getattr(S,'DOB')
+# 2541997
+
+# _fields :- This function is used to return all the keynames of the namespace declared.
+S._fields
+('name', 'age', 'DOB')
+
+# _replace() :- This function is used to change the values mapped with the passed keyname.
+S._replace(name = 'Manjeet')
+# Student(name='Manjeet', age='19', DOB='2541997')
+```
+
+#### Namedtuple Conversion Operations
+
+```py
+# Python code to demonstrate namedtuple() and
+# _make(), _asdict() and "**" operator
+
+# importing "collections" for namedtuple()
+import collections
+
+# Declaring namedtuple()
+Student = collections.namedtuple('Student',['name','age','DOB'])
+
+# Adding values
+S = Student('Nandini','19','2541997')
+
+# initializing iterable
+li = ['Manjeet', '19', '411997' ]
+
+# initializing dict
+di = { 'name' : "Nikhil", 'age' : 19 , 'DOB' : '1391997' }
+
+# using _make() to return namedtuple()
+Student._make(li)
+# Student(name='Manjeet', age='19', DOB='411997')
+
+# using _asdict() to return an OrderedDict()
+S._asdict()
+# OrderedDict([('name', 'Nandini'), ('age', '19'), ('DOB', '2541997')]
+
+# using ** operator to return namedtuple from dictionary
+Student(**di)
+# Student(name='Nikhil', age=19, DOB='1391997')
+```
+
+#### Namedtuples references
+
+- [GeeksForGeeks](https://www.geeksforgeeks.org/namedtuple-in-python/)
+- [StackOverflow](https://stackoverflow.com/questions/2970608/what-are-named-tuples-in-python)
 
 ### Sets
 
