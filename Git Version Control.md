@@ -16,6 +16,7 @@
     - [Undoing Changes](#undoing-changes)
     - [Reset](#reset)
     - [Collaboration](#collaboration)
+    - [Remove file tracking](#remove-file-tracking)
   - [Further Research](#further-research)
 
 ## Getting started
@@ -310,6 +311,13 @@ git fetch [referral_name] [branch_name]
 git merge [branch_name] [referral_name/branch_name]
 # disconnect local git repo from remote master
 git remote rm origin
+```
+
+### Remove file tracking
+
+```bash
+# Remove file from tracking
+git rm --cached [file path]
 ```
 
 ## Further Research
