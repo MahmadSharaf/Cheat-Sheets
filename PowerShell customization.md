@@ -43,6 +43,7 @@ Import-Module posh-git
         ```
 
    2. Choose from this [website](https://www.nerdfonts.com/font-downloads)
+   3. Download this font [agave Nerd Font Mono r](https://en.m.fontke.com/font/64963297/download/)
 
 2. Choose font
 
@@ -66,8 +67,8 @@ Import-Module posh-git
 
     ```txt
     Import-Module oh-my-posh
-   Import-Module posh-git
-   Set-Theme Agnoster
+    Import-Module posh-git
+    Set-PoshPrompt -Theme Agnoster
    ```
 
 3. Bonus, add the below commands in the profile
