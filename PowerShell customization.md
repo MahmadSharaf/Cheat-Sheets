@@ -2,13 +2,22 @@
 
 oh-my-posh is a PowerShell module which helps to decorate our PowerShell window using different in-built and self-customized themes. posh-git is a PowerShell module that integrates Git and PowerShell by providing Git status summary information that can be displayed in the PowerShell prompt.
 
+## Install PowerShell
+
+- First you need to install the latest PowerShell from Microsoft Store
+
 ## Module Installation
 
-1. Installation of oh-my-posh
+1. [Oh-my-Posh](https://ohmyposh.dev/docs/windows)
+   1. Installation
 
-    ```cmd
-    Install-Module oh-my-posh
-    ```
+        ```cmd
+        winget install JanDeDobbeleer.OhMyPosh
+        ```
+
+   2. Add to Path variables
+
+    `~\AppData\Local\Programs\oh-my-posh\bin\oh-my-posh.exe`
 
 2. Installation of posh-git
 
@@ -16,44 +25,21 @@ oh-my-posh is a PowerShell module which helps to decorate our PowerShell window 
     Install-Module posh-git
     ```
 
-## Import modules
-
-```cmd
-Import-Module oh-my-posh
-Import-Module posh-git
-```
-
 ## Customization
 
 1. Install fonts
-   1. Download all fonts
+   1. Choose from this [website](https://www.nerdfonts.com/font-downloads)
+   2. Choose `Caskaydia Cove Nerd Font`
 
-        ```cmd
-        <!-- Download fonts -->
-        Invoke-WebRequest -Uri 'https://github.com/powerline/fonts/archive/master.zip' -OutFile .\powerlinefonts.zip
-        <!-- Extract fonts zipped file -->
-        Expand-Archive .\powerlinefonts.zip
-        <!-- Bypass restriction -->
-        Set-ExecutionPolicy Bypass
-        <!-- Install fonts -->
-        .\powerlinefonts\fonts-master\install.ps1
-        <!-- Remove unneeded files/folders -->
-        Remove-Item .\powerlinefonts.zip
-        Remove-Item .\powerlinefonts -Recurse
-        ```
-
-   2. Choose from this [website](https://www.nerdfonts.com/font-downloads)
-   3. Download this font [agave Nerd Font Mono r](https://en.m.fontke.com/font/64963297/download/)
-
-2. Choose font
+2. Apply font
 
    - Right-click on the PowerShell window top-bar for more options, go to Properties and then to Font.
-   - Select `agave Nerd Font Mono r` from the available options and click OK
+   - Select `Caskaydia Cove NF` from the available options and click OK
 
 3. Choose Theme
 
-- Check for available themes, `Get-PoshThemes`
-- Set the chosen theme, `Set-PoshPrompt -Theme Agnoster`
+   - Check for available themes, `Get-PoshThemes`
+   - Or get this [theme](https://gist.github.com/shanselman/1f69b28bfcc4f7716e49eb5bb34d7b2c?WT.mc_id=-blog-scottha)
 
 ## Creating a profile file
 
@@ -66,10 +52,8 @@ Import-Module posh-git
 2. Add the commands in notepad
 
     ```txt
-    Import-Module oh-my-posh
-    Import-Module posh-git
-    Set-PoshPrompt -Theme Agnoster
-   ```
+    oh-my-posh --init --shell pwsh --config ~/jandedobbeleer.omp.json | Invoke-Expression
+    ```
 
 3. Bonus, add the below commands in the profile
 
@@ -87,3 +71,4 @@ Import-Module posh-git
 ## References
 
 - [Medium Article](https://medium.com/analytics-vidhya/customize-your-windows-powershell-with-oh-my-posh-posh-git-93284b2749b6)
+- [Scott Hanselman](https://www.hanselman.com/blog/my-ultimate-powershell-prompt-with-oh-my-posh-and-the-windows-terminal)
