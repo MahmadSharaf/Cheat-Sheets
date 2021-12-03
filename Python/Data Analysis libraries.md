@@ -25,6 +25,8 @@
     - [Plotting](#plotting)
     - [Pandas Tips and Tricks](#pandas-tips-and-tricks)
     - [Styling DataFrames](#styling-dataframes)
+      - [Changing display options](#changing-display-options)
+      - [Emphasis](#emphasis)
     - [Logic in Python](#logic-in-python)
     - [String manipulation using Regular Expressions](#string-manipulation-using-regular-expressions)
   - [Matplotlib](#matplotlib)
@@ -573,7 +575,27 @@ pd.get_dummies(df['column_name'])
 
 ### Styling DataFrames
 
-- pandas enables you to style DataFrames in various ways to provide emphasis on particular cells.
+- pandas enables you to style DataFrames in various ways.
+
+#### Changing display options
+
+- `get_option`: retrieves each option value. This is not a DataFrame method, but instead, a function that is accessed directly from `pd`.
+- `set_option`: changes an option's value. It can set as many options at one time. Pass it the option name as a string and follow it immediately with the value.
+- `reset_option`: Resets option value to its default
+- [Available options](https://pandas.pydata.org/pandas-docs/stable/user_guide/options.html)
+
+```py
+pd.get_option('display.max_columns')
+pd.get_option('display.max_rows')
+pd.get_option('display.max_colwidth')
+
+
+pd.set_option('display.max_columns', 100, 'display.max_rows', 4)
+
+pd.reset_option('all')
+```
+
+#### Emphasis
 
 ```py
 # Below, the maximum value of each column is highlighted, a comma is added to separate the digits, and decimals are removed.
