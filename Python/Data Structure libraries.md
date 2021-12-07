@@ -169,6 +169,9 @@ df.count()
 
 # This returns the data types of the columns
 df.dtypes
+
+# It displays the total number of cells (columns x rows)
+df.size
 ```
 
 #### Summary
