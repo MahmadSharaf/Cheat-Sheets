@@ -396,8 +396,7 @@ Rearrange: 1, 2, 3, 4, 5, 8, 8, 10, 12
 
 ##### 2.3 Standard Deviation
 
-- The standard deviation is one of the most common measures for talking about the spread of data. It is defined as
-- It is **the average distance of each observation from the mean.**
+- The standard deviation is one of the most common measures for talking about the spread of data. It is defined as **the average distance of each observation from the mean.**
 $\sqrt{\frac{1}{n}\sum_{i=1}^n(x_i - \bar{x})^2}$
 <!-- ![standard deviation](Images/deviation2.png) -->
 
@@ -1330,51 +1329,51 @@ It should also be noted that there is a bandwidth parameter in KDE that specifie
 - A basic bar chart of frequencies can be created through the use of seaborn's `countplot` function. By default, each category is given a different color. Otherwise, it's a good idea to simplify the plot and reduce unnecessary distractions by plotting all bars in the same color.  
 This can be set using the "color" parameter:
 
-```py
-base_color = sb.color_palette()[0]
-col_order = df['col_name'].value_counts().index
-sb.countplot(data = df, x = 'col_name', color = base_color, order = col_order)
-```
+  ```py
+  base_color = sb.color_palette()[0]
+  col_order = df['col_name'].value_counts().index
+  sb.countplot(data = df, x = 'col_name', color = base_color, order = col_order)
+  ```
 
 - For **nominal-type** data, it is common to sort the data in terms of frequency. While, for **ordinal-type** data, it is sorted in order of the variables.
 - The best thing for us to do in this case is to convert the column into an ordered categorical data type. By default, pandas reads in string data as object types, and will plot the bars in the order in which the unique values were seen. By converting the data into an ordered type, the order of categories becomes innate to the feature, and we won't need to specify an "order" parameter each time it's required in a plot.
 
-```py
-# this method requires pandas v0.21 or later
-ordinal_var_dict = {'cut': ['Fair','Good','Very Good','Premium','Ideal'],
-                    'color': ['J', 'I', 'H', 'G', 'F', 'E', 'D'],
-                    'clarity': ['I1', 'SI2', 'SI1', 'VS2', 'VS1', 'VVS2', 'VVS1', 'IF']}
+  ```py
+  # this method requires pandas v0.21 or later
+  ordinal_var_dict = {'cut': ['Fair','Good','Very Good','Premium','Ideal'],
+                      'color': ['J', 'I', 'H', 'G', 'F', 'E', 'D'],
+                      'clarity': ['I1', 'SI2', 'SI1', 'VS2', 'VS1', 'VVS2', 'VVS1', 'IF']}
 
-for var in ordinal_var_dict:
-    pd_ver = pd.__version__.split(".")
-    if (int(pd_ver[0]) > 0) or (int(pd_ver[1]) >= 21): # v0.21 or later
-        ordered_var = pd.api.types.CategoricalDtype(ordered = True,
-                                                    categories = ordinal_var_dict[var])
-        diamonds[var] = diamonds[var].astype(ordered_var)
-    else: #  use this method if you have pandas v0.20.3 or earlier
-        diamonds[var] = diamonds[var].astype('category', ordered = True,
-                                             categories = ordinal_var_dict[var])
+  for var in ordinal_var_dict:
+      pd_ver = pd.__version__.split(".")
+      if (int(pd_ver[0]) > 0) or (int(pd_ver[1]) >= 21): # v0.21 or later
+          ordered_var = pd.api.types.CategoricalDtype(ordered = True,
+                                                      categories = ordinal_var_dict[var])
+          diamonds[var] = diamonds[var].astype(ordered_var)
+      else: #  use this method if you have pandas v0.20.3 or earlier
+          diamonds[var] = diamonds[var].astype('category', ordered = True,
+                                              categories = ordinal_var_dict[var])
 
- base_color = sb.color_palette()[0]
- sb.countplot(data = df, x = 'cat_var', color = base_color)
-```
+  base_color = sb.color_palette()[0]
+  sb.countplot(data = df, x = 'cat_var', color = base_color)
+  ```
 
 - If you have a lot of category levels, or the category names are long, then you might end up with overcrowding of the tick labels. One way to address this is through creation of a horizontal bar chart.
 - In a horizontal bar chart, it is the length of each bar that indicates frequency, rather than the height.
 - In the code, instead of setting the data or variable on the "x" parameter, you can set the variable to be plotted on the parameter "y":
 
-```py
-base_color = sb.color_palette()[0]
-sb.countplot(data = df, y = 'cat_var', color = base_color)
-```
+  ```py
+  base_color = sb.color_palette()[0]
+  sb.countplot(data = df, y = 'cat_var', color = base_color)
+  ```
 
 - Alternatively, you can use matplotlib's `xticks` function and its "rotation" parameter to change the orientation in which the labels will be depicted (as degrees counter-clockwise from horizontal):
 
-```py
-base_color = sb.color_palette()[0]
-sb.countplot(data = df, x = 'cat_var', color = base_color)
-plt.xticks(rotation = 90)
-```
+  ```py
+  base_color = sb.color_palette()[0]
+  sb.countplot(data = df, x = 'cat_var', color = base_color)
+  plt.xticks(rotation = 90)
+  ```
 
 ##### Pie Chart (relative frequencies)
 
@@ -1400,15 +1399,15 @@ plt.xticks(rotation = 90)
 
 - To create a donut plot, you can add a "wedgeprops" argument to the `pie` function call.
 
-```py
-sorted_counts = df['cat_var'].value_counts()
-plt.pie(sorted_counts,
-        labels = sorted_counts.index,
-        startangle = 90,
-        counterclock = False,
-        wedgeprops = {'width' : 0.4});
-plt.axis('square')
-```
+  ```py
+  sorted_counts = df['cat_var'].value_counts()
+  plt.pie(sorted_counts,
+          labels = sorted_counts.index,
+          startangle = 90,
+          counterclock = False,
+          wedgeprops = {'width' : 0.4});
+  plt.axis('square')
+  ```
 
 ##### Waffle Plot (precise assessments of relative frequencies)
 
@@ -1423,24 +1422,24 @@ plt.axis('square')
   - The function below, `percentage_blocks`, uses a rule where each category gets a number of blocks equal to the number of full percentage points it covers.
   - The remaining blocks to get to the full one hundred are assigned to the categories with the largest fractional parts.
 
-```py
-def percentage_blocks(df, var):
-"""
-Take as input a dataframe and variable, and return a Pandas series with
-approximate percentage values for filling out a waffle plot.
-"""
-# compute base quotas
-percentages = 100 * df[var].value_counts() / df.shape[0]
-counts = np.floor(percentages).astype(int) # integer part = minimum quota
-decimal = (percentages - counts).sort_values(ascending = False)
+  ```py
+  def percentage_blocks(df, var):
+  """
+  Take as input a dataframe and variable, and return a Pandas series with
+  approximate percentage values for filling out a waffle plot.
+  """
+  # compute base quotas
+  percentages = 100 * df[var].value_counts() / df.shape[0]
+  counts = np.floor(percentages).astype(int) # integer part = minimum quota
+  decimal = (percentages - counts).sort_values(ascending = False)
 
-# add in additional counts to reach 100
-rem = 100 - counts.sum()
-for cat in decimal.index[:rem]:
-    counts[cat] += 1
+  # add in additional counts to reach 100
+  rem = 100 - counts.sum()
+  for cat in decimal.index[:rem]:
+      counts[cat] += 1
 
-return counts
-```
+  return counts
+  ```
 
 ![function output](Images/l3-c16-waffleplotsa.png)
 
