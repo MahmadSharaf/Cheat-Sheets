@@ -1090,38 +1090,54 @@ Create a file for CRUD operation
       - `sklearn.impute.MICEImpute` (v0.20)
 
    2. Encoding:
-      1. `sklearn.preprocessing.LabelEncoder`
+      1. [Label Encoder](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html?highlight=labelencoder#sklearn.preprocessing.LabelEncoder)
+         - `sklearn.preprocessing.LabelEncoder`
+         - Encode target labels with value between 0 and n_classes-1.
 
-         ```py
-         from sklearn.preprocessing import LabelEncoder
-         
-         loan_enc = LabelEncoder()
-         y = group_enc.fit_transform(df['loan_approved'])
-         ```
+            ```py
+            from sklearn.preprocessing import LabelEncoder
+            
+            loan_enc = LabelEncoder()
+            y = group_enc.fit_transform(df['loan_approved'])
+            ```
 
-      2. `sklearn.preprocessing.OneHotEncoder`
+      2. [One Hot Encoder](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html?highlight=onehotencoder#sklearn.preprocessing.OneHotEncoder)
+         - `sklearn.preprocessing.OneHotEncoder`
+         - Encode categorical features as a one-hot numeric array
 
-         ```py
-         from sklearn.preprocessing import OneHotEncoder
-         
-         df = pd.DataFrame({"Fruits":["Apple","Banana","Banana","Mango","Banana"]})
-         num_type = group_enc.fit_transform(df['Fruits'])
-         type_enc = OneHotEncoder()
-         type_enc.fit(num_type.reshape(-1,1))
-         ```
+            ```py
+            from sklearn.preprocessing import OneHotEncoder
+            
+            df = pd.DataFrame({"Fruits":["Apple","Banana","Banana","Mango","Banana"]})
+            num_type = group_enc.fit_transform(df['Fruits'])
+            type_enc = OneHotEncoder()
+            type_enc.fit(num_type.reshape(-1,1))
+            ```
 
-      3. Convert a collection of text documents to a matrix of token counts `sksklearn.feature_extraction.text.CountVectorizer`
+      3. [Count Vectorizer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer)
+         - `sklearn.feature_extraction.text.CountVectorizer`
+         - It tokenizes the string (separates the string into individual words) and gives an integer ID to each token.
+         - It counts the occurrence of each of those tokens.
 
-         ```py
-         from sklearn.feature_extraction.text import CountVectorizer
-         
-         count_vectorizer = CountVectorizer()
-         x_train_count = count_vectorizer.fit_transform(data.text)
-         
-         count_vectorizer.vocabulary_
-         ```
+            ```py
+            from sklearn.feature_extraction.text import CountVectorizer
+            
+            count_vectorizer = CountVectorizer()
+            x_train_count = count_vectorizer.fit_transform(data.text)
+            
+            count_vectorizer.vocabulary_
+            ```
 
-      4. Convert a collection of raw documents to a matrix of TF-IDF features. Equivalent to `:class:CountVectorizer` followed by `:class:TfidfTransformer`. `sklearn.feature_extraction.text.TfidfVectorizer`
+           - The CountVectorizer method automatically converts all tokenized words to their lower case form so that it does not treat words like 'He' and 'he' differently. It does this using the `lowercase` parameter which is by default set to `True`.
+
+           - It also ignores all punctuation so that words followed by a punctuation mark (for example: 'hello!') are not treated differently than the same words not prefixed or suffixed by a punctuation mark (for example: 'hello'). It does this using the `token_pattern` parameter which has a default regular expression which selects tokens of 2 or more alphanumeric characters.
+
+           - The third parameter to take note of is the `stop_words` parameter. Stop words refer to the most commonly used words in a language. They include words like 'am', 'an', 'and', 'the', etc. By setting this parameter value to `english`, CountVectorizer will automatically ignore all words (from our input text) that are found in the built in list of English stop words in scikit-learn. This is extremely helpful as stop words can skew our calculations when we are trying to find certain key words that are indicative of spam.
+
+      4. [Tfidf Vectorizer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html?highlight=tfidfvectorizer#sklearn.feature_extraction.text.TfidfVectorizer)
+         - `sklearn.feature_extraction.text.TfidfVectorizer`
+         - It converts a collection of raw documents to a matrix of TF-IDF features. Equivalent to `:class:CountVectorizer` followed by `:class:TfidfTransformer`.
+
 3. Splitting the data
 
    ```py
