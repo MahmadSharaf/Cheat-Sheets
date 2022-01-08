@@ -7,6 +7,7 @@
     - [Other types](#other-types)
   - [Variables](#variables)
   - [Methods](#methods)
+  - [Comparison operators](#comparison-operators)
 
 ## Basic Data types
 
@@ -137,4 +138,96 @@
 
 // Show a prompt message to the user
 >>> var age = prompt("Enter your age:")
+```
+
+## Comparison operators
+
+```js
+// Greater Than
+>>> 3 > 2;
+true
+>>> 2 > 3;
+false
+
+// Less Than
+>>> 1 < 2;
+true
+
+// Greater than or equal to
+>>> 2 >= 2;
+true
+
+// Less than or equal to
+>>> 1 <= 3;
+true
+
+// Equality
+>>> 2 == 2;
+true
+>>> "username" == "username";
+true
+
+// Inequality
+>>> 2 != 3;
+true
+
+// JS uses type coercion! This means it will try it's best to convert objects
+// to similar data types to perform the comparison! A lot of times you don't
+// actually want that!
+>>> "2" == 2;
+true
+
+// Check equality of value and type
+>>> 5 === 5;
+true
+>>> 5 === "5";
+false
+
+>>> true == 1;
+true
+>>> true === 1;
+false
+
+>>> false == 0;
+true
+>>> false === 0;
+false
+
+// Check for Inequality of value and type
+>>> 5 !== "5";
+true
+>>> 5 !== 5;
+false
+
+// Weird behavior for null, undefined, and NaN values!
+
+>>> null == undefined;
+true
+
+>>> NaN == NaN;
+false
+```
+
+- Logical Operators
+  - Logical Operators allow us to combine multiple comparison Operators!
+
+```js
+
+// AND is written with &&
+// Need both conditions to be true to return true
+>>> 1 === 1 && 2 ===2;
+true
+
+// OR is written with ||
+// Need only one condition to be true to return true
+>>> 1 === 2 || 1 ===1;
+true
+
+// NOT is written with !
+// Basically a way of checking the opposite of a condition
+>>> !(1===1);
+false
+// Can also stack these (not super common)
+>>> !!(1===1);
+true
 ```
