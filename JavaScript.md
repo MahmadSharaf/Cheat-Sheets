@@ -12,6 +12,7 @@
     - [If condition](#if-condition)
   - [While loop](#while-loop)
   - [For loop](#for-loop)
+  - [Function](#function)
 
 ## Basic Data types
 
@@ -287,5 +288,33 @@ for (i = 0; i < 5; i=i+1) {
 var word = "ABCDEFGHIJK"
 for (i = 0; i < word.length; i++) {
     console.log(word[i]);
+}
+```
+
+## Function
+
+```js
+function name(parameter1, parameter2, parameter3) {
+    //code to be executed
+}
+
+// Simple function with no input parameters
+function hello(){
+    console.log("hello world!");
+}
+
+// Function with an input
+function helloYou(name){
+    console.log("hello "+name);
+}
+
+// Set default values
+function helloSomeone(name="Frankie"){
+    console.log("Hello "+name);
+}
+
+// With a return
+function formal(name="Sam",title="Sir"){
+    return title+" "+name;
 }
 ```
