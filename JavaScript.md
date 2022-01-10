@@ -4,14 +4,15 @@
   - [Basic Data types](#basic-data-types)
     - [Numbers](#numbers)
     - [String](#string)
+    - [Arrays](#arrays)
     - [Other types](#other-types)
   - [Variables](#variables)
   - [Methods](#methods)
   - [Comparison operators](#comparison-operators)
   - [Control flow](#control-flow)
     - [If condition](#if-condition)
-  - [While loop](#while-loop)
-  - [For loop](#for-loop)
+    - [While loop](#while-loop)
+    - [For loop](#for-loop)
   - [Function](#function)
 
 ## Basic Data types
@@ -97,6 +98,54 @@
 
     >>> "hello \"quotes\" "
     'hello "quotes" '
+    ```
+
+### Arrays
+
+- Arrays allow us to store multiple values as a single variable, just like a list!
+- They are mutable sequences
+
+- Syntax
+
+    ```js
+    >>> var mixed = [true,20,"string"];
+    >>> var countries = ["USA","Germany","China"];
+
+    // Indexing
+    >>> countries[0]
+    "USA"
+
+    // Reassignment
+    >>> countries[0] = "France"
+    >>> countries
+    ["France", "Germany", "China"]
+    ```
+
+- Methods
+  - [Great resource](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+
+    ```js
+    >>> var myArr = ['one','two','three']
+
+    // Remove last element
+    >>> var lastItem = myArr.pop()
+
+    // Add an element
+    >>> myArr.push(element)
+
+    // Execute a function to each element
+    >>> myArr.forEach(alert)
+
+    // Loop through each element
+    >>> for (element of myArr){
+        alert(element)
+    }
+
+    // Search for the index of an element
+    >>> i = myArr.indexOf(element)
+
+    // Remove number of elements at specific index
+    >>> myArr.splice(startAt, deleteCount)
     ```
 
 ### Other types
@@ -251,7 +300,7 @@ if (temp > 80){
 }
 ```
 
-## While loop
+### While loop
 
 ```js
 while (condition){
@@ -260,7 +309,7 @@ while (condition){
 }
 ```
 
-## For loop
+### For loop
 
 - There are three types of For loop
   - `for` - loops through a block of code a number of times.
@@ -288,6 +337,14 @@ for (i = 0; i < 5; i=i+1) {
 var word = "ABCDEFGHIJK"
 for (i = 0; i < word.length; i++) {
     console.log(word[i]);
+}
+```
+
+- `for/of' loops within elements of an array.
+
+```js
+for (element of myArr){
+        alert(element)
 }
 ```
 
