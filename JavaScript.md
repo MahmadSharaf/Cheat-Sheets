@@ -5,6 +5,7 @@
     - [Numbers](#numbers)
     - [String](#string)
     - [Arrays](#arrays)
+    - [Objects](#objects)
     - [Other types](#other-types)
   - [Variables](#variables)
   - [Methods](#methods)
@@ -147,6 +148,77 @@
     // Remove number of elements at specific index
     >>> myArr.splice(startAt, deleteCount)
     ```
+
+### Objects
+
+- Objects are hash tables, they store information in a key-value pair.
+- They are very similar to dictionaries in Python.
+- Unlike an array, a Javascript Object does NOT retain order, instead you access the value you want by entering its corresponding key. They can hold a variety of  data types, including nested Objects.
+- They are mutable sequence
+
+```js
+// Creating an Object:
+var carInfo = { make: "Toyota", year: 1990 , model: "Camry" };
+
+// Call values by their key:
+carInfo['model'];
+
+// Flexible data types
+// Extreme Example:
+var mess = { a: "hello", b: ['x','y','z'] , c: {'inside': [ 4 ,5, ["weird"]]}};
+
+// Grabbing the letter z:
+mess['b'][2];
+
+// Changing the value that corresponds to a key:
+carInfo['year'] = 2006;
+//Show
+carInfo['year'];
+
+// Could also reference itself:
+carInfo['year'] += 1
+
+//show
+carInfo['year'];
+
+// Show Entire Object:
+// Sometimes differs by browser -
+console.dir(carInfo);
+
+// Iterate through object:
+for (var key in carInfo) {
+  // Remember there is no order!
+  console.log(key)
+  console.log(carInfo[key])
+  console.log("\n")
+}
+```
+
+- Methods
+
+```js
+// For Example:
+var carInfo = {
+  make: "Toyota",
+  year: 1990 ,
+  model: "Camry" ,
+  carAlert: function(){
+    alert("We've got a car here!")
+  }
+};
+
+carInfo.carAlert()
+
+// Reference object's key-value pair using "this" keyword
+var carInfo = {
+  make: "Toyota",
+  year: 1990 ,
+  model: "Camry" ,
+  carAlert: function(){
+    alert('Your car info is, make: '+this.make+ " year: "+this.year+ " model:"+this.model)
+  }
+};
+```
 
 ### Other types
 
@@ -318,35 +390,44 @@ while (condition){
 
 - `for` loop syntax
 
-```js
-for (statement 1; statement 2; statement 3) {
-//     code block to be executed
-}
-// Statement 1 is executed before the loop (the code block) starts.
-//
-// Statement 2 defines the condition for running the loop (the code block).
-//
-// Statement 3 is executed each time after the loop (the code block) has been executed.
+    ```js
+    for (statement 1; statement 2; statement 3) {
+    //     code block to be executed
+    }
+    // Statement 1 is executed before the loop (the code block) starts.
+    // Statement 2 defines the condition for running the loop (the code block).
+    // Statement 3 is executed each time after the loop (the code block) has been executed.
 
-// Example 1
-for (i = 0; i < 5; i=i+1) {
-    console.log("Number is " + i );
-}
+    // Example 1
+    for (i = 0; i < 5; i=i+1) {
+        console.log("Number is " + i );
+    }
 
-// Example 2
-var word = "ABCDEFGHIJK"
-for (i = 0; i < word.length; i++) {
-    console.log(word[i]);
-}
-```
+    // Example 2
+    var word = "ABCDEFGHIJK"
+    for (i = 0; i < word.length; i++) {
+        console.log(word[i]);
+    }
+    ```
 
 - `for/of' loops within elements of an array.
 
-```js
-for (element of myArr){
-        alert(element)
-}
-```
+    ```js
+    for (element of myArr){
+            alert(element)
+    }
+    ```
+
+- `for/in` iterates through object:
+
+    ```js
+    for (var key in carInfo) {
+    // Remember there is no order!
+    console.log(key)
+    console.log(carInfo[key])
+    console.log("\n")
+    }
+    ```
 
 ## Function
 
