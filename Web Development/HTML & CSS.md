@@ -1,18 +1,18 @@
-# 1MAC Fullstack
+# HTML and CSS
 
-- [1MAC Fullstack](#1mac-fullstack)
-  - [HTML Notes](#html-notes)
+- [HTML and CSS](#html-and-css)
+  - [HTML](#html)
     - [HTML Head Elements](#html-head-elements)
     - [HTML Body Elements](#html-body-elements)
-  - [Rules](#rules)
-  - [CSS Notes](#css-notes)
+    - [Rules](#rules)
+  - [CSS](#css)
     - [Notes](#notes)
     - [Style properties](#style-properties)
   - [Tips and notes](#tips-and-notes)
   - [Resources](#resources)
     - [Validators](#validators)
 
-## HTML Notes
+## HTML
 
 HTML stands for Hypertext Markup language
 
@@ -21,7 +21,7 @@ Markup: is to give more functionality by using tags.
 Language:
 
 **HTML file consists of two parts, Head and Body. The Head part contains the title, metadata while the Body everything else.**
-![Full HTML Tree](HTML/full-html-tree.png)
+![Full HTML Tree](Images/HTML/full-html-tree.png)
 
 ### HTML Head Elements
 
@@ -81,7 +81,7 @@ Language:
     ![Kitten](https://placekitten.com/200/150)
 12. Image on Disk  
     `<img src="Bear.jpg" alt="Bear">`  
-    ![Bear](HTML/Bear.jpg)
+    ![Bear](Images/HTML/Bear.jpg)
 13. Image with link  
     `<a href="https://google.com"><img src="glogo.png" alt="Google!"</a>`  
     [![Glogo.png](https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png)](https://google.com)
@@ -136,7 +136,7 @@ Language:
       </button>
       ```
 
-## Rules
+### Rules
 
 1. **Nesting**: Elements can't overlap each other, they must be one inside the other.
 2. Some elements have optional closing tag.
@@ -149,7 +149,7 @@ Language:
 4. **Indentation** can help you see which elements are nested inside other elements.
 5. `<!DOCTYPE html>` has to be placed on the very top of the html file, to tell the browser to treat this file as the latest HTML5.
 
-## CSS Notes
+## CSS
 
 CSS stands for Cascading Style Sheet
 
@@ -424,8 +424,8 @@ CSS stands for Cascading Style Sheet
        </body>
        ```
 
-       ![Inline-Block Example](<Images/Inline-Block Example.jpg>)
-       ![Inline-Block Example 2](<Images/Inline-Block Example 2.jpg>)
+       ![Inline-Block Example](<Images/CSS/Inline-Block.jpg>)
+       ![Inline-Block Example 2](<Images/CSS/Inline-Block2.jpg>)
 
        Regardless of the tag, any element with `display: inline-block` takes on the layout behaviors of an inline element with the sizing behaviors of a block element.
 
@@ -446,7 +446,7 @@ CSS stands for Cascading Style Sheet
        }
        ```
 
-       ![Relative flow example](<Images/Relative flow example.jpg>)
+       ![Relative flow example](<Images/CSS/Relative-flow.jpg>)
 
     4. Fixed Flow
        - `position: fixed` elements are in the simplest flow. For them, `top`, `bottom`, `left` and `right` indicate a position within the [viewport](#tips-and-notes). As the user scrolls the page, fixed elements never move. The most common use cases include headers and side navigation menus.
@@ -456,7 +456,7 @@ CSS stands for Cascading Style Sheet
          Frankly, `position: absolute` is best thought of as a last resort. If all the other flows fail, then maybe absolute is your best option. Off the top of my head, I can't actually think of an instance where I wanted to use `position: absolute`. There are, in fact, other CSS techniques for achieving the same kind of shift, of which my favorite is `transform: translate`. ([Transform](https://developer.mozilla.org/en-US/docs/Web/CSS/transform) is a more advanced CSS property and it's incredibly powerful. I recommend checking it out).  
          It's good to know what `position: absolute` does, but it's rarely your best positioning option.
     6. Inline Formatting
-       ![Inline formatting](<Images/Inline formatting.png>)
+       ![Inline formatting](<Images/CSS/Inline-formatting.png>)
        - There are two properties that you can use to align text: `text-align` for horizontal alignment and `vertical-align` for vertical alignment.
        - _Horizontal Alignment_  
          Horizontal alignment starts with another property, `direction`, which has two options: `ltr` and `rtl`. `ltr` is the default value and it stands for "left to right". `rtl` stands for "right to left". You'll need to set direction: `rtl` when working with text in languages like Hebrew (עִברִית) and Arabic (العربية), which are read from `right` to left.  
@@ -495,7 +495,7 @@ CSS stands for Cascading Style Sheet
       ```
 
       Notice how the floats stack on one another in the order that they appear in HTML. This animation gives you an idea of how the elements end up where they do.
-      ![Lefts stack on the left, rights stack on the right.](<Images/Floating example.png>)
+      ![Lefts stack on the left, rights stack on the right.](<Images/CSS/Floating.png>)
 
     - Regardless of `float: left` or `float: right`, all floats respect each other's space. Widening the floats in the (bump up the `width` of `div`) and floats will push against each other, they wrap to the next line.
     - Float flow and normal flow
@@ -562,9 +562,9 @@ CSS stands for Cascading Style Sheet
    - x and y run along the computer screen's surface, z is the dimension that extends in to and out of the screen. By adding a third dimension, you can think of elements as appearing on different layers.
    - In CSS you can often use the `z-index` property to control the stacking order of overlapping elements on different layers.
    - Elements on layers that are higher in the z-axis appear on top of elements beneath them. I'm going to add a user to the last diagram to show you why.  
-     ![Stacking 0](Images/stacking1.jpg)
-     ![Stacking 1](<Images/stacking 2.jpg>)
-     ![Stacking 2](Images/stacking.jpg)
+     ![Stacking 0](Images/CSS/stacking1.jpg)
+     ![Stacking 1](Images/CSS/stacking2.jpg)
+     ![Stacking 2](Images/CSS/stacking.jpg)
 5. Document, DOM and Viewport:
    1. The "document" is another name for the entire DOM.  
       The document is a reference to the DOM - the big tree you’ve been building with HTML elements. The document is the entire page, from top to bottom, header to footer, as far as you can scroll.
