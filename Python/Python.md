@@ -1725,26 +1725,64 @@ L2[0]
    9. \*args and \*\*kwargs
 2. [Virtual Environments](https://realpython.com/python-virtual-environments-a-primer/#why-the-need-for-virtual-environments)
    1. Using Virtual Env:
-      1. Install Virtual Env `pip install virtualenv`
-      2. Create a new virtual environment in the directory `python3 -m venv {VirEnv Name}`
-      3. Use the environment `source {VirEnv Name}/Scripts/activate`
-      4. Deactivate Environment `deactivate`
-   2. Using Virtual Wrapper (recommended):
-      1. Install Virtual Env `pip install virtualenv`
-      2. Install Virtual Wrapper:
-         1. For Bash (recommended):
-            1. Install: `pip install virtualenvwrapper`
-            2. Add virtualenvwrapper.sh path in the Bash profile `source {path/to/Python}/Scripts/virtualenvwrapper.sh`
-         2. For Windows PowerShell: `pip install virtualenvwrapper-win`
-      3. Reload the startup
-      4. Create a new environment `mkvirtualenv {VirEnv Name}`
-      5. Deactivate current environment `deactivate`
-      6. Use an enviroment `workon {VirEnv Name}`
-      7. Remove an environment `rmvirtualenv {VirEnv Name}`
-      8. List all available environments `workon`
-      9. Resources:
-         1. [Medium Article](https://medium.com/the-andela-way/configuring-python-environment-with-virtualenvwrapper-8745c2895745)
-         2. [Virtual Wrapper Docs](https://virtualenvwrapper.readthedocs.io/en/latest/index.html)
+      1. Installation:
+         1. It is now preinstalled with Python.
+      2. Create a new virtual environment:
+         1. Create a new virtual environment in the directory `python3 -m venv <venv name>`
+      3. Activate an environment :
+         1. In Windows PS: `<venv path>\Scripts\Activate.ps1`
+         2. In Bash: `source <venv path>/Scripts/activate`
+      4. Install requirements.txt: `pip install -r requirements.txt`
+      5. Deactivate the environment `deactivate`
+   2. Create a personal Venv wrapper using PowerShell script:
+      1. Create a variable where environment are located:
+         1. `$VENV_HOME = "$HOME\.virtualenvs\"`
+            1. Variable name is: `VENV_HOME`
+            2. User Profile location: `$HOME`
+         2. A function to List all environments:
+
+            ```ps
+            function Get-Venvs{
+            Get-ChildItem -Path $VENV_HOME -Name
+            }
+            ```
+
+         3. A function to create a virtual environment:
+
+            ```ps
+            function Create-Venv{
+            param($venv)
+            python -m venv $VENV_HOME/$venv
+            }
+            ```
+
+         4. A function to activate an environment with auto-completion:
+
+            ```ps
+            <!-- Class used to save all available environments for TAB-COMPLETION-->
+            Class VenvNames : System.Management.Automation.IValidateSetValuesGenerator {
+               [string[]] GetValidValues() {
+                  $VenvNames = ForEach ($VenvPath in $global:VENV_HOME) {
+                        If (Test-Path $VenvPath) {
+                           (Get-ChildItem $VenvPath).BaseName
+                        }
+                  }
+                     return [string[]] $VenvNames
+               }
+            }
+
+            function Activate-Venv{
+            Param
+                  (
+                  [parameter(Mandatory=$true)]
+                  [ValidateSet([VenvNames])]
+                  [String[]]
+                  $venv
+                  )
+            & $VENV_HOME$venv\Scripts\activate.ps1
+            }
+            ```
+
 3. [Jupyter Notebook](http://jupyter.org)
    1. How to install Jupyter without anaconda
       1. `python -m pip install --upgrade pip`
