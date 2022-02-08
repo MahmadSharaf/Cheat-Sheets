@@ -37,6 +37,8 @@
       - [Delete](#delete)
     - [Models and views](#models-and-views)
     - [Interactive shell](#interactive-shell)
+  - [Admin](#admin)
+    - [Register a model into Admin](#register-a-model-into-admin)
   - [Reference](#reference)
 
 ## Installation
@@ -606,6 +608,43 @@
 
 - If you want to run commands to the project, you can use the interactive shell
 - `python manage.py shell` to run commands.
+
+## Admin
+
+- This is a feature meant to be used by the website manager, to have a graphical interface for interacting with data and users on the site.
+- It is created automatically by Django
+- It can be accessed by 'domain.com/admin'
+- To create a Superuser `python manage.py createsuperuser`
+
+### Register a model into Admin
+
+1. Using the default admin interface
+
+    ```py
+    # in my_app.admin.py file
+    from django.contrib import admin
+    from my_app.models import my_model
+
+    # Register your models here.
+    admin.site.register(my_model)
+    ```
+
+2. Using [modelAdmin](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#modeladmin-objects) class for more customization.
+
+    ```py
+    from django.contrib import admin
+
+    class FlatPageAdmin(admin.ModelAdmin):
+        fieldsets = (
+            (None, {
+                'fields': ('url', 'title', 'content', 'sites')
+            }),
+            ('Advanced options', {
+                'classes': ('collapse',),
+                'fields': ('registration_required', 'template_name'),
+            }),
+        )
+    ```
 
 ## Reference
 
