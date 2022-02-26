@@ -1090,38 +1090,54 @@ Create a file for CRUD operation
       - `sklearn.impute.MICEImpute` (v0.20)
 
    2. Encoding:
-      1. `sklearn.preprocessing.LabelEncoder`
+      1. [Label Encoder](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html?highlight=labelencoder#sklearn.preprocessing.LabelEncoder)
+         - `sklearn.preprocessing.LabelEncoder`
+         - Encode target labels with value between 0 and n_classes-1.
 
-         ```py
-         from sklearn.preprocessing import LabelEncoder
-         
-         loan_enc = LabelEncoder()
-         y = group_enc.fit_transform(df['loan_approved'])
-         ```
+            ```py
+            from sklearn.preprocessing import LabelEncoder
+            
+            loan_enc = LabelEncoder()
+            y = group_enc.fit_transform(df['loan_approved'])
+            ```
 
-      2. `sklearn.preprocessing.OneHotEncoder`
+      2. [One Hot Encoder](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html?highlight=onehotencoder#sklearn.preprocessing.OneHotEncoder)
+         - `sklearn.preprocessing.OneHotEncoder`
+         - Encode categorical features as a one-hot numeric array
 
-         ```py
-         from sklearn.preprocessing import OneHotEncoder
-         
-         df = pd.DataFrame({"Fruits":["Apple","Banana","Banana","Mango","Banana"]})
-         num_type = group_enc.fit_transform(df['Fruits'])
-         type_enc = OneHotEncoder()
-         type_enc.fit(num_type.reshape(-1,1))
-         ```
+            ```py
+            from sklearn.preprocessing import OneHotEncoder
+            
+            df = pd.DataFrame({"Fruits":["Apple","Banana","Banana","Mango","Banana"]})
+            num_type = group_enc.fit_transform(df['Fruits'])
+            type_enc = OneHotEncoder()
+            type_enc.fit(num_type.reshape(-1,1))
+            ```
 
-      3. Convert a collection of text documents to a matrix of token counts `sksklearn.feature_extraction.text.CountVectorizer`
+      3. [Count Vectorizer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer)
+         - `sklearn.feature_extraction.text.CountVectorizer`
+         - It tokenizes the string (separates the string into individual words) and gives an integer ID to each token.
+         - It counts the occurrence of each of those tokens.
 
-         ```py
-         from sklearn.feature_extraction.text import CountVectorizer
-         
-         count_vectorizer = CountVectorizer()
-         x_train_count = count_vectorizer.fit_transform(data.text)
-         
-         count_vectorizer.vocabulary_
-         ```
+            ```py
+            from sklearn.feature_extraction.text import CountVectorizer
+            
+            count_vectorizer = CountVectorizer()
+            x_train_count = count_vectorizer.fit_transform(data.text)
+            
+            count_vectorizer.vocabulary_
+            ```
 
-      4. Convert a collection of raw documents to a matrix of TF-IDF features. Equivalent to `:class:CountVectorizer` followed by `:class:TfidfTransformer`. `sklearn.feature_extraction.text.TfidfVectorizer`
+           - The CountVectorizer method automatically converts all tokenized words to their lower case form so that it does not treat words like 'He' and 'he' differently. It does this using the `lowercase` parameter which is by default set to `True`.
+
+           - It also ignores all punctuation so that words followed by a punctuation mark (for example: 'hello!') are not treated differently than the same words not prefixed or suffixed by a punctuation mark (for example: 'hello'). It does this using the `token_pattern` parameter which has a default regular expression which selects tokens of 2 or more alphanumeric characters.
+
+           - The third parameter to take note of is the `stop_words` parameter. Stop words refer to the most commonly used words in a language. They include words like 'am', 'an', 'and', 'the', etc. By setting this parameter value to `english`, CountVectorizer will automatically ignore all words (from our input text) that are found in the built in list of English stop words in scikit-learn. This is extremely helpful as stop words can skew our calculations when we are trying to find certain key words that are indicative of spam.
+
+      4. [Tfidf Vectorizer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html?highlight=tfidfvectorizer#sklearn.feature_extraction.text.TfidfVectorizer)
+         - `sklearn.feature_extraction.text.TfidfVectorizer`
+         - It converts a collection of raw documents to a matrix of TF-IDF features. Equivalent to `:class:CountVectorizer` followed by `:class:TfidfTransformer`.
+
 3. Splitting the data
 
    ```py
@@ -1709,26 +1725,64 @@ L2[0]
    9. \*args and \*\*kwargs
 2. [Virtual Environments](https://realpython.com/python-virtual-environments-a-primer/#why-the-need-for-virtual-environments)
    1. Using Virtual Env:
-      1. Install Virtual Env `pip install virtualenv`
-      2. Create a new virtual environment in the directory `python3 -m venv {VirEnv Name}`
-      3. Use the environment `source {VirEnv Name}/Scripts/activate`
-      4. Deactivate Environment `deactivate`
-   2. Using Virtual Wrapper (recommended):
-      1. Install Virtual Env `pip install virtualenv`
-      2. Install Virtual Wrapper:
-         1. For Bash (recommended):
-            1. Install: `pip install virtualenvwrapper`
-            2. Add virtualenvwrapper.sh path in the Bash profile `source {path/to/Python}/Scripts/virtualenvwrapper.sh`
-         2. For Windows PowerShell: `pip install virtualenvwrapper-win`
-      3. Reload the startup
-      4. Create a new environment `mkvirtualenv {VirEnv Name}`
-      5. Deactivate current environment `deactivate`
-      6. Use an enviroment `workon {VirEnv Name}`
-      7. Remove an environment `rmvirtualenv {VirEnv Name}`
-      8. List all available environments `workon`
-      9. Resources:
-         1. [Medium Article](https://medium.com/the-andela-way/configuring-python-environment-with-virtualenvwrapper-8745c2895745)
-         2. [Virtual Wrapper Docs](https://virtualenvwrapper.readthedocs.io/en/latest/index.html)
+      1. Installation:
+         1. It is now preinstalled with Python.
+      2. Create a new virtual environment:
+         1. Create a new virtual environment in the directory `python3 -m venv <venv name>`
+      3. Activate an environment :
+         1. In Windows PS: `<venv path>\Scripts\Activate.ps1`
+         2. In Bash: `source <venv path>/Scripts/activate`
+      4. Install requirements.txt: `pip install -r requirements.txt`
+      5. Deactivate the environment `deactivate`
+   2. Create a personal Venv wrapper using PowerShell script:
+      1. Create a variable where environment are located:
+         1. `$VENV_HOME = "$HOME\.virtualenvs\"`
+            1. Variable name is: `VENV_HOME`
+            2. User Profile location: `$HOME`
+         2. A function to List all environments:
+
+            ```ps
+            function Get-Venvs{
+            Get-ChildItem -Path $VENV_HOME -Name
+            }
+            ```
+
+         3. A function to create a virtual environment:
+
+            ```ps
+            function Create-Venv{
+            param($venv)
+            python -m venv $VENV_HOME/$venv
+            }
+            ```
+
+         4. A function to activate an environment with auto-completion:
+
+            ```ps
+            <!-- Class used to save all available environments for TAB-COMPLETION-->
+            Class VenvNames : System.Management.Automation.IValidateSetValuesGenerator {
+               [string[]] GetValidValues() {
+                  $VenvNames = ForEach ($VenvPath in $global:VENV_HOME) {
+                        If (Test-Path $VenvPath) {
+                           (Get-ChildItem $VenvPath).BaseName
+                        }
+                  }
+                     return [string[]] $VenvNames
+               }
+            }
+
+            function Activate-Venv{
+            Param
+                  (
+                  [parameter(Mandatory=$true)]
+                  [ValidateSet([VenvNames])]
+                  [String[]]
+                  $venv
+                  )
+            & $VENV_HOME$venv\Scripts\activate.ps1
+            }
+            ```
+
 3. [Jupyter Notebook](http://jupyter.org)
    1. How to install Jupyter without anaconda
       1. `python -m pip install --upgrade pip`
