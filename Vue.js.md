@@ -22,39 +22,40 @@ The below instructions will get you a copy of the project and running on your lo
 
 ### Setting up environment
 
-1- Install: [Git](https://git-for-windows.github.io) - The version control
+  1. Install: [Git](https://git-for-windows.github.io) - The version control
+  2. Install: [Node js environment](https://github.com/coreybutler/nvm-windows/releases)
+     1. Download the `nvm-setup.zip` file for the most recent release.
+  3. Install the current release of Node.js (for testing the newest feature improvements, but more likely to have issues than the LTS version): `nvm install latest`
+  4. Install the latest stable LTS release of Node.js (recommended) by first looking up what the current LTS version number is with: `nvm list available`, then installing the LTS version number with: `nvm install <version>` (replacing `<version>` with the number, ie: `nvm install 12.14.0`).
+  5. List what versions of Node are installed: `nvm ls`
+  6. Start NVM environment version like this `nvm use 8.11.2`
 
-2- Install: [Node js environment](https://github.com/coreybutler/nvm-windows/releases)
-
-3- From Bash terminal, install node.js version by applying this command `nvm install 8.11.2`
-
-4- Start NVM environment version like this `nvm use 8.11.2`
+* [Reference](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows)
 
 ### Preparations
 
-1- Vue CLI is recommended if the project is planned to be deployed on production environment. As the Vue team created an environment where it can be easily work in development and when it is ready, it create an optimized production build.
-  
-  1.a To install CLI, from Bash, `npm install -g @vue/cli` or by specific version like this `npm install -g @vue/cli@3.0.0-rc.3`
+  1. Vue CLI is recommended if the project is planned to be deployed on production environment. As the Vue team created an environment where it can be easily work in development and when it is ready, it create an optimized production build.
+    1.a To install CLI, from Bash, `npm install -g @vue/cli` or by specific version like this `npm install -g @vue/cli@3.0.0-rc.3`
 
-2- Create a new project by `vue create {new-project-name}`
+  2. Create a new project by `vue create {new-project-name}`
 
-3- Install these extensions in VSCode:
+  3. Install these extensions in VSCode:
 
-* ESLint
-* Vetur
-* vue
+     * ESLint
+     * Vetur
+     * vue
 
-4- For windows users a rule has to be added to handle windows line endings correctly.
+  4. For windows users a rule has to be added to handle windows line endings correctly.
 
-* in .eslintrc.js file add the below lines
+     * in .eslintrc.js file add the below lines
 
-  ```js
-  rules:{
-    "linebreak-style":0
-  }
-  ```
+       ```js
+       rules:{
+         "linebreak-style":0
+       }
+       ```
 
-5- To compile the application for development and then start a development server for us on port 8080, run serve script from Bash/project_directory by `npm run serve`
+  5. To compile the application for development and then start a development server for us on port 8080, run serve script from Bash/project_directory by `npm run serve`
 
 ## Fundamentals
 
