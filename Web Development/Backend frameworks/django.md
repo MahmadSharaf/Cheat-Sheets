@@ -24,6 +24,23 @@
     - [Template inheritance](#template-inheritance)
     - [Customizing error views](#customizing-error-views)
     - [Use static files](#use-static-files)
+  - [Forms](#forms)
+    - [HTTP methods](#http-methods)
+    - [CSRF](#csrf)
+    - [Create a From class](#create-a-from-class)
+    - [Connect Form class to a View](#connect-form-class-to-a-view)
+    - [Connect the form view to the template](#connect-the-form-view-to-the-template)
+    - [Form template rendering](#form-template-rendering)
+      - [Form rendering options](#form-rendering-options)
+      - [Rendering fields manually](#rendering-fields-manually)
+      - [Looping over form's fields](#looping-over-forms-fields)
+    - [Form styling](#form-styling)
+    - [Form widgets](#form-widgets)
+      - [Specifying a widget](#specifying-a-widget)
+      - [Setting arguments for widgets](#setting-arguments-for-widgets)
+    - [ModelForm Class](#modelform-class)
+      - [Connect Model to Form](#connect-model-to-form)
+    - [ModelForm customization](#modelform-customization)
   - [Reference](#reference)
 
 ## Installation
@@ -93,7 +110,7 @@
     ```
 
   - To connect this view FBV to a URL routing, you need to add it as a `path` function to string `urlpatterns`.
-  - In `urls.py` file under App folder:
+  - Create (If not exists) `urls.py` file under the App folder:
 
     ```py
     from django.urls import path
@@ -165,7 +182,7 @@
 ### Redirecting webpages
 
 - Sometimes a client user will provide a path that we want to redirect to another webpage on our site.
-- This can be accomplished in Django through the use of the `HttpResponseRedirect()` function.
+- This can be accomplished in Django through the use of the `HttpResponseRedirect()` function or `redirect().
 - To facilitate referencing between URLs and pages, `name` argument in `path()` helps with this.
 - To link a page to a specific name, in `urls.py`:
 
@@ -176,7 +193,11 @@
 - To send a page to a named routing URL, in `views.py`:
 
   ```py
+  from django.http import HttpResponseRedirect
   HttpResponseRedirect(reverse('topic-name',args=[topic]))
+  # OR
+  from django.urls import reverse
+  redirect(reverse('topic-name',args=[topic]))
   ```
 
 ## Templates and Views
@@ -184,7 +205,7 @@
 ### Where to create templates
 
 - Now we might be able to get away with putting our templates directly in `myapp/templates` (rather than creating another `myapp` subdirectory), but it would actually be a bad idea. Django will choose the first template it finds whose name matches, and if you had a template with the same name in a different application, Django would be unable to distinguish between them. We need to be able to point Django at the right one, and the best way to ensure this is by namespacing them. That is, by putting those templates inside another directory named for the application itself.
-- EX: `my_site/my_app/templates/my_app/index.django`
+- EX: `my_site/my_app/templates/my_app/index.html`
 
 ### Connecting Views and Templates
 
@@ -217,11 +238,11 @@
 
       ```py
       def simple_view(request):
-        # my_app/templates/my_app/example.django
-        return render(request,'my_app/example.django')
+        # my_app/templates/my_app/example.html
+        return render(request,'my_app/example.html')
       ```
 
-3. Connect the view to the URL routing.
+3. Connect the view to the [URL routing](#connecting-views-and-urls).
 
     ```py
     urlpatterns = [
@@ -301,7 +322,7 @@
   ```py
   # my_app/urls.py
 
-  # Register the app namespace
+  # Register the app namespace, to be used in URL name tags.
   app_name = 'my_app'
 
   urlpatterns = [
@@ -383,6 +404,268 @@
     ```django
     <img src="{% static 'IMG/my_app/image.jpg' %}">
     ```
+
+## Forms
+
+- It allows client users send information in their browser to the backend.
+- The Django website can then Create/Read/Update/Delete information in the database based on the HTML forms.
+- Django comes with a built-in Forms class which can be used with Django and Python to create forms and then send that form to the template through a simple Tag call `{{form}}`.
+- This will be a huge productivity improvement and make our overall website code more readable.
+
+### HTTP methods
+
+- GET:
+  - Requests data from a specified resource.
+  - GET request can only request data, not modify or update anything.
+  - GET request can be bookmarked
+  - GET request saved in history
+  - GET request can be cached
+  - GET request has length limits
+- POST:
+  - Requests to send data to a server to create/update a resource.
+
+### CSRF
+
+- CSRF or Cross-Site Request Forgery is used to change the information that are meant to be sent originally by the form.
+- This can be avoided:
+  - By generating a random cryptographic token with every form during each session.
+  - The server could then confirm if the token matches with the current session.
+  - Since each session has a unique token, only the true original form would be accepted as authentic.
+- Django creates these CSRF tokens automatically with a simple tag call `{% csrf_token %}`
+- For [more information](https://docs.djangoproject.com/en/4.0/ref/csrf/)
+
+### Create a From class
+
+1. Create a file called `forms.py` under the App folder.
+2. Import forms class from Django. `from django import forms`
+3. Create a form class `class ViewForm(forms.Form)`
+4. Inside the class, create a form attributes. The form attribute is a form field that connected to a widget. This widget renders the HTML form field related type.
+
+```py
+# forms.py
+from django import forms
+
+class ViewForm(forms.Form):
+  first_name = forms.CharField(label='first_name', max_length=100)
+  last_name  = forms.CharField(label='last_name', max_length=100)
+  email      = forms.EmailField(label='Email')
+```
+
+### Connect Form class to a View
+
+1. Import the form class in `views.py`. `from .forms import ViewForm`
+2. Check if the request is a POST request (Form submission) or if not render an empty form.
+
+```py
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from .forms import ReviewForm
+
+def rental_review_view(request):
+  # Check if the request is a POST request
+  if request.method == 'POST':
+    # create a form of Type ClassForm
+    form = ReviewForm(request.POST)
+    # Check if the form data is valid
+    if form.is_valid():
+      # Preview the form data as a dictionary like
+      print(form.cleaned_data)
+      return redirect(reverse('cars:thank_you'))
+  else:
+    # If not a POST then show an empty form
+    form = ReviewForm
+  return render(request,'cars/rental_review.html',context={'form': form})
+```
+
+### Connect the form view to the template
+
+1. Create a Form HTML tag ``{{form}}. Form’s output does not include the surrounding `<form>` tags, or the form’s submit control.
+2. Add csrf protection tag `{{ csrf_token }}`
+3. Add the form tag `{{ form }}`
+4. Add a submission button
+
+```django
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit">
+</form>
+```
+
+### Form template rendering
+
+#### Form rendering options
+
+- Wrap each form element with an HTML tag. For example, `{{form.as_p}}` wraps each element with a `<p></p>` tag; same applies to `{{form.as_table}}` will render them as table cells wrapped in `<tr>` tags. More info in [docs](https://docs.djangoproject.com/en/4.0/topics/forms/#form-rendering-options).
+
+  ```django
+  <form method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit">
+  </form>
+  ```
+
+#### Rendering fields manually
+
+- It is possible to unpack each field manually. It allows for reordering.
+- Each field is available as an attribute of the form using `{{ form.name_of_field }}`, its label as `{{ form.name_of_field.label_tag }}`.
+
+  ```django
+  <form method="post">
+    {% csrf_token %}
+    {{form.first_name.errors}}
+    {{form.first_name.label_tag}}
+    {{form.first_name}}
+    <input type="submit">
+  </form>
+  ```
+
+- More info in [docs](https://docs.djangoproject.com/en/4.0/topics/forms/#rendering-fields-manually).
+
+#### Looping over form's fields
+
+- It also possible to loop over all fields.
+- More info in the [docs](https://docs.djangoproject.com/en/4.0/topics/forms/#looping-over-the-form-s-fields)
+
+  ```django
+  <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="mb-3">
+          {{field.label_tag}}
+          {{field}}
+      </div>
+      {% endfor %}
+      <input type="submit">
+  </form>
+  ```
+
+### Form styling
+
+1. Link a static CSS file.
+   1. Create `my_app/static/my_app/custom.css` file
+   2. Load static directory in .html using `{% load static %}` tag.
+   3. Link static CSS file connection using `{% static 'my_app/custom.css' %}` tag. `<link rel="stylesheet" href="{% static 'cars/custom.css' %}">`
+   4. Run migrate to load new app in settings.py file
+
+### Form widgets
+
+- A widget is Django’s representation of an HTML input element. The widget handles the rendering of the HTML, and the extraction of data from a GET/POST dictionary that corresponds to the widget.
+- [Django docs for widgets](https://docs.djangoproject.com/en/4.0/ref/forms/widgets/)
+
+#### Specifying a widget
+
+- Django will use a default widget that is appropriate to the type of data that is to be displayed. To find which widget is used on which field, see the documentation about [Built-in Field classes](https://docs.djangoproject.com/en/4.0/ref/forms/fields/#built-in-fields).
+- However, it is possible to use a different widget for a field, you can use the widget argument on the field definition.
+
+```py
+from django import forms
+
+class CommentForm(forms.Form):
+    name = forms.CharField()
+    url = forms.URLField()
+    comment = forms.CharField(widget=forms.Textarea)
+```
+
+#### Setting arguments for widgets
+
+- Many widgets have optional extra arguments; they can be set when defining the widget on the field. More information in the [documentation](https://docs.djangoproject.com/en/4.0/ref/forms/widgets/#setting-arguments-for-widgets).
+- Django provides a representation of all the basic HTML widgets, plus some commonly used groups of widgets in the django.forms.widgets module, including the input of text, various checkboxes and selectors, uploading files, and handling of multi-valued input.
+
+  ```py
+  from django import forms
+  name = forms.TextInput(attrs={'size': 10, 'title': 'Your name'})
+  name.render('name', 'A name')
+  ```
+  
+### ModelForm Class
+
+- It automatically creates a Form with fields connected to each model field.
+- Django [documentation](https://docs.djangoproject.com/en/4.0/topics/forms/modelforms/)
+
+#### Connect Model to Form
+
+1. Create a Model in `model.py`
+
+    ```py
+    # models.py
+    from django.db import models
+
+    class ReviewModel(models.Model):
+      first_name = models.CharField(max_length=10)
+      last_name  = models.CharField(max_length=10)
+      star = models.IntegerField()
+    ```
+
+2. Register it in `admin.py`
+
+    ```py
+    # admin.py
+    from django.contrib import admin
+    from .models import ReviewModel
+
+    admin.site.register(ReviewModel)
+    ```
+
+3. Import the Model into `forms.py` and create a form class of type `forms.ModelForm`.
+
+    ```py
+    # forms.py
+    from django import forms
+    from .models import ReviewModel
+
+    class ReviewForm(forms.ModelForm):
+      class Meta:
+        model = ReviewModel
+        fields = "__all__" # Pass all model fields as form fields
+    ```
+
+4. Save form submission using `.save()` in `views.py`
+
+    ```py
+    from django.shortcuts import redirect, render
+    from django.urls import reverse
+    from .forms import ReviewForm
+
+    # Create your views here.
+    def rental_review_view(request):
+      if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+          print(form.cleaned_data)
+          form.save()
+          return redirect(reverse('cars:thank_you'))
+      else:
+        form = ReviewForm
+      return render(request,'cars/rental_review.html',context={'form': form})
+    ```
+
+### ModelForm customization
+
+- The from fields imported from the model can be customized in several ways.
+- It is possible to add specific fields in the form.
+- Override the field labels.
+- Override validation error messages. Error messages keys can be found in form fields in [docs](https://docs.djangoproject.com/en/4.0/ref/forms/fields/#integerfield). For example, error messages keys for IntegerField are `required, invalid, max_value, min_value`
+
+  ```py
+  # models.py
+  class ReviewForm(forms.ModelForm):
+    class Meta:
+      model = ReviewModel
+      fields = ['first_name', 'last_name', 'star']
+      labels = {
+        'first_name': 'First Name',
+        'last_name': 'Last Name',
+        'star': 'Rating'
+      }
+      error_messages = {
+        'star' : {
+          'min_value':'Min value is 1',
+          'max_value':'Max value is 5'
+        }
+      }
+  ```
 
 ## Reference
 
