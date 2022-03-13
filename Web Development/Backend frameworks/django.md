@@ -37,6 +37,7 @@
     - [Models and views](#models-and-views)
     - [Interactive shell](#interactive-shell)
   - [Admin](#admin)
+    - [Register a model into Admin](#register-a-model-into-admin)
   - [Forms](#forms)
     - [HTTP methods](#http-methods)
     - [CSRF](#csrf)
@@ -54,7 +55,6 @@
     - [ModelForm Class](#modelform-class)
       - [Connect Model to Form](#connect-model-to-form)
     - [ModelForm customization](#modelform-customization)
-    - [Register a model into Admin](#register-a-model-into-admin)
   - [Class Based Views](#class-based-views)
     - [Template view](#template-view)
   - [Reference](#reference)
@@ -642,6 +642,36 @@
 - It can be accessed by 'domain.com/admin'
 - To create a Superuser `python manage.py createsuperuser`
 
+### Register a model into Admin
+
+1. Using the default admin interface
+
+    ```py
+    # in my_app.admin.py file
+    from django.contrib import admin
+    from my_app.models import my_model
+
+    # Register your models here.
+    admin.site.register(my_model)
+    ```
+
+2. Using [modelAdmin](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#modeladmin-objects) class for more customization.
+
+    ```py
+    from django.contrib import admin
+
+    class FlatPageAdmin(admin.ModelAdmin):
+        fieldsets = (
+            (None, {
+                'fields': ('url', 'title', 'content', 'sites')
+            }),
+            ('Advanced options', {
+                'classes': ('collapse',),
+                'fields': ('registration_required', 'template_name'),
+            }),
+        )
+    ```
+
 ## Forms
 
 - It allows client users send information in their browser to the backend.
@@ -903,36 +933,6 @@ class CommentForm(forms.Form):
         }
       }
   ```
-
-### Register a model into Admin
-
-1. Using the default admin interface
-
-    ```py
-    # in my_app.admin.py file
-    from django.contrib import admin
-    from my_app.models import my_model
-
-    # Register your models here.
-    admin.site.register(my_model)
-    ```
-
-2. Using [modelAdmin](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#modeladmin-objects) class for more customization.
-
-    ```py
-    from django.contrib import admin
-
-    class FlatPageAdmin(admin.ModelAdmin):
-        fieldsets = (
-            (None, {
-                'fields': ('url', 'title', 'content', 'sites')
-            }),
-            ('Advanced options', {
-                'classes': ('collapse',),
-                'fields': ('registration_required', 'template_name'),
-            }),
-        )
-    ```
 
 ## Class Based Views
 
