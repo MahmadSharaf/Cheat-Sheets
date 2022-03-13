@@ -24,6 +24,20 @@
     - [Template inheritance](#template-inheritance)
     - [Customizing error views](#customizing-error-views)
     - [Use static files](#use-static-files)
+  - [Models and Databases](#models-and-databases)
+    - [Models and Fields](#models-and-fields)
+      - [Django Model Key Concepts](#django-model-key-concepts)
+      - [Updating a model](#updating-a-model)
+      - [Validators](#validators)
+    - [Migrations](#migrations)
+    - [CRUD Interactions](#crud-interactions)
+      - [Create](#create)
+      - [Read](#read)
+      - [Update](#update)
+      - [Delete](#delete)
+    - [Models and views](#models-and-views)
+    - [Interactive shell](#interactive-shell)
+  - [Admin](#admin)
   - [Forms](#forms)
     - [HTTP methods](#http-methods)
     - [CSRF](#csrf)
@@ -41,6 +55,7 @@
     - [ModelForm Class](#modelform-class)
       - [Connect Model to Form](#connect-model-to-form)
     - [ModelForm customization](#modelform-customization)
+    - [Register a model into Admin](#register-a-model-into-admin)
   - [Reference](#reference)
 
 ## Installation
@@ -215,7 +230,7 @@
       ```py
       TEMPLATES = [
           {
-              'DIRS': [os.path.join(BASE_DIR, 'templates')],
+              'DIRS': [BASE_DIR / 'templates'],
               'APP_DIRS': True,
           },
       ]
@@ -404,6 +419,223 @@
     ```django
     <img src="{% static 'IMG/my_app/image.jpg' %}">
     ```
+
+## Models and Databases
+
+- Django is pretty agnostic to most major SQL engines with the use of its Django Models system, so switching to another SQL engine is more a matter of updating `settings.py` rather than rewriting the actual Python Django code.
+- Run a migrate command to create the database, `python manage.py migrate`.
+- [Django docs](https://docs.djangoproject.com/en/4.0/ref/settings/#databases)
+
+  ```py
+  # settings.py
+
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.sqlite3',
+          'NAME': BASE_DIR / 'db.sqlite3',
+      }
+  }
+  ```
+
+- Models allow us to interact with a database with Python and Django. This includes the key interactions with a database - CRUD.
+- Django Models are defined inside a Django app (or project) `models.py` file.
+- The models class operates on a system which directly converts Python based code into SQL commands. This makes it much easier to work with the backend database.
+- Creating a Model is similar to creating a new table in a database.
+- Each database table has a name and then columns, where each column will have a specific data type, for example: character strings for names or integers for ages in years.
+
+  ```py
+  # Inside a model file
+  from django.db import models
+
+  class Person(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30) 
+  ```
+
+  ```sql
+  -- Automatically converted to SQL
+  CREATE TABLE myapp_person (
+    "id" serial NOT NULL PRIMARY KEY,
+    "first_name" varchar(30) NOT NULL,
+    "last_name" varchar(30) NOT NULL
+  );
+  ```
+
+### Models and Fields
+
+#### Django Model Key Concepts
+
+- Inherits from models class.
+- Uses fields to define both data types and data constraints. For example,
+  - You may want to require information, like a user’s email address, in which case you can add a `NOT NULL` constraint.
+  - You may want to require unique entries, like a unique user email (no duplicate accounts) with a UNIQUE constraint.
+
+  ```py
+  # Inside a model file
+  from django.db import models
+
+  class Musician(models.Model):
+    # Fields are chosen for data type. Like CharField, ForeignKey, DateField ...
+    first_name = models.CharField(max_length=30)
+    # Field arguments specify constraints. Like (max_length=30)
+    last_name = models.CharField(max_length=30) 
+
+  class Album(models.Model):
+    # Django Models can also be connected through keys
+    musician = models.ForeignKey(Musician,on_delete = models.CASCADE)
+    name = models.CharField(max_length=100)
+    releaseDate = models.DateField()
+    rating = models.IntegerField()
+  ```
+
+#### Updating a model
+
+- There may come a time when you need to create a new column or attribute for a model.
+- You can easily update existing models by simply adding a new model class attribute and then migrating those changes.
+- You should note that when adding new fields, the existing entries will need to have some default value inserted (even if it’s just null).
+- In fact, when we attempt to run migrations without taking care of these issues, Django will specifically request us to make a decision.
+- You’ll be given two options:
+  - Choose a default value on the spot when making the migrations file.
+  - Cancel the migration and create a default value within the model.
+- It’s usually more robust to have the default live in the model, but each case is different.
+
+#### Validators
+
+- The `django.core.validators` module contains a collection of callable validators for use with model and form fields. They’re used internally but are available for use with your own fields, too. They can be used in addition to, or in lieu of custom field.clean() methods.
+- Validators in Django documentations can be found in [Validators](https://docs.djangoproject.com/en/4.0/ref/validators/#built-in-validators) topic which lists all available validators. Or the supported validator for [field type](https://docs.djangoproject.com/en/4.0/ref/models/fields/).
+
+  ```py
+  from django.core.validators import MaxValueValidator,MinValueValidator
+
+  class Patient(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30) 
+    age = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(120)]) 
+    heartrate = models.IntegerField(default=60,validators=[MinValueValidator(1),MaxValueValidator(300)])
+
+  ```
+
+### Migrations
+
+- In general, migrations is the act of connecting changes in your Django project or app to the database.
+- This includes things like adding new models within an application, adding a new application, updating models with a new column/attribute, and more.
+- There are 3 commands for migrations:
+  - `python manage.py makemigrations my_app`:
+    - This actually creates, but does not run, the set of instructions that will apply changes to the database.
+    - The default applications in Django (e.g. Admin, Auth) already have their SQL `makemigrations` code ready, just not run yet.
+    - The migrations files are created under `my_app/migrations/0001_initial.py`
+  - `python manage.py migrate`:
+    - Runs any existing migrations that created through the `makemigrations` command.
+  - `python manage.py sqlmigrate my_app 0001`:
+    - Used to check the SQL commands that will be executed by running `0001_initial.py` file.
+
+### CRUD Interactions
+
+- Each Model you create comes with a Manager that allows you to create a QuerySet which can then be used to retrieve entries from the database.
+- [QuerySet is actually lazily](https://docs.djangoproject.com/en/4.0/topics/db/queries/#querysets-are-lazy) evaluated, meaning that it doesn’t hit the database until its explicitly asked to grab the information.
+
+#### Create
+
+- There are three ways to insert a new database entry:
+  - Create an instance of the object class. Ex: `carl = Student(first_name="Carl",last_name="Smith")`. Then insert this object instance to DB by calling `.save()` method.
+  - Use the built-in `.objects.create()` method to both create and save the new data entry in a single line.
+  - Insert multiple entries at once by using `.objects.bulk_create()`
+
+#### Read
+
+- To [retrieve objects](https://docs.djangoproject.com/en/4.0/topics/db/queries/#retrieving-objects) from your database, construct a QuerySet via a Manager on your model class.
+- A **QuerySet** represents a collection of objects from your database. It can have zero, one or many filters. Filters narrow down the query results based on the given parameters. In SQL terms, a QuerySet equates to a **SELECT** statement, and a filter is a limiting clause such as **WHERE** or **LIMIT**.
+- [Retrieving all objects](https://docs.djangoproject.com/en/4.0/topics/db/queries/#retrieving-all-objects):
+  - The simplest way to retrieve objects from a table is to get all of them. To do this, use the `all()` method on a Manager. `Entry.objects.all()`
+- [Retrieving a single object with `get()`](https://docs.djangoproject.com/en/4.0/topics/db/queries/#retrieving-a-single-object-with-get):
+  - If you know there is only one object that matches your query, you can use the get() method on a Manager which returns the object directly. `Entry.objects.get(pk=1)`
+- [Retrieving specific objects with filters](https://docs.djangoproject.com/en/4.0/topics/db/queries/#retrieving-specific-objects-with-filters):
+  - [Filtered QuerySets are unique](https://docs.djangoproject.com/en/4.0/topics/db/queries/#filtered-querysets-are-unique): Each time you refine a QuerySet, you get a brand-new QuerySet that is in no way bound to the previous QuerySet. Each refinement creates a separate and distinct QuerySet that can be stored, used and reused.
+  - To create such a subset, you refine the initial QuerySet, adding filter conditions. The two most common ways to refine a QuerySet are:
+    - `filter(**kwargs)`: Returns a new QuerySet containing objects that match the given lookup parameters. `Entry.objects.filter(pub_date__year=2006)`
+    - `exclude(**kwargs)`: Returns a new QuerySet containing objects that do not match the given lookup parameters. `Entry.objects.exclude(pub_date__year=2006)`
+  - The lookup parameters (****kwargs** in the above function definitions) should be in the format described in [Field lookups](https://docs.djangoproject.com/en/4.0/topics/db/queries/#field-lookups).
+  - [Chaining filters](https://docs.djangoproject.com/en/4.0/topics/db/queries/#chaining-filters): The result of refining a QuerySet is itself a QuerySet, so it’s possible to chain refinements together.
+  - [Complex lookups with Q objects](https://docs.djangoproject.com/en/4.0/topics/db/queries/#complex-lookups-with-q-objects):
+    - Keyword argument queries – in filter(), etc. – are “AND”ed together. If you need to execute more complex queries (for example, queries with OR statements), you can use Q objects.
+    - A Q object (django.db.models.Q) is an object used to encapsulate a collection of keyword arguments. These keyword arguments are specified as in “Field lookups” above.
+    - Q objects can be combined using the & and | operators. When an operator is used on two Q objects, it yields a new Q object.
+    - Each lookup function that takes keyword-arguments (e.g. filter(), exclude(), get()) can also be passed one or more Q objects as positional (not-named) arguments. If you provide multiple Q object arguments to a lookup function, the arguments will be “AND”ed together.
+
+      ```py
+      Poll.objects.get(
+          Q(question__startswith='Who'),
+          Q(pub_date=date(2005, 5, 2)) | Q(pub_date=date(2005, 5, 6)))
+      ```
+
+      ```sql
+      -- SQL equivalent
+
+      SELECT * from polls WHERE question LIKE 'Who%'
+          AND (pub_date = '2005-05-02' OR pub_date = '2005-05-06')
+      ```
+
+- [Limiting QuerySets](https://docs.djangoproject.com/en/4.0/topics/db/queries/#limiting-querysets):
+  - Use a subset of Python’s array-slicing syntax to limit your QuerySet to a certain number of results. This is the equivalent of SQL’s **LIMIT** and **OFFSET** clauses. `Entry.objects.all()[:5]`
+  - Negative indexing (i.e. `Entry.objects.all()[-1]`) is not supported.
+
+#### Update
+
+- To update an existing record:
+  1. Retrieve it.
+  2. Do the changes to the object.
+  3. Save this object.
+
+  ```py
+  # First, you need to retrieve it.
+  John = Persons.objects.get(pk=1)
+
+  # Second, do the changes to the object.
+  John.first_name = 'Bond'
+
+  # Finally, save this object.
+  John.save()
+  ```
+
+#### Delete
+
+- To delete an existing record:
+  1. Retrieve it.
+  2. Delete it.
+
+  ```py
+  # First, you need to retrieve it.
+  John = Persons.objects.get(pk=1)
+
+  # Finally, delete this object.
+  John.delete()
+  ```
+
+### Models and views
+
+- Typically, the model will contain the structure of the database. Like tables and attributes.
+- While actual CRUD interactions will be applied in the Views.
+
+    ```py
+    def list_view(request):
+    
+      cars = Car.objects.all()
+      context = {'cars': cars}
+      
+      return render(request, 'cars/list.html', context=context)
+    ```
+
+### Interactive shell
+
+- If you want to run commands to the project, you can use the interactive shell
+- `python manage.py shell` to run commands.
+
+## Admin
+
+- This is a feature meant to be used by the website manager, to have a graphical interface for interacting with data and users on the site.
+- It is created automatically by Django
+- It can be accessed by 'domain.com/admin'
+- To create a Superuser `python manage.py createsuperuser`
 
 ## Forms
 
@@ -666,6 +898,36 @@ class CommentForm(forms.Form):
         }
       }
   ```
+
+### Register a model into Admin
+
+1. Using the default admin interface
+
+    ```py
+    # in my_app.admin.py file
+    from django.contrib import admin
+    from my_app.models import my_model
+
+    # Register your models here.
+    admin.site.register(my_model)
+    ```
+
+2. Using [modelAdmin](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#modeladmin-objects) class for more customization.
+
+    ```py
+    from django.contrib import admin
+
+    class FlatPageAdmin(admin.ModelAdmin):
+        fieldsets = (
+            (None, {
+                'fields': ('url', 'title', 'content', 'sites')
+            }),
+            ('Advanced options', {
+                'classes': ('collapse',),
+                'fields': ('registration_required', 'template_name'),
+            }),
+        )
+    ```
 
 ## Reference
 
