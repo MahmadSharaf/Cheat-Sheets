@@ -57,6 +57,7 @@
     - [ModelForm customization](#modelform-customization)
   - [Class Based Views](#class-based-views)
     - [Template view](#template-view)
+    - [Form View](#form-view)
   - [Reference](#reference)
 
 ## Installation
@@ -955,6 +956,43 @@ class CommentForm(forms.Form):
   class HomeView(TemplateView):
     template_name = 'classroom/home.html'
   ```
+
+### Form View
+
+A Class Based View for Forms
+
+1. Create a form class in `forms.py`
+2. Create a template for the Form
+3. Import it into `views.py` and create a Form View Class
+4. Connect Form View Class to Form Class and its template
+
+```py
+# forms.py
+from django import forms
+
+class ContactForm(forms.Form):
+    name = forms.CharField()
+    message = forms.CharField(widget=forms.Textarea)
+```
+
+```py
+# views.py
+class ContactFormView(FormView):
+    # Connect FormClass to FormView
+    form_class = ContactForm
+    
+    # Connect FormView to FormTemplate
+    template_name = 'classroom/contact.html'
+    
+    # Redirect success to URL
+    success_url = '/classroom/thank_you'
+    
+    # Deal with the form
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        # Same as `form = ContactForm(request.POST)`
+        return super().form_valid(form)
+```
 
 ## Reference
 
