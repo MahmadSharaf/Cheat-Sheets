@@ -9,7 +9,6 @@
     - [Create a new app](#create-a-new-app)
     - [Run the sever](#run-the-sever)
   - [Project structure](#project-structure)
-  - [Views, Routing and URLs](#views-routing-and-urls)
     - [Connecting Views and URLs](#connecting-views-and-urls)
     - [Dynamic Views and URL routing](#dynamic-views-and-url-routing)
     - [Dealing with 404 PageNotFound](#dealing-with-404-pagenotfound)
@@ -56,6 +55,8 @@
       - [Connect Model to Form](#connect-model-to-form)
     - [ModelForm customization](#modelform-customization)
     - [Register a model into Admin](#register-a-model-into-admin)
+  - [Class Based Views](#class-based-views)
+    - [Template view](#template-view)
   - [Reference](#reference)
 
 ## Installation
@@ -103,10 +104,6 @@
   - A “Django app” is a sub-component of a single Django Project (web application).
 - Each app should cover a different key functionality for the website.
 
-## Views, Routing and URLs
-
-- A list of view routes is defined in a list variable called `urlpatterns`.
-
 ### Connecting Views and URLs
 
 - Connecting a View to a URL with `path()` function:
@@ -114,27 +111,35 @@
   - `view` argument is a string that points to the `views.py` file which will be connected to the URL pattern found in `route`.
   - `kwargs` is an optional argument. It allows to pass in keyword arguments to the view.
   - `name` is an optional argument. It allows to name the URL for referencing elsewhere in the project.
-- Example for Function Based View:
+- Create a Function Based View (FBV) or a Class Based View (CBV)
   - In `views.py` file under an App component:
 
     ```py
     from django.http import HttpResponse
 
+    # Example for Function Based View:
     def simple_view(request):
       return HttpResponse("Simple View")
+
+    # Example for Class Based View
+    class SimpleView(TemplateView):
+      template_name = 'classroom/home.html'
     ```
 
-  - To connect this view FBV to a URL routing, you need to add it as a `path` function to string `urlpatterns`.
+  - To connect this view to a URL routing, you need to add it as a `path` function to string `urlpatterns`.
   - Create (If not exists) `urls.py` file under the App folder:
 
     ```py
     from django.urls import path
     from . import views
 
+    # '' is a route for the home page. But since this urls.py file under an app component,
+    # the home page for the app. In other words, this is the routing for the webpages after being directed to www.domain.com/my_app/
     urlpatterns = [
-        # '' is a route for the home page. But since this urls.py file under an app component,
-        # the home page for the app. In other words, this is the routing for the webpages after being directed to www.domain.com/my_app/
+        # FBV
         path('',views.simple_view)
+        # CBV
+        path('',views.SimpleView.as_view())
     ]
     ```
 
@@ -928,6 +933,28 @@ class CommentForm(forms.Form):
             }),
         )
     ```
+
+## Class Based Views
+
+- Writing web applications can be monotonous, because we repeat certain patterns again and again. Django tries to take away some of that monotony at the model and template layers, but web developers also experience this boredom at the view level.
+- Django’s generic views were developed to ease that pain. They take certain common idioms and patterns found in view development and abstract them so that you can quickly write common views of data without having to write too much code.
+- Django provides an entire View class system that is very powerful for quickly rendering commonly used views.
+- Django CBVs (Class Based Views) come with many pre-built generic class views for common tasks, such as listing all the values for a particular model in a database (ListView) or creating a new instance of a model object (CreateView).
+
+### Template view
+
+- Compared to FBV
+  - Create a class inherited from `TemplateView` class
+  - Add the template relative path to variable `template_name`.
+
+  ```py
+  # Create your views here.
+  def home_view(request):
+    return render(request, 'classroom/home.html')
+
+  class HomeView(TemplateView):
+    template_name = 'classroom/home.html'
+  ```
 
 ## Reference
 
