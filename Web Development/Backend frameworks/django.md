@@ -58,6 +58,7 @@
   - [Class Based Views](#class-based-views)
     - [Template view](#template-view)
     - [Form View](#form-view)
+    - [Model-based Views](#model-based-views)
   - [Reference](#reference)
 
 ## Installation
@@ -949,7 +950,8 @@ class CommentForm(forms.Form):
   - Add the template relative path to variable `template_name`.
 
   ```py
-  # Create your views here.
+  from django.views.generic import TemplateView
+
   def home_view(request):
     return render(request, 'classroom/home.html')
 
@@ -977,6 +979,8 @@ class ContactForm(forms.Form):
 
 ```py
 # views.py
+from django.views.generic import FormView
+
 class ContactFormView(FormView):
     # Connect FormClass to FormView
     form_class = ContactForm
@@ -992,6 +996,197 @@ class ContactFormView(FormView):
         print(form.cleaned_data)
         # Same as `form = ContactForm(request.POST)`
         return super().form_valid(form)
+```
+
+### Model-based Views
+
+- There are a few operations that are very common with models: Create, Detail, Update, Delete, List.
+- Django provides CBVs that automatically create the appropriate views, forms, and context objects for predefined template names by simply being connected to a model.
+  - They are connected to the model using `model` attribute.
+- Because the classes are designed to be simple, these views require a template name to follow a specific pattern, for example, `{model}_form.html`
+
+1. Create View
+
+   - This class connects the model fields to a form.
+   - The expected template name is `{model}_form.html`
+   - The model fields can be customized using `fields` attribute.
+   - After successful submission, it gets redirected to URL set in `success_url` attribute.
+
+2. List View
+
+   - It is used to list the entries in a model into a template.
+   - The expected template name is `{model}_list.html`
+   - The class runs query `{modelName}.objects.all()` by default. But the query can be changed using `queryset` attribute.
+   - After successful submission, it gets redirected to URL set in `success_url` attribute.
+   - The query results are sent to the template as variable name `object_list` by default. This can be changed using `context_object_name` attribute.
+
+3. Detail View
+
+   - It is used to show the details for only one model entry using its PK.
+   - In `views.py`, create the Detail View class.
+     - The expected template name is `{model}_detail.html`
+   - In `urls.py`, add a variable in the URL path.
+   - In the list template, link each record to its PK
+   - In detail template, display the model using its name.
+
+4. Update View
+
+   - It is used to update an entry using form template
+   - In `views.py`, create the Update View class.
+     - The expected template name is `{model}_form.html`
+     - The class has same attributes as CreateView
+     - The model fields can be customized using `fields` attribute.
+     - After successful submission, it gets redirected to URL set in `success_url` attribute.
+   - In `urls.py`, add a variable in the URL path.
+
+5. Delete View
+
+   - It is used to delete an entry using a deletion form template
+   - In `views.py`, create the Delete View class.
+     - The expected template name is `{model}_confirm_delete.html`
+     - After successful submission, it gets redirected to URL set in `success_url` attribute.
+   - In `urls.py`, add a variable in the URL path.
+
+```py
+# models.py
+from django.db import models
+
+# Create your models here.
+class Teacher(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    subject = models.CharField(max_length=30)
+    
+    def __str__(self):
+        return f'{self.first_name} {self.last_name} teaches {self.subject}'
+```
+
+```py
+# views.py
+from django.views.generic import (
+    TemplateView, FormView, CreateView, ListView, DetailView, UpdateView, DeleteView)
+from classroom.models import Teacher
+from django.urls import reverse_lazy
+
+class TeacherCreateView(CreateView):
+    # Connect view to model using `model` attribute
+    model = Teacher
+    
+    # The template is expected to be named as `{modelName}_form.html` in template  folder
+    
+    # Which fields to be created for that form
+    fields = "__all__"
+    
+    # After successful submission, `.save()` will be called automatically
+    # Redirect to success URL
+    success_url = reverse_lazy('classroom:thank_you')
+    
+class TeacherListView(ListView):
+    # Connect view to model using `model` attribute
+    model = Teacher
+    
+    # The template is expected to be named as `{modelName}_list.html` in template  folder
+    
+    # The default queryset is `Teacher.objects.all()`.
+    # But it can be overridden using `queryset` attribute.
+    queryset =Teacher.objects.order_by('first_name')
+    
+    # The model object list (the query result), is mapped in the template as `object_list` by default.
+    # But this name can be overridden using `context_object_name` attribute.
+
+    context_object_name = 'teacher_object_list'
+    
+class TeacherDetailView(DetailView):
+    # Returns one model entry from its PK
+    
+    # Connect view to model using `model` attribute
+    model = Teacher
+    
+    # The template is expected to be named as `{modelName}_detail.html` in template  folder
+    
+class TeacherUpdateView(UpdateView):
+    # Shares same form template
+    model = Teacher
+    fields = ['first_name', 'last_name']
+    # Redirect success to URL
+    success_url = reverse_lazy('classroom:list_teacher')
+    
+class TeacherDeleteView(DeleteView):
+    # Default template name is {modelName}_confirm_delete.html
+    model = Teacher
+    # Redirect success to URL
+    success_url = reverse_lazy('classroom:list_teacher')
+```
+
+```py
+# urls.py
+from django.urls import path
+from .views import (HomeView, ThankYouView, ContactFormView,
+                    TeacherCreateView, TeacherListView, TeacherDetailView, TeacherUpdateView, TeacherDeleteView)
+
+app_name = 'classroom'
+
+urlpatterns = [
+    path('', HomeView.as_view(),name='home'),
+    path('thank_you', ThankYouView.as_view(),name='thank_you'),
+    path('contact', ContactFormView.as_view(),name='contact'),
+    path('create_teacher', TeacherCreateView.as_view(),name='create_teacher'),
+    path('list_teacher', TeacherListView.as_view(),name='list_teacher'),
+    path('teacher_detail/<int:pk>', TeacherDetailView.as_view(),name='teacher_detail'),
+    path('update_teacher/<int:pk>', TeacherUpdateView.as_view(),name='update_teacher'),
+    path('delete_teacher/<int:pk>', TeacherDeleteView.as_view(),name='delete_teacher'),
+]
+```
+
+```django
+<!-- teacher_form -->
+<h1>Teacher Form</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Submit" id="">
+</form>
+```
+
+```django
+<!-- teacher_list.html -->
+<h1>List of Teachers</h1>
+<ul>
+        {% for teacher in teacher_object_list %}
+            <li>
+                <a href="/classroom/teacher_detail/{{teacher.id}}">
+                    {{teacher.first_name}} {{teacher.last_name}}
+                </a>
+                <ul>
+                    <li>
+                        <a href="/classroom/update_teacher/{{teacher.id}}">Edit Teacher</a>
+                    </li>
+                    <li>
+                        <a href="/classroom/delete_teacher/{{teacher.id}}">Delete Teacher</a>
+                    </li>
+                </ul>
+            </li>
+        {% endfor %}
+</ul>
+```
+
+```django
+<!-- teacher_detail.html -->
+<h1>Detail View for a teacher</h1>
+{{teacher}}
+```
+
+```django
+<!-- teacher_confirm_delete -->
+<h1>Are you sure you want to delete this</h1>
+<h2>{{teacher}}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Confirm Delete" id="">
+</form>
 ```
 
 ## Reference
