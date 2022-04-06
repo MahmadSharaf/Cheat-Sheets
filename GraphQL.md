@@ -6,6 +6,7 @@
     - [Query](#query)
     - [Mutation](#mutation)
     - [Subscription](#subscription)
+  - [Architecture](#architecture)
 
 ## What GraphQL is
 
@@ -128,3 +129,24 @@ subscription {
     }
 }
 ```
+
+## Architecture
+
+- GraphQL, as a concept, is just a specification. This means that GraphQL is, in fact, not more than a long document that describes in detail how a GraphQL server has to behave, meaning what kinds of requests it should accept and what the response format for these requests has to look like. The specification for GraphQL can be found [here](http://spec.graphql.org/).
+- GraphQL to be used in a project, it has to be built from scratch. It can be built in any programming language with the help of any of the available reference implementations for it.
+- GraphQL is actually transport-layer agnostic. This means it can potentially be used with any available network protocol. So, it is definitely possible to implement a GraphQL server based on TCP, WebSockets, or any other transport.
+- GraphQL also doesn't care about the database or the format that is used to store the data.
+- There are three common architectural use cases for GraphQL:
+  1. GraphQL server with a connected database
+     - It is the most common for greenfield projects.
+     - Uses a single web server that implements the GraphQL.
+     - The server resolves queries and constructs response with data that it fetches from the database.
+  2. GraphQL server to integrate with existing or legacy systems.
+     - It can be used to unify existing systems and hide their complexity of data fetching logic behind a GraphQL API. This way, new client applications can be developed that simply talk to the GraphQL server to fetch the data they need. The server is then responsible to make sure it fetches the data from the existing systems and packages it up in the GraphQL response format.
+     - The server doesn't care about what the data sources are (databases, web services ,3rd party APIs, ..)
+  3. A hybrid approach with a connected database and integration of existing systems.
+     - In this architecture, when a query is received by the server, the server will resolve it and either retrieve the required data from the connected database or from the integrated APIs.
+- The key to understanding how GraphQL is able to cope with all these different environments is the concept of a resolver function.
+  - GraphQL queries/mutations consist of set of fields
+  - Its server has one resolver function per field
+  - The purpose of each resolver is to retrieve the data to its corresponding field
