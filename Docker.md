@@ -17,6 +17,12 @@
       - [Images Common CLI commands](#images-common-cli-commands)
     - [Containers](#containers)
       - [Containers Common CLI commands](#containers-common-cli-commands)
+  - [Data Management](#data-management)
+    - [Volumes](#volumes)
+      - [Volumes Common CLI commands](#volumes-common-cli-commands)
+    - [Bind Mounts](#bind-mounts)
+      - [Bind Mounts Common CLI commands](#bind-mounts-common-cli-commands)
+    - [tmpfs mounts](#tmpfs-mounts)
 
 ## What Docker is
 
@@ -137,3 +143,50 @@
 - `docker container run [OPTIONS] IMAGE [COMMAND] [ARG...]`: Run a command in a new container
 - `docker container start [OPTIONS] CONTAINER [CONTAINER...]`: Start one or more stopped containers
 - `docker container stop [OPTIONS] CONTAINER [CONTAINER...]`:Stop one or more running containers
+
+## Data Management
+
+- Docker has two options for containers to store files on the host machine, so that the files are persisted even after the container stops: **volumes**, and **bind mounts**.
+- Docker also supports containers storing files in-memory on the the host machine. Such files are not persisted.
+  - If you’re running Docker on Linux, **tmpfs** mount is used to store files in the host’s system memory.
+  - If you’re running Docker on Windows, named pipe is used to store files in the host’s system memory.
+- No matter which type of mount you choose to use, the data looks the same from within the container. It is exposed as either a directory or an individual file in the container’s filesystem.
+- Bind mounts and volumes can both be mounted into containers using the `-v` or `--volume` flag, but the syntax for each is slightly different. For tmpfs mounts, you can use the `--tmpfs` flag. We recommend using the `--mount` flag for both containers and services, for bind mounts, volumes, or tmpfs mounts, as the syntax is more clear.
+
+### Volumes
+
+- They are stored in a part of the host filesystem which is created and managed by Docker (/var/lib/docker/volumes/ on Linux).
+- Non-Docker processes *should not modify* this part of the filesystem.
+- Volumes are the best way to persist data in Docker.
+- A given volume can be mounted into multiple containers simultaneously.
+- Volumes also support the use of volume drivers, which allow you to store your data on remote hosts or cloud providers, among other possibilities.
+
+#### Volumes Common CLI commands
+
+- `docker volume create [OPTIONS] [VOLUME]`: Creates a new Volume
+- `docker volume prune [OPTIONS]`: Removes unused Volumes
+- `docker volume inspect [OPTIONS] VOLUME [VOLUME...]`: Display detailed information on one or more volumes
+- `docker volume ls`: List volumes
+- `docker volume rm [OPTIONS] VOLUME [VOLUME...]`: Remove one or more volumes. You cannot remove a volume that is in use by a container.
+- `docker run -v [VOLUME_NAME:]CONTAINER_STORAGE_PATH IMAGE`: Mount a volume to a container.
+
+### Bind Mounts
+
+- Available since the early days of Docker.
+- They may be stored anywhere on the host system.
+- They may even be important system files or directories.
+- Non-Docker processes on the Docker host or a Docker container can modify them at any time.
+- Bind mounts have limited functionality compared to volumes.
+- When you use a bind mount, a file or directory on the host machine is mounted into a container.
+- The file or directory is referenced by its full path on the host machine.
+- The file or directory does not need to exist on the Docker host already. It is created on demand if it does not yet exist.
+- You can’t use Docker CLI commands to directly manage bind mounts.
+
+#### Bind Mounts Common CLI commands
+
+- `docker run -v LOCAL_PATH:CONTAINER_STORAGE_PATH IMAGE`: Bind mount to a container.
+
+### tmpfs mounts
+
+- They are stored in the host system’s memory only, and are never written to the host system’s filesystem.
+- It can be used by a container during the lifetime of the container, to store non-persistent state or sensitive information.
