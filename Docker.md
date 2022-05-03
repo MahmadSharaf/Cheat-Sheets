@@ -33,6 +33,7 @@
       - [macvlan](#macvlan)
       - [3rd-party networks](#3rd-party-networks)
     - [Network Common CLI commands](#network-common-cli-commands)
+  - [Docker compose](#docker-compose)
 
 ## What Docker is
 
@@ -257,3 +258,10 @@
 - `docker network prune` : Remove all unused networks
 - `docker network rm NETWORK [NETWORK...]` : Remove one or more networks
 - `docker run --network=NETWORK IMAGE` : Run a container and connect it to NETWORK network
+
+## Docker compose
+
+- It enables managing an application that uses more than one container at the same time. So, you will be able to create, start, stop, and remove them with a single command.
+- They can be created according to the instructions in a file called `docker-compose.yml`.
+- The Compose file is a YAML file defining services, networks, and volumes for a Docker application.
+- The daemon or CLI command is `docker-compose` compared to `docker`.
