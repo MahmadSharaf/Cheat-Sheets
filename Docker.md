@@ -274,7 +274,7 @@
 - `docker-compose run --service-ports SERVICE` : run the service in debug mode
 - `docker-compose build` : build the service according docker-compose.yml file
 - `docker-compose up --build` : Build and start services in single line
-- `docker-compose up` : run the service in debug mode
+- `docker-compose up` : start the service
 - `docker-compose up -d` : start the service in the background
 - `docker-compose down` : remove service docker containers in the repository
 - `docker-compose down -v --rmi all` : Stop and clean up your docker-compose services.
