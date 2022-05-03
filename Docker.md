@@ -34,6 +34,7 @@
       - [3rd-party networks](#3rd-party-networks)
     - [Network Common CLI commands](#network-common-cli-commands)
   - [Docker compose](#docker-compose)
+    - [Docker compose Common CLI commands](#docker-compose-common-cli-commands)
   - [References](#references)
 
 ## What Docker is
@@ -143,6 +144,7 @@
 
 - `docker container create [OPTIONS] IMAGE [COMMAND] [ARG...]`: Create a new container
 - `docker container exec [OPTIONS] CONTAINER COMMAND [ARG...]`: Run a command in a running container
+- `docker exec -it CONTAINER bash` : Access container terminal
 - `docker container inspect [OPTIONS] CONTAINER [CONTAINER...]`: Display detailed information on one or more containers
 - `docker container kill [OPTIONS] CONTAINER [CONTAINER...]`: Kill one or more running containers
 - `docker container logs [OPTIONS] CONTAINER`: Fetch the logs of a container
@@ -267,8 +269,21 @@
 - The Compose file is a YAML file defining services, networks, and volumes for a Docker application.
 - The daemon or CLI command is `docker-compose` compared to `docker`.
 
+### Docker compose Common CLI commands
+
+- `docker-compose run --service-ports SERVICE` : run the service in debug mode
+- `docker-compose build` : build the service according docker-compose.yml file
+- `docker-compose up --build` : Build and start services in single line
+- `docker-compose up` : run the service in debug mode
+- `docker-compose up -d` : start the service in the background
+- `docker-compose down` : remove service docker containers in the repository
+- `docker-compose down -v --rmi all` : Stop and clean up your docker-compose services.
+- `docker-compose exec SERVICE COMMAND` : Run command with docker-compose. EX: `docker-compose exec django python manage.py shell`
+- `docker-compose logs -f [--tail NUMBER] SERVICE`: See the logs of an specific service. `--tail NUMBER` to check last NUMBER logs.
+
 ## References
 
 - [Codographia YT channel](https://www.youtube.com/channel/UCmgpWswPRFzIEEcZncyQLYw)
 - [Docker docs](https://docs.docker.com)
 - [Enki educational app](https://www.enki.com/)
+- [dev.to post for top CLI commands](https://dev.to/aduranil/10-docker-compose-and-docker-commands-that-are-useful-for-active-development-22f9)
