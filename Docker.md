@@ -34,6 +34,7 @@
       - [3rd-party networks](#3rd-party-networks)
     - [Network Common CLI commands](#network-common-cli-commands)
   - [Docker compose](#docker-compose)
+  - [References](#references)
 
 ## What Docker is
 
@@ -265,3 +266,9 @@
 - They can be created according to the instructions in a file called `docker-compose.yml`.
 - The Compose file is a YAML file defining services, networks, and volumes for a Docker application.
 - The daemon or CLI command is `docker-compose` compared to `docker`.
+
+## References
+
+- [Codographia YT channel](https://www.youtube.com/channel/UCmgpWswPRFzIEEcZncyQLYw)
+- [Docker docs](https://docs.docker.com)
+- [Enki educational app](https://www.enki.com/)
