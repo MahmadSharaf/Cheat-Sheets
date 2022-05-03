@@ -23,6 +23,16 @@
     - [Bind Mounts](#bind-mounts)
       - [Bind Mounts Common CLI commands](#bind-mounts-common-cli-commands)
     - [tmpfs mounts](#tmpfs-mounts)
+  - [Docker Networking](#docker-networking)
+    - [Network Drivers](#network-drivers)
+      - [Bridge](#bridge)
+      - [Host](#host)
+      - [None](#none)
+      - [overlay](#overlay)
+      - [ipvlan](#ipvlan)
+      - [macvlan](#macvlan)
+      - [3rd-party networks](#3rd-party-networks)
+    - [Network Common CLI commands](#network-common-cli-commands)
 
 ## What Docker is
 
@@ -190,3 +200,60 @@
 
 - They are stored in the host system’s memory only, and are never written to the host system’s filesystem.
 - It can be used by a container during the lifetime of the container, to store non-persistent state or sensitive information.
+
+## Docker Networking
+
+- Docker networking is primarily used to establish communication between Docker containers and the outside world via the host machine where the Docker daemon is running.
+
+### Network Drivers
+
+-Docker’s networking subsystem is pluggable, using drivers. Several drivers exist by default, and provide core networking functionality.
+
+#### Bridge
+
+- The default driver.
+- Bridge networks are usually used when your applications run in standalone containers that need to communicate with each others.
+
+#### Host
+
+- Disables Docker's network isolation.
+- It means that containers see and use exactly the same network as the host.
+
+#### None
+
+- The none network driver does not attach containers to any network.
+- Containers do not access the external network or communicate with other containers.
+
+#### overlay
+
+- Overlay networks connect multiple Docker daemons together and enable swarm services to communicate with each other.
+- You can also use overlay networks to facilitate communication between a swarm service and a standalone container, or between two standalone containers on different Docker daemons.
+
+#### ipvlan
+
+- IPvlan networks give users total control over both IPv4 and IPv6 addressing.
+- The VLAN driver builds on top of that in giving operators complete control of layer 2 VLAN tagging and even IPvlan L3 routing for users interested in underlay network integration.
+
+#### macvlan
+
+- Macvlan networks allow you to assign a MAC address to a container, making it appear as a physical device on your network.
+- The Docker daemon routes traffic to containers by their MAC addresses.
+- Using the macvlan driver is sometimes the best choice when dealing with legacy applications that expect to be directly connected to the physical network, rather than routed through the Docker host’s network stack.
+
+#### 3rd-party networks
+
+- You can install and use third-party network plugins with Docker.
+- Third-party network plugins allow you to integrate Docker with specialized network stacks.
+- These plugins are available from Docker Hub or from third-party vendors.
+
+### Network Common CLI commands
+
+- `docker network create [OPTIONS] NETWORK` : Create a network
+- `docker network connect [OPTIONS] NETWORK CONTAINER` : Connect a container to a network
+- `docker network disconnect [OPTIONS] NETWORK CONTAINER` : Disconnect a container from a network
+- `docker network inspect [OPTIONS] NETWORK [NETWORK...]` : Display detailed information on one or more networks
+- `docker network inspect [OPTIONS] DRIVER [DRIVER...]` : Display detailed information on one or more network drivers
+- `docker network ls` : List networks
+- `docker network prune` : Remove all unused networks
+- `docker network rm NETWORK [NETWORK...]` : Remove one or more networks
+- `docker run --network=NETWORK IMAGE` : Run a container and connect it to NETWORK network
