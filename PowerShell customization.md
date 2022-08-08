@@ -27,19 +27,24 @@ oh-my-posh is a PowerShell module which helps to decorate our PowerShell window 
 
 ## Customization
 
-1. Install fonts
-   1. Choose from this [website](https://www.nerdfonts.com/font-downloads)
-   2. Choose `Caskaydia Cove Nerd Font`
+### Fonts
 
-2. Apply font
+   1. Install fonts
+      - Choose from this [website](https://www.nerdfonts.com/font-downloads)
+      - Choose `Caskaydia Cove Nerd Font`
 
-   - Right-click on the PowerShell window top-bar for more options, go to Properties and then to Font.
-   - Select `Caskaydia Cove NF` from the available options and click OK
+   2. Apply font
+      - Right-click on the PowerShell window top-bar for more options, go to Properties and then to Font.
+      - Select `Caskaydia Cove NF` from the available options and click OK
 
-3. Choose Theme
+### Themes
 
-   - Check for available themes, `Get-PoshThemes`
-   - Or get this [theme](https://gist.github.com/shanselman/1f69b28bfcc4f7716e49eb5bb34d7b2c?WT.mc_id=-blog-scottha)
+   1. Choose Theme
+      - Check for available themes, `Get-PoshThemes`
+      - Or get this [theme](https://gist.github.com/shanselman/1f69b28bfcc4f7716e49eb5bb34d7b2c?WT.mc_id=-blog-scottha)
+
+   2. Apply Theme:
+      - A custom one `oh-my-posh --init --shell pwsh --config ~/jandedobbeleer.omp.json | Invoke-Expression`
 
 ## Creating a profile file
 
