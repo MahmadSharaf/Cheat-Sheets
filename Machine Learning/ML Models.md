@@ -41,18 +41,21 @@ This is in contrast to unsupervised machine learning where we don't have labels 
 #### Linear Regression  
 
 $$
-\hat{y} = \hat{w_0}x_0 + \hat{w_1} x_1 + ... \hat{w_n} x_n + \hat{b}
+f(x) = \hat{y} = \hat{w}^{(0)}x^{(0)} + \hat{w}^{(1)} x^{{1}} + ... \hat{w}^{(i)} x^{(i)} + \hat{b}
 $$
 
 - Notations:
   - The hat(^) is an indication that the parameter is estimated during training process.  
+  - $y$:  is the true value for that training example, referred to as the output variable, or “target”.
   - **$\hat{y}$**: the predicted output.  
-  - **$\hat{w_i}$**: the model coefficients or feature weights.  
+  - **$x^{(i)}$**: the input feature.  
+  - **$\hat{w}^{(i)}$**: the model coefficients or feature weights.  
   - **$\hat{b}$**: the biased term or intercept of the model.
+  - **$f(x)$**: The hypothesis or the model function that used to predict an estimated output $\hat{y}$ of the input features $x$.
 
 - Impact of changing the values:
-  - If we increase $\hat{w_i}$, we increase the slope so the line rotates counterclockwise.
-  - If we decrease $\hat{w_i}$, we decrease the slope so the line rotates clockwise.
+  - If we increase $\hat{w}^{(i)}$, we increase the slope so the line rotates counterclockwise.
+  - If we decrease $\hat{w}^{(i)}$, we decrease the slope so the line rotates clockwise.
   - If we increase $\hat{b}$, the line maintains its slope but moves up.
   - If we decrease $\hat{b}$, the line maintains its slope but moves down.
 
@@ -173,9 +176,9 @@ $$
 - like ordinary least squares and other regression methods, logistic regression takes a set input variables, the features, and estimates a target value.
 - Unlike ordinary linear regression, in it's most basic form logistic repressions target value is a binary variable instead of a continuous value.
 - There are flavors of logistic regression that can also be used in cases where the target value to be predicted is a multi class categorical variable, not just binary.
-- Logistic regression is similar to linear regression, but with one critical addition. The logistic regression model still computes a weighted sum of the input features xi and the intercept term b (like in linear regression), but it runs this result through a special non-linear function f, the logistic function represented by this new box in the middle of the diagram to produce the output y. The effect of applying the logistic function is to compress the output of the linear function so that it's limited to a range between 0 and 1. Below the diagram, you can see the formula for the predicted output y hat which first computes the same linear combination of the inputs xi, model coefficient weights wi hat and intercept b hat, but runs it through the additional step of applying the logistic function to produce y hat.
-- If we pick different values for b hat and the w hat coefficients, we'll get different variants of this s shaped logistic function, which again is always between 0 and 1.
-- To perform logistic, regression in Scikit-Learn, you import the logistic regression class from the sklearn.linear model module, then create the object and call the fit method using the training data just as you did for other class files like k nearest neighbors.
+- Logistic regression is similar to linear regression, but with one critical addition. The logistic regression model still computes a weighted sum of the input features $\hat{x}^{(i)}$ and the intercept term $b$ (like in linear regression), but it runs this result through a special non-linear function $f$, the logistic function represented by this new box in the middle of the diagram to produce the output $y$. The effect of applying the logistic function is to compress the output of the linear function so that it's limited to a range between 0 and 1. Below the diagram, you can see the formula for the predicted output $\hat{y}$ which first computes the same linear combination of the inputs $\hat{x}^{(i)}$, model coefficient weights $\hat{w}^{(i)}$ and intercept $\hat{b}$, but runs it through the additional step of applying the logistic function to produce $\hat{y}$.
+- If we pick different values for $\hat{b}$ and the $\hat{w}$ coefficients, we'll get different variants of this S shaped logistic function, which again is always between 0 and 1.
+- To perform logistic, regression in `Scikit-Learn`, you import the logistic regression class from the sklearn. linear model module, then create the object and call the fit method using the training data just as you did for other class files like k nearest neighbors.
 
     ```python
     from sklearn.linear_model import LogisticRegression
