@@ -13,10 +13,9 @@
     - [2. Qualitative or categorical types (non-numeric types)](#2-qualitative-or-categorical-types-non-numeric-types)
       - [Categorical Ordinal vs. Categorical Nominal](#categorical-ordinal-vs-categorical-nominal)
     - [Quantitative vs. Categorical](#quantitative-vs-categorical)
-  - [Descriptive vs. Inferential Statistics](#descriptive-vs-inferential-statistics)
+  - [Statistical Notations](#statistical-notations)
   - [Descriptive (Summary) Statistics](#descriptive-summary-statistics)
     - [Analyzing Categorical Data](#analyzing-categorical-data)
-      - [Terminologies](#terminologies)
     - [Analyzing Quantitative Data](#analyzing-quantitative-data)
       - [1. Measure of center](#1-measure-of-center)
         - [1.1 The Mean](#11-the-mean)
@@ -33,16 +32,7 @@
       - [4. Outliers](#4-outliers)
         - [Common Techniques](#common-techniques)
         - [Outliers Advice](#outliers-advice)
-  - [Probability](#probability)
-    - [Probability Notations](#probability-notations)
-    - [Probability Rules](#probability-rules)
-    - [Probability Terminologies](#probability-terminologies)
-    - [Probability Methods](#probability-methods)
-      - [1. Unconditional Probability (Independent)](#1-unconditional-probability-independent)
-        - [Binomial Distribution](#binomial-distribution)
-      - [2. Conditional Probability (Dependent)](#2-conditional-probability-dependent)
-        - [Bayes Rule](#bayes-rule)
-      - [3. Normal Distribution](#3-normal-distribution)
+  - [Descriptive vs. Inferential Statistics](#descriptive-vs-inferential-statistics)
   - [Inferential Statistics](#inferential-statistics)
     - [1. Sampling Distribution](#1-sampling-distribution)
       - [Proportions (or Means) Characteristic](#proportions-or-means-characteristic)
@@ -69,7 +59,16 @@
       - [Drawbacks](#drawbacks)
       - [Evaluating multiple metrics](#evaluating-multiple-metrics)
       - [Difficulties in A/B Testing](#difficulties-in-ab-testing)
-  - [Statistical Notations](#statistical-notations)
+  - [Probability](#probability)
+    - [Probability Notations](#probability-notations)
+    - [Probability Rules](#probability-rules)
+    - [Probability Terminologies](#probability-terminologies)
+    - [Probability Methods](#probability-methods)
+      - [1. Unconditional Probability (Independent)](#1-unconditional-probability-independent)
+        - [Binomial Distribution](#binomial-distribution)
+      - [2. Conditional Probability (Dependent)](#2-conditional-probability-dependent)
+        - [Bayes Rule](#bayes-rule)
+      - [3. Normal Distribution](#3-normal-distribution)
   - [Machine Learning](#machine-learning)
     - [1. Supervised Machine Learning](#1-supervised-machine-learning)
       - [1.1 Simple Linear Regression](#11-simple-linear-regression)
@@ -231,42 +230,21 @@ Gender, Letter Grade, Breakfast Type, Marital Status, and Zip Code can be though
 | ----------- | --------------------------- | --------------------------------------- |
 | Examples    | Letter Grade, Survey Rating | Gender, Marital Status, Breakfast Items |
 
-## Descriptive vs. Inferential Statistics
+## Statistical Notations
 
-How Inferential Statistics differs from Descriptive Statistics.
+It is commonly to use Greek symbols as parameters and lowercase letters as the corresponding statistics. Sometimes in the literature, you might also see the same Greek symbols with a "hat" to represent that this is an estimate of the corresponding parameter.
 
-1. Descriptive Statistics
+Below is a table that provides some of the most common parameters and corresponding statistics.
 
-    Descriptive statistics is about describing our collected data using the measures: measures of center, measures of spread, shape of our distribution, and outliers. We can also use plots of our data to gain a better understanding.
+All **parameters** pertain to a population, while all **statistics** pertain to a sample.
 
-   1. Population: our entire group of interest.
-   2. Parameter: Numeric summary about a population. Frequently we do not know this value, so we must try and estimate.
-   3. Sample: Subset of the population.
-   4. Statistic: Numeric summary about a sample.
-
-2. Inferential Statistics
-
-    Inferential Statistics is about using our collected data to draw conclusions to a larger population. Performing inferential statistics will require that we take a sample that accurately represents our population of interest.
-
-    A common way to collect data is via a survey. However, surveys may be extremely biased depending on the types of questions that are asked, and the way the questions are asked. This is a topic you should think about when tackling the first project.
-
-    Inference: Drawing conclusions regarding a population using information from a sample.
+![Notation Table](images/Notation_table.png)
 
 ## Descriptive (Summary) Statistics
 
 ### Analyzing Categorical Data
 
 Categorical data is analyzed usually by looking at the counts or proportion of individuals that fall into each group. For example, if we were looking at the breeds of the dogs, we would care about how many dogs are of each breed, or what proportion of dogs are of each breed type.
-
-**_Inferential Statistics_** is about using our collected data to draw conclusions to a larger population.
-
-#### Terminologies
-
-1. **Population**: our entire group of interest.
-2. **Parameter**: numeric summary about a population
-3. **Sample**: subset of the population
-4. **Statistic**: numeric summary about a sample
-5. **Inference**: Drawing conclusions regarding a population using information from a sample.
 
 ### Analyzing Quantitative Data
 
@@ -465,152 +443,30 @@ Below are my guidelines for working with any column (random variable) in your da
 
 ---
 
-Side note
+**Side note**:
 If you aren't sure if your data are normally distributed, there are plots called [normal quantile plots](http://data.library.virginia.edu/understanding-q-q-plots/) and statistical methods like the [Kolmogorov-Smirnov](https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test) test that are aimed to help you understand whether or not your data are normally distributed. Implementing this test is beyond the scope of this class but can be used as a fun fact.
 
 ---
 
-## Probability
+## Descriptive vs. Inferential Statistics
 
-- **Statistics** and **Probability** are different but strongly related fields of mathematics.
-- In probability, we make *predictions* of future events based on models or causes that we assume.
-- In statistics, we *analyze* the past events to infer what those models or causes could be.
+How Inferential Statistics differs from Descriptive Statistics.
 
-![Probability vs Statistics](images/probability_vs_statistics.png)
+- **Population**: our entire group of interest.
+- **Sample**: Subset of the population.
+- **Statistic**: Numeric summary about a sample.
+- **Parameter**: Numeric summary about a population. Frequently we do not know this value, so we must try and estimate.
+- **Inference**: Drawing conclusions regarding a population using information from a sample.
 
-### Probability Notations
+1. Descriptive Statistics
 
-**P**: Probability of event  
-**1-P**: Probability of opposite event  
-**P(H)**: Probability of output H  
-**P\*P\*P**: Probability of composite event
+    Descriptive statistics is about describing our collected data using the measures: measures of center, measures of spread, shape of our distribution, and outliers. We can also use plots of our data to gain a better understanding.
 
-### Probability Rules
+2. Inferential Statistics
 
-1. The probability of any event must be between 0 and 1, inclusive.
-2. The probability of the complement event is 1 minus the probability of an event. That is the probability of all other possible events is 1 minus the probability an event itself. Therefore, the sum of all possible events is equal to 1.
-3. If our events are independent, then the probability of the string of possible events is the product of those events. That is the probability of one event AND the next AND the next event, is the product of those events.
+    Inferential Statistics is about using our collected data to draw conclusions to a larger population. Performing inferential statistics will require that we take a sample that accurately represents our population of interest.
 
-### Probability Terminologies
-
-1. [Sensitivity vs Specificity](https://www.differencebetween.com/difference-between-sensitivity-and-vs-specificity/)
-
-   - Sensitivity: It measures the probability of actual positives.  
-  Sensitivity = Number of true positives /[ Number of true positives + Number of false negatives]
-   - Specificity: It measures the probability of actual negatives.  
-  Specificity = Number of true negatives / [Number of true negatives+ Number of false positives]  
-  <img src="images/Difference-Between-Sensitivity-and-Specificity_Figure-1.png" alt="Sensitivity vs Specificity" width="300"/>
-
-### Probability Methods
-
-#### 1. Unconditional Probability (Independent)
-
-Formulas:
-
-n is the number of "events", x is the number of "successes", and p is the probability of "successes".
-
-- No. of successful occurrences:  
-![successful occurrences](images/successful%20occurrences.png)
-- No. of iterations or Truth table length:  
-![iterations](images/iterations.png)
-- [Probability mass function](https://en.wikipedia.org/wiki/Probability_mass_function):  
-![iterations](images/Probability%20mass%20function.png)
-
-This term is maximized when x is exactly the half of n.
-
-Use Cases:
-
-We can now use this distribution to determine the probability of things like:
-
-- The probability of 3 heads occurring in 10 flips.
-- The probability of observing 8 or more heads occurring in 10 flips.
-- The probability of not observing any heads in 20 flips.
-
-Some Facts:
-
-The truth is that in practice, you will commonly be working with data, which might follow a binomial distribution. So it is less important to calculate these probabilities (though this can be useful in some cases), and it is more important that you understand what the Binomial Distribution is used for, as it shows up in a lot of modeling techniques in machine learning, and it can sneak up in our datasets with tracking any outcome with two possible events.
-
-One of the most popular places you see the Binomial distribution is in logistic regression.
-
-##### Binomial Distribution
-
-The Binomial Distribution helps us determine the probability of a string of independent events with exactly two outcomes 'coin flip like events'.
-
-#### 2. Conditional Probability (Dependent)
-
-Often events are not independent like with coin flips and dice rolling. Instead, the outcome of one event depends on an earlier event.
-
-For example, the probability of obtaining a positive test result is dependent on whether or not you have a particular condition. If you have a condition, it is more likely that a test result is positive.
-
-Formulas:
-
-Conditional probabilities for any two events
-
-P(A∣B) = P(B) / P(A ∩ B)​
-
-In this case, we could have this as:  
-P(positive∣disease) = P(disease) / P(positive ∩ disease)​.
-
-where | represents "given" and ∩ represents "and".
-
-##### Bayes Rule
-
-It describes the probability of an event, based on prior knowledge of conditions that might be related to the event.
-
-[Bayes Rule Formula](https://en.wikipedia.org/wiki/Bayes'_theorem):
-
-![Bayes Rule Formula](images/Bayes%20Rule.png)
-
-where A and B are events and P(B) ≠ 0.
-
-- P(A ∣ B) is a conditional probability: the likelihood of event A occurring given that B is true.
-- P(B ∣ A) is also a conditional probability: the likelihood of event B occurring given that A is true.
-- P ( A ) and P ( B ) are the probabilities of observing A and B respectively; they are known as the marginal probability.
-
-Prior Probability . Test Evidence -> Posterior probability
-
-Case Study:
-
-1% of the population has cancer. Given that there is a 90% chance that you will test positive if you have cancer and that there is a 90% chance you will test negative if you don't have cancer, what is the probability that you have cancer if you test positive?
-
-Prior:  
-P(C) = 0.01 = 1%  
-P(¬ C) = 0.99 = 99%
-
-P(Pos | C) = 0.9  
-P(Neg | C) = 0.1
-
-P(Neg | ¬C) = 0.9  
-P(Pos | ¬C) = 0.1
-
-Joint:  
-P(C,Pos) = P(C) . P(Pos | C) = 0.01 . 0.9 = 0.09  
-P(¬C,Pos) = P(¬C) . P(Pos | ¬C) = 0.99 . 0.1 = 0.099
-
-Normalizer:  
-P(C,Pos) + P(¬C,Pos) = 0.09 + 0.099 = 0.108
-
-Posterior:  
-P(C,Pos) = 0.09 / 0.108 = 0.083
-P(¬C,Pos) = 0.099 / 0.108 = 0.9166
-
-#### 3. Normal Distribution
-
-It is the basis of statistics in such that all of the testing and confidence intervals are defined through the normal distribution.
-
-Formula:
-
-Where N is the number of event, x  , μ mean, $σ^2$ variance,
-
-![Normal Distribution Formula](images/Normal_Distribution_Formula.png)
-![Normal Distribution Curve](images/Normal_Distribution_Curve.png)
-
-- $(x-μ)^2$: makes the formula quadratic.
-- $σ^2$: the division by variance flattens the curve in direct proportion relationship.
-- -1/2: the negative sign inverses the curve and multiplication by 1/2 increases the flatness.
-- The maximum value for this term is when x equals μ which leads to $e^0=1$
-- The minimum value will be when x equals to ±∞ which leads to $(e^{-∞})$.
-- The area underneath the formula curve doesn't add to 1 it adds to √(2πσ^2 ) that is why it has to be normalized with this value.
+    A common way to collect data is via a survey. However, surveys may be extremely biased depending on the types of questions that are asked, and the way the questions are asked. This is a topic you should think about when tackling the first project.
 
 ## Inferential Statistics
 
@@ -913,15 +769,144 @@ There are many factors to consider when designing an A/B test and drawing conclu
 - Practical significance of a conversion rate (the cost of launching a new feature vs. the gain from the increase in conversion)
 - Consistency among test subjects in the control and experiment group (imbalance in the population represented in each group can lead to situations like [Simpson's Paradox](#simpsons-paradox))
 
-## Statistical Notations
+## Probability
 
-It is commonly to use Greek symbols as parameters and lowercase letters as the corresponding statistics. Sometimes in the literature, you might also see the same Greek symbols with a "hat" to represent that this is an estimate of the corresponding parameter.
+- **Statistics** and **Probability** are different but strongly related fields of mathematics.
+- In probability, we make _predictions_ of future events based on models or causes that we assume.
+- In statistics, we _analyze_ the past events to infer what those models or causes could be.
 
-Below is a table that provides some of the most common parameters and corresponding statistics.
+![Probability vs Statistics](images/probability_vs_statistics.png)
 
-All **parameters** pertain to a population, while all **statistics** pertain to a sample.
+### Probability Notations
 
-![Notation Table](images/Notation_table.png)
+**P**: Probability of event  
+**1-P**: Probability of opposite event  
+**P(H)**: Probability of output H  
+**P\*P\*P**: Probability of composite event
+
+### Probability Rules
+
+1. The probability of any event must be between 0 and 1, inclusive.
+2. The probability of the complement event is 1 minus the probability of an event. That is the probability of all other possible events is 1 minus the probability an event itself. Therefore, the sum of all possible events is equal to 1.
+3. If our events are independent, then the probability of the string of possible events is the product of those events. That is the probability of one event AND the next AND the next event, is the product of those events.
+
+### Probability Terminologies
+
+1. [Sensitivity vs Specificity](https://www.differencebetween.com/difference-between-sensitivity-and-vs-specificity/)
+
+   - Sensitivity: It measures the probability of actual positives.  
+  Sensitivity = Number of true positives /[ Number of true positives + Number of false negatives]
+   - Specificity: It measures the probability of actual negatives.  
+  Specificity = Number of true negatives / [Number of true negatives+ Number of false positives]  
+  <img src="images/Difference-Between-Sensitivity-and-Specificity_Figure-1.png" alt="Sensitivity vs Specificity" width="300"/>
+
+### Probability Methods
+
+#### 1. Unconditional Probability (Independent)
+
+- **Notations**:
+  - $n$: is the number of "events"
+  - $x$: is the number of "successes"
+  - $p$: is the probability of "successes"
+
+- **Formulas**:
+  - No. of successful occurrences:
+  $$\frac{n!}{x!(n-x)!}$$
+  - No. of iterations or Truth table length:
+  $$P^x$$
+  - [Probability mass function](https://en.wikipedia.org/wiki/Probability_mass_function):  
+  $$ P(X = x) = \frac{n!}{x!(n-x)!} . P^x . (1-P)^{n-x}$$
+    - This term is maximized when $x$ is exactly the half of $n$.
+
+- **Use Cases**:  
+We can now use this distribution to determine the probability of things like:
+  - The probability of 3 heads occurring in 10 flips.
+  - The probability of observing 8 or more heads occurring in 10 flips.
+  - The probability of not observing any heads in 20 flips.
+
+Some Facts:
+
+The truth is that in practice, you will commonly be working with data, which might follow a binomial distribution. So it is less important to calculate these probabilities (though this can be useful in some cases), and it is more important that you understand what the Binomial Distribution is used for, as it shows up in a lot of modeling techniques in machine learning, and it can sneak up in our datasets with tracking any outcome with two possible events.
+
+One of the most popular places you see the Binomial distribution is in logistic regression.
+
+##### Binomial Distribution
+
+The Binomial Distribution helps us determine the probability of a string of independent events with exactly two outcomes 'coin flip like events'.
+
+#### 2. Conditional Probability (Dependent)
+
+- Often events are not independent like with coin flips and dice rolling. Instead, the outcome of one event depends on an earlier event.
+- For example, the probability of obtaining a positive test result is dependent on whether or not you have a particular condition. If you have a condition, it is more likely that a test result is positive.
+
+- **Notations**:
+  - $A,B$: Events
+  - $|$ : Given
+  - $\cap$: Set intersection
+  - $P(A|B)$: It is a conditional probability. The likelihood of event A occurring given that B is true.
+  - $P(A \cap B)$: The likelihood of event A and B are occurring at the same time.
+  - $P(A), P(B)$: They are known as the marginal probability. They are the probabilities of observing A and B respectively.
+
+- **Formulas**:
+  - Conditional probabilities for any two events:
+  $$P(A∣B) = \frac{P(B)}{P(A \cap B)}​$$
+
+##### Bayes Rule
+
+It describes the probability of an event, based on prior knowledge of conditions that might be related to the event.
+
+- **[Bayes Rule Formula](https://en.wikipedia.org/wiki/Bayes'_theorem)**:
+$$P(A|B) = \frac{P(B|A)P(A)}{P(B)}$$
+$$P(A|B) = \frac{P(B|A)P(A)}{P(B|A)P(A) + P(B|\neg A)P(\neg A)}$$
+  - where $A$ and $B$ are events and $P(B) \neq 0$.
+
+Prior Probability . Test Evidence -> Posterior probability
+
+- **Case Study**:
+  _1% of the population has cancer. Given that there is a 90% chance that you will test positive if you have cancer and that there is a 90% chance you will test negative if you don't have cancer, what is the probability that you have cancer if you test positive?_
+
+  Prior:  
+  P(C) = 0.01 = 1%  
+  P(¬ C) = 0.99 = 99%
+
+  P(Pos | C) = 0.9  
+  P(Neg | C) = 0.1
+
+  P(Neg | ¬C) = 0.9  
+  P(Pos | ¬C) = 0.1
+
+  Joint:  
+  P(C,Pos) = P(C) . P(Pos | C) = 0.01 . 0.9 = 0.09  
+  P(¬C,Pos) = P(¬C) . P(Pos | ¬C) = 0.99 . 0.1 = 0.099
+
+  Normalizer:  
+  P(C,Pos) + P(¬C,Pos) = 0.09 + 0.099 = 0.108
+
+  Posterior:  
+  P(C,Pos) = 0.09 / 0.108 = 0.083
+  P(¬C,Pos) = 0.099 / 0.108 = 0.9166
+
+#### 3. Normal Distribution
+
+- It is the basis of statistics in such that all of the testing and confidence intervals are defined through the normal distribution.
+
+- **Notation**:
+  - $N$: Number of event $x$
+  - $\mu$: Mean
+  - $\sigma ^2$: Variance
+
+- **Formula**:
+  - Normal Distribution:
+  $$N(x;\mu , \sigma ^2) = \frac{1}{\sqrt{2\pi \sigma ^2}}e^{-\frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}}$$
+
+![Normal Distribution Curve](images/Normal_Distribution_Curve.png)
+
+- $(x-μ)^2$: makes the formula quadratic.
+- $σ^2$: the division by variance flattens the curve in direct proportion relationship.
+- $-1/2$: the negative sign inverses the curve and multiplication by 1/2 increases the flatness.
+- The maximum value for this term is when x equals μ which leads to $e^0=1$
+- The minimum value will be when x equals to ±∞ which leads to $(e^{-∞})$.
+- The area underneath the formula curve doesn't add to 1 it adds to $\sqrt{(2πσ^2)}$ that is why it has to be normalized with this value.
 
 ## Machine Learning
 
