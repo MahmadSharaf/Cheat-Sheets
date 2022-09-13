@@ -474,14 +474,24 @@ Inferential Statistics is about using our collected data to draw conclusions to 
 
 ### 1. Sampling Distribution
 
-![Sampling Distribution](images/Sampling_Distribution.png)  
-![Sampling Distribution Example](images/Sampling_Distribution_Example.png)
+- A sampling distribution is the distribution of a statistic when we look at the distributions of the proportions of all samples of same size.
 
-A sampling distribution is the distribution of a statistic when we look at the distributions of the proportions of all samples of same size (ex: size 5).
+- **Use case**
+  - In the below image, let the green cups are for persons who drink coffee and the red ones are for who don't.
+  - If we took a sample of size 5 cups, the statistic will be different for each group of 5.
+    - For example, the 5 cups at the top right corner, contains 4 red cups and 1 green cup. So the statistic for persons who drink coffee is 20%.
+    - While for the 5 cups at the mid bottom, that contains 2 red cups and 3 green cups, have statistic of 60% for persons who drink coffee.
 
-- P: The mean of the sampling distribution.
-- P(1-P): The variance of the original 1,0 values.
-- P(1-P)/n: The variance of the proportions calculated from n randomly selected values iterated xxx times.
+    ![Sampling Distribution Example](images/Sampling_Distribution_Example.png)
+
+  - So if we look at the distribution of the proportions across all samples of size 5, as in the below image, this is known as sampling distribution.
+
+    ![Sampling Distribution](images/Sampling_Distribution.png)  
+
+- Notations:
+  - $P$: The mean of the sampling distribution.
+  - $P*(1-P)$: The variance of the original 1,0 values.
+  - $P*(1-P)/n$: The variance of the proportions calculated from n randomly selected values iterated x times. It is commonly called the **variance of the sampling distribution**
 
 #### Proportions (or Means) Characteristic
 
@@ -508,21 +518,21 @@ Two important mathematical theorems for working with sampling distributions incl
 
 2. Central Limit Theorem:
 
-    The **Central Limit Theorem** states that with a **large enough sample size** the **sampling distribution of the mean will be normally distributed**.
+    The **Central Limit Theorem** states that with a **large enough sample size**,**the sampling distribution of the mean will be normally distributed**.
 
     Facts:
     1. It applies for additional statistics, but it doesn't apply for all statistics!
-    2. In case of a population size of 3000; the Central Limit Theorem applies to the sample mean of 100 draws from a right-skewed distribution. However, it did not apply to a sample size of 3 draws from this same distribution.
-    3. With large sample sizes the sampling distribution of certain statistics will never become normally distributed. So how do we know which statistics will follow normal distributions, and which will not?
-    4. The Central Limit Theorem applies for these statistics:
-       1. Sample means (x¯)
-       2. Sample proportions (p)
-       3. Difference in sample means (x¯1−x¯2​)
-       4. Difference in sample proportions (p1−p2)
-    5. However it doesn't apply to:
-       1. Sampling distribution for the variance (S^2)
-       2. Correlation coefficient (r)
-       3. Sampling distribution of sampling value in dataset (x(n))
+       Ex: In case of a population size of 3000 with a right-skewed distribution; the Central Limit Theorem applies to a sample mean of 100 draws. However, it doesn't apply to a sample size of 3 draws from this same distribution.
+    2. With large sample sizes the sampling distribution of certain statistics will never become normally distributed. So how do we know which statistics will follow normal distributions, and which will not?
+    3. The Central Limit Theorem applies for these statistics:
+       1. Sample means ($\bar{x}$)
+       2. Sample proportions ($p$)
+       3. Difference in sample means ($\bar{x}_1−\bar{x}_2$​)
+       4. Difference in sample proportions ($p_1−p_2$)
+    4. However it doesn't apply to:
+       1. Sampling distribution for the variance ($S^2$)
+       2. Correlation coefficient ($r$)
+       3. Sampling distribution of sampling value in dataset ($x(n)$)
 
 ### 2. Bootstrapping
 
