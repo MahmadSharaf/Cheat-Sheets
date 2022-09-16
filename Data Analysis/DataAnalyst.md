@@ -737,6 +737,7 @@ Alternatively, machine learning techniques take an individual approach towards m
 
 - Using **confidence intervals** and **hypothesis testing**, you are able to provide **statistical significance** in making decisions.
 - However, it is also important to take into consideration **practical significance** in making decisions. **Practical significance** takes into consideration other factors of your situation that might not be considered directly in the results of your hypothesis test or confidence interval. Constraints like **space**, **time**, or **money** are important in business decisions. However, they might not be accounted for directly in a statistical test.
+- For example the comparison between two ads, one of them has a higher statistical significance but it costs more money.
 
 ### A/B Testing
 
