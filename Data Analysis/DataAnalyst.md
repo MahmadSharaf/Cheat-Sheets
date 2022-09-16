@@ -3,7 +3,7 @@
 - [Data Analysis](#data-analysis)
   - [Process Overview](#process-overview)
     - [Step 1: Ask questions (Extract)](#step-1-ask-questions-extract)
-    - [Step 2: Wrangle data (Clean)](#step-2-wrangle-data-clean)
+    - [Step 2: Wrangle data (Gather, Assess, Clean)](#step-2-wrangle-data-gather-assess-clean)
     - [Step 3: Perform EDA (Exploratory Data Analysis)](#step-3-perform-eda-exploratory-data-analysis)
     - [Step 4: Draw conclusions (or even make predictions)](#step-4-draw-conclusions-or-even-make-predictions)
     - [Step 5: Communicate your results (Share)](#step-5-communicate-your-results-share)
@@ -158,7 +158,7 @@
 
 Either you're given data and ask questions based on it, or you ask questions first and gather data based on that later. In both cases, great questions help you focus on relevant parts of your data and direct your analysis towards meaningful insights. Obtain the data from a spreadsheet, SQL, the web, etc.
 
-### Step 2: Wrangle data (Clean)
+### Step 2: Wrangle data (Gather, Assess, Clean)
 
 You get the data you need in a form you can work with in three steps: gather, assess, clean. You gather the data you need to answer your questions, assess your data to identify any problems in your data’s quality or structure, and clean your data by modifying, replacing, or removing data to ensure that your dataset is of the highest quality and as well-structured as possible.  
 **Here we could use exploratory visuals.**
@@ -549,16 +549,21 @@ Two important mathematical theorems for working with sampling distributions incl
 - We can use bootstrapping and sampling distributions to build confidence intervals for our parameters of interest.
 - By finding the statistic that best estimates our parameter(s) of interest (say the sample mean to estimate the population mean or the difference in sample means to estimate the difference in population means), we can easily build confidence intervals for the parameter of interest.
 
-![Confidence of Interval](images/Confidence_Interval.png)
+  ![Confidence of Interval](images/Confidence_Interval.png)
+
+- Confidence interval terms:
+  - Sample size: It is number of data points compared to the population.
+  - Confidence Level: It is the percentage of certainty or uncertainty in finding a population parameter. (ex: Mean of population)
+  - The confidence interval width: It is the difference between your upper and lower bounds of your confidence interval.
+  - The margin of error: It is half the confidence interval width, and the value that you add and subtract from your sample estimate to achieve your confidence interval final results
+
+  ![Confidence interval terms](images/Confidence_Interval_terms.png)
 
 It is important to understand the way that your sample size and confidence level relate to the confidence interval you achieve at the end of your analysis.
 
 - Assuming you control all other items of your analysis:
    1. Increasing your sample size will decrease the width of your confidence interval.
    2. Increasing your confidence level (say 95% to 99%) will increase the width of your confidence interval.
-- We can compute:
-   1. The confidence interval width as the difference between your upper and lower bounds of your confidence interval.
-   2. The margin of error is half the confidence interval width, and the value that you add and subtract from your sample estimate to achieve your confidence interval final results.
 
 #### Confidence Intervals (& Hypothesis Testing) vs. Machine Learning
 
@@ -812,7 +817,8 @@ There are many factors to consider when designing an A/B test and drawing conclu
   Sensitivity = Number of true positives /[ Number of true positives + Number of false negatives]
    - Specificity: It measures the probability of actual negatives.  
   Specificity = Number of true negatives / [Number of true negatives+ Number of false positives]  
-  <img src="images/Difference-Between-Sensitivity-and-Specificity_Figure-1.png" alt="Sensitivity vs Specificity" width="300"/>
+
+  ![Sensitivity vs Specificity](images/Difference-Between-Sensitivity-and-Specificity_Figure-1.png)
 
 ### Probability Methods
 
@@ -2376,7 +2382,7 @@ Note that data is a pandas Series, so we can use the `apply` method for the func
   - For example, rather than depicting the relationship between one numeric variable and one categorical variable using a violin plot or box plot, we could use faceting to look at a histogram of the numeric variable for subsets of the data divided by categorical variable levels.
   - Seaborn's [FacetGrid](https://seaborn.pydata.org/generated/seaborn.FacetGrid.html) class facilitates the creation of faceted plots.
   - There are two steps involved in creating a faceted plot.
-    - First, we need to create an instance of the FacetGrid object and specify the feature we want to facet by ("cat_var" in our example). 
+    - First, we need to create an instance of the FacetGrid object and specify the feature we want to facet by ("cat_var" in our example).
     - Then we use the map method on the FacetGrid object to specify the plot type and variable(s) that will be plotted in each subset (in this case, histogram on "num_var").
 
     ```py
