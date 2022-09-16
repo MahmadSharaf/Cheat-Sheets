@@ -34,14 +34,14 @@
         - [Outliers Advice](#outliers-advice)
   - [Descriptive vs. Inferential Statistics](#descriptive-vs-inferential-statistics)
   - [Inferential Statistics](#inferential-statistics)
-    - [1. Sampling Distribution](#1-sampling-distribution)
+    - [Sampling Distribution](#sampling-distribution)
       - [Proportions (or Means) Characteristic](#proportions-or-means-characteristic)
       - [Important mathematical theorems](#important-mathematical-theorems)
-    - [2. Bootstrapping](#2-bootstrapping)
-    - [3. Confidence Interval](#3-confidence-interval)
+    - [Bootstrapping](#bootstrapping)
+    - [Confidence Interval](#confidence-interval)
       - [Confidence Intervals (& Hypothesis Testing) vs. Machine Learning](#confidence-intervals--hypothesis-testing-vs-machine-learning)
       - [Confidence Interval Applications](#confidence-interval-applications)
-    - [3. Hypothesis Testing](#3-hypothesis-testing)
+    - [Hypothesis Testing](#hypothesis-testing)
       - [Hypothesis Testing Rules](#hypothesis-testing-rules)
       - [Hypothesis Testing Case Studies](#hypothesis-testing-case-studies)
       - [Hypothesis Testing Errors Types](#hypothesis-testing-errors-types)
@@ -472,7 +472,7 @@ How Inferential Statistics differs from Descriptive Statistics.
 
 Inferential Statistics is about using our collected data to draw conclusions to a larger population. Performing inferential statistics well requires that we take a sample that accurately represents our population of interest.
 
-### 1. Sampling Distribution
+### Sampling Distribution
 
 - A sampling distribution is the distribution of a statistic when we look at the distributions of the proportions of all samples of same size.
 
@@ -534,7 +534,7 @@ Two important mathematical theorems for working with sampling distributions incl
        2. Correlation coefficient ($r$)
        3. Sampling distribution of sampling value in dataset ($x(n)$)
 
-### 2. Bootstrapping
+### Bootstrapping
 
 - Bootstrapping is a technique where we sample from a group with replacement.
 - Bootstrapping is sampling with replacement. Using `random.choice` in python actually samples in this way. Where the probability of any number in our set stays the same regardless of how many times it has been chosen. Flipping a coin and rolling a die are kind of like bootstrap sampling as well, as rolling a 6 in one scenario doesn't mean that 6 is less likely later.
@@ -543,10 +543,13 @@ Two important mathematical theorems for working with sampling distributions incl
 - No more data needed to gain a better understanding of the parameter.
 - Bootstrapping has been using in leading machine learning algorithms. Additional notes on why bootstrapping works as a technique for inference can be found [here](https://stats.stackexchange.com/questions/26088/explaining-to-laypeople-why-bootstrapping-works)
 
-### 3. Confidence Interval
+### Confidence Interval
 
+- Confidence Interval is a range of values that helps to gain confidence in capturing a population parameter, ex: mean of population. Instead of guessing the mean of the entire population by calculating the mean of a sample of this population
 - We can use bootstrapping and sampling distributions to build confidence intervals for our parameters of interest.
 - By finding the statistic that best estimates our parameter(s) of interest (say the sample mean to estimate the population mean or the difference in sample means to estimate the difference in population means), we can easily build confidence intervals for the parameter of interest.
+
+![Confidence of Interval](images/Confidence_Interval.png)
 
 It is important to understand the way that your sample size and confidence level relate to the confidence interval you achieve at the end of your analysis.
 
@@ -565,10 +568,10 @@ It is important to understand the way that your sample size and confidence level
 #### Confidence Interval Applications
 
 - The effectiveness of two groups of drugs.
-- Comparing to different ways of teaching the same topic and see which way improves retention.
+- Comparing two different ways of teaching the same topic and see which way improves retention.
 - A/B testing: where comparing two different webpages to one another and determine which web design drives the largest amount of traffic. A/B testing is one of the most important to businesses around the world. In this technique, you are changing something about your web layout to understand how it impacts users. You ideally want to provide a page that leads to more clicks, higher revenue, and/or higher customer satisfaction.
 
-### 3. Hypothesis Testing
+### Hypothesis Testing
 
 - Hypothesis Testing and Confidence Intervals allow us to use only sample data to draw conclusions about an entire population.
 - You are always performing hypothesis tests on population parameters, never on statistics. Statistics are values that you already have from the data, so it does not make sense to perform hypothesis tests on these values.
