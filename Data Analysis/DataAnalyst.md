@@ -43,8 +43,8 @@
       - [Confidence Interval Applications](#confidence-interval-applications)
     - [Hypothesis Testing](#hypothesis-testing)
       - [Hypothesis Testing Rules](#hypothesis-testing-rules)
-      - [Hypothesis Testing Case Studies](#hypothesis-testing-case-studies)
       - [Hypothesis Testing Errors Types](#hypothesis-testing-errors-types)
+      - [Hypothesis Testing Case Studies](#hypothesis-testing-case-studies)
       - [Common hypothesis tests include](#common-hypothesis-tests-include)
       - [How to calculate Hypothesis](#how-to-calculate-hypothesis)
       - [Hypothesis Testing Types](#hypothesis-testing-types)
@@ -592,21 +592,6 @@ It is important to understand the way that your sample size and confidence level
 - $H_0$ contains an equal sign of some kind - either =, ≤, or ≥.
 - $H_1$​​ contains the opposition of the null - either ≠, >, or <.
 
-#### Hypothesis Testing Case Studies
-
-- Case Study #1:
-  - The statement, "Innocent until proven guilty" is one that suggests the following hypotheses are true:
-    - $H_0$​​: Innocent
-    - $H_1$​​: Guilty
-  - We can relate this to the idea that "innocent" is true before we collect any data. Then the alternative must be a competing, non-overlapping hypothesis. Hence, the alternative hypothesis is that an individual is guilty.
-
-- Case Study #2:
-  - We wanted to test if a new page was better than an existing page, we set that up in the alternative. Two indicators are that the null should hold the equality, and the statement we would like to be true should be in the alternative. Therefore, it would look like this:
-  - $H_0​​:μ1​≤μ2​$
-  - $H_1​​:μ1​>μ2$
-  - Here μ1​ represents the population mean return from the new page. Similarly, μ2​ represents the population mean return from the old page.
-  - Depending on your question of interest, you would change your null and alternative hypotheses to match.
-
 #### Hypothesis Testing Errors Types
 
 - **Type I**:
@@ -619,7 +604,34 @@ It is important to understand the way that your sample size and confidence level
   2. The definition of a type II error is: Deciding the null ($H_0$​) is true, when actually ($H_1$​​) is true.
   3. Type II errors are often called false negatives.
 
- In the most extreme case, we can always choose one hypothesis (say always choosing the null) to ensure that a particular error never occurs (never a type I error assuming we always choose the null). However, more generally, there is a relationship where with a single set of data decreasing your chance of one type of error, increases the chance of the other error occurring.
+  ![a](images/Hypothesis_error_types.png)
+
+- In the most extreme case, we can always choose one hypothesis (say always choosing the null) to ensure that a particular error never occurs (never a type I error assuming we always choose the null). However, more generally, there is a relationship where with a single set of data decreasing your chance of one type of error, increases the chance of the other error occurring.
+- So, professionals set a threshold for Type I errors that is allowed to occur, and then try to minimize Type II errors while still meeting the threshold.
+- Common Type I error threshold is 1%  in medical and 5% in business and Research.
+
+#### Hypothesis Testing Case Studies
+
+- Case Study #1:
+  - The statement, "Innocent until proven guilty" is one that suggests the following hypotheses are true:
+    - $H_0$​​: Innocent
+    - $H_1$​​: Guilty
+  - We can relate this to the idea that "innocent" is true before we collect any data. Then the alternative must be a competing, non-overlapping hypothesis. Hence, the alternative hypothesis is that an individual is guilty.
+
+- Case Study #2:
+  - We wanted to test if a new page was better than an existing page, we set that up in the alternative. Two indicators are that the null should hold the equality, and the statement we would like to be true should be in the alternative. Therefore, it would look like this:
+    - $H_0​​:μ_\text{old}​ \geq μ_\text{new}​$
+    - $H_1​​:μ_\text{old}​ < μ_\text{new}$
+  - Here $μ_\text{new}$​ represents the population mean return from the new page. Similarly, $μ_\text{old}$​ represents the population mean return from the old page.
+  - Depending on your question of interest, you would change your null and alternative hypotheses to match.
+
+- Case Study #3:
+  - This example let you see one of the most extreme cases of errors that might be committed in hypothesis testing.
+  - We want to check if the Parachute works. If the Parachute doesn't work but identified as working, then the individual will die. While if it works but identified to be not, then we will lose 30 dollars.
+  - Although, it is possible to choose any one to be the Null hypothesis. However, since identifying a parachute as working while it is not, is the worst type of error, so it will be Type I error. And Type I error decides that the Alternative to be True while it is not.
+  - So, in Type I error an individual died. In a Type II error, 30 dollars is lost.
+    - $H_0​$​: Fails
+    - $H_1​$​: Works
 
 #### Common hypothesis tests include
 
@@ -638,17 +650,58 @@ There are literally hundreds of different hypothesis tests! However, instead of 
 #### How to calculate Hypothesis
 
 1. Using Confidence Interval:
-   1. First we need to bootstrap a sample set of data and compute the sample mean again and again.
-   2. Build the sampling distribution
-   3. Calculate the confidence Intervals to determine what are the reasonable values for the population mean with some level of confidence.
-   4. Using your confidence interval, you can simply look at if the interval falls in the null hypothesis space or in the alternative hypothesis space to choose which hypothesis you believe to be true.
+   1. Take a sample from the full data, if exists.
+   2. Bootstrap this sample set of data and compute its parameter (ex:mean) many times (ex: 10,1000) to create a range of possibilities of the parameter.
+   3. Build the sampling distribution by plotting it.
+   4. Calculate the confidence Intervals to determine what are the reasonable values for the population mean with some level of confidence.
+   5. Using your confidence interval, you can simply look at if the interval falls in the null hypothesis space or in the alternative hypothesis space to choose which hypothesis you believe to be true.
+
+    ```py
+    # bootstrap a sample set of data
+    init_sample = full_data.sample(200)
+
+    # compute the sample mean again and again to build the sampling distribution.
+    means = []
+    for _ in range(10000):
+      boot_sample = init_sample.sample(200,replace = True)
+      means.append(boot_sample.col_name.mean())
+
+    # Calculate the confidence interval
+    lower_bound = np.percentile(means,2.5)
+    upper_bound = np.percentile(means,97.5)
+
+    # Plot the sampling distribution and the confidence interval
+    plt.hist(means)
+    plt.axvline(x=lower_bound, color='r')
+    plt.axvline(x=upper_bound, color='r')
+    ```
+
 2. Using Normal Distribution
    1. We assume the Null Hypothesis $H_0$ is True and we can imagine how the sampling distribution would look like if we were to simulate from the closest value under the Null Hypothesis to the Alternative Hypothesis $H_1$. This probability is called `p-value`
    2. Use the standard deviation of the sampling distribution to determine what the sampling distribution would look like, if it came from the Null Hypothesis.
    3. By applying Central Limit Theorem we know that the means would follow a normal distribution.
-   4. Using NumPy.random.normal library in Python, we can simulate draws from the normal using hypothesized mean and standard deviation of our sampling distribution. By setting the center to be the closest value under the Null Hypothesis to the Alternative Hypothesis $H_1$.
-   5. Each of the simulated draws will represent a mean from the Null Hypothesis.
-   6. Compare the actual sample  mean to this distribution, tells us the likelihood of our statistic coming from.
+   4. Using `numpy.random.normal` function from `Numpy` library in Python, we can simulate draws from the normal using hypothesized mean (Closet value under the Null Hypothesis) and the standard deviation of our sampling distribution.
+      - Each of the simulated draws will represent a mean from the Null Hypothesis.
+   5. Compare the actual sample mean to this distribution, tells us the likelihood of our statistic coming from the Null.
+
+    ```py
+    # null_mean = the closest value under the Null Hypothesis to the Alternative Hypothesis.
+
+    # compute the sample mean again and again to build the sampling distribution.
+    means = []
+    for _ in range(10000):
+      boot_sample = init_sample.sample(200,replace = True)
+      means.append(boot_sample.col_name.mean())
+
+    # Standard Deviation
+    std = np.std(means)
+
+    # Here are 10000 draws from the sampling distribution under the null
+    null_vals = np.random.normal(null_mean, std, 10000) 
+
+    plt.hist(null_vals);
+    # Compare the actual sample mean to this distribution, tells us the likelihood of our statistic coming from the Null.
+    ```
 
 #### Hypothesis Testing Types
 
@@ -658,10 +711,13 @@ There are literally hundreds of different hypothesis tests! However, instead of 
    - To calculate this value. The more extreme in favor of the alternative portion of this statement determines the shading associated with your p-value. Therefore, you have the following cases:
       1. If your parameter is greater than some value in the alternative hypothesis, your shading would look like this to obtain your p-value:  
       ![p-value smaller](images/p-value_smaller.png)
+      `pval = (null_vals > sample_mean).mean()`
       2. If your parameter is less than some value in the alternative hypothesis, your shading would look like this to obtain your p-value:  
-      ![p-value smaller](images/p-value_greater.png)
+      ![p-value greater](images/p-value_greater.png)
+      `pval = (null_vals < sample_mean).mean()`
       3. If your parameter is not equal to some value in the alternative hypothesis, your shading would look like this to obtain your p-value:  
-      ![p-value smaller](images/p-value_equal.png)
+      ![p-value equal](images/p-value_equal.png)
+      `p_val = (null_vals > sample_mean).mean() + (null_vals < null_mean + (null_mean - sample_mean)).mean()`
    - decision about which hypothesis we will choose.
       - small p-values suggest our null is not true. Rather, our statistic is likely to have come from a different distribution than the null.
       - When the p-value is large, we have evidence that our statistic was likely to come from the null hypothesis. Therefore, we do not have evidence to reject the null.
@@ -669,38 +725,37 @@ There are literally hundreds of different hypothesis tests! However, instead of 
       - $pval≤α⇒$ Reject $H_0$
       - $pval>α⇒$ Fail to Reject $H_0​$
    - There are two ways to be calculated in python as below:
-    1. Graphically:
 
-        ```py
-        sample_means = []
-        for _ in range(1000):
-          sample_mean.append(full_data.sample(5).height.mean())
+      ```py
+      #𝐻0:𝜇ℎ = 0
+      #𝐻1:𝜇ℎ ≠ 0
 
-        null_mean = 67.60
-        null_vals = np.random.normal(67.6,np.std(sample_means),10000);
-        sample_mean = sample1.height.mean()
-        upper_bound = sample_mean
-        lower_bound = null_mean - (sample_mean - null_mean)
-        plt.hist(null_vals);
-        plt.axvline(x=lower_bound, color='r')
-        plt.axvline(x=upper_bound, color='r')
-        # p-value is the shaded area according to the above graphs
-        ```
+      null_mean = 0
 
-    2. Theoretically
+      sample_data = full_data.sample(5)
+      sample_mean = sample_data.col_name.mean()
 
-        ```py
-        null_mean = 67.60  
-        # this is another way to compute the standard deviation of the sampling     distribution    theoretically  
-        std_sampling_dist = full_data.height.std()/np.sqrt(5)  
-        num_sims = 10000
+      sample_dist = []
+      for _ in range(10000):
+        sample_dist.append(sample_data.sample(5,replace = True).col_name.mean())
 
-        null_sims = np.random.normal(null_mean, std_sampling_dist, num_sims)  
-        low_ext = (null_mean - (sample1.height.mean() - null_mean))  
-        high_ext = sample1.height.mean()  
+      null_vals = np.random.normal(null_mean,np.std(sample_means),10000)
 
-        pval = (null_sims > high_ext).mean() + (null_sims < low_ext).mean()
-        ```
+      # If sample_mean is larger than null_mean
+      upper_bound = sample_mean
+      lower_bound = null_mean + (null_mean - sample_mean)
+      # While if sample_mean is smaller than null_mean
+      lower_bound = sample_mean
+      upper_bound = null_mean + (null_mean - sample_mean)
+
+      # p-value is the shaded area according to the above graphs
+      plt.hist(null_vals)
+      plt.axvline(x=lower_bound, color='r')
+      plt.axvline(x=upper_bound, color='r')
+      
+      # this is another way to compute the standard deviation of the sampling     distribution theoretically
+      pval = (null_vals > upper_bound).mean() + (null_vals < lower_bound).mean()
+      ```
 
 #### Hypothesis Testing Correction Methods
 
