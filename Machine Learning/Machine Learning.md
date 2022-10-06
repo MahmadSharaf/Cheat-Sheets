@@ -576,40 +576,9 @@ Selecting a subset of instances for training and testing
 - How training the model works:  
 ![Training Concept](ML%20images/Model-Training-Concept.png)
   - The model is given a specific set of features.
-  - The model predicts the classes for these features based upon the weights that was given to the features.
-  - Then the predictions are compared with the actual labels to compute the loss.
-  - Based on the loss computed, using a loss function, the model parameters (features weights) are updated to minimize the loss.
-  - [Loss function](#regression-metrics) is the measure of the error in the model predictions, given certain weights.
-- Optimization:  
-  - It is used to find the Minima.
-![Minima](ML%20images/Error_Parameter_plot.png)
-  - Minima is the minimum point in the plot between loss and parameters or the point with the least amount of error.
-  - It is often that there might more than one local Minima, in which the model might get stuck in local Minima instead of the Global Minima.
-![Global Minima](ML%20images/Error_Parameter_plot_Global_Minima.png)
-  - Ways to find the Global Minima:
-    - Comparing all possible values which is inefficient way.
-    - Gradient Descent  
-    ![Gradient Descent](ML%20images/Gradient%20Descent.png)  
-      - It is the searching for the Minima by taking a step into the direction where the point on the graph with negative gradient. Until it finds an positive gradient, then it reverses the direction to another point where has negative gradient. This process occurs until the Minima is found
-      - Learning Rate:
-        - It is how big is the step to be taken.
-        - If it too big, the local Minima will be hard to be found.
-        - If it too small, it will take too much time to be found.
-      - Drawbacks:
-        - Updates the parameters only after a pass through all the data (one epoch)
-        - Can't be used when data is too large to fit entirely in memory.
-        - Can get stuck at local Minima or fail to reach Global Minima.
-    - Stochastic Gradient Descent:
-      - It is the same as gradient descent except that the weights is updated at every data point.
-      - It is very fast to converge.
-      - The drawback is that it is very noisy, in such that the steps might be in several directions.
-    - Mini-Batch Gradient Descent:
-      - It uses mini batch of records, and then the parameters is updated.
-      - It is slower than SGD but faster than Gradient Descent.
-      - It doesn't consume much memory as SGD
-    - Gradient Descent Variations:  
-    ![Gradient Descent Variations](ML%20images/Gradient_Descent_Variations.png)
-  - To find the Minima, an equation is calculated which is the derivative of the plot when it is equals to zero. Which is the point where the slope is neither increase nor decreases.
+  - The model predicts the target for these features based upon the weights that was given to the features.
+  - Then the predictions are compared with the actual labels to compute the loss using a cost [function](#regression-metrics).
+  - Based on the loss computed, the model parameters (features weights) are updated, using an optimization algorithm, to minimize the loss.
 
 ### Model Tuning
 
