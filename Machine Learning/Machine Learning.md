@@ -1042,6 +1042,8 @@ Trivia: [Why superscripts are used instead of subscripts in loss functions](http
       - Ex: Converting Age column into columns of ranges. (0 to 7 years), (8 - 16 years) ....
   - Scaling:
     - It is a way of transforming the data into a common range of values.
+    - It is needed when the features have a very different range of values. Ex: feature_1 ranges from 1 to 10, while feature 2 ranges from 1000 to 10000.
+    - It is almost always beneficial to scale the features.
     - It can be used in many machine learning algorithms, the result will change depending on the units of the data.
       - **Distance-Based Metrics algorithms**:
         - Choosing some sort of feature scaling is necessary with these distance-based techniques
