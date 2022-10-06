@@ -5,6 +5,7 @@
     - [Linear Models](#linear-models)
       - [Linear Regression](#linear-regression)
         - [Model equation](#model-equation)
+        - [Cost functions](#cost-functions)
         - [Estimating parameters $\hat{b},\hat{w}$](#estimating-parameters-hatbhatw)
         - [Linear Regression Cons](#linear-regression-cons)
       - [Polynomial Regression](#polynomial-regression)
@@ -68,6 +69,55 @@ f_{w,b}(x) &= \overrightarrow{w} . \overrightarrow{x} + \hat{b} \newline
   - If we decrease $\hat{w}$, we decrease the slope so the line rotates clockwise.
   - If we increase $\hat{b}$, the line maintains its slope but moves up.
   - If we decrease $\hat{b}$, the line maintains its slope but moves down.
+
+- It can be coded using loop or vectorization.
+  - `numpy` function uses parallel hardware to efficiently calculate the dot product.
+
+  ```py
+  # For loop
+  f=0
+
+  for j in range(n):
+    f = f + w[j] * x[j]
+    f = f + b
+
+  # Vectorization
+  import numpy as np
+  f = np.dot(w,x) + b
+  ```
+
+##### Cost functions
+
+- **MSE** (Mean Squared Error)
+  $$J(w,b) = \frac{1}{2m}\sum_{i=1}^{m}​(\hat{y}^{(i)}−y^{(i)}​)^2$$
+
+  - Notations:
+    - $J(w,b)$: Cost function
+    - $m$: number of points in dataset
+    - $y^{(i)}$: actual target value
+    - $\hat{y}^{(i)}$: predicted target value
+
+  ```py
+  def compute_cost(X, y, w, b): 
+    """
+    compute cost
+    Args:
+      X (ndarray (m,n)): Data, m examples with n features
+      y (ndarray (m,)) : target values
+      w (ndarray (n,)) : model parameters  
+      b (scalar)       : model parameter
+      
+    Returns:
+      cost (scalar): cost
+    """
+    m = X.shape[0]
+    cost = 0.0
+    for i in range(m):                                
+        f_wb_i = np.dot(X[i], w) + b           #(n,)(n,) = scalar (see np.dot)
+        cost = cost + (f_wb_i - y[i])**2       #scalar
+    cost = cost / (2 * m)                      #scalar    
+    return cost
+  ```
 
 ##### Estimating parameters $\hat{b},\hat{w}$
 
