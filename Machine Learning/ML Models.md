@@ -4,6 +4,7 @@
   - [Supervised Machine Learning Algorithms](#supervised-machine-learning-algorithms)
     - [Linear Models](#linear-models)
       - [Linear Regression](#linear-regression)
+        - [Model equation](#model-equation)
         - [Estimating parameters $\hat{b},\hat{w}$](#estimating-parameters-hatbhatw)
         - [Linear Regression Cons](#linear-regression-cons)
       - [Polynomial Regression](#polynomial-regression)
@@ -40,22 +41,31 @@ This is in contrast to unsupervised machine learning where we don't have labels 
 
 #### Linear Regression  
 
-$$
-f(x) = \hat{y} = \hat{w}^{(0)}x^{(0)} + \hat{w}^{(1)} x^{{1}} + ... \hat{w}^{(i)} x^{(i)} + \hat{b}
-$$
+##### Model equation
+
+$$\begin{align*}
+f_{w,b}(x) &= \hat{y} \newline
+f_{w,b}(x) &= \hat{w_1}x_1 + \hat{w_2} x_2 + ... \hat{w_n} x_n + \hat{b} \newline
+f_{w,b}(x) &= \sum_{j=1}^{n}(w_jx_j)+\hat{b} \newline
+f_{w,b}(x) &= \overrightarrow{w} . \overrightarrow{x} + \hat{b} \newline
+\end{align*}$$
 
 - Notations:
   - The hat(^) is an indication that the parameter is estimated during training process.  
-  - $y$:  is the true value for that training example, referred to as the output variable, or “target”.
-  - **$\hat{y}$**: the predicted output.  
-  - **$x^{(i)}$**: the input feature.  
-  - **$\hat{w}^{(i)}$**: the model coefficients or feature weights.  
-  - **$\hat{b}$**: the biased term or intercept of the model.
   - **$f(x)$**: The hypothesis or the model function that used to predict an estimated output $\hat{y}$ of the input features $x$.
+  - **$\hat{y}$**: the predicted output.  
+  - **$x$**: the input features.  
+  - **$\hat{w}$**: parameter: the model coefficients or feature weights.  
+  - **$\hat{b}$**: parameter: the biased term or intercept of the model.
+  - **$n$**: the number of features.  
+  - **$x_j,w_j$**: the value and weight of $j^{th}$ feature.
+  - $\overrightarrow{w} = [w_1 \space w_2 \space w_3 ... w_n] \newline$
+  - $\overrightarrow{x} = [x_1 \space x_2 \space x_3 ... x_n] \newline$
+  - **$\overrightarrow{w} . \overrightarrow{x}$**: It is the dot product of vectors $w$ and $x$.
 
 - Impact of changing the values:
-  - If we increase $\hat{w}^{(i)}$, we increase the slope so the line rotates counterclockwise.
-  - If we decrease $\hat{w}^{(i)}$, we decrease the slope so the line rotates clockwise.
+  - If we increase $\hat{w}$, we increase the slope so the line rotates counterclockwise.
+  - If we decrease $\hat{w}$, we decrease the slope so the line rotates clockwise.
   - If we increase $\hat{b}$, the line maintains its slope but moves up.
   - If we decrease $\hat{b}$, the line maintains its slope but moves down.
 
