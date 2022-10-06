@@ -40,7 +40,7 @@ This is in contrast to unsupervised machine learning where we don't have labels 
 - The target value can be predicted just using a weighted sum of the input variables, a linear function.
 - It can get stable, but potentially inaccurate predictions.
 
-#### Linear Regression  
+#### Linear Regression
 
 ##### Model equation
 
@@ -126,15 +126,84 @@ f_{w,b}(x) &= \overrightarrow{w} . \overrightarrow{x} + \hat{b} \newline
 - `Squared loss function` returns the squared difference between the target value and the  actual value as the penalty.
 - The learning algorithm then computes or searches for the set of $\hat{w},\hat{b}$ parameters that optimize an objective function, typically to minimize the total of this loss function over all training points.
 - Ways to estimate the parameters:
-  1. Least Squares:
+  
+  1. Gradient descent:
+  $$
+  \begin{align*}
+  \text{repeat}&\text{ until convergence:} \; \lbrace \newline\;
+  & w_j = w_j -  \alpha \frac{\partial J(\mathbf{w},b)}{\partial w_j}  \; & \text{for j = 1..n}\newline
+  &b\ \ = b -  \alpha \frac{\partial J(\mathbf{w},b)}{\partial b}  \newline \rbrace \\ \\
+  \frac{\partial J(\mathbf{w},b)}{\partial w_j}  & = \frac{1}{m} \sum\limits_{i = 0}^{m-1} (f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - y^{(i)})x_{j}^{(i)} \\
+  \frac{\partial J(\mathbf{w},b)}{\partial b} & = \frac{1}{m} \sum\limits_{i = 0}^{m-1} (f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - y^{(i)})
+  \end{align*}
+  $$
+     - where:
+       - $f_{\mathbf{w},b}(\mathbf{x}^{(i)})$ is the model's prediction
+       - $y^{(i)}$ is the target value
+       - $m$ is the number of training examples in the data et
+       - $n$ is the number of features.
+       - parameters $w_j$,  $b$, are updated simultaneously parameter.
+       - $\alpha$: the learning rate.
+       - $\frac{\partial f}{\partial w}J(w,b)$: derivative of the cost function.
+     - It is the searching for the Minima by taking a step into the direction where the point on the graph with negative gradient. Until it finds a positive gradient, then it reverses the direction to another point where has negative gradient. This process repeats until convergence (the Minima is found).
+     - In other words, an equation is calculated which is the derivative of the plot when it is equals to zero. Which is the point where the slope of the tangent line is neither increases nor decreases.
+     - Minima is the minimum point between loss and parameters or the point with the least amount of error.
+     ![Minima](ML%20images/Error_Parameter_plot.png)
+     - It is often that there might more than one local Minima, in which the model might get stuck in local Minima instead of the Global Minima.
+   ![Global Minima](ML%20images/Error_Parameter_plot_Global_Minima.png)
+     - Ways to find the Global Minima:
+       - Comparing all possible values which is inefficient way.
+       - (Batch) Gradient Descent  
+       ![Gradient Descent](ML%20images/Gradient%20Descent.png)
+         - Learning Rate:
+           - It is how big is the step to be taken.
+           - If it too big, the local Minima will be hard to be found.
+           - If it too small, it will take too much time to be found.
+         - How to choose the learning rate $\alpha$.
+           - The objective is to choose the learning rate that decreases the cost function rapidly and consistently.
+           1. Start with a small value. Ex: 0.001
+           2. Run the gradient descent for a handful of iterations (steps). ex: 10 or 50
+           3. Check that the gradient descent is working properly.
+              1. [Recommended] By either plotting the value of cost in each iteration.
+              2. By automatic convergence test. In which if the the cost function decreases by $\epsilon$ or less, then declare convergence and no further improvement is required. $\epsilon$ can be chosen as 1% of the acceptable cost function (tolerance for prediction error).
+           4. Update the learning rate till convergence.
+              1. If the cost function is increasing, we know that gradient descent is diverging, so we need a lower learning rate.
+              2. While if the cost function is decreasing slowly, we need to increase the learning rate by 3 times. Ex: 0.003
+         - Drawbacks:
+           - Updates the parameters only after a pass through all the data (one epoch)
+           - Can't be used when data is too large to fit entirely in memory.
+           - Can get stuck at local Minima or fail to reach Global Minima.
+       - Stochastic Gradient Descent:
+         - It is the same as gradient descent except that the weights is updated at every data point.
+         - It is very fast to converge.
+         - The drawback is that it is very noisy, in such that the steps might be in several directions.
+       - Mini-Batch Gradient Descent:
+         - It uses mini batch of records, and then the parameters is updated.
+         - It is slower than SGD but faster than Gradient Descent.
+         - It doesn't consume much memory as SGD
+       - Gradient Descent Variations:  
+       ![Gradient Descent Variations](ML%20images/Gradient_Descent_Variations.png)
+
+      ```py
+      from sklearn.linear_model import SGDRegressor
+      from sklearn.preprocessing import StandardScaler
+
+      scaler = StandardScaler()
+      X_norm = scaler.fit_transform(X_train)
+
+      sgdr = SGDRegressor(max_iter=1000)
+      sgdr.fit(X_norm, y_train)
+      ```
+
+  2. Ordinary Least Squares (OLS):
       $$
       RSS(w, b) = \sum_{i=1}^N(y_i - (w . x_i + b))^2
       $$
-      - The most popular way to estimate w and b parameters is using what's called least-squares linear regression or ordinary least-squares.
-      - Least-squares finds the values of w and b that minimize the total sum of squared differences between the predicted y value and the actual y value in the training set. Or equivalently it minimizes the mean squared error of the model.
-      - This technique is designed to find the slope, the w value, and the b value of the y-intercept, that minimize this squared error, this mean squared error.
+      - The most popular way to estimate $w$ and $b$ parameters is using what's called least-squares linear regression or ordinary least-squares.
+      - Least-squares finds the values of $w$ and $b$ that minimize the total sum of squared differences between the predicted $\hat{y}$ value and the actual $y$ value in the training set. Or equivalently it minimizes the mean squared error of the model.
+      - This technique is designed to find the slope, the $w$ value, and the $b$ value of the y-intercept, that minimize this squared error, this mean squared error.
       - The mean squared error is the square difference between predicted and actual values, and then all these are added up, and then divided by the number of training points, take the average, that will be the mean squared error of the model.
-      - One thing to note about this linear regression model is that there are no parameters to control the model complexity. No matter what the value of w and b, the result is always going to be a straight line. This is both a strength and a weakness of the model.
+      - One thing to note about this linear regression model is that there are no parameters to control the model complexity. No matter what the value of $w$ and $b$, the result is always going to be a straight line. This is both a strength and a weakness of the model.
 
         ```python
         from sklearn.linear_model import LinearRegression
@@ -153,7 +222,7 @@ f_{w,b}(x) &= \overrightarrow{w} . \overrightarrow{x} + \hat{b} \newline
         # not quantities that set by the user.
         ```
 
-  2. Ridge Regression:
+  3. Ridge Regression:
       $$
       RSS_{RIDGE}(w,b) = \sum_{i=1}^N (y_i - (w . x_i + b))^2 + \alpha \sum_{j=1}^p w_j^2
       $$
@@ -177,7 +246,7 @@ f_{w,b}(x) &= \overrightarrow{w} . \overrightarrow{x} + \hat{b} \newline
         linridge = Ridge(alpha = 20.0).fit(X_train_scaled, y_train)
         ```
 
-  3. Lasso Regression
+  4. Lasso Regression
       $$
       RSS_{LASSO}(w,b) = \sum_{i=1}^N (y_i - (w . x_i + b))^2 + \alpha \sum_{j=1}^p |w_j|
       $$
@@ -236,7 +305,7 @@ $$
 - like ordinary least squares and other regression methods, logistic regression takes a set input variables, the features, and estimates a target value.
 - Unlike ordinary linear regression, in it's most basic form logistic repressions target value is a binary variable instead of a continuous value.
 - There are flavors of logistic regression that can also be used in cases where the target value to be predicted is a multi class categorical variable, not just binary.
-- Logistic regression is similar to linear regression, but with one critical addition. The logistic regression model still computes a weighted sum of the input features $\hat{x}^{(i)}$ and the intercept term $b$ (like in linear regression), but it runs this result through a special non-linear function $f$, the logistic function represented by this new box in the middle of the diagram to produce the output $y$. The effect of applying the logistic function is to compress the output of the linear function so that it's limited to a range between 0 and 1. Below the diagram, you can see the formula for the predicted output $\hat{y}$ which first computes the same linear combination of the inputs $\hat{x}^{(i)}$, model coefficient weights $\hat{w}^{(i)}$ and intercept $\hat{b}$, but runs it through the additional step of applying the logistic function to produce $\hat{y}$.
+- Logistic regression is similar to linear regression, but with one critical addition. The logistic regression model still computes a weighted sum of the input features $\hat{x}_i$ and the intercept term $b$ (like in linear regression), but it runs this result through a special non-linear function $f$, the logistic function represented by this new box in the middle of the diagram to produce the output $y$. The effect of applying the logistic function is to compress the output of the linear function so that it's limited to a range between 0 and 1. Below the diagram, you can see the formula for the predicted output $\hat{y}$ which first computes the same linear combination of the inputs $\hat{x}_i$, model coefficient weights $\hat{w}_i$ and intercept $\hat{b}$, but runs it through the additional step of applying the logistic function to produce $\hat{y}$.
 - If we pick different values for $\hat{b}$ and the $\hat{w}$ coefficients, we'll get different variants of this S shaped logistic function, which again is always between 0 and 1.
 - To perform logistic, regression in `Scikit-Learn`, you import the logistic regression class from the sklearn. linear model module, then create the object and call the fit method using the training data just as you did for other class files like k nearest neighbors.
 
