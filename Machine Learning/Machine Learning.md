@@ -995,7 +995,7 @@ Trivia: [Why superscripts are used instead of subscripts in cost functions](http
 #### Feature Selection
 
 - It is a technique used to reduce the dimensionality of the dataset.
-- It is by leaving only one of the highly correlated features.
+- It is by leaving only the highly correlated features.
 - Filtering is a technique in Feature selection, which is eliminating the irrelevant data.
 
 #### Feature Creation and transformation
