@@ -864,7 +864,7 @@ $$F_\beta \text{ Score} = (1+\beta^2) . \frac{2 . \text{Precision} . \text{Recal
   - Precisely: If the true distribution is as stated, then with x% probability the observed value is in the interval.
   - Z-score: Quantifies how much the value is above or below the mean in terms of its standard deviation
 
-Trivia: [Why superscripts are used instead of subscripts in loss functions](https://stats.stackexchange.com/questions/193908/in-machine-learning-why-are-superscripts-used-instead-of-subscripts)
+Trivia: [Why superscripts are used instead of subscripts in cost functions](https://stats.stackexchange.com/questions/193908/in-machine-learning-why-are-superscripts-used-instead-of-subscripts)
 
 #### Unsupervised clustering
 
