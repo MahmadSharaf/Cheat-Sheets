@@ -295,30 +295,91 @@ $$
 
 - It is used when the data requires a curve to be fit. Instead of considering lines, we consider higher degree polynomials. This would give us more weights to solve our problem.
 
-#### Logistic Regression  
+#### Logistic Regression
 
-![Flowchart box](ML%20images/Logistic&#32;Regression&#32;flow&#32;chart.jpg)  
-![Logistic fn](ML%20images/Logistic&#32;Regression&#32;function.jpg)
+- Model equation:
 
-- It is a kind of generalized linear model.
-- In spite of being called a regression measure, it is actually used for classification
-- like ordinary least squares and other regression methods, logistic regression takes a set input variables, the features, and estimates a target value.
-- Unlike ordinary linear regression, in it's most basic form logistic repressions target value is a binary variable instead of a continuous value.
-- There are flavors of logistic regression that can also be used in cases where the target value to be predicted is a multi class categorical variable, not just binary.
-- Logistic regression is similar to linear regression, but with one critical addition. The logistic regression model still computes a weighted sum of the input features $\hat{x}_i$ and the intercept term $b$ (like in linear regression), but it runs this result through a special non-linear function $f$, the logistic function represented by this new box in the middle of the diagram to produce the output $y$. The effect of applying the logistic function is to compress the output of the linear function so that it's limited to a range between 0 and 1. Below the diagram, you can see the formula for the predicted output $\hat{y}$ which first computes the same linear combination of the inputs $\hat{x}_i$, model coefficient weights $\hat{w}_i$ and intercept $\hat{b}$, but runs it through the additional step of applying the logistic function to produce $\hat{y}$.
-- If we pick different values for $\hat{b}$ and the $\hat{w}$ coefficients, we'll get different variants of this S shaped logistic function, which again is always between 0 and 1.
-- To perform logistic, regression in `Scikit-Learn`, you import the logistic regression class from the sklearn. linear model module, then create the object and call the fit method using the training data just as you did for other class files like k nearest neighbors.
+$$
+\begin{align*}
+z &= \overrightarrow{w} . \overrightarrow{x} + \hat{b} \newline
+g(z) &= \frac{1}{1+e^{-z}} \newline
+\hat{y} &= \frac{1}{1+e^{-(\overrightarrow{w} . \overrightarrow{x} + \hat{b})}}
+\end{align*}
+$$
 
-    ```python
-    from sklearn.linear_model import LogisticRegression
+- Overview:
+  - It is a kind of generalized linear model.
+  - In spite of being called a regression measure, it is actually used for classification
+  - like ordinary least squares and other regression methods, logistic regression takes a set input variables, the features, and estimates a target value.
+  - Unlike ordinary linear regression, in it's most basic form logistic repressions target value is a binary variable instead of a continuous value.
+  - There are flavors of logistic regression that can also be used in cases where the target value to be predicted is a multi class categorical variable, not just binary.
+  - Logistic regression is similar to linear regression, but with one critical addition. The logistic regression model still computes a weighted sum of the input features $\hat{x}_i$ and the intercept term $\hat{b}$ (like in linear regression), but it runs this result through a special non-linear function, sigmoid function $g(z)$.
+  - The effect of applying the logistic function is to compress the output of the linear function so that it's limited to a range between 0 and 1.
+  - The formula for the predicted output $\hat{y}$ which first computes the same linear combination $z$ of the inputs $\hat{x}_i$, model coefficient weights $\hat{w}_i$ and intercept $\hat{b}$, but runs it through the additional step of applying the logistic function $g(z)$ to produce $\hat{y}$.
+  ![Flowchart box](ML%20images/Logistic%20Regression%20flow%20chart.jpg)
+  - If we pick different values for $\hat{b}$ and the $\hat{w}$ coefficients, we'll get different variants of this S shaped logistic function, which again is always between 0 and 1. If $z$ value is a large positive number then $g(z)$ will be near 1, while if its value is a large negative number then $g(z)$ will be near 0.
+- Interpretation of the output
+  - The value of the logistic function $y$ is the probability in which the target equals to 1.
+  - If $\hat{y} = 0.7$, then the target is 70% to be 1.
+- Decision boundary:
+  - It is the value on which decided to be 0 or 1. For example, if the $g(z)=0.5$, does this considered as class 0 or class 1.
+  - So, a threshold is chosen above which identified as 1. For example, if the threshold is >= 0.5, then our prediction in the previous example $g(z)=0.5$ is equal to 1.
+  - But $g(z) >= 0.5$ whenever $z>=0$ or when $(\overrightarrow{w} . \overrightarrow{x} + \hat{b}) >= 0$
+  ![Decision boundary](ML%20images\logistic_regression_decission_boundry.png)
 
-    X_train, X_test, y_train, y_test = train_test_split(X_C2,   y_C2,random_state = 0)
-    clf = LogisticRegression(C=1).fit(X_train, y_train)
-    ```
+- Cost function:
+  - Squared error cost used in Linear Regression is not suitable for Logistic Regression because the model equation $g(z)$ when applied to the cost function is non-convex, meaning it will have multiple local Minima.
+![Logistic Regression loss function](ml%20images/C1_W3_SqErrorVsLogistic.png)
+  - Instead this loss function can reach the global minimum.
+    $$
+    \begin{equation*}
+      loss(f_{\mathbf{w},b}(\mathbf{x}^{(i)}), y^{(i)}) = \begin{cases}
+        - \log\left(f_{\mathbf{w},b}\left( \mathbf{x}^{(i)} \right) \right) & \text{if $y^{(i)}=1$} \\
+        - \log \left( 1 - f_{\mathbf{w},b}\left( \mathbf{x}^{(i)} \right) \right) & \text{if $y^{(i)}=0$}
+      \end{cases}
+    \end{equation*}
+    $$
+    ![Logistic Regression loss function](ml%20images/Logistic_regression_loss_function.png)
 
-  - L2 regularization is 'on' by default (like ridge regression)
-  - Parameter C controls amount of regularization (default 1.0)
-  - As with regularized linear regression, it can be important to normalize all features so that they are on the same scale.
+  - As shown in the above plot, the blue line, $-log(f)$, represents the cost for $y=1$. In such that, when the predicted value $f=1$, the cost equals zero. And when $f=0$, the cost equals to infinity. Same for orange line, $-log(1-f)$, which represents the cost for $y=0$.
+  - The loss function above can be rewritten to be easier to implement:
+    $$
+    loss(f_{\mathbf{w},b}(\mathbf{x}^{(i)}), y^{(i)}) = (-y^{(i)} \log\left(f_{\mathbf{w},b}\left( \mathbf{x}^{(i)} \right) \right) - \left( 1 - y^{(i)}\right) \log \left( 1 - f_{\mathbf{w},b}\left( \mathbf{x}^{(i)} \right) \right)
+    $$
+  - The cost function using the above loss function
+  $$
+  J(\overrightarrow{w},b) = - \frac{1}{m}\sum^m_{i=1}[y^{(i)}\log(f(x))+(1-y{(i)})\log(1-f(x))]
+  $$
+- Estimating parameters $\hat{b},\hat{w}$:
+  - Same gradient descent used in Linear Regression can be used for Logistic Regression.
+  $$\begin{align*}
+  &\text{repeat until convergence:} \; \lbrace \\
+  &  \; \; \;w_j = w_j -  \alpha \frac{\partial J(\mathbf{w},b)}{\partial w_j}  \; & \text{for j := 0..n-1} \\
+  &  \; \; \;  \; \;b = b -  \alpha \frac{\partial J(\mathbf{w},b)}{\partial b} \\
+  &\rbrace
+  \end{align*}$$
+  - But the cost function, $J(\mathbf{w},b)$, will be for Logistic Regression instead.
+  $$
+  \frac{\partial J(\mathbf{w},b)}{\partial w_j}  = \frac{1}{m} \sum\limits_{i = 0}^{m-1} (f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - y^{(i)})x_{j}^{(i)}
+  $$
+  $$
+  \frac{\partial J(\mathbf{w},b)}{\partial b}  = \frac{1}{m} \sum\limits_{i = 0}^{m-1} (f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - y^{(i)})
+  $$
+  - Although the derivative of the cost function is exactly the same for the one in Linear Regression, but the model equation $f_{\mathbf{w},b}(\mathbf{x}^{(i)})$ used is different. It has the sigmoid function $g(z) = \frac{1}{1+e^{-z}}$
+- Implementation:
+  - To perform logistic, regression in `Scikit-Learn`, you import the logistic regression class from the sklearn. linear model module, then create the object and call the fit method using the training data.
+
+      ```python
+      from sklearn.linear_model import LogisticRegression
+
+      X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)
+      
+      clf = LogisticRegression(C=1).fit(X_train, y_train)
+      ```
+
+    - L2 regularization is 'on' by default (like ridge regression)
+    - Parameter C controls amount of regularization (default 1.0)
+    - As with regularized linear regression, it can be important to normalize all features so that they are on the same scale.
 
 #### Support Vector Machines (SVM)
 
