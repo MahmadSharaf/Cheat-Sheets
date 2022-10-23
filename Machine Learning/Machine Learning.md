@@ -591,12 +591,20 @@ Selecting a subset of instances for training and testing
 
 #### Regularization
 
-- Regularization is a technique used to reduce the errors by fitting the function appropriately on the given training set and avoid overfitting.
+- Regularization is a technique used to generalize the model function appropriately on the given training set and avoid overfitting.
 - Overfitting often caused by overly-complex models capturing idiosyncrasies in training set.
 - Adding penalty score for complexity to cost function.
-  - $\text{cost}_{reg} = \text{cost} + \frac{\alpha}{2}\text{penalty}$
-  - With a small **Penalty**, the error that comes from the complexity of the model is not large enough to overtake the errors in the simplified model misclassifying points, so we will choose the complex model.
-  - With a large value for **Penalty**, we're multiplying the complexity part of the error by a lot. This punishes the complex model more so the simple model wins.
+  $$\text{cost}_{reg} = \text{cost}_{fn} + \frac{\lambda}{2m}\sum_{j=1}^n w_j^2$$
+  - Where:
+    - $\text{cost}_{fn}$: The cost function of ML algorithm
+    - $\lambda$: >0, Regularization parameter
+    - $m$: Number of points in dataset
+    - $n$: Number of features
+    - $w$: Model coefficients or feature weights
+  - $\frac{1}{2m}$ term is added to match the same value in ML algorithm cost function which leads to choosing $\lambda$ becomes easier. Specifically, when the training set increases.
+  - It is more conventional to not penalize $b$ parameter, only $w$ parameters are penalized.
+  - With a small $\lambda$, the error that comes from the complexity of the model is not large enough to overtake the errors in the simplified model misclassifying points, so we will choose the complex model.
+  - With a large $\lambda$, we're multiplying the complexity part of the error by a lot. This punishes the complex model more so the simple model wins. It reduces overfitting by reducing the size of the parameters. For some parameters that are near zero, this reduces the effect of the associated features.
 - Idea: Large weights corresponds to higher complexity.
 - Regularization types for Linear Regression:
   - Lasso(Least Absolute Shrinkage and Selection Operator):
