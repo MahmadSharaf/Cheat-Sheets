@@ -733,8 +733,8 @@ It is an Estimator parameter that is NOT fitted in the data
   - Solution:
     - Increase training data
     - Reduce model complexity
-      - Decrease the number of features
-      - Increase the degree of regularization
+      - [Decrease the number of features](#feature-selection)
+      - Increase the degree of [regularization](#regularization)
 
 - Total Error $(x) = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$
 
