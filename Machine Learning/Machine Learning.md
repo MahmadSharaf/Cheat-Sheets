@@ -813,7 +813,11 @@ $$F_\beta \text{ Score} = (1+\beta^2) . \frac{2 . \text{Precision} . \text{Recal
 
 ##### Regression Metrics
 
-- Loss function is the measure of the error in the model predictions, given a certain weights.
+>**Definition Note:**  
+**Loss** is a measure of the difference of a single example to its target value while the  
+**Cost** is a measure of the losses over the training set. Or the measure of the error in the model predictions, given a certain weights.
+
+- Cost functions:
   - **MAE** (Mean Absolute Error):
   $$\frac{1}{m}\sum_{i=1}^m|y^{(i)} - \widehat{y}^{(i)}|$$
     - Assume we have a point with coordinates $(x^{(i)},y^{(i)})$ and the fitting line is called $\hat{y}$ since it is our prediction. The corresponding point on this line is $(x^{(i)}, \hat{y}^{(i)})$, and the vertical distance from the point to the line is $(y^{(i)}-\hat{y}^{(i)})$. The error is the vertical distance (The absolute value).
