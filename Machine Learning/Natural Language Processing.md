@@ -1,5 +1,32 @@
 # NLP Cheat Sheet
 
+- [NLP Cheat Sheet](#nlp-cheat-sheet)
+  - [NLP Terms](#nlp-terms)
+  - [NLP Pipeline](#nlp-pipeline)
+    - [Text Preprocessing](#text-preprocessing)
+    - [Text Vectorization](#text-vectorization)
+    - [Train ML Model](#train-ml-model)
+      - [K Nearest Neighbors (KNN)](#k-nearest-neighbors-knn)
+    - [Decision Trees](#decision-trees)
+    - [Ensemble Learning](#ensemble-learning)
+      - [Random Forest](#random-forest)
+      - [Linear Regression](#linear-regression)
+      - [Logistic Regression](#logistic-regression)
+    - [Optimization](#optimization)
+    - [Regularization](#regularization)
+      - [Regression in SciKit Learn](#regression-in-scikit-learn)
+    - [Hyperparameters](#hyperparameters)
+      - [Grid Search](#grid-search)
+      - [Randomized Search](#randomized-search)
+      - [Bayesian Search](#bayesian-search)
+    - [Neural Networks](#neural-networks)
+      - [Perceptron](#perceptron)
+      - [Neural Network Architecture](#neural-network-architecture)
+      - [Build and Train a Neural Network](#build-and-train-a-neural-network)
+      - [Convolutional Neural Networks](#convolutional-neural-networks)
+      - [Recurrent Neural networks](#recurrent-neural-networks)
+  - [References](#references)
+
 ## NLP Terms
 
 - Corpus: Large collection of words or phrases - can come from different sources: documents, web sources, database
