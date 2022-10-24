@@ -1076,7 +1076,12 @@ Trivia: [Why superscripts are used instead of subscripts in cost functions](http
           - Max norm
         - It is widely used in text analysis.
   - Polynomial Features  
-    ![Polynomial-Features_equation](ML%20images/Polynomial&#32;features&#32;equation.jpg)
+    $$
+    \begin{align*}
+    x &= (x_0,x_1) \Rightarrow x^` = (x_0,x_1,x_0^2,x_0x_1,x_1^2) \\
+    \hat{y} &= \hat{w}_0x_0 + \hat{w}_1x_1 + \hat{w}_{00}x_0^2 + \hat{w}_{01}x_0x_1 + \hat{w}_{11}x_1^2 + b
+    \end{align*}
+    $$
     - Generate new features consisting of all polynomial combinations of the original two features $𝑥_0,𝑥_1$.
     - The degree of the polynomial specifies how many variables participate at a time in each new feature (above example: degree 2).
     - This is still a weighted linear combination of features, so it's still a linear model, and can use same least-squares estimation method for $w$ and $b$.
