@@ -4,6 +4,8 @@
   - [Supervised Machine Learning Algorithms](#supervised-machine-learning-algorithms)
     - [Linear Models](#linear-models)
       - [Linear Regression](#linear-regression)
+        - [Model equation](#model-equation)
+        - [Cost functions](#cost-functions)
         - [Estimating parameters $\hat{b},\hat{w}$](#estimating-parameters-hatbhatw)
         - [Linear Regression Cons](#linear-regression-cons)
       - [Polynomial Regression](#polynomial-regression)
@@ -38,26 +40,84 @@ This is in contrast to unsupervised machine learning where we don't have labels 
 - The target value can be predicted just using a weighted sum of the input variables, a linear function.
 - It can get stable, but potentially inaccurate predictions.
 
-#### Linear Regression  
+#### Linear Regression
 
-$$
-f(x) = \hat{y} = \hat{w}^{(0)}x^{(0)} + \hat{w}^{(1)} x^{{1}} + ... \hat{w}^{(i)} x^{(i)} + \hat{b}
-$$
+##### Model equation
+
+$$\begin{align*}
+f_{w,b}(x) &= \hat{y} \newline
+f_{w,b}(x) &= \hat{w_1}x_1 + \hat{w_2} x_2 + ... \hat{w_n} x_n + \hat{b} \newline
+f_{w,b}(x) &= \sum_{j=1}^{n}(w_jx_j)+\hat{b} \newline
+f_{w,b}(x) &= \overrightarrow{w} . \overrightarrow{x} + \hat{b} \newline
+\end{align*}$$
 
 - Notations:
   - The hat(^) is an indication that the parameter is estimated during training process.  
-  - $y$:  is the true value for that training example, referred to as the output variable, or “target”.
-  - **$\hat{y}$**: the predicted output.  
-  - **$x^{(i)}$**: the input feature.  
-  - **$\hat{w}^{(i)}$**: the model coefficients or feature weights.  
-  - **$\hat{b}$**: the biased term or intercept of the model.
   - **$f(x)$**: The hypothesis or the model function that used to predict an estimated output $\hat{y}$ of the input features $x$.
+  - **$\hat{y}$**: the predicted output.  
+  - **$x$**: the input features.  
+  - **$\hat{w}$**: parameter: the model coefficients or feature weights.  
+  - **$\hat{b}$**: parameter: the biased term or intercept of the model.
+  - **$n$**: the number of features.  
+  - **$x_j,w_j$**: the value and weight of $j^{th}$ feature.
+  - $\overrightarrow{w} = [w_1 \space w_2 \space w_3 ... w_n] \newline$
+  - $\overrightarrow{x} = [x_1 \space x_2 \space x_3 ... x_n] \newline$
+  - **$\overrightarrow{w} . \overrightarrow{x}$**: It is the dot product of vectors $w$ and $x$.
 
 - Impact of changing the values:
-  - If we increase $\hat{w}^{(i)}$, we increase the slope so the line rotates counterclockwise.
-  - If we decrease $\hat{w}^{(i)}$, we decrease the slope so the line rotates clockwise.
+  - If we increase $\hat{w}$, we increase the slope so the line rotates counterclockwise.
+  - If we decrease $\hat{w}$, we decrease the slope so the line rotates clockwise.
   - If we increase $\hat{b}$, the line maintains its slope but moves up.
   - If we decrease $\hat{b}$, the line maintains its slope but moves down.
+
+- It can be coded using loop or vectorization.
+  - `numpy` function uses parallel hardware to efficiently calculate the dot product.
+
+  ```py
+  # For loop
+  f=0
+
+  for j in range(n):
+    f = f + w[j] * x[j]
+    f = f + b
+
+  # Vectorization
+  import numpy as np
+  f = np.dot(w,x) + b
+  ```
+
+##### Cost functions
+
+- **MSE** (Mean Squared Error)
+  $$J(w,b) = \frac{1}{2m}\sum_{i=1}^{m}​(\hat{y}^{(i)}−y^{(i)}​)^2$$
+
+  - Notations:
+    - $J(w,b)$: Cost function
+    - $m$: number of points in dataset
+    - $y^{(i)}$: actual target value
+    - $\hat{y}^{(i)}$: predicted target value
+
+  ```py
+  def compute_cost(X, y, w, b): 
+    """
+    compute cost
+    Args:
+      X (ndarray (m,n)): Data, m examples with n features
+      y (ndarray (m,)) : target values
+      w (ndarray (n,)) : model parameters  
+      b (scalar)       : model parameter
+      
+    Returns:
+      cost (scalar): cost
+    """
+    m = X.shape[0]
+    cost = 0.0
+    for i in range(m):                                
+        f_wb_i = np.dot(X[i], w) + b           #(n,)(n,) = scalar (see np.dot)
+        cost = cost + (f_wb_i - y[i])**2       #scalar
+    cost = cost / (2 * m)                      #scalar    
+    return cost
+  ```
 
 ##### Estimating parameters $\hat{b},\hat{w}$
 
@@ -66,15 +126,84 @@ $$
 - `Squared loss function` returns the squared difference between the target value and the  actual value as the penalty.
 - The learning algorithm then computes or searches for the set of $\hat{w},\hat{b}$ parameters that optimize an objective function, typically to minimize the total of this loss function over all training points.
 - Ways to estimate the parameters:
-  1. Least Squares:
+  
+  1. Gradient descent:
+  $$
+  \begin{align*}
+  \text{repeat}&\text{ until convergence:} \; \lbrace \newline\;
+  & w_j = w_j -  \alpha \frac{\partial J(\mathbf{w},b)}{\partial w_j}  \; & \text{for j = 1..n}\newline
+  &b\ \ = b -  \alpha \frac{\partial J(\mathbf{w},b)}{\partial b}  \newline \rbrace \\ \\
+  \frac{\partial J(\mathbf{w},b)}{\partial w_j}  & = \frac{1}{m} \sum\limits_{i = 0}^{m-1} (f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - y^{(i)})x_{j}^{(i)} \\
+  \frac{\partial J(\mathbf{w},b)}{\partial b} & = \frac{1}{m} \sum\limits_{i = 0}^{m-1} (f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - y^{(i)})
+  \end{align*}
+  $$
+     - where:
+       - $f_{\mathbf{w},b}(\mathbf{x}^{(i)})$ is the model's prediction
+       - $y^{(i)}$ is the target value
+       - $m$ is the number of training examples in the data et
+       - $n$ is the number of features.
+       - parameters $w_j$,  $b$, are updated simultaneously parameter.
+       - $\alpha$: the learning rate.
+       - $\frac{\partial f}{\partial w}J(w,b)$: derivative of the cost function.
+     - It is the searching for the Minima by taking a step into the direction where the point on the graph with negative gradient. Until it finds a positive gradient, then it reverses the direction to another point where has negative gradient. This process repeats until convergence (the Minima is found).
+     - In other words, an equation is calculated which is the derivative of the plot when it is equals to zero. Which is the point where the slope of the tangent line is neither increases nor decreases.
+     - Minima is the minimum point between loss and parameters or the point with the least amount of error.
+     ![Minima](ML%20images/Error_Parameter_plot.png)
+     - It is often that there might more than one local Minima, in which the model might get stuck in local Minima instead of the Global Minima.
+   ![Global Minima](ML%20images/Error_Parameter_plot_Global_Minima.png)
+     - Ways to find the Global Minima:
+       - Comparing all possible values which is inefficient way.
+       - (Batch) Gradient Descent  
+       ![Gradient Descent](ML%20images/Gradient%20Descent.png)
+         - Learning Rate:
+           - It is how big is the step to be taken.
+           - If it too big, the local Minima will be hard to be found.
+           - If it too small, it will take too much time to be found.
+         - How to choose the learning rate $\alpha$.
+           - The objective is to choose the learning rate that decreases the cost function rapidly and consistently.
+           1. Start with a small value. Ex: 0.001
+           2. Run the gradient descent for a handful of iterations (steps). ex: 10 or 50
+           3. Check that the gradient descent is working properly.
+              1. [Recommended] By either plotting the value of cost in each iteration.
+              2. By automatic convergence test. In which if the the cost function decreases by $\epsilon$ or less, then declare convergence and no further improvement is required. $\epsilon$ can be chosen as 1% of the acceptable cost function (tolerance for prediction error).
+           4. Update the learning rate till convergence.
+              1. If the cost function is increasing, we know that gradient descent is diverging, so we need a lower learning rate.
+              2. While if the cost function is decreasing slowly, we need to increase the learning rate by 3 times. Ex: 0.003
+         - Drawbacks:
+           - Updates the parameters only after a pass through all the data (one epoch)
+           - Can't be used when data is too large to fit entirely in memory.
+           - Can get stuck at local Minima or fail to reach Global Minima.
+       - Stochastic Gradient Descent:
+         - It is the same as gradient descent except that the weights is updated at every data point.
+         - It is very fast to converge.
+         - The drawback is that it is very noisy, in such that the steps might be in several directions.
+       - Mini-Batch Gradient Descent:
+         - It uses mini batch of records, and then the parameters is updated.
+         - It is slower than SGD but faster than Gradient Descent.
+         - It doesn't consume much memory as SGD
+       - Gradient Descent Variations:  
+       ![Gradient Descent Variations](ML%20images/Gradient_Descent_Variations.png)
+
+      ```py
+      from sklearn.linear_model import SGDRegressor
+      from sklearn.preprocessing import StandardScaler
+
+      scaler = StandardScaler()
+      X_norm = scaler.fit_transform(X_train)
+
+      sgdr = SGDRegressor(max_iter=1000)
+      sgdr.fit(X_norm, y_train)
+      ```
+
+  2. Ordinary Least Squares (OLS):
       $$
       RSS(w, b) = \sum_{i=1}^N(y_i - (w . x_i + b))^2
       $$
-      - The most popular way to estimate w and b parameters is using what's called least-squares linear regression or ordinary least-squares.
-      - Least-squares finds the values of w and b that minimize the total sum of squared differences between the predicted y value and the actual y value in the training set. Or equivalently it minimizes the mean squared error of the model.
-      - This technique is designed to find the slope, the w value, and the b value of the y-intercept, that minimize this squared error, this mean squared error.
+      - The most popular way to estimate $w$ and $b$ parameters is using what's called least-squares linear regression or ordinary least-squares.
+      - Least-squares finds the values of $w$ and $b$ that minimize the total sum of squared differences between the predicted $\hat{y}$ value and the actual $y$ value in the training set. Or equivalently it minimizes the mean squared error of the model.
+      - This technique is designed to find the slope, the $w$ value, and the $b$ value of the y-intercept, that minimize this squared error, this mean squared error.
       - The mean squared error is the square difference between predicted and actual values, and then all these are added up, and then divided by the number of training points, take the average, that will be the mean squared error of the model.
-      - One thing to note about this linear regression model is that there are no parameters to control the model complexity. No matter what the value of w and b, the result is always going to be a straight line. This is both a strength and a weakness of the model.
+      - One thing to note about this linear regression model is that there are no parameters to control the model complexity. No matter what the value of $w$ and $b$, the result is always going to be a straight line. This is both a strength and a weakness of the model.
 
         ```python
         from sklearn.linear_model import LinearRegression
@@ -93,7 +222,7 @@ $$
         # not quantities that set by the user.
         ```
 
-  2. Ridge Regression:
+  3. Ridge Regression:
       $$
       RSS_{RIDGE}(w,b) = \sum_{i=1}^N (y_i - (w . x_i + b))^2 + \alpha \sum_{j=1}^p w_j^2
       $$
@@ -117,7 +246,7 @@ $$
         linridge = Ridge(alpha = 20.0).fit(X_train_scaled, y_train)
         ```
 
-  3. Lasso Regression
+  4. Lasso Regression
       $$
       RSS_{LASSO}(w,b) = \sum_{i=1}^N (y_i - (w . x_i + b))^2 + \alpha \sum_{j=1}^p |w_j|
       $$
@@ -166,30 +295,91 @@ $$
 
 - It is used when the data requires a curve to be fit. Instead of considering lines, we consider higher degree polynomials. This would give us more weights to solve our problem.
 
-#### Logistic Regression  
+#### Logistic Regression
 
-![Flowchart box](ML%20images/Logistic&#32;Regression&#32;flow&#32;chart.jpg)  
-![Logistic fn](ML%20images/Logistic&#32;Regression&#32;function.jpg)
+- Model equation:
 
-- It is a kind of generalized linear model.
-- In spite of being called a regression measure, it is actually used for classification
-- like ordinary least squares and other regression methods, logistic regression takes a set input variables, the features, and estimates a target value.
-- Unlike ordinary linear regression, in it's most basic form logistic repressions target value is a binary variable instead of a continuous value.
-- There are flavors of logistic regression that can also be used in cases where the target value to be predicted is a multi class categorical variable, not just binary.
-- Logistic regression is similar to linear regression, but with one critical addition. The logistic regression model still computes a weighted sum of the input features $\hat{x}^{(i)}$ and the intercept term $b$ (like in linear regression), but it runs this result through a special non-linear function $f$, the logistic function represented by this new box in the middle of the diagram to produce the output $y$. The effect of applying the logistic function is to compress the output of the linear function so that it's limited to a range between 0 and 1. Below the diagram, you can see the formula for the predicted output $\hat{y}$ which first computes the same linear combination of the inputs $\hat{x}^{(i)}$, model coefficient weights $\hat{w}^{(i)}$ and intercept $\hat{b}$, but runs it through the additional step of applying the logistic function to produce $\hat{y}$.
-- If we pick different values for $\hat{b}$ and the $\hat{w}$ coefficients, we'll get different variants of this S shaped logistic function, which again is always between 0 and 1.
-- To perform logistic, regression in `Scikit-Learn`, you import the logistic regression class from the sklearn. linear model module, then create the object and call the fit method using the training data just as you did for other class files like k nearest neighbors.
+$$
+\begin{align*}
+z &= \overrightarrow{w} . \overrightarrow{x} + \hat{b} \newline
+g(z) &= \frac{1}{1+e^{-z}} \newline
+\hat{y} &= \frac{1}{1+e^{-(\overrightarrow{w} . \overrightarrow{x} + \hat{b})}}
+\end{align*}
+$$
 
-    ```python
-    from sklearn.linear_model import LogisticRegression
+- Overview:
+  - It is a kind of generalized linear model.
+  - In spite of being called a regression measure, it is actually used for classification
+  - like ordinary least squares and other regression methods, logistic regression takes a set input variables, the features, and estimates a target value.
+  - Unlike ordinary linear regression, in it's most basic form logistic repressions target value is a binary variable instead of a continuous value.
+  - There are flavors of logistic regression that can also be used in cases where the target value to be predicted is a multi class categorical variable, not just binary.
+  - Logistic regression is similar to linear regression, but with one critical addition. The logistic regression model still computes a weighted sum of the input features $\hat{x}_i$ and the intercept term $\hat{b}$ (like in linear regression), but it runs this result through a special non-linear function, sigmoid function $g(z)$.
+  - The effect of applying the logistic function is to compress the output of the linear function so that it's limited to a range between 0 and 1.
+  - The formula for the predicted output $\hat{y}$ which first computes the same linear combination $z$ of the inputs $\hat{x}_i$, model coefficient weights $\hat{w}_i$ and intercept $\hat{b}$, but runs it through the additional step of applying the logistic function $g(z)$ to produce $\hat{y}$.
+  ![Flowchart box](ML%20images/Logistic%20Regression%20flow%20chart.jpg)
+  - If we pick different values for $\hat{b}$ and the $\hat{w}$ coefficients, we'll get different variants of this S shaped logistic function, which again is always between 0 and 1. If $z$ value is a large positive number then $g(z)$ will be near 1, while if its value is a large negative number then $g(z)$ will be near 0.
+- Interpretation of the output
+  - The value of the logistic function $y$ is the probability in which the target equals to 1.
+  - If $\hat{y} = 0.7$, then the target is 70% to be 1.
+- Decision boundary:
+  - It is the value on which decided to be 0 or 1. For example, if the $g(z)=0.5$, does this considered as class 0 or class 1.
+  - So, a threshold is chosen above which identified as 1. For example, if the threshold is >= 0.5, then our prediction in the previous example $g(z)=0.5$ is equal to 1.
+  - But $g(z) >= 0.5$ whenever $z>=0$ or when $(\overrightarrow{w} . \overrightarrow{x} + \hat{b}) >= 0$
+  ![Decision boundary](ML%20images\logistic_regression_decission_boundry.png)
 
-    X_train, X_test, y_train, y_test = train_test_split(X_C2,   y_C2,random_state = 0)
-    clf = LogisticRegression(C=1).fit(X_train, y_train)
-    ```
+- Cost function:
+  - Squared error cost used in Linear Regression is not suitable for Logistic Regression because the model equation $g(z)$ when applied to the cost function is non-convex, meaning it will have multiple local Minima.
+![Logistic Regression loss function](ml%20images/C1_W3_SqErrorVsLogistic.png)
+  - Instead this loss function can reach the global minimum.
+    $$
+    \begin{equation*}
+      loss(f_{\mathbf{w},b}(\mathbf{x}^{(i)}), y^{(i)}) = \begin{cases}
+        - \log\left(f_{\mathbf{w},b}\left( \mathbf{x}^{(i)} \right) \right) & \text{if $y^{(i)}=1$} \\
+        - \log \left( 1 - f_{\mathbf{w},b}\left( \mathbf{x}^{(i)} \right) \right) & \text{if $y^{(i)}=0$}
+      \end{cases}
+    \end{equation*}
+    $$
+    ![Logistic Regression loss function](ml%20images/Logistic_regression_loss_function.png)
 
-  - L2 regularization is 'on' by default (like ridge regression)
-  - Parameter C controls amount of regularization (default 1.0)
-  - As with regularized linear regression, it can be important to normalize all features so that they are on the same scale.
+  - As shown in the above plot, the blue line, $-log(f)$, represents the cost for $y=1$. In such that, when the predicted value $f=1$, the cost equals zero. And when $f=0$, the cost equals to infinity. Same for orange line, $-log(1-f)$, which represents the cost for $y=0$.
+  - The loss function above can be rewritten to be easier to implement:
+    $$
+    loss(f_{\mathbf{w},b}(\mathbf{x}^{(i)}), y^{(i)}) = (-y^{(i)} \log\left(f_{\mathbf{w},b}\left( \mathbf{x}^{(i)} \right) \right) - \left( 1 - y^{(i)}\right) \log \left( 1 - f_{\mathbf{w},b}\left( \mathbf{x}^{(i)} \right) \right)
+    $$
+  - The cost function using the above loss function
+  $$
+  J(\overrightarrow{w},b) = - \frac{1}{m}\sum^m_{i=1}[y^{(i)}\log(f(x))+(1-y{(i)})\log(1-f(x))]
+  $$
+- Estimating parameters $\hat{b},\hat{w}$:
+  - Same gradient descent used in Linear Regression can be used for Logistic Regression.
+  $$\begin{align*}
+  &\text{repeat until convergence:} \; \lbrace \\
+  &  \; \; \;w_j = w_j -  \alpha \frac{\partial J(\mathbf{w},b)}{\partial w_j}  \; & \text{for j := 0..n-1} \\
+  &  \; \; \;  \; \;b = b -  \alpha \frac{\partial J(\mathbf{w},b)}{\partial b} \\
+  &\rbrace
+  \end{align*}$$
+  - But the cost function, $J(\mathbf{w},b)$, will be for Logistic Regression instead.
+  $$
+  \frac{\partial J(\mathbf{w},b)}{\partial w_j}  = \frac{1}{m} \sum\limits_{i = 0}^{m-1} (f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - y^{(i)})x_{j}^{(i)}
+  $$
+  $$
+  \frac{\partial J(\mathbf{w},b)}{\partial b}  = \frac{1}{m} \sum\limits_{i = 0}^{m-1} (f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - y^{(i)})
+  $$
+  - Although the derivative of the cost function is exactly the same for the one in Linear Regression, but the model equation $f_{\mathbf{w},b}(\mathbf{x}^{(i)})$ used is different. It has the sigmoid function $g(z) = \frac{1}{1+e^{-z}}$
+- Implementation:
+  - To perform logistic, regression in `Scikit-Learn`, you import the logistic regression class from the sklearn. linear model module, then create the object and call the fit method using the training data.
+
+      ```python
+      from sklearn.linear_model import LogisticRegression
+
+      X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)
+      
+      clf = LogisticRegression(C=1).fit(X_train, y_train)
+      ```
+
+    - L2 regularization is 'on' by default (like ridge regression)
+    - Parameter C controls amount of regularization (default 1.0)
+    - As with regularized linear regression, it can be important to normalize all features so that they are on the same scale.
 
 #### Support Vector Machines (SVM)
 

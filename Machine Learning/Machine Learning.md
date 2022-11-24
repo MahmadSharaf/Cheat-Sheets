@@ -89,7 +89,7 @@
 
 #### 1. Supervised ML
 
-- Learn to predict target values from labelled data.
+Learn to predict target values by training from labelled data with right answers.
 
 1. Classification: Target values with discrete classes
    1. Binary Classification: To identify targets with two classes
@@ -101,10 +101,11 @@
 
 #### 2. Unsupervised ML
 
-Find structure in unlabeled data
+Find structure or pattern in unlabeled data.
 
 1. Clustering: Find groups of similar instances in the data.
-   - Finding clusters of similar users.
+   - Categorize articles according to similarities. Like having the same keyword in their title.
+   - Grouping customers according to their behaviors.
 2. Dimensionality Reduction
    - Find latent or significant features in data
      - Find latent driers of stock movements
@@ -575,59 +576,9 @@ Selecting a subset of instances for training and testing
 - How training the model works:  
 ![Training Concept](ML%20images/Model-Training-Concept.png)
   - The model is given a specific set of features.
-  - The model predicts the classes for these features based upon the weights that was given to the features.
-  - Then the predictions are compared with the actual labels to compute the loss.
-  - Based on the loss computed, using a loss function, the model parameters (features weights) are updated to minimize the loss.
-- What is loss function  
-![Loss function](ML%20images/Error_Parameter_plot.png)
-  - Loss function is the measure of the error in the model predictions, given a certain weights.
-- Types of loss functions:
-  - **Absolute Mean Error**:
-    - Assume we have a point with coordinates $(x,y)$ and the fitting line is called $\hat{Y}$ since it is our prediction. The corresponding point on this line is $(x, \hat{y})$, and the vertical distance from the point to the line is $(y-\hat{y})$. The error is the vertical distance.
-    - So, the total error is the sum of all these distances between predicted and actual points in the dataset.
-    - $Error=\sum_{i=1}^{m}​∣y−\hat{y}​∣$
-    - Using the sum or the average won't change the algorithms, since that would only scale our error by a constant, namely m.
-    - $Error=\frac{1}{m}\sum_{i=1}^{m}​∣y−\hat{y}​∣$
-  - **MSE** (Mean Squared Error):
-    - The Mean Squared Error is very similar to the Mean Absolute Error, but instead of taking the distance between the point and the prediction, we're going to draw a square with this segment as its side. This area is $(y - \hat{y})^2$.
-    - Notice that this is always non-negative, so we don't need to worry about absolute values. If the point is over the line or underneath the line the square is always going to be a non-negative number because the square of a real number is always going to be non-negative.
-    - $Error=\frac{1}{2m}\sum_{i=1}^{m}​(y−\hat{y}​)^2$
-    - The one half is going to be there for convenience because later we'll be taking the derivative of this error.
-  - **RMSE** (Root mean square error):
-    - Describes the sample standard deviation of the differences between predicted and observed values.
-    - $\sqrt{\frac{\sum_{i=1}^n(Y_{\text{target},i}-Y_{\text{pred},i})^2}{n}}$
-  - Logs Likelihood loss:
-    - Considers the logarithm of probabilities of each class.
-    - In Binary classification: $-(y\log{p} + (1-y) \log{(1-p)})$
-- Optimization:  
-![Loss function](ML%20images/Error_Parameter_plot_Global_Minima.png)
-  - It is used to find the Minima.
-  - Minima is the minimum point in the plot between loss and parameters or the point with the least amount of error.
-  - It is often that there might more than one local Minima, in which the model might get stuck in local Minima instead of the Global Minima.
-  - Ways to find the Global Minima:
-    - Comparing all possible values which is inefficient way.
-    - Gradient Descent  
-    ![Gradient Descent](ML%20images/Gradient%20Descent.png)  
-      - It is the searching for the Minima by taking a step into the direction where the point on the graph with negative gradient. Until it finds an positive gradient, then it reverses the direction to another point where has negative gradient. This process occurs until the Minima is found
-      - Learning Rate:
-        - It is how big is the step to be taken.
-        - If it too big, the local Minima will be hard to be found.
-        - If it too small, it will take too much time to be found.
-      - Drawbacks:
-        - Updates the parameters only after a pass through all the data (one epoch)
-        - Can't be used when data is too large to fit entirely in memory.
-        - Can get stuck at local Minima or fail to reach Global Minima.
-    - Stochastic Gradient Descent:
-      - It is the same as gradient descent except that the weights is updated at every data point.
-      - It is very fast to converge.
-      - The drawback is that it is very noisy, in such that the steps might be in several directions.
-    - Mini-Batch Gradient Descent:
-      - It uses mini batch of records, and then the parameters is updated.
-      - It is slower than SGD but faster than Gradient Descent.
-      - It doesn't consume much memory as SGD
-    - Gradient Descent Variations:  
-    ![Gradient Descent Variations](ML%20images/Gradient_Descent_Variations.png)
-  - To find the Minima, an equation is calculated which is the derivative of the plot when it is equals to zero. Which is the point where the slope is neither increase nor decreases.
+  - The model predicts the target for these features based upon the weights that was given to the features.
+  - Then the predictions are compared with the actual labels to compute the loss using a cost [function](#regression-metrics).
+  - Based on the loss computed, the model parameters (features weights) are updated, using an optimization algorithm, to minimize the loss.
 
 ### Model Tuning
 
@@ -640,12 +591,20 @@ Selecting a subset of instances for training and testing
 
 #### Regularization
 
-- Regularization is a technique used to reduce the errors by fitting the function appropriately on the given training set and avoid overfitting.
+- Regularization is a technique used to generalize the model function appropriately on the given training set and avoid overfitting.
 - Overfitting often caused by overly-complex models capturing idiosyncrasies in training set.
 - Adding penalty score for complexity to cost function.
-  - $\text{cost}_{reg} = \text{cost} + \frac{\alpha}{2}\text{penalty}$
-  - With a small **Penalty**, the error that comes from the complexity of the model is not large enough to overtake the errors in the simplified model misclassifying points, so we will choose the complex model.
-  - With a large value for **Penalty**, we're multiplying the complexity part of the error by a lot. This punishes the complex model more so the simple model wins.
+  $$\text{cost}_{reg} = \text{cost}_{fn} + \frac{\lambda}{2m}\sum_{j=1}^n w_j^2$$
+  - Where:
+    - $\text{cost}_{fn}$: The cost function of ML algorithm
+    - $\lambda$: >0, Regularization parameter
+    - $m$: Number of points in dataset
+    - $n$: Number of features
+    - $w$: Model coefficients or feature weights
+  - $\frac{1}{2m}$ term is added to match the same value in ML algorithm cost function which leads to choosing $\lambda$ becomes easier. Specifically, when the training set increases.
+  - It is more conventional to not penalize $b$ parameter, only $w$ parameters are penalized.
+  - With a small $\lambda$, the error that comes from the complexity of the model is not large enough to overtake the errors in the simplified model misclassifying points, so we will choose the complex model.
+  - With a large $\lambda$, we're multiplying the complexity part of the error by a lot. This punishes the complex model more so the simple model wins. It reduces overfitting by reducing the size of the parameters. For some parameters that are near zero, this reduces the effect of the associated features.
 - Idea: Large weights corresponds to higher complexity.
 - Regularization types for Linear Regression:
   - Lasso(Least Absolute Shrinkage and Selection Operator):
@@ -774,8 +733,8 @@ It is an Estimator parameter that is NOT fitted in the data
   - Solution:
     - Increase training data
     - Reduce model complexity
-      - Decrease the number of features
-      - Increase the degree of regularization
+      - [Decrease the number of features](#feature-selection)
+      - Increase the degree of [regularization](#regularization)
 
 - Total Error $(x) = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$
 
@@ -846,46 +805,66 @@ $$F_\beta \text{ Score} = (1+\beta^2) . \frac{2 . \text{Precision} . \text{Recal
   - The optimum model has 1 AUC value
 
     ![AUC - ROC Curve](ML%20images/AUC-ROC.png)
+- **Logs Likelihood loss**:
+  - In a binary classification algorithm such as Logistic regression, the goal is to minimize the cross-entropy function.
+  - Cross-entropy is a measure of the difference between two probability distributions for a given random variable or set of events
+  - Logs Likelihood loss considers the logarithm of probabilities of each class.
+  - In Binary classification: $-(y\log{p} + (1-y) \log{(1-p)})$
 
 ##### Regression Metrics
 
-- **MAE** (Mean Absolute Error)
-  - It is the absolute values of the distances from the points to the line.
-  - Mean Absolute error(MAE) = $\frac{1}{N}\sum_{i=1}^N|\widehat{y} - y_i|$
-  - The mean absolute error has a problem which is that the absolute value function is not differentiable. This may not be good if we want to use methods such as gradient descent.
-  - This is a useful metric to optimize when the value you are trying to predict follows a skewed distribution. Optimizing on an absolute value is particularly helpful in these cases because outliers will not influence model.
-  - SciKit-learn: `sklearn.metrics.mean_absolute_error`
-- **MSE** (Mean Squared Error)
-  - Average squared error over entire dataset
-  - Mean squared error(MSE) = $\frac{1}{N}\sum_{i=1}^N(\widehat{y} - y_i)^2$
-  - Very commonly used
-  - This metric can be greatly impacted by skewed distributions and outliers.
-  - When a model is considered optimal via MAE, but not for MSE, it is useful to keep this in mind.
-  - In many cases, it is easier to actually optimize on MSE, as the quadratic term is differentiable. This factor makes this metric better for gradient-based optimization algorithms.
-  - SciKit-learn: `sklearn.metrics.mean_squared_error`
-- **$R^2$ error**
-  - $R^2 = 1 - \frac{\text{Sum of Squared Error (SSE)}}{\text{Total sum of Total Errors (SST)}}$ which is between 0 and 1.
-    - $SSE = \sum(y-\hat{y})^2$
-    - $SST = \sum(y-y_{mean})^2$
-  - Interpretation: Fraction of variance accounted for by the model
-  - Basically, standardized version of MSE
-  - The R2 value is frequently interpreted as the 'amount of variability captured by a model'. Therefore, you can think of MSE, as the average amount you miss across all the points and the R2 value as the amount of the variability in the points that you capture with a model.
-  - Good $R^2$ are determined by actual problem
-  - If the $R^2$ score is close to one, then the model is good. If it's close to zero, then the model is bad.
-  - $R^2$ always increase when more variables are added to the model.
-  - Highest $R^2$ may not be the best model.
-  - SciKit-learn: `sklearn.metrics.r2_score`
-- **Adjusted $R^2$**
-  - Adjusted $R^2= 1-(1-R^2)\frac{\text{no. of data pts.} -1}{\text{no. of data pts. - no. of variables}-1}$
-  - Takes into account of the effect of adding more variables such that it only increases when the added variables have significant effect in prediction.
-  - It is a better metric for multiple variates regression.
-  - SciKit-learn: `sklearn.metrics.r2_score`
+>**Definition Note:**  
+**Loss** is a measure of the difference of a single example to its target value while the  
+**Cost** is a measure of the losses over the training set. Or the measure of the error in the model predictions, given a certain weights.
+
+- Cost functions:
+  - **MAE** (Mean Absolute Error):
+  $$\frac{1}{m}\sum_{i=1}^m|y^{(i)} - \widehat{y}^{(i)}|$$
+    - Assume we have a point with coordinates $(x^{(i)},y^{(i)})$ and the fitting line is called $\hat{y}$ since it is our prediction. The corresponding point on this line is $(x^{(i)}, \hat{y}^{(i)})$, and the vertical distance from the point to the line is $(y^{(i)}-\hat{y}^{(i)})$. The error is the vertical distance (The absolute value).
+    - The total error is the sum of all these distances between predicted and actual points in the dataset.
+    - Using the sum or the average won't change the algorithms, since that would only scale our error by a constant, namely $m$.
+    - The mean absolute error has a problem which is that the absolute value function is not differentiable. This may not be good if we want to use methods such as **gradient descent**.
+    - This is a useful metric to optimize when the value you are trying to predict follows a skewed distribution. Optimizing on an absolute value is particularly helpful in these cases because outliers will not influence the model.
+    - **SciKit-learn**: `sklearn.metrics.mean_absolute_error`
+  - **MSE** (Mean Squared Error)
+    $$\frac{1}{2m}\sum_{i=1}^{m}​(y^{(i)}−\hat{y}^{(i)}​)^2$$
+    - MSE is very similar to the Mean Absolute Error, but instead of taking the distance between the point and the prediction, we're going to draw a square with this segment as its side. This area is $(y^{(i)} - \hat{y}^{(i)})^2$.
+    - The $\frac{1}{2}$ is going to be there for convenience because later we'll be taking the derivative of this error.
+    - Average squared error over entire dataset
+    - Very commonly used
+    - This metric can be greatly impacted by skewed distributions and outliers.
+    - When a model is considered optimal via MAE, but not for MSE, it is useful to keep this in mind.
+    - In many cases, it is easier to actually optimize on MSE, as the quadratic term is differentiable. This factor makes this metric better for gradient-based optimization algorithms.
+    - **SciKit-learn**: `sklearn.metrics.mean_squared_error`
+  - **$R^2$ error**
+    - $R^2 = 1 - \frac{\text{Sum of Squared Error (SSE)}}{\text{Total sum of Total Errors (SST)}}$ which is between 0 and 1.
+      - $SSE = \sum(y-\hat{y})^2$
+      - $SST = \sum(y-y_{mean})^2$
+    - Interpretation: Fraction of variance accounted for by the model
+    - Basically, standardized version of MSE
+    - The R2 value is frequently interpreted as the 'amount of variability captured by a model'. Therefore, you can think of MSE, as the average amount you miss across all the points and the R2 value as the amount of the variability in the points that you capture with a model.
+    - Good $R^2$ are determined by actual problem
+    - If the $R^2$ score is close to one, then the model is good. If it's close to zero, then the model is bad.
+    - $R^2$ always increase when more variables are added to the model.
+    - Highest $R^2$ may not be the best model.
+    - SciKit-learn: `sklearn.metrics.r2_score`
+  - **Adjusted $R^2$**
+    - Adjusted $R^2= 1-(1-R^2)\frac{\text{no. of data pts.} -1}{\text{no. of data pts. - no. of variables}-1}$
+    - Takes into account of the effect of adding more variables such that it only increases when the added variables have significant effect in prediction.
+    - It is a better metric for multiple variates regression.
+    - SciKit-learn: `sklearn.metrics.r2_score`
+  - **RMSE** (Root mean square error):
+  $$\sqrt{\frac{\sum_{i=1}^n(y^{(i)}-\hat{y}^{(i)})^2}{m}}$$
+    - RMSE is the standard deviation of the residuals (prediction errors).
+    - Residuals are a measure of how far from the regression line data points are, while RMSE is a measure of how spread out these residuals are. In other words, it tells you how concentrated the data is around the line of best fit.
 - **Confidence Interval**
   - An average computed on a sample is merely an estimate of the true population mean.
   - Confidence interval: Quantifies margin-of-error between sample metric and true metric due to sampling randomness
   - Informal interpretation: with x% confidence, true metric lies within the interval.
   - Precisely: If the true distribution is as stated, then with x% probability the observed value is in the interval.
   - Z-score: Quantifies how much the value is above or below the mean in terms of its standard deviation
+
+Trivia: [Why superscripts are used instead of subscripts in cost functions](https://stats.stackexchange.com/questions/193908/in-machine-learning-why-are-superscripts-used-instead-of-subscripts)
 
 #### Unsupervised clustering
 
@@ -1016,7 +995,7 @@ $$F_\beta \text{ Score} = (1+\beta^2) . \frac{2 . \text{Precision} . \text{Recal
 #### Feature Selection
 
 - It is a technique used to reduce the dimensionality of the dataset.
-- It is by leaving only one of the highly correlated features.
+- It is by leaving only the highly correlated features.
 - Filtering is a technique in Feature selection, which is eliminating the irrelevant data.
 
 #### Feature Creation and transformation
@@ -1044,6 +1023,8 @@ $$F_\beta \text{ Score} = (1+\beta^2) . \frac{2 . \text{Precision} . \text{Recal
       - Ex: Converting Age column into columns of ranges. (0 to 7 years), (8 - 16 years) ....
   - Scaling:
     - It is a way of transforming the data into a common range of values.
+    - It is needed when the features have a very different range of values. Ex: feature_1 ranges from 1 to 10, while feature 2 ranges from 1000 to 10000.
+    - It is almost always beneficial to scale the features.
     - It can be used in many machine learning algorithms, the result will change depending on the units of the data.
       - **Distance-Based Metrics algorithms**:
         - Choosing some sort of feature scaling is necessary with these distance-based techniques
@@ -1057,7 +1038,7 @@ $$F_\beta \text{ Score} = (1+\beta^2) . \frac{2 . \text{Precision} . \text{Recal
         - Features with small ranges need to have larger coefficients compared to features with large ranges in order to have the same effect on the outcome of the data.
         - [A useful Quora post on the importance of feature scaling when using regularization](https://www.quora.com/Why-do-we-normalize-the-data).
     - Scaling Techniques:
-      - **Mean/Variance standardization**:
+      - **Mean/Variance standardization (or z-score normalization)**:
         - Centering the values around mean $\mu_j = 0$ with standard deviation $\sigma_j = 1$ for each column.
         - This can be achieved by removing the mean from the variable and divide it with the standard variance.
         - $$x_{i,j}^* = \frac{x_{i,j} - \mu_j}{\sigma_j}$$
@@ -1095,7 +1076,12 @@ $$F_\beta \text{ Score} = (1+\beta^2) . \frac{2 . \text{Precision} . \text{Recal
           - Max norm
         - It is widely used in text analysis.
   - Polynomial Features  
-    ![Polynomial-Features_equation](ML%20images/Polynomial&#32;features&#32;equation.jpg)
+    $$
+    \begin{align*}
+    x &= (x_0,x_1) \Rightarrow x^` = (x_0,x_1,x_0^2,x_0x_1,x_1^2) \\
+    \hat{y} &= \hat{w}_0x_0 + \hat{w}_1x_1 + \hat{w}_{00}x_0^2 + \hat{w}_{01}x_0x_1 + \hat{w}_{11}x_1^2 + b
+    \end{align*}
+    $$
     - Generate new features consisting of all polynomial combinations of the original two features $𝑥_0,𝑥_1$.
     - The degree of the polynomial specifies how many variables participate at a time in each new feature (above example: degree 2).
     - This is still a weighted linear combination of features, so it's still a linear model, and can use same least-squares estimation method for $w$ and $b$.
@@ -1211,9 +1197,7 @@ $$F_\beta \text{ Score} = (1+\beta^2) . \frac{2 . \text{Precision} . \text{Recal
 ## ML Data Readiness
 
 - ML data readiness is the capability to evaluate readiness, or worthiness, of datasets for use in an ML based predictive solution.
-
 - ML data readiness evaluation is typically done prior to embarking on an ML project. It can help:
-
   - Evaluate the predictive potential of the dataset
   - Identify predictive outcomes that can be supported
   - Build initial ML models and understand relative performance
