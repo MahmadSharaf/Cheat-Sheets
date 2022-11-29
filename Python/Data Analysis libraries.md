@@ -321,7 +321,7 @@ df_combined = df1.merge(df2, left_on='column_name_df1', right_on='column_name_df
 # Order rows by values of a column (low to high).
 df.sort_values('col_name')
 
-# Order rows by values of a column (low to high).
+# Order rows by values of a column (high to low).
 df.sort_values('col_name', ascending=False)
 
 # Rename the columns of DataFrame
