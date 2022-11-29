@@ -396,6 +396,10 @@ df.loc[:,'x2':'x4']
 
 # Select columns in positions 1,2 and 5 (first column is 0)
 df.iloc[:,[1,2,5]]
+
+# Select columns in positions 0,1 , and from 12 to 22 (exclusive)
+import numpy as np
+df.iloc[:,np.r_[0,1,12:22]]
 ```
 
 #### Subset row and column
