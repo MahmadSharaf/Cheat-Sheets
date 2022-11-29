@@ -213,7 +213,7 @@ df.idmax()
 # Finds the index of the row containing a column's maximum value!
 df.colum_name.idxmax()
 
-# Summary Statistics
+# Useful descriptive statistics for each column of data
 df.describe()
 
 # Mean of values
@@ -238,6 +238,9 @@ df.isna().sum(axis=1)
 df.column_name.unique()
 
 # This returns the number of unique values in each column
+df.nunique()
+
+# This returns the number of unique values in column_name column
 df.column_name.nunique()
 
 # Return values at the given quantile over requested axis.
