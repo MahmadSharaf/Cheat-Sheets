@@ -102,6 +102,15 @@ It is the diagonal inverse of vector/matrix
 $$ \text{if } v=\begin{bmatrix} v_1 \\ v_2 \\ v_3\end{bmatrix}\text{,then } v^T=\begin{bmatrix} v_1 & v_2 & v_3\end{bmatrix}$$
 $$ \text{if } v=\begin{bmatrix} v_{11} & v_{12} \\ v_{21} & v_{22} \\ v_{31} & v_{32}\end{bmatrix}\text{,then } v^T=\begin{bmatrix} v_{11} & v_{21} & v_{31} \\ v_{12} & v_{22} & v_{32}\end{bmatrix} $$
 
+```py
+# Transpose
+v = np.array([v1,v2,v3])
+vT = v.T
+
+# using numpy
+np.transpose(v)
+```
+
 #### Vector Dot Product
 
 $$ \overrightarrow{v} = \begin{bmatrix}
@@ -127,6 +136,11 @@ v_1 & .. & v_n
     w_n
 \end{bmatrix} = \sum_{i=1}^n v_i w_i
 $$
+
+```py
+# Implementing using NumPy library
+np.dot(v,w)
+```
 
 #### Dot Product for Matrix by Vector
 
@@ -166,11 +180,25 @@ w.\overrightarrow{v} = \begin{bmatrix}
     5 \\
 \end{bmatrix} =
 \begin{bmatrix}
-    8 \\
+    9 \\
     3 \\
     4 \\
 \end{bmatrix}
 $$
+
+```py
+# Implementing using NumPy library
+
+w = np.array([[1, 0, 1],
+             [2, 0, -1],
+             [0, 1, 1]])
+v = np.array([[4], [-1], [5]])
+
+np.matmul(w,v)
+
+# Alternative to np.matmul function
+w @ v
+```
 
 #### Dot Product for Matrices
 
