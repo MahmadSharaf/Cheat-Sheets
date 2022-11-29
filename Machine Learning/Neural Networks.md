@@ -2,6 +2,7 @@
 
 - [Neural Networks](#neural-networks)
   - [Neural Network Architecture](#neural-network-architecture)
+  - [Neural networks pros and cons](#neural-networks-pros-and-cons)
 ## Neural Network Architecture
 
 ![s](NN%20images\Neural-Network-Architecture.png)
@@ -72,4 +73,10 @@ Overview:
   - Convolutional layer:
     - Each neuron only takes a part of the previous layer's output
     - It leads to faster computation and need less training data (less prone to overfitting)
+
+## Neural networks pros and cons
+
+- Can represent any non-linear function (very expressive)
+- Generally hard to interpret.
+- Expensive to train, fast to predict
 
