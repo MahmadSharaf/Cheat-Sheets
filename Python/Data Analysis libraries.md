@@ -267,7 +267,7 @@ df = pd.DataFrame(
     [5,8,11],
     [6,9,12]],
    index = [1,2,3],
-   column = ['a','b','c'])
+   columns = ['a','b','c'])
 
 # Specify DataFrame with a MultiIndex
 df = pd.DataFrame(
