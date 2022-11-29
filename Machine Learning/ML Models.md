@@ -20,11 +20,6 @@
         - [SVM extra resources](#svm-extra-resources)
       - [Decision tree](#decision-tree)
       - [Random Forest](#random-forest)
-    - [Neural Networks](#neural-networks)
-      - [Perceptron](#perceptron)
-      - [Neural network architecture](#neural-network-architecture)
-      - [Convolutional Neural Networks](#convolutional-neural-networks)
-      - [Recurrent neural networks](#recurrent-neural-networks)
     - [K-nearest neighbor](#k-nearest-neighbor)
     - [Naive Bayes](#naive-bayes)
       - [Bayes Theorem](#bayes-theorem)
@@ -89,7 +84,7 @@ f_{w,b}(x) &= \overrightarrow{w} . \overrightarrow{x} + \hat{b} \newline
 ##### Cost functions
 
 - **MSE** (Mean Squared Error)
-  $$J(w,b) = \frac{1}{2m}\sum_{i=1}^{m}​(\hat{y}^{(i)}−y^{(i)}​)^2$$
+  $$J(w,b) = \frac{1}{2m}\sum_{i=1}^{m}​(y^{(i)}−\hat{y}^{(i)}​)^2$$
 
   - Notations:
     - $J(w,b)$: Cost function
@@ -579,41 +574,6 @@ The above figure shows at the right that the points can be separated by a straig
 - More expensive to train and run
 - scikit-learn: `sklearn.ensemble.RandomForestClassifier`
 - scikit-learn: `sklearn.ensemble.RandomForestRegressor`
-
-### Neural Networks
-
-#### Perceptron
-
-- It is the simplest neural network.
-- It is a single layer neural network that uses one layer of a list of input features and one output.
-- One of the features is a bias, same as intercept in linear regression, that gets combined a long with the other features.
-- After having this linear combination, an activation function is applied. This function is usually non-linear and depends on the problem being tried to solve.
-
-#### Neural network architecture
-
-- Layers of nodes connected together
-- Each node is one multivariate linear function, with an univariate nonlinear transformation.
-- Trained via stochastic gradient descent
-- Can represent any non-linear function (very expressive)
-- Generally hard to interpret.
-- Expensive to train, fast to predict
-- Scikit-learn: `sklearn.neural_network.MLPClassifier`.
-- Deep Learning Frameworks:
-  - MXNet
-  - TensorFlow
-  - Caffe
-  - PyTorch
-
-#### Convolutional Neural Networks
-
-- It is very useful in image analysis
-- The input is an image or a sequence of images.
-- Kernel is used as filter to extract local features.
-
-#### Recurrent neural networks
-
-- It consists of multiple inputs layer, multiple hidden layers and multiple output layer.
-- Each node outputs to the next input node.
 
 ### K-nearest neighbor
 
