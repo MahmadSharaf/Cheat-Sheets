@@ -776,7 +776,7 @@ df.column_name.str.extract(r'(\d+)?\D*(\d+)?\D*(\d+)?').head()
   axes2[2]= ax.clabel(CS)
   ```
 
-### Customize Plot
+### [Customize Plot](https://matplotlib.org/stable/tutorials/introductory/customizing.html)
 
 - Colors, Color Bars & Color Maps
   
