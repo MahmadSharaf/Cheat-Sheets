@@ -548,7 +548,7 @@ df.applymap(f)
 
 ```py
 # Plot Histogram for each column
-df.plot.hist()
+df.plot.hist();
 
 # hist() can be called on a Pandas series object as well
 df.column_name.hist();
@@ -558,6 +558,8 @@ df.column_name.plot(kind='hist');
 df.plot(x='x-axis column_name', y='y-axis column_name', kind='scatter');
 df.column_name.plot(kind='box');
 df.column_name.plot(kind='pie');
+df.column_name.value_counts.plot(kind='bar');
+
 # Scatter chart using pairs of points
 df.plot.scatter(x='w', y='h')
 # scatter_matrix() shows the relationships among numerical variables with scatter plots. It also returns a histogram for each variable.
