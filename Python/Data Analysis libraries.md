@@ -345,7 +345,8 @@ pd.cut(x, bins, right=True, labels=None, retbins=False, precision=3, include_low
 
 ```py
 # Extract rows that meet logical criteria
-df[df.col_name > 7]
+df[(df['col name'] > 7) & (df.col_name < 20)]
+df.query('`col name` > 7 & col_name < 20')
 
 # Returns boolean column, which gives the duplicate TRUE value with escaping the first instance. All rows has to be the same to be identified as duplicate.
 df.duplicated()
