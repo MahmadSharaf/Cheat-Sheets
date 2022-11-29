@@ -471,6 +471,9 @@ df.column_name.value_counts()
 # Return a GroupBy object, grouped by values in column 'col'
 df.groupby(by='col')
 
+# Group DataFrame by `col` and show the number of unique values in each column.
+df.groupby(by='col').nunique()
+
 # Return a GroupBy object, grouped by values in index level named 'ind'
 df.groupby(level='ind')
 
