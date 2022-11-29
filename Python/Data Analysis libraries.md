@@ -695,7 +695,7 @@ df.column_name.str.extract(r'(\d+)?\D*(\d+)?\D*(\d+)?').head()
   
   ```py
   # Draw points with lines or markers connecting them
-  lines = ax.plot(x,y
+  lines = ax.plot(x,y)
   
   # Draw unconnected points, scaled or colored
   ax.scatter(x,y)
