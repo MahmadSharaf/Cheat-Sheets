@@ -104,8 +104,19 @@
 # Read and write from CSV
 pd.read_csv('file_name.csv',header=None,nrows=5,na_values='?')
 
+# Skip meta data at top by setting the header row number
+pd.read_csv('file_name.csv',header=2)
+
+# Replace header with user-defined ones
+labels = ['column_1', 'column_2', 'column_3', 'column_4']
+pd.read_csv('file_name.csv', header=0, names=labels)
+
+# Specify one or more columns to be the index
+pd.read_csv('file_name.csv', index_col=['column_1', 'column_2'])
+
 # Convert DataFrame to CSV file
 df.to_csv('file_name.csv')
+
 # `to_csv()` will store our index unless we tell it not to. To make it ignore the index, we have to provide the parameter `index=False`
 df.to_csv('file_name_edited.csv', index=False)
 ```
