@@ -572,6 +572,9 @@ pd.plotting.scatter_matrix(df, figsize=(15,15));
 # Get information about a function
 help(pd.Series.loc)
 
+# Assign new labels to columns in dataframe
+df.columns = new_labels
+
 # convert to string and extract the integer using regular expressions
 df['column_name'].str.extract('(\d+)').astype(int)
 
@@ -583,12 +586,8 @@ for i, v in enumerate(df.columns):
     print(i, v)
 
 # remove "_mean" from column names
-new_labels = []
-for col in df.columns:
-    if '_mean' in col:
-        new_labels.append(col[:-5])  # exclude last 6 characters
-    else:
-        new_labels.append(col)
+new_labels = [column.replace('_mean','') for column in df.columns]
+
 # datatypes of columns
 for i, v in enumerate(df.iloc[0,:]):
     print(df.columns[i],':', type(v))
