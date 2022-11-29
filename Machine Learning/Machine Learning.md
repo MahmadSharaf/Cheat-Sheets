@@ -1040,7 +1040,7 @@ Trivia: [Why superscripts are used instead of subscripts in cost functions](http
     - Scaling Techniques:
       - **Mean/Variance standardization (or z-score normalization)**:
         - Centering the values around mean $\mu_j = 0$ with standard deviation $\sigma_j = 1$ for each column.
-        - This can be achieved by removing the mean from the variable and divide it with the standard variance.
+        - This can be achieved by removing the mean from the variable and divide it with the standard deviation.
         - $$x_{i,j}^* = \frac{x_{i,j} - \mu_j}{\sigma_j}$$
         - Advantages:
           - Many algorithms behave better with smaller values
