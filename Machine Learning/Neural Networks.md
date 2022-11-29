@@ -4,6 +4,13 @@
   - [Neural Network Architecture](#neural-network-architecture)
   - [Neural networks pros and cons](#neural-networks-pros-and-cons)
   - [Build and Train a Neural Network](#build-and-train-a-neural-network)
+  - [Types of Neural Networks](#types-of-neural-networks)
+    - [Perceptron](#perceptron)
+    - [Convolutional Neural Networks](#convolutional-neural-networks)
+    - [Recurrent Neural networks](#recurrent-neural-networks)
+  - [Deep Learning Frameworks](#deep-learning-frameworks)
+  - [References](#references)
+
 ## Neural Network Architecture
 
 ![s](NN%20images\Neural-Network-Architecture.png)
@@ -163,3 +170,36 @@ Overview:
       - All these will be applied to the biases as well
     - Then moves backward through the network, slightly adjusting each of the weights in a direction that reduces the size of the error by a small degree.
 - Both forward and back propagation are re-run hundred/thousands of times on each input combination until the network can accurately predict the expected output of the possible inputs using forward propagation.
+
+
+## Types of Neural Networks
+
+### Perceptron
+
+- It is the simplest neural network.
+- It is a single layer neural network that uses one layer of a list of input features and one output.
+- One of the features is a bias, same as intercept in linear regression, that gets combined a long with the other features.
+- After having this linear combination, an activation function is applied. This function is usually non-linear and depends on the problem being tried to solve.
+
+### Convolutional Neural Networks
+
+- It is very useful in image analysis
+- The input is an image or a sequence of images.
+- Kernel is used as filter to extract local features.
+
+### Recurrent Neural networks
+
+- It consists of multiple inputs layer, multiple hidden layers and multiple output layer.
+- Each node outputs to the next input node.
+
+## Deep Learning Frameworks
+
+- MXNet
+- TensorFlow
+- Caffe
+- PyTorch
+
+## References
+
+- [AWS ML University](https://www.youtube.com/watch?v=xUxw6C_z2kA&list=PL8P_Z6C4GcuWfAq8Pt6PBYlck4OprHXsw&index=8) and its [repo](https://github.com/aws-samples/aws-machine-learning-university-accelerated-nlp)
+- Machine learning specialization by Andrew Ng
