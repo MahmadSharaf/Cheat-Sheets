@@ -13,7 +13,7 @@
 
 ## Neural Network Architecture
 
-![s](NN%20images\Neural-Network-Architecture.png)
+![Neural Network](NN%20images/Neural-Network-Architecture.png)
 
 Function:
 
