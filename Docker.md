@@ -187,11 +187,11 @@
 ### Bind Mounts
 
 - Available since the early days of Docker.
+- When you use a bind mount, a file or directory on the host machine is mounted into a container. This allows to edit files on the host, and have them available inside the container, in real time.
 - They may be stored anywhere on the host system.
 - They may even be important system files or directories.
 - Non-Docker processes on the Docker host or a Docker container can modify them at any time.
 - Bind mounts have limited functionality compared to volumes.
-- When you use a bind mount, a file or directory on the host machine is mounted into a container.
 - The file or directory is referenced by its full path on the host machine.
 - The file or directory does not need to exist on the Docker host already. It is created on demand if it does not yet exist.
 - You can’t use Docker CLI commands to directly manage bind mounts.
