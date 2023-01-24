@@ -4,6 +4,11 @@
   - [Neural Network Architecture](#neural-network-architecture)
   - [Neural networks pros and cons](#neural-networks-pros-and-cons)
   - [Build and Train a Neural Network](#build-and-train-a-neural-network)
+    - [1. Forward Propagation/Pass](#1-forward-propagationpass)
+    - [2. Cost (error) functions](#2-cost-error-functions)
+    - [3. Back Propagation](#3-back-propagation)
+    - [4. Update network weights by applying the optimization algorithm method](#4-update-network-weights-by-applying-the-optimization-algorithm-method)
+    - [5. Repeat](#5-repeat)
   - [Types of Neural Networks](#types-of-neural-networks)
     - [Perceptron](#perceptron)
     - [Convolutional Neural Networks](#convolutional-neural-networks)
@@ -92,12 +97,15 @@ Overview:
 
 - Different activation/output functions can be chosen for different layers, don’t need to be the same, although all neurons in same layer will use same activation
 - The activation functions are also hyperparameters of the NN, and need to be tuned by using a validation set, to figure out what choices perform best.
-- Steps to train the NN:
-  - The network is initialized with initial values for the neurons weights.
-  - Forward Propagation/Pass:
-    - It is the step in which the inputs are passed through each layer of the network and get computed, until it reaches the output.
-  - Cost (error) functions:
-    - It is where the outputs are compared to the true values.
+
+### 1. Forward Propagation/Pass
+  
+- It is the step in which the inputs $X$ are passed through each layer of the network and get computed using layer's activation function, until it reaches the output.
+
+### 2. Cost (error) functions
+
+- It is where the outputs are compared to the true values to measure the performance of the NN with the current weights and biases.
+- Cost function is selected according to the problem: Binary/Multi-class Classification or Regression.
     - Binary Cross entropy for logistic.
       - For Binary Classification problems:
       - A numeric value that measures the performance of a binary classifier when model output is a probability between 0 and 1
@@ -112,30 +120,22 @@ Overview:
     - For Regression problems:
       - Mean Squared Error is used
       - $C = \frac{1}{n}{\sum_{examples}}(y-p)^2$
-    - Cost function is selected according to problem: Binary/Multi-class Classification or Regression.
-  - Back Propagation:
-    - The goal of back-propagation is to compute the partial derivatives $∂C/∂w$ and $∂C/∂b$ of the cost function C with respect to any weight w or bias b in the network.
-    - The back propagation algorithm begins by comparing the actual NN output by the forward pass/forward propagation process to the expected value (target).
-    - Calculate new weights to minimize the cost.
-      - Adjust the old value of a weight to a new value of the weight, by using optimization algorithm.
-        - Optimization algorithms:
-          - Gradient Descent
-          - [Recommended] Adam: Adaptive Moment estimation
-            - It uses same algorithm as Gradient Descent but adjusting the learning rate while training.
-            - If cost is decreasing in a steady rate, then increase the learning rate to speed up the convergence.
-            - If the cost is oscillating, then decrease the learning rate.
+
+### 3. Back Propagation
+
+- The goal of back-propagation is to adjust the weights and biases, of each layer, so that the NN output $a^L$ equals the true values $y$ or the cost function equals zero.
+- This is done by going through each layer of the NN in reverse order. And then adjust the layer's weights and biases with a small amount that minimizes the error of the cost function.
       - This can be done by understanding how a change in the weights will affect the cost. For example, if we increased $w^{[1]}$ with 1, how the cost will be affected. Will it increase or decrease and by how much?
-      - In other words, we need the derivative of the cost with respect to each parameter. This can be achieved by two ways, direct derivative or chain rule
+- In other words, we need the derivative of the cost $C$ with respect to each parameter $w$ and $b$; $∂C/∂w$ and $∂C/∂b$. This can be achieved by two ways, direct derivative or chain rule
       - Using direct derivative requires finding an equation that has a direct relation between the cost and the parameter and apply partial derivative to it. This way is too complex, especially with complex NNs.
-        - To give some intuition, do partial derivative to the below equations:
+  - To give some intuition, let's calculate the partial derivative to the below equations:
         $$
         \begin{align*}
         \frac{\partial{C}}{\partial{w^{[L]}}} &= \frac{1}{1+e^{-(w^La^{[L-1]}+b^L)}} \\
         \frac{\partial{C}}{\partial{w^{[L-1]}}} &= \frac{1}{1+e^{-(w^L (w^{L-1} a^{[L-2]}+b^{L-1})+b^L)}}
         \end{align*}
         $$
-      - While using chain rule, eliminates the need to find an equation with direct relation between the cost and the parameter.
-      - Instead, the derivative is split into intermediate ones that get multiplied together.
+- While using chain rule, eliminates the need to find an equation with direct relation between the cost and the parameter. Instead, the derivative is split into intermediate ones that get multiplied together.
       - In the chain rule examples below (1),(2), they show that the derivative is chained together using intermediate relations.
       - By knowing the relations as:
         - Cost function: $C^l = \frac{1}{2}(y-a^L)^2$,
@@ -149,26 +149,48 @@ Overview:
       \end{align}
       $$
 
-      - In the first equation, we need to find $\frac{\partial{C}}{\partial{w^{[L]}}}$, and by using the chain relation, C -> $a^{[L]}=\hat{y}$ -> $z^{[L]}$ -> $w^{[L]}$.
-      - In the second equation, we need to find $\frac{\partial{C}}{\partial{w^{[L-1]}}}$, and by using the chain relation, C -> $a^{[L]}=\hat{y}$ -> $z^{[L]}$ -> $a^{[L-1]}$ -> $z^{[L-1]}$ -> $w^{[L-1]}$.
-      - You may noticed that in the next equation, we didn't use $z^{[L]}$ -> $w^{[L]}$, instead we used $z^{[L]}$ -> $a^{[L-1]}$ as not to be blocked be $w$ and reach the weights of the previous layer through $a$.
+    - In the first equation, we need to find $\frac{\partial{C}}{\partial{w^{[L]}}}$, and by using the chain relation, C -> $a^{[L]}$ -> $z^{[L]}$ -> $w^{[L]}$.
+    - In the second equation, we need to find $\frac{\partial{C}}{\partial{w^{[L-1]}}}$, and by using the chain relation, C -> $a^{[L]}$ -> $z^{[L]}$ -> $a^{[L-1]}$ -> $z^{[L-1]}$ -> $w^{[L-1]}$.
+    - You may noticed that in the second equation, we didn't use $z^{[L]}$ -> $w^{[L]}$, instead we used $z^{[L]}$ -> $a^{[L-1]}$ as not to be blocked by $w$ and reach the weights of the previous layer through $a^{[L-1]}$.
       - You may also noticed that expression $\frac{\partial{C}}{\partial{a^{[L]}}} *\frac{\partial{a^{[L]}}}{\partial{z^{[L]}}}$ is duplicated in both equations. That is will give us a hint that already calculated derivatives will be reused again while calculating weights of a previous layer. This term is called error of $j$ neuron in $l$ layer and donated as $\delta^l_j$.
       - Moreover, since $z^{[L]}=w^{[L]}a^{[L-1]}+b^{[L]}$, then $\frac{\partial{z^{[L]}}}{\partial{w^{[L]}}}=a^{[L-1]}$
-      - So, We could replace the above equations as
+    - So, we could replace the above equations as
 
       $$
       \begin{align}
       \frac{\partial{C}}{\partial{w^{[L]}}} & = \delta^L * a^{[L-1]} \\
-      \frac{\partial{C}}{\partial{w^{[L-1]}}} & = \delta^L * \delta^{L-1} * a^{[L-2]}
+    \frac{\partial{C}}{\partial{w^{[L-1]}}} & = \delta^{L-1} * a^{[L-2]}
       \end{align}
       $$
 
-      - $\delta^l_j = \frac{\partial{C}}{\partial{a^{[L]}}} *\frac{\partial{a^{[L]}}}{\partial{z^{[L]}}} = \nabla_a C \odot \sigma'(z^L)$ This is a more matrix-based form in which $\nabla_a C$ is the rate of change of $C$ with respect to the output activations, and $\sigma'(z^L)$ is exactly the same as $\frac{\partial{a^{[L]}}}{\partial{z^{[L]}}}$ because $a=\sigma(z^L)$ and $`$ means prime or derivative.
+    - Where $\delta^{[L-1]} = \delta^L *\frac{\partial{z^{[L]}}}{\partial{a^{[L-1]}}}* \frac{\partial{a^{[L-1]}}}{\partial{z^{[L-1]}}}$.
+    - All these will be applied to the biases as well
+  - So, using the chain rule we can deduce these important equations:
+    $$
+    \begin{align*}
+    \delta^{[L]} & = (a^{[L]} - y^T) \\
+    \delta^{[l]} & = ((w^{[l+1]})^T \cdot \delta^{[l+1]})*\sigma^\prime(z^{[l]}) \\
+    \frac{\partial J}{\partial w^{[l]}} & = \sum^L_{l=1} \delta^{[l]} \cdot (a^{[l-1]})^T \\
+    \frac{\partial J}{\partial b^{[l]}} & = \sum^L_{l=1} \delta^{[l]}
+    \end{align*}
+    $$
 
-    - Update network weights by applying the optimization algorithm method.
-      - Each weight will be updated based on its derivative according to this equation: ${w}_{new} = {w}_{old} - learning\_rate * \frac{\partial{C}}{\partial{w}}$
-      - All these will be applied to the biases as well
+### 4. Update network weights by applying the optimization algorithm method
+
+- Adjust the old value of a weight to a new value of the weight, by using optimization algorithm.
+  - Optimization algorithms:
+    - Gradient Descent
+    - [Recommended] Adam: Adaptive Moment estimation
+      - It uses same algorithm as Gradient Descent but adjusting the learning rate while training.
+      - If cost is decreasing in a steady rate, then increase the learning rate to speed up the convergence.
+      - If the cost is oscillating, then decrease the learning rate.
+- Each weight will be updated based on its derivative according to this equation:
+  - ${w}_{new} = {w}_{old} - learning\_rate * \frac{\partial{C}}{\partial{w}}$
+  - ${b}_{new} = {b}_{old} - learning\_rate * \frac{\partial{C}}{\partial{b}}$
     - Then moves backward through the network, slightly adjusting each of the weights in a direction that reduces the size of the error by a small degree.
+
+### 5. Repeat
+
 - Both forward and back propagation are re-run hundred/thousands of times on each input combination until the network can accurately predict the expected output of the possible inputs using forward propagation.
 
 
