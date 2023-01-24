@@ -225,3 +225,7 @@ Overview:
 
 - [AWS ML University](https://www.youtube.com/watch?v=xUxw6C_z2kA&list=PL8P_Z6C4GcuWfAq8Pt6PBYlck4OprHXsw&index=8) and its [repo](https://github.com/aws-samples/aws-machine-learning-university-accelerated-nlp)
 - Machine learning specialization by Andrew Ng
+- [Backpropagation calculus | Chapter 4, Deep learning - YouTube](https://www.youtube.com/watch?v=tIeHLnjs5U8)
+- [Lecture 12 - Backprop & Improving Neural Networks | Stanford CS229: Machine Learning (Autumn 2018) - YouTube](https://www.youtube.com/watch?v=zUazLXZZA2U)
+- [Neural networks and deep learning](http://neuralnetworksanddeeplearning.com/chap2.html)
+- [Proof of derivative for the sigmoid function](https://math.stackexchange.com/questions/78575/derivative-of-sigmoid-function-sigma-x-frac11e-x)
