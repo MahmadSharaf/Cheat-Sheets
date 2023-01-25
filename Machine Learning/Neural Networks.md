@@ -9,6 +9,9 @@
     - [3. Back Propagation](#3-back-propagation)
     - [4. Update network weights by applying the optimization algorithm method](#4-update-network-weights-by-applying-the-optimization-algorithm-method)
     - [5. Repeat](#5-repeat)
+  - [Implementation](#implementation)
+    - [NumPy library](#numpy-library)
+    - [TensorFlow Framework](#tensorflow-framework)
   - [Types of Neural Networks](#types-of-neural-networks)
     - [Perceptron](#perceptron)
     - [Convolutional Neural Networks](#convolutional-neural-networks)
@@ -97,6 +100,7 @@ Overview:
 
 - Different activation/output functions can be chosen for different layers, don’t need to be the same, although all neurons in same layer will use same activation
 - The activation functions are also hyperparameters of the NN, and need to be tuned by using a validation set, to figure out what choices perform best.
+- The network is initialized with initial values for the neurons weights and biases.
 
 ### 1. Forward Propagation/Pass
   
@@ -106,62 +110,62 @@ Overview:
 
 - It is where the outputs are compared to the true values to measure the performance of the NN with the current weights and biases.
 - Cost function is selected according to the problem: Binary/Multi-class Classification or Regression.
-    - Binary Cross entropy for logistic.
-      - For Binary Classification problems:
-      - A numeric value that measures the performance of a binary classifier when model output is a probability between 0 and 1
-      $$
-      J(\mathbf{w},b) = -\frac{1}{m} \left[ \sum_{i=1}^{m} \sum_{j=1}^{N}  1\left\{y^{(i)} == j\right\} \log \frac{e^{z^{(i)}_j}}{\sum_{k=1}^N e^{z^{(i)}_k} }\right]
-      $$
-      - Where $m$ is the number of examples, $N$ is the number of outputs. This is the average of all the losses.
-    - Cross entropy for Softmax is used:
-      - For Multi-class classification problems
-      - Extends the cross entropy for sigmoid loss beyond two classes to multi-class classification
-      - $C = -\frac{1}{n}{\sum_{examples}}\,{\sum_{classes} y_i \ln(p_i)}$
-    - For Regression problems:
-      - Mean Squared Error is used
-      - $C = \frac{1}{n}{\sum_{examples}}(y-p)^2$
+  - Binary Cross entropy for logistic.
+    - For Binary Classification problems:
+    - A numeric value that measures the performance of a binary classifier when model output is a probability between 0 and 1
+    $$
+    J(\mathbf{w},b) = -\frac{1}{m} \left[ \sum_{i=1}^{m} \sum_{j=1}^{N}  1\left\{y^{(i)} == j\right\} \log \frac{e^{z^{(i)}_j}}{\sum_{k=1}^N e^{z^{(i)}_k} }\right]
+    $$
+    - Where $m$ is the number of examples, $N$ is the number of outputs. This is the average of all the losses.
+  - Cross entropy for Softmax is used:
+    - For Multi-class classification problems
+    - Extends the cross entropy for sigmoid loss beyond two classes to multi-class classification
+    - $C = -\frac{1}{n}{\sum_{examples}}\,{\sum_{classes} y_i \ln(p_i)}$
+  - For Regression problems:
+    - Mean Squared Error is used
+    - $C = \frac{1}{n}{\sum_{examples}}(y-p)^2$
 
 ### 3. Back Propagation
 
 - The goal of back-propagation is to adjust the weights and biases, of each layer, so that the NN output $a^L$ equals the true values $y$ or the cost function equals zero.
 - This is done by going through each layer of the NN in reverse order. And then adjust the layer's weights and biases with a small amount that minimizes the error of the cost function.
-      - This can be done by understanding how a change in the weights will affect the cost. For example, if we increased $w^{[1]}$ with 1, how the cost will be affected. Will it increase or decrease and by how much?
+- This can be done by understanding how a change in the weights will affect the cost. For example, if we increased $w^{[1]}$ with 1, how the cost will be affected. Will it increase or decrease and by how much?
 - In other words, we need the derivative of the cost $C$ with respect to each parameter $w$ and $b$; $∂C/∂w$ and $∂C/∂b$. This can be achieved by two ways, direct derivative or chain rule
-      - Using direct derivative requires finding an equation that has a direct relation between the cost and the parameter and apply partial derivative to it. This way is too complex, especially with complex NNs.
+- Using direct derivative requires finding an equation that has a direct relation between the cost and the parameter and apply partial derivative to it. This way is too complex, especially with complex NNs.
   - To give some intuition, let's calculate the partial derivative to the below equations:
-        $$
-        \begin{align*}
-        \frac{\partial{C}}{\partial{w^{[L]}}} &= \frac{1}{1+e^{-(w^La^{[L-1]}+b^L)}} \\
-        \frac{\partial{C}}{\partial{w^{[L-1]}}} &= \frac{1}{1+e^{-(w^L (w^{L-1} a^{[L-2]}+b^{L-1})+b^L)}}
-        \end{align*}
-        $$
+    $$
+    \begin{align*}
+    \frac{\partial{C}}{\partial{w^{[L]}}} &= \frac{1}{1+e^{-(w^La^{[L-1]}+b^L)}} \\
+    \frac{\partial{C}}{\partial{w^{[L-1]}}} &= \frac{1}{1+e^{-(w^L (w^{L-1} a^{[L-2]}+b^{L-1})+b^L)}}
+    \end{align*}
+    $$
 - While using chain rule, eliminates the need to find an equation with direct relation between the cost and the parameter. Instead, the derivative is split into intermediate ones that get multiplied together.
-      - In the chain rule examples below (1),(2), they show that the derivative is chained together using intermediate relations.
-      - By knowing the relations as:
-        - Cost function: $C^l = \frac{1}{2}(y-a^L)^2$,
-        - Activation function: $a^L = \sigma(z^L)$
-        - and $z^{[L]}=w^{[L]}a^{[L-1]}+b^{[L]}$
+  - In the chain rule examples below (1),(2), they show that the derivative is chained together using intermediate relations.
+  - By knowing the relations as:
+    - Cost function: $C^l = \frac{1}{2}(y-a^L)^2$,
+    - Activation function: $a^L = \sigma(z^L)$
+    - and $z^{[L]}=w^{[L]}a^{[L-1]}+b^{[L]}$
 
-      $$
-      \begin{align}
-      \frac{\partial{C}}{\partial{w^{[L]}}} & = \frac{\partial{C}}{\partial{a^{[L]}}} *\frac{\partial{a^{[L]}}}{\partial{z^{[L]}}}* \frac{\partial{z^{[L]}}}{\partial{w^{[L]}}} \\
-      \frac{\partial{C}}{\partial{w^{[L-1]}}} & = \frac{\partial{C}}{\partial{a^{[L]}}} *\frac{\partial{a^{[L]}}}{\partial{z^{[L]}}}* \frac{\partial{z^{[L]}}}{\partial{a^{[L-1]}}}* \frac{\partial{a^{[L-1]}}}{\partial{z^{[L-1]}}}* \frac{\partial{z^{[L-1]}}}{\partial{w^{[L-1]}}}
-      \end{align}
-      $$
+    $$
+    \begin{align}
+    \frac{\partial{C}}{\partial{w^{[L]}}} & = \frac{\partial{C}}{\partial{a^{[L]}}} *\frac{\partial{a^{[L]}}}{\partial{z^{[L]}}}* \frac{\partial{z^{[L]}}}{\partial{w^{[L]}}} \\
+    \frac{\partial{C}}{\partial{w^{[L-1]}}} & = \frac{\partial{C}}{\partial{a^{[L]}}} *\frac{\partial{a^{[L]}}}{\partial{z^{[L]}}}* \frac{\partial{z^{[L]}}}{\partial{a^{[L-1]}}}* \frac{\partial{a^{[L-1]}}}{\partial{z^{[L-1]}}}* \frac{\partial{z^{[L-1]}}}{\partial{w^{[L-1]}}}
+    \end{align}
+    $$
 
     - In the first equation, we need to find $\frac{\partial{C}}{\partial{w^{[L]}}}$, and by using the chain relation, C -> $a^{[L]}$ -> $z^{[L]}$ -> $w^{[L]}$.
     - In the second equation, we need to find $\frac{\partial{C}}{\partial{w^{[L-1]}}}$, and by using the chain relation, C -> $a^{[L]}$ -> $z^{[L]}$ -> $a^{[L-1]}$ -> $z^{[L-1]}$ -> $w^{[L-1]}$.
     - You may noticed that in the second equation, we didn't use $z^{[L]}$ -> $w^{[L]}$, instead we used $z^{[L]}$ -> $a^{[L-1]}$ as not to be blocked by $w$ and reach the weights of the previous layer through $a^{[L-1]}$.
-      - You may also noticed that expression $\frac{\partial{C}}{\partial{a^{[L]}}} *\frac{\partial{a^{[L]}}}{\partial{z^{[L]}}}$ is duplicated in both equations. That is will give us a hint that already calculated derivatives will be reused again while calculating weights of a previous layer. This term is called error of $j$ neuron in $l$ layer and donated as $\delta^l_j$.
-      - Moreover, since $z^{[L]}=w^{[L]}a^{[L-1]}+b^{[L]}$, then $\frac{\partial{z^{[L]}}}{\partial{w^{[L]}}}=a^{[L-1]}$
+    - You may also noticed that expression $\frac{\partial{C}}{\partial{a^{[L]}}} *\frac{\partial{a^{[L]}}}{\partial{z^{[L]}}}$ is duplicated in both equations. That is will give us a hint that already calculated derivatives will be reused again while calculating weights of a previous layer. This term is called error of $j$ neuron in $l$ layer and donated as $\delta^l_j$.
+    - Moreover, since $z^{[L]}=w^{[L]}a^{[L-1]}+b^{[L]}$, then $\frac{\partial{z^{[L]}}}{\partial{w^{[L]}}}=a^{[L-1]}$
     - So, we could replace the above equations as
 
-      $$
-      \begin{align}
-      \frac{\partial{C}}{\partial{w^{[L]}}} & = \delta^L * a^{[L-1]} \\
+    $$
+    \begin{align}
+    \frac{\partial{C}}{\partial{w^{[L]}}} & = \delta^L * a^{[L-1]} \\
     \frac{\partial{C}}{\partial{w^{[L-1]}}} & = \delta^{L-1} * a^{[L-2]}
-      \end{align}
-      $$
+    \end{align}
+    $$
 
     - Where $\delta^{[L-1]} = \delta^L *\frac{\partial{z^{[L]}}}{\partial{a^{[L-1]}}}* \frac{\partial{a^{[L-1]}}}{\partial{z^{[L-1]}}}$.
     - All these will be applied to the biases as well
@@ -187,12 +191,158 @@ Overview:
 - Each weight will be updated based on its derivative according to this equation:
   - ${w}_{new} = {w}_{old} - learning\_rate * \frac{\partial{C}}{\partial{w}}$
   - ${b}_{new} = {b}_{old} - learning\_rate * \frac{\partial{C}}{\partial{b}}$
-    - Then moves backward through the network, slightly adjusting each of the weights in a direction that reduces the size of the error by a small degree.
+- Then moves backward through the network, slightly adjusting each of the weights in a direction that reduces the size of the error by a small degree.
 
 ### 5. Repeat
 
 - Both forward and back propagation are re-run hundred/thousands of times on each input combination until the network can accurately predict the expected output of the possible inputs using forward propagation.
 
+## Implementation
+
+![Neural Network example](NN%20images/C2_W1_RoastingNetwork.PNG)
+
+Steps:
+
+1. Specify the model
+2. Specify loss and cost functions
+3. Train on data to minimize the cost function.
+
+### NumPy library
+
+```py
+# Import libraries
+import numpy as np
+
+# Normalizing the data
+def norm_l(x):
+    units = W.shape[1]
+    for j in range(units):    
+        mu = np.mean(x[:,j])
+        sigma = np.std(x[:,j])
+        x[:,j] = (x[:,j] - mu)/sigma
+    return x
+
+Xn = norm_l(X)
+
+# Define activation function Sigmoid
+def g(z):
+    return 1.0/(1.0+np.exp(-z))
+
+# Create NN model
+
+## Define the `my_dense()` forward propagation function which computes the activations of a dense layer.
+
+### Using for loop
+x = np.array([200, 17])
+W = np.array([[1, -3, 5],
+             [-2, 4, -6]])
+b = np.array([-1, 1, 2])
+def my_dense(a_in, W, b, act_fn):
+    units = W.shape[1]
+    a_out = np.zeros(units)
+    for j in range(units):               
+        w = W[:,j]                                    
+        z = np.dot(w, a_in) + b[j]         
+        a_out[j] = act_fn(z)               
+    return a_out
+
+### [More efficient] Using vectorization
+x = np.array([[200, 17]]) # 2D array
+W = np.array([[1, -3, 5],
+             [-2, 4, -6]])
+b = np.array([[-1, 1, 2]]) # 2D array
+def my_dense(a_in, W, b, act_fn):
+  z = np.matmul(A_in,W) + b # Matrix Multiplication
+  a_out = act_fn(z)
+  return a_out
+
+## Define the `sequential` function that connects layers
+def my_sequential(x, W1, b1, W2, b2):
+    a1 = my_dense(x,  W1, b1, g)
+    a2 = my_dense(a1, W2, b2, g)
+    return(a2)
+
+# Loss and cost functions
+
+def compute_cost_logistic(X, y, w, b):
+    m = X.shape[0]
+    cost = 0.0
+    for i in range(m):
+        z_i = np.dot(X[i],w) + b
+        f_wb_i = g(z_i)
+        cost +=  -y[i]*np.log(f_wb_i) - (1-y[i])*np.log(1-f_wb_i)
+             
+    cost = cost / m
+    return cost
+
+# Training the model
+
+def my_predict(X, W1, b1, W2, b2):
+    m = X.shape[0]
+    p = np.zeros((m,1))
+    for i in range(m):
+        p[i,0] = my_sequential(X[i], W1, b1, W2, b2)
+    return(p)
+```
+
+### TensorFlow Framework
+
+```py
+# Import libraries
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+# Normalizing the data
+
+## create a "Normalization Layer"
+norm_l = tf.keras.layers.Normalization(axis=-1)
+
+## learns the mean and variance of the data set and saves the values internally.
+norm_l.adapt(X)
+
+## normalize the data
+Xn = norm_l(X)
+
+# Create TensorFlow model
+
+## The `tf.keras.Input(shape=(2,)),` specifies the expected shape of the input. This allows Tensorflow to size the weights and bias parameters at this point.  This is useful when exploring Tensorflow models. This statement can be omitted in practice and Tensorflow will size the network parameters when the input data is specified in the `model.fit` statement.
+
+model = Sequential(
+    [
+        tf.keras.Input(shape=(2,)),
+        Dense(3, activation='sigmoid', name = 'layer1'),
+        Dense(1, activation='sigmoid', name = 'layer2')
+     ]
+)
+
+# provides a description of the network
+model.summary()
+
+# Get layers weights initiated by Tensorflow model
+W1, b1 = model.get_layer("layer1").get_weights()
+W2, b2 = model.get_layer("layer2").get_weights()
+
+# define a loss function and specifies compile optimization
+model.compile(
+    loss = tf.keras.losses.BinaryCrossentropy(),
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.01),
+)
+
+# runs gradient descent and fits the weights to the data
+## Epochs is the number of steps in gradient descent.
+model.fit(Xn,y,epochs=10)
+
+# Check layers weights after fitting
+W1, b1 = model.get_layer("layer1").get_weights()
+W2, b2 = model.get_layer("layer2").get_weights()
+
+# Predictions
+## Normalize the test data `X_test`
+X_testn = norm_l(X_test)
+## Predict
+predictions = model.predict(X_testn)
+```
 
 ## Types of Neural Networks
 
