@@ -534,7 +534,7 @@ Selecting a subset of instances for training and testing
   - Training set:
     - It is used in the model training phase to see patterns.
     - It ranges around 80% of the full data
-  - Validation/Evaluation set:
+  - Validation/Evaluation/Development set:
     - It is used also in the training phase but used to give an estimate of model performance and/or compare performance across different models.
     - It ranges around 10% of the full data.
   - Testing set:
@@ -711,6 +711,11 @@ It is an Estimator parameter that is NOT fitted in the data
 
 ### Model Evaluation
 
+1. [Split the data into three different sets (Training, Validation, and Test sets)](#testing-and-validation-techniques).
+2. Train different models using Training set.
+3. Choose the best model using the validation set.
+4. Test the generalization error of the chosen model using the test set.
+
 #### Bias Variance Tradeoff
 
 ![Variance vs Bias](ML%20images/Variance_vs_Bias.png)
@@ -836,6 +841,7 @@ $$F_\beta \text{ Score} = (1+\beta^2) . \frac{2 . \text{Precision} . \text{Recal
     - When a model is considered optimal via MAE, but not for MSE, it is useful to keep this in mind.
     - In many cases, it is easier to actually optimize on MSE, as the quadratic term is differentiable. This factor makes this metric better for gradient-based optimization algorithms.
     - **SciKit-learn**: `sklearn.metrics.mean_squared_error`
+      - Take note though that [as per the documentation](https://scikit-learn.org/stable/modules/model_evaluation.html#mean-squared-error), scikit-learn's implementation only divides by `m` and not `2*m` (where `m` = number of examples).
   - **$R^2$ error**
     - $R^2 = 1 - \frac{\text{Sum of Squared Error (SSE)}}{\text{Total sum of Total Errors (SST)}}$ which is between 0 and 1.
       - $SSE = \sum(y-\hat{y})^2$
@@ -1037,6 +1043,7 @@ Trivia: [Why superscripts are used instead of subscripts in cost functions](http
         - When one feature is on a small range, say from 0 to 10, and another is on a large range, say from 0 to 1,000,000, applying regularization is going to unfairly punish the feature with the small range.
         - Features with small ranges need to have larger coefficients compared to features with large ranges in order to have the same effect on the outcome of the data.
         - [A useful Quora post on the importance of feature scaling when using regularization](https://www.quora.com/Why-do-we-normalize-the-data).
+    - After scaling the data (training set) and train the model using these scaled data, and start testing or predicting, the model expects new data to be scaled exactly the same as the training set. In Scikit learn, the training data can be scaled using [`fit_transform()`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler.fit_transform) while new data to be scaled on this same scaler using [`transform()`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler.transform)
     - Scaling Techniques:
       - **Mean/Variance standardization (or z-score normalization)**:
         - Centering the values around mean $\mu_j = 0$ with standard deviation $\sigma_j = 1$ for each column.
@@ -1090,6 +1097,7 @@ Trivia: [Why superscripts are used instead of subscripts in cost functions](http
     - We want to transform the data this way to capture interactions between the original features by adding them as features to the linear model.
     - Polynomial feature expansion with high as this can lead to complex models that over-fit.
     - Polynomial feature expansion is often combined with a regularized learning method like ridge regression.
+    - Scikit-learn function: `sklearn.preprocessing.PolynomialFeatures`
 - Techniques for categorical data:
   - Ordinal categories:
     - Convert binary classifications to 0 and 1
