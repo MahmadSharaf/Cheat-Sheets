@@ -713,9 +713,15 @@ It is an Estimator parameter that is NOT fitted in the data
 
 1. [Split the data into three different sets (Training, Validation, and Test sets)](#testing-and-validation-techniques).
 2. Train different models using Training set.
+   - On different polynomial degrees
+   - On different regularization parameters
 3. Choose the best model using the validation set.
 4. Test the generalization error of the chosen model using the test set.
 
+- When evaluating the training error, it is useful to set a baseline of performance. Baseline of performance is the level of error you reasonably hope the learning algorithm to get to.
+   - Human level performanceis a good measure for unstructured data like audio, video, or text. Ex., humans has 10.2% error rate while transcribing audio, so we hope our algorithm to reach the same.
+   - Competing algorithms performance.
+   - Guess based on experience.
 #### Bias Variance Tradeoff
 
 ![Variance vs Bias](ML%20images/Variance_vs_Bias.png)
@@ -790,7 +796,7 @@ $$\text{Recall} = \frac{TP}{TP+FN}$$
 
 $$\text{F1 Score} = \frac{2 . \text{Precision} . \text{Recall}}{\text{Precision} + \text{Recall}}$$
 
-- **$F_\beta $ score**
+- **$F_\beta$ score**
   - It is the same as F1 Score but when $\beta = 1$.
   - $\beta$ parameter controls the degree to which precision is weighed into the F score, which allows precision and recall to be considered simultaneously.
   - The smaller the beta, the more towards precision that we get. The larger the beta, the more towards recall that we get.
