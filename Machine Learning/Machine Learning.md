@@ -932,8 +932,12 @@ Trivia: [Why superscripts are used instead of subscripts in cost functions](http
 
 #### Learning Curve
 
+- It helps to understand how the model is performing as a function of the amount of experience it has. Where experience is the number of training examples.
 - It used to detect if the model is underfitting or overfitting, and impact of training data size the error.
 - It plots the training dataset and validation dataset error or accuracy against training set size.
+   ![Learning curve plot](ML%20images/learning-curve.jpg)
+   - It is shown in the above plot that $J_{cv}$, the cross-validation set error, decreases as the training set size increases. However, $J_{train}$, the training set error, increases as the training set size increases, that is because it is easier to fit a model to a small dataset and gets harder as the size increases.
+   - If the model suffers from high variance, getting more training data is likely to help. While if it suffers from high bias, it is less likely getting more data will help. 
 - scikit-learn: `sklearn.learning_curve.learning_curve`
   - Uses stratified k-fold cross-validation by default if output is binary or multi-class (preserves percentage of samples in each class)
   - The training and testing scores come in as a list of 3 values, and this is because the function uses 3-Fold Cross-Validation.
