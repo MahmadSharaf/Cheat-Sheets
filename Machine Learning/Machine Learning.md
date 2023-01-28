@@ -719,9 +719,10 @@ It is an Estimator parameter that is NOT fitted in the data
 4. Test the generalization error of the chosen model using the test set.
 
 - When evaluating the training error, it is useful to set a baseline of performance. Baseline of performance is the level of error you reasonably hope the learning algorithm to get to.
-   - Human level performanceis a good measure for unstructured data like audio, video, or text. Ex., humans has 10.2% error rate while transcribing audio, so we hope our algorithm to reach the same.
-   - Competing algorithms performance.
-   - Guess based on experience.
+  - Human level performanceis a good measure for unstructured data like audio, video, or text. Ex., humans has 10.2% error rate while transcribing audio, so we hope our algorithm to reach the same.
+  - Competing algorithms performance.
+  - Guess based on experience.
+
 #### Bias Variance Tradeoff
 
 ![Variance vs Bias](ML%20images/Variance_vs_Bias.png)
@@ -936,8 +937,8 @@ Trivia: [Why superscripts are used instead of subscripts in cost functions](http
 - It used to detect if the model is underfitting or overfitting, and impact of training data size the error.
 - It plots the training dataset and validation dataset error or accuracy against training set size.
    ![Learning curve plot](ML%20images/learning-curve.jpg)
-   - It is shown in the above plot that $J_{cv}$, the cross-validation set error, decreases as the training set size increases. However, $J_{train}$, the training set error, increases as the training set size increases, that is because it is easier to fit a model to a small dataset and gets harder as the size increases.
-   - If the model suffers from high variance, getting more training data is likely to help. While if it suffers from high bias, it is less likely getting more data will help. 
+  - It is shown in the above plot that $J_{cv}$, the cross-validation set error, decreases as the training set size increases. However, $J_{train}$, the training set error, increases as the training set size increases, that is because it is easier to fit a model to a small dataset and gets harder as the size increases.
+  - If the model suffers from high variance, getting more training data is likely to help. While if it suffers from high bias, it is less likely getting more data will help. 
 - scikit-learn: `sklearn.learning_curve.learning_curve`
   - Uses stratified k-fold cross-validation by default if output is binary or multi-class (preserves percentage of samples in each class)
   - The training and testing scores come in as a list of 3 values, and this is because the function uses 3-Fold Cross-Validation.
@@ -956,6 +957,16 @@ Trivia: [Why superscripts are used instead of subscripts in cost functions](http
   - Labeling errors (eg, data mislabelled)
   - Under/over-represented subclasses (eg, too many examples of one type)
   - Discriminating information is not captured in features (eg, customer location)
+- Determine whether the learning algorithm has high bias or high variance.
+  - Fix high variance by:
+    - Get more training examples
+    - Removing features
+    - Decreasing polynomial features
+    - Increasing regularization parameter.
+  - Fix high bias:
+    - Adding features
+    - Increasing polynomial features
+    - Decreasing regularization parameter.
 - This helps pivot on target, key attributes, and failure type, and build histograms of error counts.
 
     ```py
