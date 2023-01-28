@@ -39,20 +39,21 @@
         - [Randomized Search](#randomized-search)
         - [Bayesian Search](#bayesian-search)
     - [Model Evaluation](#model-evaluation)
-      - [Bias Variance Tradeoff](#bias-variance-tradeoff)
+      - [Establishing Baseline Level of Performance](#establishing-baseline-level-of-performance)
       - [Model Metrics](#model-metrics)
         - [Classification Metrics](#classification-metrics)
         - [Regression Metrics](#regression-metrics)
-      - [Unsupervised clustering](#unsupervised-clustering)
-        - [Silhouette score](#silhouette-score)
-        - [Homogeneity score](#homogeneity-score)
-        - [Completeness Score](#completeness-score)
-        - [V measure Score](#v-measure-score)
-        - [Adjusted Random Score](#adjusted-random-score)
-        - [Adjusted Mutual Information Score](#adjusted-mutual-information-score)
+        - [Unsupervised clustering](#unsupervised-clustering)
+          - [Silhouette score](#silhouette-score)
+          - [Homogeneity score](#homogeneity-score)
+          - [Completeness Score](#completeness-score)
+          - [V measure Score](#v-measure-score)
+          - [Adjusted Random Score](#adjusted-random-score)
+          - [Adjusted Mutual Information Score](#adjusted-mutual-information-score)
+      - [Bias Variance Tradeoff](#bias-variance-tradeoff)
+      - [Error Analysis](#error-analysis)
       - [Validation Curve](#validation-curve)
       - [Learning Curve](#learning-curve)
-      - [Model Debugging](#model-debugging)
     - [Feature Engineering](#feature-engineering)
       - [Feature Extraction](#feature-extraction)
       - [Feature Selection](#feature-selection)
@@ -711,46 +712,33 @@ It is an Estimator parameter that is NOT fitted in the data
 
 ### Model Evaluation
 
-1. [Split the data into three different sets (Training, Validation, and Test sets)](#testing-and-validation-techniques).
-2. Train different models using Training set.
-   - On different polynomial degrees
-   - On different regularization parameters
-3. Choose the best model using the validation set.
-4. Test the generalization error of the chosen model using the test set.
+- It is to test the performance of the model in predicting the actual values.
+- The model performance can measured and improved using the below steps:
+  1. Establishing Baseline Level of Performance
+  2. Measure model performance using Model Metrics
+  3. Diagnose the model for high variance or high bias
+  4. Categorize the misclassified data and analyze the impact of improving the model performance in correctly classifying each of these categories using Error Analysis
+  5. Plot validation and learning curves
 
-- When evaluating the training error, it is useful to set a baseline of performance. Baseline of performance is the level of error you reasonably hope the learning algorithm to get to.
-  - Human level performanceis a good measure for unstructured data like audio, video, or text. Ex., humans has 10.2% error rate while transcribing audio, so we hope our algorithm to reach the same.
+#### Establishing Baseline Level of Performance
+
+- Before diagnosing a model for high bias or high variance, it is usually helpful to first have an idea of what level of error you can reasonably get to.
+- Baseline of performance is the level of error you reasonably hope the learning algorithm to get to.
+  - Human level performance is a good measure for unstructured data like audio, video, or text.
   - Competing algorithms performance.
   - Guess based on experience.
-
-#### Bias Variance Tradeoff
-
-![Variance vs Bias](ML%20images/Variance_vs_Bias.png)
-
-- Machine learning models depend on input data, output data, and understanding the relationship between the two. *bias* and *variance* affect the relationship between input and output data.
-
-- Bias:
-  - It is the gap between predicted value and actual value.
-  - It is an error from flawed assumptions in the algorithm.
-  - High bias can cause an algorithm to miss important relationships between features and target outputs resulting in ***underfitting***.
-  - Bias = $E[\hat{f}(x)] - f(x)$, Where $f(x)$ is the true model, $\hat{f}(x)$ is the estimated model.
-  - Solution:
-    - Increase the number of features
-    - Decrease degree of regularization
-
-- Variance:
-  - How dispersed the predicted values are
-  - It is an error from sensitivity to small variations in the training data. High variance can cause an algorithm to model random noise in the training set, resulting in ***overfitting***.
-  - Variance = $E[(\hat{f}(x)-E[\hat{f}(x)])^2]$, Where $f(x)$ is the true model, $\hat{f}(x)$ is the estimated model.
-  - Solution:
-    - Increase training data
-    - Reduce model complexity
-      - [Decrease the number of features](#feature-selection)
-      - Increase the degree of [regularization](#regularization)
-
-- Total Error $(x) = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$
+- Real-world data can be very noisy and it's often infeasible to get to 0% error. For example, you might think that you have a high bias problem because you're getting 10% training and 15% cross validation error on a computer vision application. However, you later found out that even humans can't perform better than 10% error. If you consider this the baseline level, then you now instead have a high variance problem because you've prioritized minimizing the gap between cross validation and training error.
 
 #### Model Metrics
+
+- It is the metrics used to measure the performance of the model.
+- Evaluation steps:
+  1. [Split the data into three different sets (Training, Validation, and Test sets)](#testing-and-validation-techniques).
+  2. Train different models using Training set. $J_{train}$
+     - On different polynomial degrees
+     - On different regularization parameters
+  3. Choose the best model performed on the validation set. $J_{cv}$
+  4. Test the generalization error of the chosen model using the test set. $J_{test}$
 
 ##### Classification Metrics
 
@@ -879,38 +867,76 @@ $$F_\beta \text{ Score} = (1+\beta^2) . \frac{2 . \text{Precision} . \text{Recal
 
 Trivia: [Why superscripts are used instead of subscripts in cost functions](https://stats.stackexchange.com/questions/193908/in-machine-learning-why-are-superscripts-used-instead-of-subscripts)
 
-#### Unsupervised clustering
+##### Unsupervised clustering
 
-##### Silhouette score
+###### Silhouette score
 
 - A measure of how similar a point is to other points in its own cluster and how different it is from points in other clusters.
 - SciKit-learn: `sklearn.metrics.silhouette_score`
 
-##### Homogeneity score
+###### Homogeneity score
 
 - Clustering satisfies homogeneity if all clusters contain only points from the same class.
 - SciKit-learn: `sklearn.metrics.homogeneity_score`
 
-##### Completeness Score
+###### Completeness Score
 
 - A clustering result satisfies completeness if all the data points that are members of a given class are elements of the same cluster.
 - SciKit-learn: `sklearn.metrics.completeness_score`
 
-##### V measure Score
+###### V measure Score
 
 - Harmonic mean of the homogeneity score and the completeness score
 - Harmonic mean usually used to find the average of rates.
 - SciKit-learn: `sklearn.metrics.v_measure_score`
 
-##### Adjusted Random Score
+###### Adjusted Random Score
 
 - Similarity measure between clusters which is adjusted for chance i.e. random labelling of data points.
 - SciKit-learn: `sklearn.metrics.adjusted_rand_score`
 
-##### Adjusted Mutual Information Score
+###### Adjusted Mutual Information Score
 
 - Information obtained about one random variable by observing another random variable adjusted to account for chance.
 - SciKit-learn: `sklearn.metrics.adjusted_mutual_info_score`
+
+#### Bias Variance Tradeoff
+
+![Variance vs Bias](ML%20images/Variance_vs_Bias.png)
+
+- Machine learning models depend on input data, output data, and understanding the relationship between the two. *bias* and *variance* affect the relationship between input and output data.
+
+- Bias:
+  - It is the gap between predicted value and actual value.
+  - It is an error from flawed assumptions in the algorithm.
+  - High bias can cause an algorithm to miss important relationships between features and target outputs resulting in ***underfitting***.
+  - Bias = $E[\hat{f}(x)] - f(x)$, Where $f(x)$ is the true model, $\hat{f}(x)$ is the estimated model.
+  - Solution:
+    - Increase the number of features
+    - Decrease degree of regularization
+
+- Variance:
+  - How dispersed the predicted values are
+  - It is an error from sensitivity to small variations in the training data. High variance can cause an algorithm to model random noise in the training set, resulting in ***overfitting***.
+  - Variance = $E[(\hat{f}(x)-E[\hat{f}(x)])^2]$, Where $f(x)$ is the true model, $\hat{f}(x)$ is the estimated model.
+  - Solution:
+    - Increase training data
+    - Reduce model complexity
+      - [Decrease the number of features](#feature-selection)
+      - Increase the degree of [regularization](#regularization)
+
+- Total Error $(x) = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$
+
+#### Error Analysis
+
+- The error analysis process just refers to manually looking through the misclassified data and trying to gain insights into where the algorithm is going wrong. It is usually finding a common pattern or common properties for the misclassified data.
+- Filter on failed predictions and manually look for patterns.
+  - Data problems (eg, many variants for same word)
+  - Labeling errors (eg, data mislabelled)
+  - Under/over-represented subclasses (eg, too many examples of one type)
+  - Discriminating information is not captured in features (eg, customer location)
+- After categorizing the misclassified data, measure the net impact of model if each one of the category were classified correctly. Ex: if an algorithm misclassified 50 spam emails, 45 of each are phishing emails and 5 are for emails that has images. Then it worth investing in improving the algorithm in detecting more phishing emails than developing an algorithm that can read text our of images.
+- The limitation of this analysis is that it is easier in problems that humans are good at. Like spam emails, text recognition. Error analysis can be a bit harder for tasks that even humans aren't good at. For example, if you're trying to predict what ads someone will click on on the website.
 
 #### Validation Curve
 
@@ -926,9 +952,7 @@ Trivia: [Why superscripts are used instead of subscripts in cost functions](http
     from sklearn.model_selection import validation_curve
 
     param_range = np.logspace(-3, 3, 4)
-    train_scores, test_scores = validation_curve(SVC(), X, y,
-                                    param_name='gamma',
-                                    param_range=param_range, cv=3)
+    train_scores, test_scores = validation_curve(SVC(), X, y, param_name='gamma', param_range=param_range, cv=3)
     ```
 
 #### Learning Curve
@@ -949,30 +973,6 @@ Trivia: [Why superscripts are used instead of subscripts in cost functions](http
     - `train_sizes` are the sizes of the chunks of data used to draw each point in the curve.
     - `train_scores` are the training scores for the algorithm trained on each chunk of data.
     - `test_scores` are the testing scores for the algorithm trained on each chunk of data.
-
-#### Model Debugging
-
-- Filter on failed predictions and manually look for patterns.
-  - Data problems (eg, many variants for same word)
-  - Labeling errors (eg, data mislabelled)
-  - Under/over-represented subclasses (eg, too many examples of one type)
-  - Discriminating information is not captured in features (eg, customer location)
-- Determine whether the learning algorithm has high bias or high variance.
-  - Fix high variance by:
-    - Get more training examples
-    - Removing features
-    - Decreasing polynomial features
-    - Increasing regularization parameter.
-  - Fix high bias:
-    - Adding features
-    - Increasing polynomial features
-    - Decreasing regularization parameter.
-- This helps pivot on target, key attributes, and failure type, and build histograms of error counts.
-
-    ```py
-    pred = clf.predict(train[col])
-    error_df = test[pred != test['target']]
-    ```
 
 ### Feature Engineering
 
