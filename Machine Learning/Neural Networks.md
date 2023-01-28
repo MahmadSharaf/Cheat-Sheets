@@ -12,6 +12,7 @@
   - [Implementation](#implementation)
     - [NumPy library](#numpy-library)
     - [TensorFlow Framework](#tensorflow-framework)
+  - [Debugging a neural network](#debugging-a-neural-network)
   - [Types of Neural Networks](#types-of-neural-networks)
     - [Perceptron](#perceptron)
     - [Convolutional Neural Networks](#convolutional-neural-networks)
@@ -343,6 +344,14 @@ X_testn = norm_l(X_test)
 ## Predict
 predictions = model.predict(X_testn)
 ```
+
+## Debugging a neural network
+
+- A quick trick that is not always applicable
+  - If the model is not doing well on the training set $J_{train}$, then enlarge the network.
+  - If the model is not doing well on the cross validation set $J_{cv}$, then get more data.
+- Large neural networks, with a **well-chosen regularization**, will usually do as well as or better than a smaller one. The only caveat is the computation cost.
+- Regularization in TensorFlow `tf.Dense(units=10,activation='relu',kernel_regularizer=L2(0.01))`
 
 ## Types of Neural Networks
 
