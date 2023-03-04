@@ -31,7 +31,11 @@
   - Able to easily translate between different audiences, while communicating product details.
 - Everything will not be build at once, so it is important to prioritize what to build first and what will go on the roadmap later. This needs to be answered in a strategic manner that tie back to business goals and objectives.
 
+## Why Product Management is Important
 
+- Products became so complicated
+- Making sure that the products being built are the ones the people want
+- Aligning with all teams needed to build and launch the product
 
 
 
