@@ -1,9 +1,5 @@
 # Product Management Nanodegree by Udacity
 
-- [Product Management Nanodegree by Udacity](#product-management-nanodegree-by-udacity)
-  - [What is a product manager](#what-is-a-product-manager)
-  - [Why Product Management is Important](#why-product-management-is-important)
-
 ## What is a product manager
 
 - Product Managers must:
@@ -14,9 +10,10 @@
 - Product Managers spend a lot of their time:
   - Identifying/defining problems
   - Creating a strategy
-  - Communicating
-  - Coordinating development
+  - Communicating All the time
+- Coordinating development and launch
   - Responding to fires
+	  - PMs need to be able to juggle multiple tasks and quickly switch focus when priorities change, (i.e. there is an outage).
 - Which in turn, allows them to strategically answer important questions:
   - What are we building?
   - Who are we building this for?
@@ -53,6 +50,8 @@
 - Be SPOC of their product. He should be able to answer any question related to their product or guide where to find the answer.
 - Since PMs don't have direct authority, they need to persuade, convince, and secure buy-in from a variety of cross-functional teams and stakeholders.
 - They are responsible for coordinating the development of a product across all relevant parties like design, business, engineering, marketing, and support teams.
+- They need to make sure that the entire team is on the same page through presentations or conversations.
+- PMs write PRDs to frame the problem and document requirements for the solution.
 
 ### Startup vs Enterprise
 
@@ -146,4 +145,55 @@
 -   [What To Expect as a PM from Startup to Scale Up, to Corporates](https://productcoalition.com/what-to-expect-as-a-pm-from-startup-to-scale-up-to-corporates-part-1-of-3-e7478117dd2b)
 -   [What It Takes to Become a Great Product Manager](https://hbr.org/2017/12/what-it-takes-to-become-a-great-product-manager)
 -   [Product Managers for the Digital World](https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/product-managers-for-the-digital-world)
+
+## Product phases
+
+- Knowing that multiple products can be worked on at the same time at different phases
+
+### Identifying problems
+
+- Define the problem.
+	- Although there are many problems, PM needs to identify which problem that deserves the effort.
+- Deepen the understanding of the user and his needs
+- Conduct market and user research
+	- The PM can do that by user research, market research or competitive research to leverage existing product insights and data to create hypotheses and test them.
+
+### Creating Solutions
+
+- Search for build strategies on how to solve the problem through creation of the product.
+- The solution should be related with the company goals and KPIs.
+
+### Timelines
+
+- Assess the expected timelines according to the design and engineering teams feedback.
+- If the product is large, it can be split into milestones. In which each milestone can be a standalone project and the following milestones will add more features into the project.
+
+### UX Design
+
+- It is important to work closely with the product designer during wireframing.
+- PM should provide context, requirements, visuals if possible, so the designer can take decisions. It is possible to provide design opinions and guidance, but it may not be always correct.
+- Once the UX is ready, run usability testing to surface any issues. A/B testing can be better for small changes that usability testing will not fit.
+
+### Implementation
+
+- Make sure that engineering team fully understand the requirements.
+- Cover and think of all possible edge cases.
+- Get regular status updates to know whether the implementation is on track or the dates are slipping. This will surface any roadblocks that the team is running into so that you can help to remove them.
+
+### Testing
+
+- Review test plans with QA teams to outline which scenarios should be tested, the steps to be taken and the expected behavior.
+- After QA team test the product, PM also should test it to find any bugs, and make sure that it meets the expected standards.
+
+### Launch
+
+- PM should work with the PR and marketing team to figure out how to launch the product.
+- Launches can be silently or with big announcements by posting blog posts or held press conferences.
+- For risks launches, it is advised to have a slow roll-out in phases. To have a chance to check the metrics and data.
+
+### Review
+
+- Check how the launch went. This can include different dimensions like changes in key metrics, users sentiments, or how the team thinks the launch went.
+- Identify what can be learned and avoid any mistakes in future ones.
+
 
