@@ -140,6 +140,82 @@
 - PM focus on brining the product to new places.
 - PM need to understand the differences in those markets, differences in user behavior, and expectations and adopting the product to fit. Like adding feature to support RTL writing.
 
+### Who works with PM
+
+- PMs work with pretty much everyone. They act as a central hub, and they help the larger team to connect all the dots.
+- Design
+	- Design what the product looks like
+	- Design how users should be able to interact with the product
+	- Make sure we're solving the right problems for users
+	- Aligns on problem definition and scope
+	- Review PRDs and mocks
+	- Compromise on ideal design solution vs technical limitations or timeline pressure.
+- Research
+	- Provide market, user, and product insights
+	- Help answer important questions
+	- Get feedback from usability testing
+	- Align on research priorities and questions to answer
+	- Share research findings with PMs
+	- Participate in research together
+- Engineering
+	- Solve challenging technical products
+	- Build and maintain the product
+	- Review requirements, PRD, and mocks
+	- Discuss feasibility and timelines with PMs
+	- Create a plan for tackling technical debt
+- Technical Program Manager (TPM) / Program Manager (PgM)
+	- Manage the project
+	- Keep the team on a schedule
+	- Report status of projects
+	- Flag any risks and slips in schedule
+	- Go through prioritization exercises with PMs
+	- Discuss timelines with PMs
+	- Review roadmap with PMs
+- QA
+	- Make sure the product works
+	- Document bugs
+	- Increase testing capabilities
+	- Review PRD
+	- Review test plan and expected behaviors
+	- Flag bugs and prioritize bugs
+- Data Science
+	- Provide insights from data and experimentation
+	- Quantify impact
+- Marketing/PR
+	- Explain the product to users
+	- Manage web and social presence
+	- Lead user acquisition campaigns
+	- Organize press events
+	- Align with PM on Marketing priorities
+	- Discuss with PM on product positioning
+	- Review with PM on launch announcements and presentations
+- Sales
+	- Sell the product
+	- Build relationships with customers
+	- Insight into customer sentiment
+	- Discuss features that would drive sales enablement
+	- Discuss feedback from customers and product shortcomings
+	- Review roadmap and upcoming features
+- Support
+	- Help users when they run into problems
+	- Track top issues users encounter
+	- Improve support processes and tooling
+	- Discuss top customers issues
+	- Discuss supportability
+- Legal & Privacy
+	- Compliance with the law and privacy regulations
+	- Make sure data is being collected with purpose, stored appropriately, and deleted when no longer needed.
+	- Review flows and messaging
+	- Review data collection and storage
+	- Discuss new legal and privacy requirements
+	- Reduce the product’s risk
+- Policy
+	- create rules for how the product can be used
+- Ops
+	- help deliver the product to users
+- Internationalization (i18n)
+	- Get the product to additional countries and languages
+
 ### Further Research
 
 -   [What To Expect as a PM from Startup to Scale Up, to Corporates](https://productcoalition.com/what-to-expect-as-a-pm-from-startup-to-scale-up-to-corporates-part-1-of-3-e7478117dd2b)
