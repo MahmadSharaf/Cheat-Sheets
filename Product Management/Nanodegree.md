@@ -226,13 +226,27 @@
 
 - Knowing that multiple products can be worked on at the same time at different phases
 
-### Identifying problems
+### Identifying problems and requirements
 
 - Define the problem.
 	- Although there are many problems, PM needs to identify which problem that deserves the effort.
 - Deepen the understanding of the user and his needs
 - Conduct market and user research
 	- The PM can do that by user research, market research or competitive research to leverage existing product insights and data to create hypotheses and test them.
+- User interviews
+	- It helps to know the problems and issues directly from them.
+- Stakeholder interviews
+	- Helps to get a better understanding of the business objectives and requirements.
+- Prototyping
+	- Visualizing the UX can help in identifying gaps.
+- Documentation
+	- It is vital to document every step taken to identify the problem and the requirements, even the research and interviews.
+	- Documentation is important for the team to be referred to.
+
+#### Further research
+
+-   [Effective requirements gathering](https://blog.buildo.io/effective-requirements-gathering-b9cbd8176075)
+-   [Stop gathering requirements](https://www.goodproductmanager.com/2008/05/06/stop-gathering-requirements/)
 
 ### Creating Solutions
 
@@ -241,8 +255,31 @@
 
 ### Timelines
 
+- It is used to visualize tasks that need to be done to deliver the product. It presents task dependencies, resource allocations, workflows schedules, and deadlines.
+- Timelines has a fixed start and end dates. It incorporates sprint cycles with the product's short time strategies.
 - Assess the expected timelines according to the design and engineering teams feedback.
 - If the product is large, it can be split into milestones. In which each milestone can be a standalone project and the following milestones will add more features into the project.
+- Timelines components:
+	1. Product Improvements
+	2. Resources Management
+	3. Risk Management
+	4. Deadline
+
+### [Roadmap][1]
+
+- It identifies all the initiatives required for the creation and marketing of a product.
+- It is mainly used to visualize product's strategy that is aligned with business goals.
+- A roadmap streamlines business goals into strategic and executable paths.
+- A roadmap can span across multiple timelines for continuous product development.
+- A high-level roadmap explains the strategic course of action, with major milestones that you must complete to deliver your products on time.
+- Roadmap components:
+	1. Product Goal
+	2. Strategic Objectives
+	3. Major Features (Epics)
+	4. Releases Plans
+- Roadmap audiences are:
+	- Senior management
+	- External investors
 
 ### UX Design
 
@@ -272,4 +309,6 @@
 - Check how the launch went. This can include different dimensions like changes in key metrics, users sentiments, or how the team thinks the launch went.
 - Identify what can be learned and avoid any mistakes in future ones.
 
+## References
 
+[1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
