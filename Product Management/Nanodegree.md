@@ -281,6 +281,41 @@
 	- Senior management
 	- External investors
 
+#### Further Research
+
+-   [How To Create a Product Roadmap](https://venngage.com/blog/product-roadmap/)
+
+### Product Requirement Document (PRD)
+
+- PRD is the most important artifact in product cycle.
+- It is the source of truth that answers all question related to:
+	- What is being built?
+	- Why is it needed?
+	- Who is it being build for?
+- It drives alignment between the team to reach the same final goal.
+- PRD is never done and continuously updated as decisions are made and new information becomes available.
+- PRD components:
+	- Frame the problem
+	- Outline the goals
+	- Success Metrics
+	- Describes the requirements
+	- Assumptions
+	- Other options considered
+	- Out of scope
+	- UI Mocks
+	- Risks and Mitigations
+	- Support Plan
+- Priority Level needs to be mentioned, the below shorthand is common
+	- P0: A launch blocking feature. The product will not launch without it
+	- P1: A nice to have feature at launch, but not required. If not present at launch, it should be a fast follow
+	- P2: A desirable feature
+	- P3, P3: Unlikely to get built
+
+#### Further Research
+
+-   [Product requirements documents, downsized](https://www.atlassian.com/agile/product-management/requirements)
+-   [How to Write a Painless Product Requirements Document](https://medium.com/@uxpin/how-to-write-a-painless-product-requirements-document-508ff6807b4a)
+
 ### UX Design
 
 - It is important to work closely with the product designer during wireframing.
