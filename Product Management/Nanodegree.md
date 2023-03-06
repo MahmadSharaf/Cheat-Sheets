@@ -293,14 +293,13 @@
 	- Why is it needed?
 	- Who is it being build for?
 - It drives alignment between the team to reach the same final goal.
-- PRD is never done and continuously updated as decisions are made and new information becomes available.
+- PRD is never done, it is continuously updated as decisions are made and new information becomes available.
 - PRD components:
 	- Frame the problem
 	- Outline the goals
 	- Success Metrics
 	- Describes the requirements
 	- Assumptions
-	- Other options considered
 	- Out of scope
 	- UI Mocks
 	- Risks and Mitigations
@@ -309,7 +308,7 @@
 	- P0: A launch blocking feature. The product will not launch without it
 	- P1: A nice to have feature at launch, but not required. If not present at launch, it should be a fast follow
 	- P2: A desirable feature
-	- P3, P3: Unlikely to get built
+	- P3, P4: Unlikely to get built
 
 #### Further Research
 
