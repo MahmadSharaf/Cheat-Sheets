@@ -16,8 +16,8 @@
 
 ### Persona 3
 
-**Name**: Homes Homey
-**Quote**: I love to be in shape, but I like working out at home 
-**Description**: I am too busy to go to the gym or do any sporty activities. I would love to track my fitness and do my workouts at home.
-**Frustration**: Fitness field is more focused on workouts that depend on heavy equipment, while I need a workout plan for home workouts
-**Goals**: I would love to have a gadget that is light, doesn't fall easily due to my hyper random activity and durable to withstand my clumsiness.
+**Name**: Toty Busy
+**Quote**: I want to calculate my calories with minimum inputs
+**Description**: I love keeping my self in shape, I used to be in control of intake calories. But it became so hard after being a working mother.
+**Frustration**: I am too busy to keep track of my calories. Weighing the food or reading the stats of the food is very tedious.
+**Goals**: I want an AI-Powered app that can detect the calories of the food using image recognition without the need to enter them manually
