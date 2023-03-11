@@ -1,38 +1,40 @@
 # Product Management Nanodegree by Udacity
 
-## What is a product manager
+## Introduction to Product Management
+
+### What is a product manager
 
 - Product Managers must:
-  - Deep understanding of the problem
-  - Understand user needs
-  - Know their product
-  - Know the competition
+	- Have deep understanding of the problem
+	- Understand user needs
+	- Know their product
+	- Know the competition
 - Product Managers spend a lot of their time:
-  - Identifying/defining problems
-  - Creating a strategy
-  - Communicating All the time
+	- Identifying/defining problems
+	- Creating a strategy
+	- Communicating All the time
 - Coordinating development and launch
-  - Responding to fires
-	  - PMs need to be able to juggle multiple tasks and quickly switch focus when priorities change, (i.e. there is an outage).
+	- Responding to fires
+		- PMs need to be able to juggle multiple tasks and quickly switch focus when priorities change, (i.e. there is an outage).
 - Which in turn, allows them to strategically answer important questions:
-  - What are we building?
-  - Who are we building this for?
-  - Why are we solving this problem? / Why are we building this specific solution?
-  - When are we building this?
+	 - What are we building?
+	 - Who are we building this for?
+	 - Why are we solving this problem? / Why are we building this specific solution?
+	 - When are we building this?
 - Product Managers should be:
-  - Strategic
-  - Hyper aware of their user needs
-  - Intuitive regarding their users' response towards new features or changes in the product.
-  - Capable of getting the product to its full potential and vision while in building process.
-  - Source of truth for the current product state.
-  - Able to easily translate between different audiences, while communicating product details.
+	 - Strategic
+	 - Hyper aware of their user needs
+	 - Intuitive regarding their users' response towards new features or changes in the product.
+	 - Capable of getting the product to its full potential and vision while in building process.
+	 - Source of truth for the current product state.
+	 - Able to easily translate between different audiences, while communicating product details.
 - Everything will not be build at once, so it is important to prioritize what to build first and what will go on the roadmap later. This needs to be answered in a strategic manner that tie back to business goals and objectives.
 
-## Why Product Management is Important
+### Why Product Management is Important
 
-- Products became so complicated
-- Making sure that the products being built are the ones the people want
-- Aligning with all teams needed to build and launch the product
+- Products became so complicated.
+- Making sure that the products being built are the ones the people want.
+- Aligning with all teams needed to build and launch the product.
 
 ## Product Manager role
 
