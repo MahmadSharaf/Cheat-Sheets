@@ -577,6 +577,41 @@
 - Check how the launch went. This can include different dimensions like changes in key metrics, users sentiments, or how the team thinks the launch went.
 - Identify what can be learned and avoid any mistakes in future ones.
 
+## Product Vision and Strategy
+
+### Vision
+
+- **Vision is**:
+	- What your product looks like in its final state.
+	- Essence of your product.
+	- What your product does and why it matters to users.
+	- Can be summarized in a sentence or two.
+- **Vision needs to tell a story about**:
+	- What you’re building.
+	- Who it’s for.
+	- Why it matters.
+- **Vision should be**:
+	 - Inspiring
+	 - Ambitious
+	 - Easy to explain
+	 - Something the team believes in
+	 - Something you evolve over time
+	 - Something you share out frequently
+- **Vision matters because**:
+	- It gets the team excited and motivated about building the product. It should be something that pushes the team.
+	- It serves as a north star for guiding the team and decision-making. It sets the direction of the product
+- **Vision Examples**:
+	- Google Wi-Fi: A wireless router that people love
+	- Facebook: Connect with friends and the world around you
+	- Amazon: Earth's most customer-centric company and a place where people can come to find and discover anything they might want to buy online
+	- [More examples](https://examples.yourdictionary.com/best-examples-of-a-vision-statement.html)
+- _Vision will impact every single aspect of your product, so it is important to be thoughtful when you are crafting your vision._
+
+#### Further Readings
+
+- [Product Vision](https://www.productplan.com/glossary/product-vision/)
+- [4 Experts Reveal How to Create a Strong Product Vision](https://blog.hubspot.com/service/product-vision)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
