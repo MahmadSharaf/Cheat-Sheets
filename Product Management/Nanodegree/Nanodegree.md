@@ -812,6 +812,28 @@
 	- Examples:
 		- DSLR cameras vs iPhone
 
+### Minimum Viable Product (MVP)
+
+- An **MVP**, or _minimum viable product_, is a product with must-haves features to get early adopters excited. After launching an MVP, you’ll get a lot of feedback that will help you understand if you have product market fit and what areas you should invest in next
+- MVP doesn't mean unfinished or broken product. On the contrary, it is still very important to deliver a high-quality experience to the users, and investing good design and reliability.
+- MVP can be considered as a starting point for the product to grow.
+- **MVP Benefits**:
+	- Get to market fast vs building the complete features of the product.
+	- Get feedback from real users to get sense of Product/Market fit.
+	- Fail fast and learn, as it is an iterative approach.
+- MVP creation:
+	- Start with business model canvas. Focusing on Value Prop, Customer Relationship, Channels.
+	- Weigh against competing solutions
+	- Make sure it is aligned with business objectives.
+	- Translate to requirements.
+	- Identify KPIs
+
+#### Further Readings
+
+- [What is an MVP?](https://blog.leanstack.com/minimum-viable-product-mvp-7e280b0b9418)
+- [Types of MVPs and Examples](https://mlsdev.com/blog/minimum-viable-product-examples)
+- [15+ Examples MVPs](https://softwarebrothers.co/blog/15-examples-of-successful-mvps/)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
