@@ -641,6 +641,113 @@
 #### Further Readings
 - [What is Good Product Strategy?](https://medium.com/@melissaperri/what-is-good-product-strategy-8d5587cb7429)
 
+### Business Models
+
+- A business model describes how a business creates, delivers, and captures value.
+- **Business Model Canvas**
+	- It captures a number of different components that will impact your ability to create and bring a product to market.
+		- Things you need to build the product and their associated costs.
+		- The value proposition for your product.
+		- Getting your product to your customers and the associated revenue streams.
+	- It is a really helpful tool to map out and understand all the components that you need to build a product and a successful business:
+		- **Key Partners**: 
+			- They help build or deliver the product to users. 
+			- Examples:
+				- Re-sellers
+				- Payment processors.
+				- Hardware manufactures.
+				- System Integrators.
+		- **Key Activities**:
+			- They are the things that need to happen in order to build your product.
+			- Examples:
+				- Technology development
+				- Sales and support
+		- **Key Resources**: 
+			- They are things that you need in order to deliver value to the user. 
+			- Examples:
+				- People
+				- Intellectual property
+				- Financial backing
+				- Data centers
+				- Software
+		- **Cost Structure**:
+			- The cost of building the product, it includes fixed and variable costs. 
+			- Examples:
+				- Fixed costs like salaries of development team.
+				- Variable costs like data centers.
+		- **Value proposition**:
+			- It is about why people would want your product
+		- **Customer Relationships**:
+			- It is about how you build relationships with the users.
+			- Examples:
+				- Through interactions in the product, like ratings or reviews.
+				- Technical Support
+				- Prioritize value over price.
+				- Customer retention incentives & product features development.
+				- Bring humanity to your marketing presence.
+				- Help your customers succeed on a personal level, "80-20 relationship".
+		- **Channels**:
+			- How you get the product to customers.
+			- It's also important to consider which channels work best and which are the most cost-effective.
+			- Examples:
+				- Website where people can sign up and purchase the product directly.
+				- Referrals from current customers.
+				- Resellers who sell their product on your behalf.
+		- **Customer Segments**:
+			- They describe who your customers are and which customer is the most important.
+			- Examples:
+				- Small and mid-sized business
+				- Enterprise
+				- Education
+				- Healthcare
+				- Government
+		- **Revenue Streams**
+			- It describes how you get money from customers.
+			- Revenue Models:
+				- Subscriptions
+					- Users pay a periodic fee in order to access the product
+					- Examples:
+						- Netflix
+						- Spotify Premium
+						- Microsoft Office 365
+				- One-time purchase or Licensing:
+					- User pay in exchange for the right to use the product or software.
+					- Examples:
+						- Microsoft Office
+						- Adobe Creative Suite
+				- Ads
+					- Most effective when you can target users in meaningful ways
+					- Generally CPC (Cost per click) or CPM (Cost per 1000 impressions)
+					- Revenue:
+						- Ad Impressions
+						- Ads clicked
+						- CTR (Click through rate) = clicks / impressions
+					- Examples:
+						- Google search
+						- Facebook
+						- Spotify free
+				- Pay per use
+					- Users pay based on the amount of the product or the service that they used.
+					- Examples:
+						- Uber
+						- DoorDash
+						- Talabat
+				- Freemium:
+					- Free offering available with no cost to the user.
+					- Generally has some limitations or restrictions in the free tier.
+					- Paid tier provides more features and fewer limitations.
+					- Easy way to get users to try the product and have the product sell itself.
+					- Examples:
+						- Spotify
+						- Zoom
+						- LinkedIn
+						- Dropbox
+			- Products can have multiple revenue models. For example, a freemium app could have a free tier support by ads and a paid tier that is unlocked through a subscription.
+
+#### Further Readings
+-   [Business Model Canvas Examples](https://corporatefinanceinstitute.com/resources/knowledge/strategy/business-model-canvas-examples/)
+-   [10 Most Popular Startup Revenue Models](https://fi.co/insight/the-10-most-popular-startup-revenue-models)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
