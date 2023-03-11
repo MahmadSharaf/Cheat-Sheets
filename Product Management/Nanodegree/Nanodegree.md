@@ -748,6 +748,70 @@
 -   [Business Model Canvas Examples](https://corporatefinanceinstitute.com/resources/knowledge/strategy/business-model-canvas-examples/)
 -   [10 Most Popular Startup Revenue Models](https://fi.co/insight/the-10-most-popular-startup-revenue-models)
 
+### Competitive Analysis
+
+#### What it is
+
+- Looking at competing products in the market.
+- Understanding strategy behind competing products.
+- Identifying strengths and weaknesses of each product.
+- Anticipate shifts in the market and trends.
+
+#### What it includes
+
+- Product offerings:
+	- It refers to the overall value proposition that the product provides to the users.
+	- It encompass product features, benefits and solutions to the user's needs and problems
+	- It can include both tangible and intangible elements such as:
+		- Quality
+		- Design
+		- Pricing
+		- Packaging
+		- Ease of use
+		- Customer support
+		- Brand reputation
+		- And overall experience.
+- Key features:
+	- They are the specific functionalities and characteristics of a product or service that provides a benefit to the user's needs.
+	- They are the most important and distinctive features that set a product or service apart from its competitors.
+	- It can include:
+		- Performance
+		- Ease of use
+		- Customization
+		- Reliability
+		- Durability
+		- Compatibility
+- Differentiators
+- Target customers
+- Distribution channels
+- Price points
+- Marketing strategies
+- Overall performance
+
+#### How it built
+
+- Identify the competitors
+- Google it.
+- Review website and marketing material.
+- Use the product.
+- Read reviews.
+- Check out social media presence.
+
+#### Types of competitors
+
+- Primary (Direct):
+	- Examples:
+		- Android vs iOS
+		- Netflix vs Disney+
+		- Uber vs Lyft
+- Secondary (Indirect):
+	- Examples:
+		- Facebook Messenger vs Slack
+		- Coffee vs Tea
+- Tertiary (Replacement):
+	- Examples:
+		- DSLR cameras vs iPhone
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
