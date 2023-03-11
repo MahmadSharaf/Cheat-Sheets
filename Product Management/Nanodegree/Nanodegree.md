@@ -612,6 +612,35 @@
 - [Product Vision](https://www.productplan.com/glossary/product-vision/)
 - [4 Experts Reveal How to Create a Strong Product Vision](https://blog.hubspot.com/service/product-vision)
 
+### Strategy
+
+- It is about how to apply the product vision.
+- **Factors to consider**:
+	- User needs
+		- Who is the target user?
+		- What are their needs?
+	- Key features
+		- What are the primary features that solve the user's need?
+		- Will these features result in people using the product?
+		- Will these features convince people to buy the product?
+	- Competitors and differentiation
+		- How does your product compared to others?
+		- What areas does the product differentiate in?
+	- Business Goals
+		- What are the business goals for this product?
+		- What KPIs can you use to measure these goals?
+	- Trends
+		- How is the market changing?
+		- How are the user's behaviors and needs changes over time?
+- **Strategy should be**:
+	- A balance between features, user and market needs, and business goals
+	- Creating building blocks for how to get to your vision
+	- High level, but with a little more detail
+	- Goal oriented, and preferably measurable
+
+#### Further Readings
+- [What is Good Product Strategy?](https://medium.com/@melissaperri/what-is-good-product-strategy-8d5587cb7429)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
