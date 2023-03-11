@@ -43,12 +43,12 @@
 - Due to limited resources, they prioritize their roadmap. This often involves weighing several different tradeoffs.
 - There is a misconception that PM in a position to take all the decisions, while the truth is that PM doesn't have a direct authority over other teams. However, he needs to influence, cooperate, drive the team to alignment on what the product should do and what should be built.
 - Identify the problem, study its impact and the amount of effort to solve it. Solving the problem can lead to:
-	- Make product more appealing
-	- Increase sales
-	- Reduce churn
-	- Keep you competitive
-	- Increase your team efficiency
-	- Be required for legal compliance
+	- Make product more appealing.
+	- Increase sales.
+	- Reduce churn.
+	- Keep you competitive.
+	- Increase your team efficiency.
+	- Be required for legal compliance.
 - Be SPOC of their product. He should be able to answer any question related to their product or guide where to find the answer.
 - Since PMs don't have direct authority, they need to persuade, convince, and secure buy-in from a variety of cross-functional teams and stakeholders.
 - They are responsible for coordinating the development of a product across all relevant parties like design, business, engineering, marketing, and support teams.
@@ -98,7 +98,7 @@
 - Cons:
 	- Increases possibility that product won't resonate with the customer
 
-### Type of Product User
+### Types of Product User
 
 #### Consumer (B2C)
 
@@ -114,7 +114,7 @@
 - Business is the customer who purchases the product.
 - Generally slower iteration.
 
-### Type of products
+### Types of products
 
 #### Software
 
@@ -145,80 +145,80 @@
 ### Who works with PM
 
 - PMs work with pretty much everyone. They act as a central hub, and they help the larger team to connect all the dots.
-- Design
-	- Design what the product looks like
-	- Design how users should be able to interact with the product
-	- Make sure we're solving the right problems for users
-	- Aligns on problem definition and scope
-	- Review PRDs and mocks
+- **Design**
+	- Design what the product looks like.
+	- Design how users should be able to interact with the product.
+	- Make sure we're solving the right problems for users.
+	- Aligns on problem definition and scope.
+	- Review PRDs and mocks.
 	- Compromise on ideal design solution vs technical limitations or timeline pressure.
-- Research
-	- Provide market, user, and product insights
-	- Help answer important questions
-	- Get feedback from usability testing
-	- Align on research priorities and questions to answer
-	- Share research findings with PMs
-	- Participate in research together
-- Engineering
-	- Solve challenging technical products
-	- Build and maintain the product
-	- Review requirements, PRD, and mocks
-	- Discuss feasibility and timelines with PMs
-	- Create a plan for tackling technical debt
-- Technical Program Manager (TPM) / Program Manager (PgM)
-	- Manage the project
-	- Keep the team on a schedule
-	- Report status of projects
-	- Flag any risks and slips in schedule
-	- Go through prioritization exercises with PMs
-	- Discuss timelines with PMs
-	- Review roadmap with PMs
-- QA
-	- Make sure the product works
-	- Document bugs
-	- Increase testing capabilities
-	- Review PRD
-	- Review test plan and expected behaviors
-	- Flag bugs and prioritize bugs
-- Data Science
-	- Provide insights from data and experimentation
-	- Quantify impact
-- Marketing/PR
-	- Explain the product to users
-	- Manage web and social presence
-	- Lead user acquisition campaigns
-	- Organize press events
-	- Align with PM on Marketing priorities
-	- Discuss with PM on product positioning
-	- Review with PM on launch announcements and presentations
-- Sales
-	- Sell the product
-	- Build relationships with customers
-	- Insight into customer sentiment
-	- Discuss features that would drive sales enablement
-	- Discuss feedback from customers and product shortcomings
-	- Review roadmap and upcoming features
-- Support
-	- Help users when they run into problems
-	- Track top issues users encounter
-	- Improve support processes and tooling
-	- Discuss top customers issues
-	- Discuss supportability
-- Legal & Privacy
-	- Compliance with the law and privacy regulations
+- **Research**
+	- Provide market, user, and product insights.
+	- Help answer important questions.
+	- Get feedback from usability testing.
+	- Align on research priorities and questions to answer.
+	- Share research findings with PMs.
+	- Participate in research together.
+- **Engineering**
+	- Solve challenging technical products.
+	- Build and maintain the product.
+	- Review requirements, PRD, and mocks.
+	- Discuss feasibility and timelines with PMs.
+	- Create a plan for tackling technical debt.
+- **Technical Program Manager (TPM) / Program Manager (PgM)**
+	- Manage the project.
+	- Keep the team on a schedule.
+	- Report status of projects.
+	- Flag any risks and slips in schedule.
+	- Go through prioritization exercises with PMs.
+	- Discuss timelines with PMs.
+	- Review roadmap with PMs.
+- **QA**
+	- Make sure the product works.
+	- Document bugs.
+	- Increase testing capabilities.
+	- Review PRD.
+	- Review test plan and expected behaviors.
+	- Flag bugs and prioritize bugs.
+- **Data Science**
+	- Provide insights from data and experimentation.
+	- Quantify impact.
+- **Marketing/PR**
+	- Explain the product to users.
+	- Manage web and social presence.
+	- Lead user acquisition campaigns.
+	- Organize press events.
+	- Align with PM on Marketing priorities.
+	- Discuss with PM on product positioning.
+	- Review with PM on launch announcements and presentations.
+- **Sales**
+	- Sell the product.
+	- Build relationships with customers.
+	- Insight into customer sentiment.
+	- Discuss features that would drive sales enablement.
+	- Discuss feedback from customers and product shortcomings.
+	- Review roadmap and upcoming features.
+- **Support**
+	- Help users when they run into problems.
+	- Track top issues users encounter.
+	- Improve support processes and tooling.
+	- Discuss top customers issues.
+	- Discuss supportability.
+- **Legal & Privacy**
+	- Compliance with the law and privacy regulations.
 	- Make sure data is being collected with purpose, stored appropriately, and deleted when no longer needed.
-	- Review flows and messaging
-	- Review data collection and storage
-	- Discuss new legal and privacy requirements
-	- Reduce the product’s risk
-- Policy
-	- create rules for how the product can be used
-- Ops
-	- help deliver the product to users
-- Internationalization (i18n)
-	- Get the product to additional countries and languages
+	- Review flows and messaging.
+	- Review data collection and storage.
+	- Discuss new legal and privacy requirements.
+	- Reduce the product’s risk.
+- **Policy**
+	- Create rules for how the product can be used.
+- **Ops**
+	- Help deliver the product to users.
+- **Internationalization (i18n)**
+	- Get the product to additional countries and languages.
 
-### Further Research
+### Further Readings
 
 -   [What To Expect as a PM from Startup to Scale Up, to Corporates](https://productcoalition.com/what-to-expect-as-a-pm-from-startup-to-scale-up-to-corporates-part-1-of-3-e7478117dd2b)
 -   [What It Takes to Become a Great Product Manager](https://hbr.org/2017/12/what-it-takes-to-become-a-great-product-manager)
@@ -476,7 +476,7 @@
 - It is vital to document every step taken to identify the problem and the requirements, even the research and interviews.
 - Documentation is important for the team to be referred to.
 
-#### Further research
+#### Further Readings
 -   [Effective requirements gathering](https://blog.buildo.io/effective-requirements-gathering-b9cbd8176075)
 -   [Stop gathering requirements](https://www.goodproductmanager.com/2008/05/06/stop-gathering-requirements/)
 
@@ -513,7 +513,7 @@
 	- Senior management
 	- External investors
 
-#### Further Research
+#### Further Readings
 
 -   [How To Create a Product Roadmap](https://venngage.com/blog/product-roadmap/)
 
@@ -542,7 +542,7 @@
 	- P2: A desirable feature
 	- P3, P4: Unlikely to get built
 
-#### Further Research
+#### Further Readings
 
 -   [Product requirements documents, downsized](https://www.atlassian.com/agile/product-management/requirements)
 -   [How to Write a Painless Product Requirements Document](https://medium.com/@uxpin/how-to-write-a-painless-product-requirements-document-508ff6807b4a)
@@ -563,7 +563,7 @@
 
 ### Testing
 
-- Review test plans with QA teams to outline which scesnarios should be tested, the steps to be taken and the expected behavior.
+- Review test plans with QA teams to outline which scenarios should be tested, the steps to be taken and the expected behavior.
 - After QA team test the product, PM also should test it to find any bugs, and make sure that it meets the expected standards.
 
 ### Launch
