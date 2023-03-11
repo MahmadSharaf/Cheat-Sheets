@@ -834,6 +834,48 @@
 - [Types of MVPs and Examples](https://mlsdev.com/blog/minimum-viable-product-examples)
 - [15+ Examples MVPs](https://softwarebrothers.co/blog/15-examples-of-successful-mvps/)
 
+### Key Performance Indicators (KPIs)
+
+- **KPIs**, or _Key Performance Indicators_, are metrics that measure the performance of your product against your strategy.
+- They capture the big picture and help you to understand how well your product is working (or isn’t working) and are aligned with business objectives.
+- **Types** of KPIs:
+	- **Business KPIs**:
+		- It measures how you are doing against business goals.
+		- Examples:
+			- Average Revenue per User (ARPU)
+			- Conversion from free to paid subscription
+			- Churn rate (how often do users stop using the product)
+	- **Product KPIs**:
+		- It measures how the product is being used.
+		- Examples:
+			- Weekly Active Users
+			- Average number of calls per user per week
+			- Average time between sign up and first use
+	- **Quality** **KPIs**
+		- It measures how often users encounter issues.
+		- Examples:
+			- Percent of calls delivered in high quality
+			- Average user rating
+			- Support contact rate (percent of users who need to contact support for help)
+	- **Development KPIs**:
+		- It measures how the team executes.
+		- Examples:
+			- On-time delivery of new features that are being developed
+			- Outages per month
+			- Average length of an outage
+- **Tips** for picking KPIs:
+	- Don’t measure everything
+		- While every KPI is a metric, not every metric will be a KPI. KPIs are metrics that capture the performance of your product against your strategy.
+		- You want to have a small, focused set of KPIs. This will allow the team to focus on moving those specific KPIs.
+	- Align user, product, and business goals
+	- Make sure KPIs are measurable
+	- Use percentages and time periods when setting goals
+
+#### Further Readings
+
+- [4 Things to Remember When Defining KPIs](https://blogs.oracle.com/datascience/4-things-to-remember-when-defining-kpis)
+- [18 KPI Examples Explained](https://www.clearpointstrategy.com/18-key-performance-indicators/)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
