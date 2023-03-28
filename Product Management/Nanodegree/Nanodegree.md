@@ -1099,6 +1099,21 @@
 - Each phase has a set of tools that can be used to facilitate reaching the goal of each phase.
 - However, it’s not necessary to use every tool for a given phase. Instead you should focus on picking the best tool for the problem you are trying to tackle and the composition of your sprint team.
 
+#### Design Sprint Outcomes
+
+- **At the end of the sprint**:
+	- A working prototype for the concept
+	- Insights and validation from users on your concept
+	- Tons of artifacts
+	- List of other ideas that can be explored
+- **After the sprint**:
+	- More testing and iteration
+	- The concept will go to Design to be more fully fleshed out
+	- The concept will go to Engineering to build
+	- Make a case with leadership to invest more resources in bringing concept to market
+	- The concept is abandoned because it doesn’t address a user need
+- Before the sprint starts, it’s a good practice to plan what the next steps afterward will be. But it’s also important to acknowledge and respond appropriately based on the outcome of the sprint.
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
