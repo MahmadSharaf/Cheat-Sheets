@@ -1645,6 +1645,73 @@
 		- [The Magic of Paper Prototyping](https://uxplanet.org/the-magic-of-paper-prototyping-51693eac6bc3)
 		- [How to prototype an app with PowerPoint](https://keynotopia.com/guides-ppt/)
 
+#### 6. Validate
+
+- It is the sixth and final phase in Design Sprint.
+- Its goal is to validate the idea and get feedback from target users without investing in a fully built product.
+- It also validates that the idea can be build by the engineering team in a reasonable amount of time.
+- Exposing the user to a concept or a prototype is very helpful to gain valuable feedback about whether the idea will satisfy a need or it will be used. Also, it will provide info about the porotype usability. UX researcher (Someone who studies the behavior of users) can help to coordinate a lot of this.
+- **Planning a User Study**:
+	- Start with broader questions and background.
+		- Who is your target user?
+			- Existing users, new users or users of competitor's product?
+			- Demographics or other characteristics related to the concept.
+			- Age
+			- Device type
+			- Income
+			- Gender
+		- How many interviews will you have?
+			- Typically 5-7
+			- Minimum of 3
+		- What do you want to find out?
+		    - Background information about the user
+		    - Specific questions around your idea
+		    - Tasks to complete with a prototype
+		- How much time you will need to complete each interview. It is to set expectation for the participants and respect their time.
+			- It can range from 45 to 60 mins per interview.
+			- Shorter if it is just for testing a part of a product.
+			- Longer if more in depth is required.
+				- Can be multiple sessions if it is more than 90 mins.
+	- Specify feedback on idea and task completion
+	- Outline high level objectives, then add more detail and create an interview script that will guide the user through answering the questions you care about.
+		- Does the product solve a real need?
+		- What do users think of it? How it fits into their lives?
+		- Can users navigate through the app?
+			- It can be validated by asking the user to complete some tasks with the prototype.
+	- **Further Readings**:
+		- [The Basics of Recruiting Users for Usability Testing](https://www.interaction-design.org/literature/article/the-basics-of-recruiting-users-for-usability-testing)
+- **User Interviews**:
+	- **Instructions**:
+		- Introduce yourself and give an overview of what you will be asking the user to do during the study
+		- Ask user to sign NDA (if applicable)
+			- NDA (Non-Disclosure Agreement): A confidentiality agreement that prevents someone from disclosing specific information they were given access to, for example an upcoming product roadmap or feature set	
+		- Ask if it is okay to record.
+			- Assure them that the recording will be used only by the internal team and won't be used for marketing material.
+		- Learn more about the user’s background by asking general questions (although the questions should be related to your project)
+		- Start focusing in by shifting to more specific questions directly tied to your project space
+		- Ask the user to complete tasks using the prototype.
+			- Explain that it is not a test, it will only be need to understand their feedback
+			- Ask for the possibility to think out loud so you can understand what is their understanding as they navigate the prototype.
+		- Ask the user for their overall feedback about the prototype
+		- Thank the user!
+	- **Things to remember**:
+		- Keep questions open ended
+		- If asked a question, try to get the user to answer the question from their perspective by reframing (ex: how do you think it should work?)
+	- **Further Readings**:
+		- [How to conduct user interviews](https://uxdesign.cc/how-to-conduct-user-interviews-fe4b8c34b0b7)
+		- [6 Tips for Better User Interviews](https://uxplanet.org/6-tips-for-better-user-interviews-ad925afc52df)
+- **Technical Feasibility**:
+	- If the idea cannot be built in a reasonable amount of time, it won't matter how good it is.
+	- It is important to involve the engineering early on to provide feedback regarding what is and what is not feasible or how complex it is. They might also provide better ideas with a simpler solution.
+	- Prototypes can facilitate the conversation by walking through user facing flows.
+	- You should also come prepared with some questions around what data is needed to generate the UI, where user entered data will be stored, and any causes for latency.
+	- **Examples** for interacting with an engineer:
+		- Not Helpful: "We need to build this feature. It should be pretty simple to build."
+		- Helpful: "Here is a PRD for a feature we have been thinking about. I wanted to get your thoughts on how difficult it would be to build."
+		- Best: "Let me show you a mock for a feature we have been thinking about. It is pretty exciting because we think it will have a 20% lift on revenue. I would love to get your perspective on this feature and what challenges we might run into if we build it."
+	- **Further Readings**:
+		- [Development fundamentals for UX designers](https://uxdesign.cc/development-fundamentals-for-ux-designers-caf759724874)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
