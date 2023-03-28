@@ -1510,6 +1510,61 @@
 	- [Guide to UX Sketching](https://www.toptal.com/designers/ux/guide-to-ux-sketching)
 	- [How to Run a Crazy Eights Workshop](https://blog.prototypr.io/how-to-run-a-crazy-eights-workshop-60d0a67b29a)
 
+#### 4. Decide
+
+- It is the forth phase in Design Sprint.
+- The goal of this phase is to converge on a single idea to carry forward for the remainder of the sprint all the way through prototyping and user validation.
+- There are multiple decision making methods that can be used to get consensus on one idea, with a focus on making sure that the idea solves a real need for real users.
+- It might be challenging because people might be attached to their own ideas, so it is important to evaluate the ideas using the same subjective criteria, like impact, timing, and feasibility when considering different ideas.
+- Decision Making methods:
+	- **Assumptions and Questions**:
+		- It is used to normalize the way of thinking after being caught in train of thoughts, especially after Sketching phase.
+		- **Instructions**:
+			- Go through each sketch and take a few moments to list out assumptions as a group, then create questions using those assumptions. To force considering other possibilities that wasn't considered.
+		- **Examples**:
+			- "Does phones must have buttons?"
+			- "Does shoes must have laces?"
+			- "Does a software must have a save button?"
+		- **Further Readings**:
+			- [Don’t Make Me Think – Key Learning Points for UX Design for the Web](https://www.interaction-design.org/literature/article/don-t-make-me-think-key-learning-points-for-ux-design-for-the-web)
+			- [Assumption Busting](http://creatingminds.org/tools/assumption_busting.htm)
+	- **Decision Matrix**:
+		- A decision matrix allows you to visualize the trade offs between different ideas when comparing across two criteria, like Effort needed for implementation, and its Value to the user.
+			- Ideas generally worth pursuing will be high value & low effort or high value & high effort.
+				- However, low effort and high value should be pursued only if the resources are tight because low effort ideas can also be duplicated by others quickly.
+			- Ideas that are low value & high effort are generally not worth pursuing unless value increases or effort decreases in the future.
+			- Ideas that may not make sense to pursue now, may be worth pursuing later if the value of the idea increase or the effort to pursue the idea decreases.
+		- **Further Readings**:
+			- [Decision Matrix](https://designsprintkit.withgoogle.com/methodology/phase4-decide/decision-matrix)
+	- **Six Thinking Hats**:
+		- It is a method to ensure that different perspectives are being discussed.
+		- The Thinking Hats exercise allows you to make sure that different perspectives are being discussed and pushes people to be open to different perspectives since everyone will have to represent multiple, differing views.
+		- The team discussion focuses on one hat at a time. The order can vary, but you'll want to start and end with the blue hat (process). This order works well when comparing ideas:
+			- **Blue hat** - process (align on goals and order of hats):
+				- Structure the conversation.
+				- Align on what will be talked about
+				- Ex: "generate at least 10 new feature ideas."
+			- **White hat** - data
+				- Share facts and info
+				- Or ask questions to find facts.
+					- What do we know?
+					- What do we need to find out?
+			- **Yellow hat** - benefits
+				- Share the logical reasons on why a specific idea could be useful
+			- **Black hat** - judgment
+				- Focus on challenges of specific ideas
+				- Discuss what could go wrong
+			- **Green hat** - creativity
+				- Discuss new view, alternative solutions, or ways that can de-risk and overcome challenges.
+			- **Red hat** - intuition
+				- No reasoning while wearing
+				- Just guessing and hunching
+			- **(again) Blue hat** - process (summary of discussion)
+				- To summarize the discussion
+		- **Further Readings**:
+			- [Six Thinking Hats](http://www.debonogroup.com/six_thinking_hats.php)
+			- [Six Hats of Critical Thinking](https://www.designorate.com/the-six-hats-of-critical-thinking-and-how-to-use-them/)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
