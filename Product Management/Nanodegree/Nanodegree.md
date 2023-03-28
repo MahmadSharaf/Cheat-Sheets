@@ -1136,6 +1136,26 @@
 	- Finance
 	- and many more
 
+#### Design Sprint fits when
+
+- Design Sprints are best suited when there are big open questions.
+- They don’t work as well when a solution or in depth direction has already been identified.
+- Design Sprint is a good fit in:
+	- New product
+	- New feature for existing product
+	- Improvement to existing product
+	- You need to solve a complex problem
+	- You don’t already have an answer
+- Design Sprint is unlikely to be helpful:
+	- There is already clear product direction, just not final designs
+	- There is not enough foundational research to understand user needs
+	- You already have an answer
+
+##### Further Readings
+
+- [When a design sprint isn’t the answer](https://www.invisionapp.com/inside-design/design-sprint-wont-work/)
+- [How do I know if it’s the right time to run a Design Sprint?](https://sprintstories.com/how-do-i-know-if-its-the-right-time-to-run-a-design-sprint-29d67e7bc4b2)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
