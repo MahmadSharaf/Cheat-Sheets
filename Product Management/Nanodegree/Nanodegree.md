@@ -1459,6 +1459,57 @@
 	- [New feature for Google Wi-Fi](https://www.blog.google/products/google-wifi/google-wifis-network-check-now-tests-multiple-device-connections/)
 	- [Innovate Like Amazon with The Future Press Release](http://the-amazon-way.com/blog/future-press-release/)
 
+#### 3. Sketch
+
+- It is the third phase in Design Sprint
+- The goal of this phase is to create and explore lots of ideas and then start narrowing them down to a few. Those ideas will be explored in more depth through more detailed sketching.
+- It leverage the shared understanding in phase 1 and the outcomes defined in phase 2 as a jumping off point for the sketches.
+- **Sketching Tips**:
+	- Don't focus on quality. Sketches aren't supposed to look super realistic.
+	- Have the right tools:
+		- Thick-line marker
+		- Thin-line marker
+		- Highlighters in multiple colors
+		- Dotted paper ([Dotted Grid Paper Generator](https://mathpolate.com/grid-maker-tools/grid-maker))
+	- Start with the outline and iterate over to continue to add detail.
+	- Use placeholder for UI elements:
+		- Box with simple outline = image
+		- Box with play icon = video
+		- Think line = header
+		- Thin line = copy
+		- Rectangle = button
+	- Label the buttons and headers
+	- Use color to highlight important things but don't overdo it or it'll be difficult to interpret the sketch.
+	- Add annotations to describe what's going on.
+- **Crazy 8's** technique:
+	- It is a sketching activity that will quickly generate a lot of ideas in 8 minutes.
+		- 8 sketches in 8 minutes
+		- 1 sketch per minute
+		- Quantity over quality (of sketching & idea)
+		- Every sketch should be different
+	- Instructions:
+		- Give each sprint team member a piece of paper and a pen
+		- Fold the paper into eight sections so the team member can use each section for one sketch.
+		- Set a timer on repeat for one minute. When the times goes off, it's time to move on to the next sketch.
+		- After eight minutes, ask the team to share and vote on the best idea.
+	- Benefits:
+		- Crazy 8s forces each team member to think beyond the first idea or two.
+		- The obvious ideas will come to mind first and then it'll be more challenging to come up with the remaining ideas.
+		- At the end of the exercise, the team will have a whole range of ideas, including some less obvious and really innovative ideas.
+- **Voting**:
+	- After sketching exercise, let each member briefly explain his ideas.
+	- Share with each member 2 to 3 dot stickers or any convention for rating
+	- Ask each member to rate his most favorite sketch across all team sketches.
+	- In such that, a member with 3 dots can vote 3 sketches (1 vote each), 2 sketches (1 vote and 2 votes), or 1 sketch (3 votes)
+- **Solution Sketching**:
+	- It is a high quality sketch that illustrates how a user interacts with the product to achieve their goal.
+	- Each sprint member should pick one idea, belongs to any member, and sketch it out in more detail.
+	- The solution sketch should contain at least 3 frames that show progression through different states. 
+- **Further Readings**:
+	- [The Messy Art of UX Sketching](https://www.smashingmagazine.com/2011/12/the-messy-art-of-ux-sketching/)
+	- [Guide to UX Sketching](https://www.toptal.com/designers/ux/guide-to-ux-sketching)
+	- [How to Run a Crazy Eights Workshop](https://blog.prototypr.io/how-to-run-a-crazy-eights-workshop-60d0a67b29a)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
