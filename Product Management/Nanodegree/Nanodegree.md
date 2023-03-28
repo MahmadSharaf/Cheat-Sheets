@@ -1156,6 +1156,75 @@
 - [When a design sprint isn’t the answer](https://www.invisionapp.com/inside-design/design-sprint-wont-work/)
 - [How do I know if it’s the right time to run a Design Sprint?](https://sprintstories.com/how-do-i-know-if-its-the-right-time-to-run-a-design-sprint-29d67e7bc4b2)
 
+#### Design Sprint Planning
+
+##### Sprint Master
+
+- Creates the structure of the Sprint
+- Selects which methodologies will be used
+- Facilitates during the sprint
+- Keeps the team focused and on track
+
+##### First Sprint
+
+1.  Participate in a sprint to really get a better understanding of exactly how they work
+2.  Shadow a Sprint Master as they are putting together and planning a Sprint
+3.  Co-facilitate a sprint with another experienced Sprint Master
+
+##### Challenge Statement
+
+- Creating a challenge statement for a Design Sprint is a great way to help everyone understand the purpose of the sprint. The best challenge statements are:
+	- Short and easy to understand
+	- Something with urgency that needs to be delivered
+	- Contain a timeframe
+	- Are inspiring and get people excited
+- Challenge statement formula:
+	- **[ACTION] + [OUTPUT] + FOR [USER] + TO [PROBLEM] + BY [TIMEFRAME]**
+- Challenge statement example:
+	- **Design an app for consumers to make it easier to purchase items by next year**
+
+##### Sprint Team
+
+- About 6 people
+	- If more than that, split the group into smaller teams that work through exercises in parallel and then share with the whole group
+- You will want to identify people whose work is directly related to the sprint challenge
+
+##### Agenda
+
+- Build a rough agenda for your sprint.
+- Select methods for each phase that will provide insights for the problem you are trying to solve.
+- Keep in mind the composition of your sprint team
+	- If people are more familiar with the problem space, it likely will make more sense to spend more time on ideation 
+	- Whereas if people are less familiar it would make sense to spend more time on understanding the problem space.
+
+##### Space
+
+- Secure a space for the sprint to take place, preferably somewhere away from distractions
+- Tons of space for everyone who is participating
+- Whiteboards or lots of wall space for posting stickies
+
+##### Supplies
+
+- Post it notes
+- Dry erase markers for whiteboard (multiple colors)
+- Sharpies
+- Pens
+- Paper
+- Giant post it notes (if no whiteboard)
+
+##### Logistics
+
+- Send a calendar invite to the sprint team
+- Coordinate getting some light snacks / refreshments for each day
+- Arrive earlier to make sure that the room is arranged in a way that is conducive for collaboration (ex: a U shape around a whiteboard)
+- Send a reminder the day before, with any pre-work that the team needs to do (like reviewing user research or trying competing products)
+
+##### Further Research
+
+- [24 Design Sprint Tips](https://sprintstories.com/23-facilitation-tips-for-design-sprints-34d876aa5317)
+- [Problem Statement](https://thoughtbot.com/product-design-sprint/guide/understand/problem-statement)
+- [Why Problem Framing before a Design Sprint?](https://medium.com/design-sprint-academy/design-sprints-picking-your-battles-45d30f9b06ce)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
