@@ -1253,6 +1253,115 @@
 	- Owns information architecture
 	- Creates mocks and prototypes
 
+### Phases of a Design Sprint
+
+#### 1. Understand
+
+- The goal with this phase is to create a shared understanding of the problem space across all sprint team members.
+- There are a number of different ways that this understanding can be captured and shared.
+- You’ll want to set up inputs that highlight and demonstrate different viewpoints and perspectives across a multitude of dimensions.
+- This can be achieved by various techniques:
+	- **Lightning talks**: A lightning talk is a short presentation, usually about 20 minutes, focused on a specific topic.
+		- User research
+			- Ask:
+				- Who is the user?
+				- What are their needs and goals?
+				- Why does this problem matter to users?
+			- Examples:
+				- Researcher presents study on users with purchase intent
+				- Researcher presents from study on users with [X] need
+		- Business goals/needs
+			- Ask:
+				- What are we trying to solve?
+				- Why does it matter?
+				- What have we tried in the past?
+				- What’s worked well and not so well?
+			- Examples:
+				- Sales team presents industry trends and competitive landscape
+				- CEO presents importance of specific market/region
+		- Technology
+			- Ask:
+				- What are our technical capabilities?
+				- What are the limits and constraints or limitations on our existing tech?
+			- Examples:
+				- Engineer presents new capabilities that are available
+				- Engineer presents tear down of competitor tech
+	- **Interviews**: Interviews allow you to gain perspectives from a number of different vantage points.
+		- User interviews
+			- To:
+				- Build empathy for users
+				- Get a deeper understanding of user needs and pain points.
+			- With:
+				- Users who have your product
+				- Users who have a competing product
+				- Users who might be interested in your product
+		- Stakeholder interviews
+			- To:
+				- Dive deeper into some of the reasoning, rationale, and context of why this specific problem is important to solve.
+				- Topics can include any previous efforts to solve this or a similar problem
+			- With:
+				- Operations team
+				- Sales team
+				- Legal team
+		- Expert interviews
+			- To:
+				- Provide specialized insights around a specific problem, population, or technology.
+				- Can be either internal or external
+			- With:
+				- An expert in the domain of your project
+	- **Competitive analysis**: Get a better understanding of the competition and other solutions that exist in the problem space
+		- Doing research, including checking out websites and press materials
+		- Reading reviews
+		- Using the product and recording your experience.
+		- But, _Just because a competitor built something a certain way doesn’t mean it was the right thing to build or that it was built the right way._
+- Capture the team's inputs and responses using methods such as:
+	- **How Might We**:
+		- A method to capture problems and frame them as opportunities that can be solved.
+			- Each statement should be captured on its own sticky note.
+			- Statements should focus on open ended opportunities, rather than a specific solution.
+			- Try to avoid statements that are too narrow.
+		- “How Might We” statements always start with the same three words, which creates a positive solution oriented framing.
+			- **How** - acknowledges that we don’t know the answer yet but believe this problem can be solved.
+			- **Might** - acknowledges there can be more than one solution and that we shouldn’t stop at the first idea. “Might” also acknowledges that not every solution will work, but it’s still ok to discuss and explore ideas that might not pan out
+			- **We** - acknowledges that the team is invested in solving this problem together.
+		- Examples:
+			- *"Make it easier for people to find items"*. **Bad** example because it should be framed as a question. Instead, *"How might we make it easier for people to find items?"*
+			- *"How might we use couriers to deliver groceries to people's homes?"*. **Bad** example because it should support multiple solutions. Instead, *"How might we get groceries to people faster?"*
+			- *"How might we build an app for our store?"*. **Bad** example because it should not be too broad. Instead, *"How might we let customers place orders online?"*
+		- Further Readings:
+			- [How Might We](https://www.designkit.org/methods/3)
+			- [HMW statements](https://www.innovationchampions.com.au/toolkit/hmw-statements)
+	- **Rose Bud Thorn**: 
+		- A method to visually classify aspects of a topic as being positive, an opportunity, or negative.
+		- "Rose Bud Thorn":
+			- **Roses** are positive things. For example roses could be things that are going well or seen as a successful. Roses can also represent things or parts of a product that people enjoy.
+			- **Buds** are things that could turn into roses, if given the right attention. They represent areas of opportunity.
+			- **Thorns** are negative things. For example thorns could be problems or shortcomings. They also can represent broken product experiences.
+		- Write One thing per sticky.
+		- Use different colored stickies for roses, buds and thorns.
+		- Further readings:
+			- [Rose, Thorn, Bud](https://designsprintkit.withgoogle.com/methodology/phase1-understand/rose-thorn-bud)
+	- **Affinity Mapping**: 
+		- A method to visually sort related ideas together into categories and themes.
+		- Steps:
+			- Quickly discuss idea/insight.
+			- Place it on the board next to similar or related ideas
+			- Over time **clusters** of related sticky notes have started to form.
+			- Label each cluster.
+			- After placing all notes, check for clusters related to each other.
+			- Rearrange related clusters to be next to each other to create **themes**.
+			- Circle related clusters and label each theme.
+		- Things to Remember
+			- It’s an interactive process. Make sure to leverage the group
+			- Make sure to have an “Other” category. This is helpful if an idea doesn’t fit with other sticky notes. No need to try and force everything to fit into a category.
+			- Don’t be afraid to move things around. The first categories you come up with probably won’t be your final categories.
+			- Make sure to take photos, especially at the end with the completed affinity map.
+		- Further readings:
+			- [HMW Sharing and Affinity Mapping](https://designsprintkit.withgoogle.com/methodology/phase1-understand/method-1)
+			- [A Beginner's Guide to Affinity Mapping](https://generalassemb.ly/design/user-experience-design/affinity-mapping)
+			- [Affinity Mapping](https://www.innovationchampions.com.au/toolkit/affinity-mapping)
+			- [Affinity Map Examples](http://www.syque.com/quality_tools/toolbook/Affinity/example.htm)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
