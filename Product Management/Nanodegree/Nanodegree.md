@@ -1225,6 +1225,34 @@
 - [Problem Statement](https://thoughtbot.com/product-design-sprint/guide/understand/problem-statement)
 - [Why Problem Framing before a Design Sprint?](https://medium.com/design-sprint-academy/design-sprints-picking-your-battles-45d30f9b06ce)
 
+#### Design Sprint Icebreakers
+
+- If your Sprint team hasn’t worked together before, it’s a good idea to spend a little bit of time getting the group comfortable with each other. At a minimum, this means that each member should know every other member’s name and role.
+- It can also be beneficial to do a quick icebreaker exercise, although you won’t want to spend too much time on this -- no more than 20 minutes. These are short exercises designed to get people to open up and connect with others. Two quick icebreakers you can use are:
+	- **Two truths and a lie** - each team member introduces themselves and includes three facts about themselves. Two of them are true and one is false. The team must figure out which one is false.
+	- **Superpower** - each team member introduces themselves along with the superpower that they are bringing to the team
+
+##### Further Readings
+
+- [45 Ideas for Ice Breakers](https://www.sessionlab.com/blog/icebreaker-games/)
+
+#### Working with Designers
+
+- Product Managers and Designers both care a lot about the user.
+- PMs are not a designer. Acknowledge that designers have expertise when talking about UI and flows.
+	- When critiquing a design it’s often more effective to ask about the _**intention**_ of a choice
+- There is a lot of overlap between the two roles when it comes to understanding and advocating for the user. **Both roles** are involved with researching user needs and defining use cases.
+	- Deeply understands users and define use cases
+	- Participates in and conducts User Research and Usability testing
+- **Product managers** are responsible for the overall success (or failure) of a product and need to take input and communicate across a number of stakeholders.
+	- Sets priorities for the team
+	- Responsible for business outcomes
+	- Manages stakeholders and communicates across larger team
+- **Designers** go much more in depth with how the user should interact with and experience the product from a visual and interaction design perspective.
+	- Owns visual and interaction design
+	- Owns information architecture
+	- Creates mocks and prototypes
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
