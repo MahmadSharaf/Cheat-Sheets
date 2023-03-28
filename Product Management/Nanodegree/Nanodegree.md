@@ -938,7 +938,7 @@
 	- Show instead of telling
 	- Practice! Practice! Practice! until you can tell the story without referring to notes
 
-#### Further Research
+#### Further Readings
 
 - [Storytelling that Moves People](https://hbr.org/2003/06/storytelling-that-moves-people)
 - [How Pixar’s 22 Storytelling Rules Apply to Your Business](https://fizzle.co/sparkline/pixars-22-rules-of-storytelling)
@@ -1007,7 +1007,7 @@
 	- Rehearse
 	- Pre-brief key stakeholders before big presentations
 
-#### Further Research
+#### Further Readings
 
 - [19 Great Examples of PowerPoint Presentation Design [+ Templates]](https://blog.hubspot.com/blog/tabid/6307/bid/6012/17-examples-of-great-presentation-design.aspx)
 - [Quite Possibly the World’s Worst PowerPoint Presentation Ever](https://www.apa.org/gradpsych/2012/01/worst-powerpoint-ever.pdf)
@@ -1057,7 +1057,7 @@
 -   Keep emotions in check
 -   Work together to find a solution
 
-#### Further Research
+#### Further Readings
 
 - [Negotiation Skills for Product Managers: 5 Things You Need to Know](https://medium.com/pminsider/negotiation-skills-for-product-managers-5-things-you-need-to-know-ec474f743d54) 
 - [5 Highly Effective Negotiation Tactics Anyone Can Use](https://www.inc.com/jeff-haden/tk-highly-effective-negotiation-tactics-anyone-can-use.html)
