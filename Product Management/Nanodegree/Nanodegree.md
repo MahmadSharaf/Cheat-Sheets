@@ -1114,6 +1114,28 @@
 	- The concept is abandoned because it doesn’t address a user need
 - Before the sprint starts, it’s a good practice to plan what the next steps afterward will be. But it’s also important to acknowledge and respond appropriately based on the outcome of the sprint.
 
+#### Design Sprint Participants
+
+- The best Design Sprints occur when there’s good representation across a number of different functions.
+	- Want around 6 members on the team
+	- Members should bring different perspectives, backgrounds, and areas of expertise
+	- Team typically includes someone from Product, Design, and Engineering - but there’s no hard and fast rule
+	- Need to find the right people to bring perspective and focus to the current challenge.
+- Different functions as:
+	- Product
+	- Design
+	- Engineering
+	- Data Science
+	- Marketing
+	- Support
+	- Operations
+	- Sales
+	- Privacy
+	- Legal
+	- Leadership
+	- Finance
+	- and many more
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
