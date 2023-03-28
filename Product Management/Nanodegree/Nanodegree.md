@@ -1565,6 +1565,86 @@
 			- [Six Thinking Hats](http://www.debonogroup.com/six_thinking_hats.php)
 			- [Six Hats of Critical Thinking](https://www.designorate.com/the-six-hats-of-critical-thinking-and-how-to-use-them/)
 
+#### 5. Prototype
+
+- Prototyping is a fast and cheap way to test and validate an idea.
+- The prototype doesn’t have to capture the full product end to end, but should definitely focus on the core questions about the idea that you need to answer.
+- **Storyboard**:
+	- Storyboard maps out the problem facing your user and the journey they go through with your product to solve it.
+	- A storyboard is composed of frames that depict events along the user journey.
+	- Each frame should have a caption that explains what is happening and why.
+	- The first frame should explain how the user found themselves in this scenario and what is the problem they are trying to solve.
+	- The storyboard will become the blueprint for the prototype.
+	- **Things to remember**:
+		- Write your script first, and then create images for each frame.
+		- The first frame should articulate the problem.
+		- The last frame should show how your product helped the user solve the problem.
+		- The frames in between the first and last frame should show how the user gets from the problem to the solution.
+	- **Tools**:
+		- https://theplot.io
+		- [Boords](https://boords.com/)
+		- [Storyboarder](https://wonderunit.com/storyboarder/)
+		- [Storyboard Template (PPT)](https://video.udacity-data.com/topher/2021/June/60d5fd55_storyboard-template/storyboard-template.pptx)
+	- **Further Readings**:
+		- [The Role Of Storyboarding In UX Design](https://www.smashingmagazine.com/2017/10/storyboarding-ux-design/)
+- **Prototyping**:
+	- A model of the most critical features of a product.
+	- **Best practices**:
+		- Stay focused. Identify the screens/flows that you need to build in order to test your idea
+		- Use a template. Build a base screen that you can duplicate to use as the foundation for additional screen
+		- Keep it real. Avoid using placeholder assets and copy. This will change the way that users interact with and provide feedback about your prototype. **It doesn’t have to be perfect, but it does need to feel realistic.**
+		- Test it. Click through your prototype once your done to make sure everything is working
+	- **Methods**:
+		- **Video**:
+			- High effort
+			- Pros
+				- Shows end to end user journey
+				- Can generate a lot of excitement
+				- Can communicate a lot
+				- More tangible
+			- Cons:
+				- Time consuming and expensive
+				- High level
+				- Too much excitement
+			- Best for storytelling
+			- A video prototype is best suited for understanding if a concept is valid, with less focus on the exact implementation
+		- **Paper**:
+			- Low effort
+			- Pros
+				- Fast, cheap, and easy to iterate.
+				- Great as a team building exercise since everyone can be involved
+				- Automatic documentation
+			- Cons
+				- Won’t resemble a digital product
+				- Can sometimes be difficult for participants to imagine it as if it were a digital software experience.
+		- **Presentation Software**:
+			- Medium effort
+			- Pros:
+				- Relatively easy to build and gets pretty close to mimicking what the real experience could feel like.
+				- Easy to iterate
+			- Cons:
+				- Need to pay lots of attention around alignment, lots of importing mocks and checking alignment.
+				- Doesn't always feel real.
+		- **High Fidelity prototypes**:
+			- Medium Effort
+			- Pros:
+				- Super realistic,
+				- Great for identifying usability issues
+				- Quick iteration
+				- Can be used as a spec to the engineers.
+			- Cons:
+				- A little more work upfront
+				- Doesn’t reflect what will actually be built (ie: latency)
+			- Best for usability and realism
+	- **Tools**:
+		- [Flinto](https://www.flinto.com/)
+		- [Proto.io](https://proto.io/)
+		- [Figma](https://www.figma.com)
+	- **Further Readings**:
+		- [10 Mobile App Prototyping Best Practices that Result in a Stellar Finished Product](https://medium.com/@protoio/10-mobile-app-prototyping-best-practices-that-result-in-a-stellar-finished-product-feac3274d2ac)
+		- [The Magic of Paper Prototyping](https://uxplanet.org/the-magic-of-paper-prototyping-51693eac6bc3)
+		- [How to prototype an app with PowerPoint](https://keynotopia.com/guides-ppt/)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
