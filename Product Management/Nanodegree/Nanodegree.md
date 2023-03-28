@@ -1362,6 +1362,103 @@
 			- [Affinity Mapping](https://www.innovationchampions.com.au/toolkit/affinity-mapping)
 			- [Affinity Map Examples](http://www.syque.com/quality_tools/toolbook/Affinity/example.htm)
 
+#### 2. Define
+
+- It is the second phase of the Design sprint.
+- The goal of this phase is to create focus on what to achieve and how define success. Once you’ve identified that vision, it becomes much easier to understand and frame all the other steps you will need to take to realize that vision.
+
+##### Success Metrics
+
+- Success Metric is a way to measure whether or not your project achieved its goals
+- The **HEART** framework, which was created at Google, is a user-centered method to define metrics that measure the quality of the user experience or to measure quality of user experience at scale. It’s simple and easy to understand and can help with decision making in later phases.
+- There are five dimensions:
+	- **Happiness** - user attitude towards your product.
+	- **Engagement** - how users are using the product in terms of frequency or number/types of features used.
+	- **Adoption** - how many new users start using your product. Marketing can be a strong factor, but the belief is that in long-term, the better the product is, the easier for new users to adopt it.
+	- **Retention** - how many users keep coming back.
+	- **Task Success** - ability for users to complete critical tasks in order to be successful with the product.
+- Across these dimensions, you will then want to start by identifying goals, then signals, and finally metrics to measure how well your product is doing.
+	- A **goal** is something the user is trying to do or something you are trying to help them to do
+	- A **signal** is a change in user behavior that indicates that the user is achieving the goal
+	- A **metric** is a way to measure signal and quantify how much user behavior has changed
+- **Examples**:
+	- Happiness:
+		- Goal: Efficient pick up
+		- Signal: Waiting for pick up
+		- Metric: Avg. wait time
+	- Engagement:
+		- Goal: Buy products
+		- Signal: Product added to cart
+		- Metric: Avg # products purchased per cart
+	- Adoption:
+		- Goal: Share with friends
+		- Signal: Refer a friend
+		- Metric: Referral sign up rate
+	- Retention:
+		- Goal: Automatic ordering of basics
+		- Signal: Opt in to auto orders
+		- Metric: Avg # of auto ordered items / user / month % of users with auto order
+	- Task success:
+		- Goal: Find item easier later
+		- Signal: Item added to shopping list
+		- Metric: % of users with items on list
+- **Things to remember**:
+	- Success metrics are important because they allow you to quantify how successful your project is.
+	- By identifying your success metrics upfront, it sets a clear target for the team to understand what is considered success.
+- **Further Readings**:
+	- [Measuring the User Experience on a Large Scale: User-Centered Metrics for Web Applications](https://storage.googleapis.com/pub-tools-public-publication-data/pdf/36299.pdf)
+	- [Startup Metrics for Pirates -- AARRR](https://www.pierrelechelle.com/aarrr-pirate-metrics)
+
+##### Design Principles
+
+- Design principle is a framework that guides the way that you think about building your product or it guides the development of your concept.
+- Agreeing on design principles with the team can make decisions and reviews easier later because you can refer to the already agreed-upon principles.
+- **A design principle**:
+	- Focuses on what matters most
+	- Describes the personality of your product.
+	- Expressed by a short phrase followed by a brief explanation with a few more details
+- When executed well, design principles can be easily identified by people who use the product.
+- **Examples**:
+	- **Google**: fast with a-less-is-more approach to create a UI focused on getting to your answer as quickly as possible.
+	- **Airbnb:** connecting hosts and guests globally around the world like a mutual friend would
+	- **Apple:** trustworthy because it takes care to keep your private data private.
+- **Creating Design Principles**
+	1. Ask the team to spend 5-10 minutes individually brainstorming design principles that they think will be important for the project.
+	2. Bring the team together and have each team members share their ideas.
+	- You can use affinity mapping to find common themes just like we did for the "how might we" statements.
+- **Things to remember**:
+	- Design principles are guidelines that should craft how you think about building your product. By aligning on design principles with your team, it also makes decision making easier because you can frame questions in the context of your design principles.
+	- When you are writing design principles with your team, you should capture each principle with a word or two and a short explanation that explains the intent in more detail. When you refer to your design principles later you can just refer to the short version.
+- **Further Readings**:
+	- [Spotify's Design Principles](https://spotify.design/article/introducing-spotifys-new-design-principles)
+	- [Design Principles](https://principles.design/)
+
+##### Future Press Release
+
+- It is a great way to get everyone on the team aligned on the outcomes you are trying to achieve.
+- **Its Components**:
+	- Name of the product (although this doesn’t have to be final and can change)
+	- Who is the target user?
+	- What problem does your product solve?
+	- How does your product solve this problem?
+	- Why your team built this
+	- Why should users care?
+	- How do users react to your product?
+	- What sets this product apart from others?
+	- How can users get the product
+- **Examples**:
+	- **WHAT**: Takes amazingly clear pictures at night
+	- **HOW**: Captures several images on shutter press with varying exposure lengths and processes images through a machine-learning algorithm to compose rich, detailed images in low light conditions
+- **Things to remember**:
+	- Write this for an external audience that is not familiar with the product space
+	- Don't use acronyms.
+	- Incorporate quotes into the press review either from people on the team or made up users.
+	- When talking about the solution focus on _**what**_ the product does rather than _**how**_ it does it.
+	- Keep a positive, excited tone.
+- **Further Readings**:
+	- [New feature for Google Wi-Fi](https://www.blog.google/products/google-wifi/google-wifis-network-check-now-tests-multiple-device-connections/)
+	- [Innovate Like Amazon with The Future Press Release](http://the-amazon-way.com/blog/future-press-release/)
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
