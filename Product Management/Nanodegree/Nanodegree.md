@@ -1712,6 +1712,59 @@
 	- **Further Readings**:
 		- [Development fundamentals for UX designers](https://uxdesign.cc/development-fundamentals-for-ux-designers-caf759724874)
 
+#### Next Steps
+
+- **Iterate**:
+	- Iteration is going through the process again in order to make improvements
+	- It is an important part of the process that allows you to test and refine your ideas.
+	- It can reduce overall risk for a project by getting feedback early on without having to build out the actual product.
+	- Iteration does take time though. And you will never get everything completely perfect.
+	- It’s important to focus on getting the things right that will be hard to fix if you reach the wrong conclusion.
+	- **Further Readings**:
+		- [Design Iteration Brings Powerful Results](https://www.interaction-design.org/literature/article/design-iteration-brings-powerful-results-so-do-it-again-designer)
+		- [Iterative User Interface Design](https://www.nngroup.com/articles/iterative-design/)
+- **Evangelizing**
+	- Evangelize is to get people excited and bought into the project.
+	- Sharing a summary of the Design Sprint more broadly will help to create buy into the project and the Design Sprint process.
+	- The most powerful artifact you can share will likely be the prototype since it will clear communicate your idea from the perspective of how a user would interact with it.
+	- **Further Readings**:
+		- [The Art of Evangelism](https://hbr.org/2015/05/the-art-of-evangelism)
+- **Handoff**:
+	- After the sprint, it will be required to hand off the requirements to the other teams to start implementation. This where PRD comes in.
+	- PRD (Product Requirements Doc) that specifies why we’re building a product, how the product will work, and how the product’s success will be measured.
+	- A PRD typically has the following sections:
+		- Background:
+			- Framing the problem
+			- Explains why it matters
+			- Why this is something that should be solved
+			- Will be similar to the most of the discussion in Phase 1
+		- Problem:
+			- A clear description of the problem needed to be solved.
+		- Goals:
+			- Identify objectives that the product will hopefully solve.
+		- Success metrics:
+			- To determine whether the product is considered successful.
+		- Features:
+			- It is the most important section
+			- It lists all the features and their requirements priority.
+			- For each feature, you'll want to include a priority level:
+				- P0 = launch blocker. Product will not launch without this feature
+				- P1 = desirable for launch, but not required. Fast follow after launch
+				- P2 = nice to have
+				- P3, P4 = unlikely to get built
+	- **Further Readings**:
+		- [How to write a painless PRD](https://medium.com/@uxpin/how-to-write-a-painless-product-requirements-document-508ff6807b4a)
+		- [PRD template from Aha](https://www.aha.io/roadmapping/guide/requirements-management/what-is-a-good-product-requirements-document-template)
+		- [PRD template from Atlassian](https://www.atlassian.com/software/confluence/templates/product-requirements-document)
+
+### Further Readings
+
+- [Design Sprint Kit](https://designsprintkit.withgoogle.com)
+- [The Design Sprint](https://www.gv.com/sprint/)
+- [The Sprint Book](https://www.thesprintbook.com/how)
+- [UX Design Process](https://media.licdn.com/dms/image/C4D22AQGAv3WYH_diQw/feedshare-shrink_1280/0/1678699397627?e=1681948800&v=beta&t=qCnr28fhAK5aYcvStpp8O06ohN7UZNm3TrRaWSdDaQQ)
+
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
