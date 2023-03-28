@@ -299,7 +299,8 @@
 
 #### Finding a target user
 
-- A target user represents a group of users with shared characteristics
+- Target user is the user you are designing your product for and the user you expect to use it.
+- A target user represents a group of users with shared characteristics.
 - **Research**:
 	- Review data including market research.
 	-  Perform interviews.
