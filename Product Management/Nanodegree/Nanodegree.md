@@ -1063,6 +1063,22 @@
 - [5 Highly Effective Negotiation Tactics Anyone Can Use](https://www.inc.com/jeff-haden/tk-highly-effective-negotiation-tactics-anyone-can-use.html)
 - [4 Ways to Practice Your Negotiation Skills](https://blog.blackswanltd.com/the-edge/use-it-or-lose-it-4-ways-to-practice-your-negotiation-skills)
 
+## Design Sprint
+
+### What is a Design Sprint
+
+- **Design thinking** is a human centered, iterative approach to solve problems through deeply understanding users and needs, redefining problems, creating innovative solutions, and testing them.
+- While **Design Sprint** is a design thinking based time constrained process to explore and reduce the risk of building new products or features.
+	- Design Sprints are most often discussed in the context of product development but can also be applied to internal process improvement
+- It is about how to bring an idea through concept, design, and user validation, as well as creating a spec to handoff to engineering.
+- How to use Design Thinking to diverge in order to explore ideas and then ultimately focus in and converge on a single idea.
+- Mapping out the full concept and creating a prototype that can be used to validate that you’re solving a problem for real users.
+- **Using a Design Sprint**:
+	- Allows the team to explore and learn without actually building
+	- Means the process can fail early without serious consequences
+	- Creates buy-in and ownership among the team
+- The Design Sprint process is highly customizable and can be adapted to the specifics of each challenge.
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
