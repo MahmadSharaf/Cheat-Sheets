@@ -1079,6 +1079,26 @@
 	- Creates buy-in and ownership among the team
 - The Design Sprint process is highly customizable and can be adapted to the specifics of each challenge.
 
+#### Design Sprint phases
+
+1. Understand:
+	- Create a shared understanding of the problem space, the user, the competition, and why it all matters. Align as a team on a focus moving forward for the rest of the sprint
+2. Define:
+	- Start by focusing on where you want to end. By setting goals you can work backwards to understand what needs to happen in order to get there.
+3. Sketch
+	- Ideate. Start diverging and exploring lots of different solutions.
+4. Decide
+	- Bring it all back together and decide on one idea to take through prototyping and validation
+5. Prototype
+	- Map out and build a prototype of your idea
+6. Validate
+	- Check to make sure that your idea is solving a real user need… and that it can be built!
+
+- The first two phases are about understanding the problem. The next two phases are about coming up with a different solutions and then narrowing in and picking one. The last two phases are about building out and testing that one idea.
+- Each two phases has a common pattern which starts with diverging and expanding to explore all aspects, and ends with converging and narrowing to focus on the specifics.
+- Each phase has a set of tools that can be used to facilitate reaching the goal of each phase.
+- However, it’s not necessary to use every tool for a given phase. Instead you should focus on picking the best tool for the problem you are trying to tackle and the composition of your sprint team.
+
 ## References
 
 [1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
