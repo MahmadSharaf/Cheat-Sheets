@@ -951,9 +951,15 @@
 	- You don't have authority to direct everyone.
 	- So, the best option is to convince them.
 - Persuasion **types**:
-	- **Ethos** (credibility): you are qualified to speak on the topic due to your experiences, personal character, background, and achievements.
-	- **Pathos** (emotion): you can make your audience feel a certain way
-	- **Logos** (logic): you build an argument based on logic and facts.
+	- **Ethos** (credibility): 
+		- The Greek word for character, describing the credibility of an individual
+		- You are qualified to speak on the topic due to your experiences, personal character, background, and achievements.
+	- **Pathos** (emotion):
+		- The Greek word for reason or logic
+		- You can make your audience feel a certain way
+	- **Logos** (logic):
+		- The Greek word for emotion
+		- You build an argument based on logic and facts.
 - How to build a **persuasive** message:
 	- Know your audience
 		- Tailor your message
