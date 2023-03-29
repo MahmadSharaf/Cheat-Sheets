@@ -1261,106 +1261,123 @@
 - There are a number of different ways that this understanding can be captured and shared.
 - You’ll want to set up inputs that highlight and demonstrate different viewpoints and perspectives across a multitude of dimensions.
 - This can be achieved by various techniques:
-	- **Lightning talks**: A lightning talk is a short presentation, usually about 20 minutes, focused on a specific topic.
-		- User research
-			- Ask:
-				- Who is the user?
-				- What are their needs and goals?
-				- Why does this problem matter to users?
-			- Examples:
-				- Researcher presents study on users with purchase intent
-				- Researcher presents from study on users with [X] need
-		- Business goals/needs
-			- Ask:
-				- What are we trying to solve?
-				- Why does it matter?
-				- What have we tried in the past?
-				- What’s worked well and not so well?
-			- Examples:
-				- Sales team presents industry trends and competitive landscape
-				- CEO presents importance of specific market/region
-		- Technology
-			- Ask:
-				- What are our technical capabilities?
-				- What are the limits and constraints or limitations on our existing tech?
-			- Examples:
-				- Engineer presents new capabilities that are available
-				- Engineer presents tear down of competitor tech
-	- **Interviews**: Interviews allow you to gain perspectives from a number of different vantage points.
-		- User interviews
-			- To:
-				- Build empathy for users
-				- Get a deeper understanding of user needs and pain points.
-			- With:
-				- Users who have your product
-				- Users who have a competing product
-				- Users who might be interested in your product
-		- Stakeholder interviews
-			- To:
-				- Dive deeper into some of the reasoning, rationale, and context of why this specific problem is important to solve.
-				- Topics can include any previous efforts to solve this or a similar problem
-			- With:
-				- Operations team
-				- Sales team
-				- Legal team
-		- Expert interviews
-			- To:
-				- Provide specialized insights around a specific problem, population, or technology.
-				- Can be either internal or external
-			- With:
-				- An expert in the domain of your project
-	- **Competitive analysis**: Get a better understanding of the competition and other solutions that exist in the problem space
-		- Doing research, including checking out websites and press materials
-		- Reading reviews
-		- Using the product and recording your experience.
-		- But, _Just because a competitor built something a certain way doesn’t mean it was the right thing to build or that it was built the right way._
-- Capture the team's inputs and responses using methods such as:
-	- **How Might We**:
-		- A method to capture problems and frame them as opportunities that can be solved.
-			- Each statement should be captured on its own sticky note.
-			- Statements should focus on open ended opportunities, rather than a specific solution.
-			- Try to avoid statements that are too narrow.
-		- “How Might We” statements always start with the same three words, which creates a positive solution oriented framing.
-			- **How** - acknowledges that we don’t know the answer yet but believe this problem can be solved.
-			- **Might** - acknowledges there can be more than one solution and that we shouldn’t stop at the first idea. “Might” also acknowledges that not every solution will work, but it’s still ok to discuss and explore ideas that might not pan out
-			- **We** - acknowledges that the team is invested in solving this problem together.
-		- Examples:
-			- *"Make it easier for people to find items"*. **Bad** example because it should be framed as a question. Instead, *"How might we make it easier for people to find items?"*
-			- *"How might we use couriers to deliver groceries to people's homes?"*. **Bad** example because it should support multiple solutions. Instead, *"How might we get groceries to people faster?"*
-			- *"How might we build an app for our store?"*. **Bad** example because it should not be too broad. Instead, *"How might we let customers place orders online?"*
-		- Further Readings:
-			- [How Might We](https://www.designkit.org/methods/3)
-			- [HMW statements](https://www.innovationchampions.com.au/toolkit/hmw-statements)
-	- **Rose Bud Thorn**: 
-		- A method to visually classify aspects of a topic as being positive, an opportunity, or negative.
-		- "Rose Bud Thorn":
-			- **Roses** are positive things. For example roses could be things that are going well or seen as a successful. Roses can also represent things or parts of a product that people enjoy.
-			- **Buds** are things that could turn into roses, if given the right attention. They represent areas of opportunity.
-			- **Thorns** are negative things. For example thorns could be problems or shortcomings. They also can represent broken product experiences.
-		- Write One thing per sticky.
-		- Use different colored stickies for roses, buds and thorns.
-		- Further readings:
-			- [Rose, Thorn, Bud](https://designsprintkit.withgoogle.com/methodology/phase1-understand/rose-thorn-bud)
-	- **Affinity Mapping**: 
-		- A method to visually sort related ideas together into categories and themes.
-		- Steps:
-			- Quickly discuss idea/insight.
-			- Place it on the board next to similar or related ideas
-			- Over time **clusters** of related sticky notes have started to form.
-			- Label each cluster.
-			- After placing all notes, check for clusters related to each other.
-			- Rearrange related clusters to be next to each other to create **themes**.
-			- Circle related clusters and label each theme.
-		- Things to Remember
-			- It’s an interactive process. Make sure to leverage the group
-			- Make sure to have an “Other” category. This is helpful if an idea doesn’t fit with other sticky notes. No need to try and force everything to fit into a category.
-			- Don’t be afraid to move things around. The first categories you come up with probably won’t be your final categories.
-			- Make sure to take photos, especially at the end with the completed affinity map.
-		- Further readings:
-			- [HMW Sharing and Affinity Mapping](https://designsprintkit.withgoogle.com/methodology/phase1-understand/method-1)
-			- [A Beginner's Guide to Affinity Mapping](https://generalassemb.ly/design/user-experience-design/affinity-mapping)
-			- [Affinity Mapping](https://www.innovationchampions.com.au/toolkit/affinity-mapping)
-			- [Affinity Map Examples](http://www.syque.com/quality_tools/toolbook/Affinity/example.htm)
+
+##### Techniques to capture inputs
+
+###### Lighting Talks
+
+- **Lightning talks**: A lightning talk is a short presentation, usually about 20 minutes, focused on a specific topic.
+- **User research**
+	- Ask:
+		- Who is the user?
+		- What are their needs and goals?
+		- Why does this problem matter to users?
+	- Examples:
+		- Researcher presents study on users with purchase intent
+		- Researcher presents from study on users with [X] need
+- **Business goals/needs**
+	- Ask:
+		- What are we trying to solve?
+		- Why does it matter?
+		- What have we tried in the past?
+		- What’s worked well and not so well?
+	- Examples:
+		- Sales team presents industry trends and competitive landscape
+		- CEO presents importance of specific market/region
+- **Technology**
+	- Ask:
+		- What are our technical capabilities?
+		- What are the limits and constraints or limitations on our existing tech?
+	- Examples:
+			- Engineer presents new capabilities that are available
+			- Engineer presents tear down of competitor tech
+
+###### Interviews
+
+- **Interviews**: Interviews allow you to gain perspectives from a number of different vantage points.
+- **User interviews**
+	- To:
+		- Build empathy for users
+		- Get a deeper understanding of user needs and pain points.
+	- With:
+		- Users who have your product
+		- Users who have a competing product
+		- Users who might be interested in your product
+- **Stakeholder interviews**
+	- To:
+		- Dive deeper into some of the reasoning, rationale, and context of why this specific problem is important to solve.
+		- Topics can include any previous efforts to solve this or a similar problem
+	- With:
+		- Operations team
+		- Sales team
+		- Legal team
+- **Expert interviews**
+	- To:
+		- Provide specialized insights around a specific problem, population, or technology.
+		- Can be either internal or external
+	- With:
+		- An expert in the domain of your project
+
+###### Competitive Analysis
+
+- **Competitive analysis**: Get a better understanding of the competition and other solutions that exist in the problem space
+- Doing research, including checking out websites and press materials
+- Reading reviews
+- Using the product and recording your experience.
+- But, _Just because a competitor built something a certain way doesn’t mean it was the right thing to build or that it was built the right way._
+
+##### Methods to capture inputs
+
+###### How Might We
+
+- A method to capture problems and frame them as opportunities that can be solved.
+	- Each statement should be captured on its own sticky note.
+	- Statements should focus on open ended opportunities, rather than a specific solution.
+	- Try to avoid statements that are too narrow.
+- “How Might We” statements always start with the same three words, which creates a positive solution oriented framing.
+	- **How** - acknowledges that we don’t know the answer yet but believe this problem can be solved.
+	- **Might** - acknowledges there can be more than one solution and that we shouldn’t stop at the first idea. “Might” also acknowledges that not every solution will work, but it’s still ok to discuss and explore ideas that might not pan out
+	- **We** - acknowledges that the team is invested in solving this problem together.
+- **Examples**:
+	- *"Make it easier for people to find items"*. **Bad** example because it should be framed as a question. Instead, *"How might we make it easier for people to find items?"*
+	- *"How might we use couriers to deliver groceries to people's homes?"*. **Bad** example because it should support multiple solutions. Instead, *"How might we get groceries to people faster?"*
+	- *"How might we build an app for our store?"*. **Bad** example because it should not be too broad. Instead, *"How might we let customers place orders online?"*
+- **Further Readings**:
+	- [How Might We](https://www.designkit.org/methods/how-might-we.html)
+	- [HMW statements](https://www.innovationchampions.com.au/toolkit/hmw-statements)
+
+###### Rose Bud Thorn: 
+- A method to visually classify aspects of a topic as being positive, an opportunity, or negative.
+- "Rose Bud Thorn":
+	- **Roses** are positive things. For example roses could be things that are going well or seen as a successful. Roses can also represent things or parts of a product that people enjoy.
+	- **Buds** are things that could turn into roses, if given the right attention. They represent areas of opportunity.
+	- **Thorns** are negative things. For example thorns could be problems or shortcomings. They also can represent broken product experiences.
+- Write One thing per sticky.
+- Use different colored stickies for roses, buds and thorns.
+- **Further readings**:
+	- [Rose, Thorn, Bud](https://designsprintkit.withgoogle.com/methodology/phase1-understand/rose-thorn-bud)
+
+###### Affinity Mapping
+
+- A method to visually sort related ideas together into categories and themes.
+- **Steps**:
+	- Quickly discuss idea/insight.
+	- Place it on the board next to similar or related ideas
+	- Over time **clusters** of related sticky notes have started to form.
+	- Label each cluster.
+	- After placing all notes, check for clusters related to each other.
+	- Rearrange related clusters to be next to each other to create **themes**.
+	- Circle related clusters and label each theme.
+- **Things to Remember**
+	- It’s an interactive process. Make sure to leverage the group
+	- Make sure to have an “Other” category. This is helpful if an idea doesn’t fit with other sticky notes. No need to try and force everything to fit into a category.
+	- Don’t be afraid to move things around. The first categories you come up with probably won’t be your final categories.
+	- Make sure to take photos, especially at the end with the completed affinity map.
+- **Further readings**:
+	- [HMW Sharing and Affinity Mapping](https://designsprintkit.withgoogle.com/methodology/phase1-understand/method-1)
+	- [A Beginner's Guide to Affinity Mapping](https://generalassemb.ly/design/user-experience-design/affinity-mapping)
+	- [Affinity Mapping](https://www.innovationchampions.com.au/toolkit/affinity-mapping)
+	- [Affinity Map Examples](http://www.syque.com/quality_tools/toolbook/Affinity/example.htm)
 
 #### 2. Define
 
@@ -1446,15 +1463,15 @@
 	- How do users react to your product?
 	- What sets this product apart from others?
 	- How can users get the product
-- **Examples**:
-	- **WHAT**: Takes amazingly clear pictures at night
-	- **HOW**: Captures several images on shutter press with varying exposure lengths and processes images through a machine-learning algorithm to compose rich, detailed images in low light conditions
 - **Things to remember**:
 	- Write this for an external audience that is not familiar with the product space
 	- Don't use acronyms.
 	- Incorporate quotes into the press review either from people on the team or made up users.
-	- When talking about the solution focus on _**what**_ the product does rather than _**how**_ it does it.
 	- Keep a positive, excited tone.
+	- When talking about the solution focus on _**what**_ the product does rather than _**how**_ it does it.
+		- **Examples**:
+			- **WHAT**: Takes amazingly clear pictures at night
+			- **HOW**: Captures several images on shutter press with varying exposure lengths and processes images through a machine-learning algorithm to compose rich, detailed images in low light conditions
 - **Further Readings**:
 	- [New feature for Google Wi-Fi](https://www.blog.google/products/google-wifi/google-wifis-network-check-now-tests-multiple-device-connections/)
 	- [Innovate Like Amazon with The Future Press Release](http://the-amazon-way.com/blog/future-press-release/)
@@ -1464,51 +1481,61 @@
 - It is the third phase in Design Sprint
 - The goal of this phase is to create and explore lots of ideas and then start narrowing them down to a few. Those ideas will be explored in more depth through more detailed sketching.
 - It leverage the shared understanding in phase 1 and the outcomes defined in phase 2 as a jumping off point for the sketches.
-- **Sketching Tips**:
-	- Don't focus on quality. Sketches aren't supposed to look super realistic.
-	- Have the right tools:
-		- Thick-line marker
-		- Thin-line marker
-		- Highlighters in multiple colors
-		- Dotted paper ([Dotted Grid Paper Generator](https://mathpolate.com/grid-maker-tools/grid-maker))
-	- Start with the outline and iterate over to continue to add detail.
-	- Use placeholder for UI elements:
-		- Box with simple outline = image
-		- Box with play icon = video
-		- Think line = header
-		- Thin line = copy
-		- Rectangle = button
-	- Label the buttons and headers
-	- Use color to highlight important things but don't overdo it or it'll be difficult to interpret the sketch.
-	- Add annotations to describe what's going on.
-- **Crazy 8's** technique:
-	- It is a sketching activity that will quickly generate a lot of ideas in 8 minutes.
-		- 8 sketches in 8 minutes
-		- 1 sketch per minute
-		- Quantity over quality (of sketching & idea)
-		- Every sketch should be different
-	- Instructions:
-		- Give each sprint team member a piece of paper and a pen
-		- Fold the paper into eight sections so the team member can use each section for one sketch.
-		- Set a timer on repeat for one minute. When the times goes off, it's time to move on to the next sketch.
-		- After eight minutes, ask the team to share and vote on the best idea.
-	- Benefits:
-		- Crazy 8s forces each team member to think beyond the first idea or two.
-		- The obvious ideas will come to mind first and then it'll be more challenging to come up with the remaining ideas.
-		- At the end of the exercise, the team will have a whole range of ideas, including some less obvious and really innovative ideas.
-- **Voting**:
-	- After sketching exercise, let each member briefly explain his ideas.
-	- Share with each member 2 to 3 dot stickers or any convention for rating
-	- Ask each member to rate his most favorite sketch across all team sketches.
-	- In such that, a member with 3 dots can vote 3 sketches (1 vote each), 2 sketches (1 vote and 2 votes), or 1 sketch (3 votes)
-- **Solution Sketching**:
-	- It is a high quality sketch that illustrates how a user interacts with the product to achieve their goal.
-	- Each sprint member should pick one idea, belongs to any member, and sketch it out in more detail.
-	- The solution sketch should contain at least 3 frames that show progression through different states. 
-- **Further Readings**:
-	- [The Messy Art of UX Sketching](https://www.smashingmagazine.com/2011/12/the-messy-art-of-ux-sketching/)
-	- [Guide to UX Sketching](https://www.toptal.com/designers/ux/guide-to-ux-sketching)
-	- [How to Run a Crazy Eights Workshop](https://blog.prototypr.io/how-to-run-a-crazy-eights-workshop-60d0a67b29a)
+
+##### Sketching Tips
+
+- Don't focus on quality. Sketches aren't supposed to look super realistic.
+- Have the right tools:
+	- Thick-line marker
+	- Thin-line marker
+	- Highlighters in multiple colors
+	- Dotted paper ([Dotted Grid Paper Generator](https://mathpolate.com/grid-maker-tools/grid-maker))
+- Start with the outline and iterate over to continue to add detail.
+- Use placeholder for UI elements:
+	- Box with simple outline = image
+	- Box with play icon = video
+	- Think line = header
+	- Thin line = copy
+	- Rectangle = button
+- Label the buttons and headers
+- Use color to highlight important things but don't overdo it or it'll be difficult to interpret the sketch.
+- Add annotations to describe what's going on.
+
+##### Crazy 8's technique
+
+- It is a sketching activity that will quickly generate a lot of ideas in 8 minutes.
+	- 8 sketches in 8 minutes
+	- 1 sketch per minute
+	- Quantity over quality (of sketching & idea)
+	- Every sketch should be different
+- Instructions:
+	- Give each sprint team member a piece of paper and a pen
+	- Fold the paper into eight sections so the team member can use each section for one sketch.
+	- Set a timer on repeat for one minute. When the times goes off, it's time to move on to the next sketch.
+	- After eight minutes, ask the team to share and vote on the best idea.
+- Benefits:
+	- Crazy 8s forces each team member to think beyond the first idea or two.
+	- The obvious ideas will come to mind first and then it'll be more challenging to come up with the remaining ideas.
+	- At the end of the exercise, the team will have a whole range of ideas, including some less obvious and really innovative ideas.
+
+##### Voting
+
+- After sketching exercise, let each member briefly explain his ideas.
+- Share with each member 2 to 3 dot stickers or any convention for rating
+- Ask each member to rate his most favorite sketch across all team sketches.
+- In such that, a member with 3 dots can vote 3 sketches (1 vote each), 2 sketches (1 vote and 2 votes), or 1 sketch (3 votes)
+
+##### Solution Sketching
+
+- It is a high quality sketch that illustrates how a user interacts with the product to achieve their goal.
+- Each sprint member should pick one idea, belongs to any member, and sketch it out in more detail.
+- The solution sketch should contain at least 3 frames that show progression through different states. 
+
+##### Further Readings
+
+- [The Messy Art of UX Sketching](https://www.smashingmagazine.com/2011/12/the-messy-art-of-ux-sketching/)
+- [Guide to UX Sketching](https://www.toptal.com/designers/ux/guide-to-ux-sketching)
+- [How to Run a Crazy Eights Workshop](https://blog.prototypr.io/how-to-run-a-crazy-eights-workshop-60d0a67b29a)
 
 #### 4. Decide
 
@@ -1517,133 +1544,143 @@
 - There are multiple decision making methods that can be used to get consensus on one idea, with a focus on making sure that the idea solves a real need for real users.
 - It might be challenging because people might be attached to their own ideas, so it is important to evaluate the ideas using the same subjective criteria, like impact, timing, and feasibility when considering different ideas.
 - Decision Making methods:
-	- **Assumptions and Questions**:
-		- It is used to normalize the way of thinking after being caught in train of thoughts, especially after Sketching phase.
-		- **Instructions**:
-			- Go through each sketch and take a few moments to list out assumptions as a group, then create questions using those assumptions. To force considering other possibilities that wasn't considered.
-		- **Examples**:
-			- "Does phones must have buttons?"
-			- "Does shoes must have laces?"
-			- "Does a software must have a save button?"
-		- **Further Readings**:
-			- [Don’t Make Me Think – Key Learning Points for UX Design for the Web](https://www.interaction-design.org/literature/article/don-t-make-me-think-key-learning-points-for-ux-design-for-the-web)
-			- [Assumption Busting](http://creatingminds.org/tools/assumption_busting.htm)
-	- **Decision Matrix**:
-		- A decision matrix allows you to visualize the trade offs between different ideas when comparing across two criteria, like Effort needed for implementation, and its Value to the user.
-			- Ideas generally worth pursuing will be high value & low effort or high value & high effort.
-				- However, low effort and high value should be pursued only if the resources are tight because low effort ideas can also be duplicated by others quickly.
-			- Ideas that are low value & high effort are generally not worth pursuing unless value increases or effort decreases in the future.
-			- Ideas that may not make sense to pursue now, may be worth pursuing later if the value of the idea increase or the effort to pursue the idea decreases.
-		- **Further Readings**:
-			- [Decision Matrix](https://designsprintkit.withgoogle.com/methodology/phase4-decide/decision-matrix)
-	- **Six Thinking Hats**:
-		- It is a method to ensure that different perspectives are being discussed.
-		- The Thinking Hats exercise allows you to make sure that different perspectives are being discussed and pushes people to be open to different perspectives since everyone will have to represent multiple, differing views.
-		- The team discussion focuses on one hat at a time. The order can vary, but you'll want to start and end with the blue hat (process). This order works well when comparing ideas:
-			- **Blue hat** - process (align on goals and order of hats):
-				- Structure the conversation.
-				- Align on what will be talked about
-				- Ex: "generate at least 10 new feature ideas."
-			- **White hat** - data
-				- Share facts and info
-				- Or ask questions to find facts.
-					- What do we know?
-					- What do we need to find out?
-			- **Yellow hat** - benefits
-				- Share the logical reasons on why a specific idea could be useful
-			- **Black hat** - judgment
-				- Focus on challenges of specific ideas
-				- Discuss what could go wrong
-			- **Green hat** - creativity
-				- Discuss new view, alternative solutions, or ways that can de-risk and overcome challenges.
-			- **Red hat** - intuition
-				- No reasoning while wearing
-				- Just guessing and hunching
-			- **(again) Blue hat** - process (summary of discussion)
-				- To summarize the discussion
-		- **Further Readings**:
-			- [Six Thinking Hats](http://www.debonogroup.com/six_thinking_hats.php)
-			- [Six Hats of Critical Thinking](https://www.designorate.com/the-six-hats-of-critical-thinking-and-how-to-use-them/)
+
+##### Assumptions and Questions
+
+- It is used to normalize the way of thinking after being caught in train of thoughts, especially after Sketching phase.
+- **Instructions**:
+	- Go through each sketch and take a few moments to list out assumptions as a group, then create questions using those assumptions. To force considering other possibilities that wasn't considered.
+- **Examples**:
+	- "Does phones must have buttons?"
+	- "Does shoes must have laces?"
+	- "Does a software must have a save button?"
+- **Further Readings**:
+	- [Don’t Make Me Think – Key Learning Points for UX Design for the Web](https://www.interaction-design.org/literature/article/don-t-make-me-think-key-learning-points-for-ux-design-for-the-web)
+	- [Assumption Busting](http://creatingminds.org/tools/assumption_busting.htm)
+
+##### Decision Matrix
+
+- A decision matrix allows you to visualize the trade offs between different ideas when comparing across two criteria, like Effort needed for implementation, and its Value to the user.
+	- Ideas generally worth pursuing will be high value & low effort or high value & high effort.
+		- However, low effort and high value should be pursued only if the resources are tight because low effort ideas can also be duplicated by others quickly.
+	- Ideas that are low value & high effort are generally not worth pursuing unless value increases or effort decreases in the future.
+	- Ideas that may not make sense to pursue now, may be worth pursuing later if the value of the idea increase or the effort to pursue the idea decreases.
+- **Further Readings**:
+	- [Decision Matrix](https://designsprintkit.withgoogle.com/methodology/phase4-decide/decision-matrix)
+
+##### Six Thinking Hats
+
+- It is a method to ensure that different perspectives are being discussed.
+- The Thinking Hats exercise allows you to make sure that different perspectives are being discussed and pushes people to be open to different perspectives since everyone will have to represent multiple, differing views.
+- The team discussion focuses on one hat at a time. The order can vary, but you'll want to start and end with the blue hat (process). This order works well when comparing ideas:
+	- **Blue hat** - process (align on goals and order of hats):
+		- Structure the conversation.
+		- Align on what will be talked about
+		- Ex: "generate at least 10 new feature ideas."
+	- **White hat** - data
+		- Share facts and info
+		- Or ask questions to find facts.
+			- What do we know?
+			- What do we need to find out?
+	- **Yellow hat** - benefits
+		- Share the logical reasons on why a specific idea could be useful
+	- **Black hat** - judgment
+		- Focus on challenges of specific ideas
+		- Discuss what could go wrong
+	- **Green hat** - creativity
+		- Discuss new view, alternative solutions, or ways that can de-risk and overcome challenges.
+	- **Red hat** - intuition
+		- No reasoning while wearing
+		- Just guessing and hunching
+	- **(again) Blue hat** - process (summary of discussion)
+		- To summarize the discussion
+- **Further Readings**:
+	- [Six Thinking Hats](http://www.debonogroup.com/six_thinking_hats.php)
+	- [Six Hats of Critical Thinking](https://www.designorate.com/the-six-hats-of-critical-thinking-and-how-to-use-them/)
 
 #### 5. Prototype
 
 - Prototyping is a fast and cheap way to test and validate an idea.
 - The prototype doesn’t have to capture the full product end to end, but should definitely focus on the core questions about the idea that you need to answer.
-- **Storyboard**:
-	- Storyboard maps out the problem facing your user and the journey they go through with your product to solve it.
-	- A storyboard is composed of frames that depict events along the user journey.
-	- Each frame should have a caption that explains what is happening and why.
-	- The first frame should explain how the user found themselves in this scenario and what is the problem they are trying to solve.
-	- The storyboard will become the blueprint for the prototype.
-	- **Things to remember**:
-		- Write your script first, and then create images for each frame.
-		- The first frame should articulate the problem.
-		- The last frame should show how your product helped the user solve the problem.
-		- The frames in between the first and last frame should show how the user gets from the problem to the solution.
-	- **Tools**:
-		- https://theplot.io
-		- [Boords](https://boords.com/)
-		- [Storyboarder](https://wonderunit.com/storyboarder/)
-		- [Storyboard Template (PPT)](https://video.udacity-data.com/topher/2021/June/60d5fd55_storyboard-template/storyboard-template.pptx)
-	- **Further Readings**:
-		- [The Role Of Storyboarding In UX Design](https://www.smashingmagazine.com/2017/10/storyboarding-ux-design/)
-- **Prototyping**:
-	- A model of the most critical features of a product.
-	- **Best practices**:
-		- Stay focused. Identify the screens/flows that you need to build in order to test your idea
-		- Use a template. Build a base screen that you can duplicate to use as the foundation for additional screen
-		- Keep it real. Avoid using placeholder assets and copy. This will change the way that users interact with and provide feedback about your prototype. **It doesn’t have to be perfect, but it does need to feel realistic.**
-		- Test it. Click through your prototype once your done to make sure everything is working
-	- **Methods**:
-		- **Video**:
-			- High effort
-			- Pros
-				- Shows end to end user journey
-				- Can generate a lot of excitement
-				- Can communicate a lot
-				- More tangible
-			- Cons:
-				- Time consuming and expensive
-				- High level
-				- Too much excitement
-			- Best for storytelling
-			- A video prototype is best suited for understanding if a concept is valid, with less focus on the exact implementation
-		- **Paper**:
-			- Low effort
-			- Pros
-				- Fast, cheap, and easy to iterate.
-				- Great as a team building exercise since everyone can be involved
-				- Automatic documentation
-			- Cons
-				- Won’t resemble a digital product
-				- Can sometimes be difficult for participants to imagine it as if it were a digital software experience.
-		- **Presentation Software**:
-			- Medium effort
-			- Pros:
-				- Relatively easy to build and gets pretty close to mimicking what the real experience could feel like.
-				- Easy to iterate
-			- Cons:
-				- Need to pay lots of attention around alignment, lots of importing mocks and checking alignment.
-				- Doesn't always feel real.
-		- **High Fidelity prototypes**:
-			- Medium Effort
-			- Pros:
-				- Super realistic,
-				- Great for identifying usability issues
-				- Quick iteration
-				- Can be used as a spec to the engineers.
-			- Cons:
-				- A little more work upfront
-				- Doesn’t reflect what will actually be built (ie: latency)
-			- Best for usability and realism
-	- **Tools**:
-		- [Flinto](https://www.flinto.com/)
-		- [Proto.io](https://proto.io/)
-		- [Figma](https://www.figma.com)
-	- **Further Readings**:
-		- [10 Mobile App Prototyping Best Practices that Result in a Stellar Finished Product](https://medium.com/@protoio/10-mobile-app-prototyping-best-practices-that-result-in-a-stellar-finished-product-feac3274d2ac)
-		- [The Magic of Paper Prototyping](https://uxplanet.org/the-magic-of-paper-prototyping-51693eac6bc3)
-		- [How to prototype an app with PowerPoint](https://keynotopia.com/guides-ppt/)
+
+##### Storyboard
+
+- Storyboard maps out the problem facing your user and the journey they go through with your product to solve it.
+- A storyboard is composed of frames that depict events along the user journey.
+- Each frame should have a caption that explains what is happening and why.
+- The first frame should explain how the user found themselves in this scenario and what is the problem they are trying to solve.
+- The storyboard will become the blueprint for the prototype.
+- **Things to remember**:
+	- Write your script first, and then create images for each frame.
+	- The first frame should articulate the problem.
+	- The last frame should show how your product helped the user solve the problem.
+	- The frames in between the first and last frame should show how the user gets from the problem to the solution.
+- **Tools**:
+	- https://theplot.io
+	- [Boords](https://boords.com/)
+	- [Storyboarder](https://wonderunit.com/storyboarder/)
+	- [Storyboard Template (PPT)](https://video.udacity-data.com/topher/2021/June/60d5fd55_storyboard-template/storyboard-template.pptx)
+- **Further Readings**:
+	- [The Role Of Storyboarding In UX Design](https://www.smashingmagazine.com/2017/10/storyboarding-ux-design/)
+
+##### Prototyping
+
+- A model of the most critical features of a product.
+- **Best practices**:
+	- Stay focused. Identify the screens/flows that you need to build in order to test your idea
+	- Use a template. Build a base screen that you can duplicate to use as the foundation for additional screen
+	- Keep it real. Avoid using placeholder assets and copy. This will change the way that users interact with and provide feedback about your prototype. **It doesn’t have to be perfect, but it does need to feel realistic.**
+	- Test it. Click through your prototype once your done to make sure everything is working
+- **Methods**:
+	- **Video**:
+		- High effort
+		- Pros
+			- Shows end to end user journey
+			- Can generate a lot of excitement
+			- Can communicate a lot
+			- More tangible
+		- Cons:
+			- Time consuming and expensive
+			- High level
+			- Too much excitement
+		- Best for storytelling
+		- A video prototype is best suited for understanding if a concept is valid, with less focus on the exact implementation
+	- **Paper**:
+		- Low effort
+		- Pros
+			- Fast, cheap, and easy to iterate.
+			- Great as a team building exercise since everyone can be involved
+			- Automatic documentation
+		- Cons
+			- Won’t resemble a digital product
+			- Can sometimes be difficult for participants to imagine it as if it were a digital software experience.
+	- **Presentation Software**:
+		- Medium effort
+		- Pros:
+			- Relatively easy to build and gets pretty close to mimicking what the real experience could feel like.
+			- Easy to iterate
+		- Cons:
+			- Need to pay lots of attention around alignment, lots of importing mocks and checking alignment.
+			- Doesn't always feel real.
+	- **High Fidelity prototypes**:
+		- Medium Effort
+		- Pros:
+			- Super realistic,
+			- Great for identifying usability issues
+			- Quick iteration
+			- Can be used as a spec to the engineers.
+		- Cons:
+			- A little more work upfront
+			- Doesn’t reflect what will actually be built (ie: latency)
+		- Best for usability and realism
+- **Tools**:
+	- [Flinto](https://www.flinto.com/)
+	- [Proto.io](https://proto.io/)
+	- [Figma](https://www.figma.com)
+- **Further Readings**:
+	- [10 Mobile App Prototyping Best Practices that Result in a Stellar Finished Product](https://medium.com/@protoio/10-mobile-app-prototyping-best-practices-that-result-in-a-stellar-finished-product-feac3274d2ac)
+	- [The Magic of Paper Prototyping](https://uxplanet.org/the-magic-of-paper-prototyping-51693eac6bc3)
+	- [How to prototype an app with PowerPoint](https://keynotopia.com/guides-ppt/)
 
 #### 6. Validate
 
@@ -1651,111 +1688,122 @@
 - Its goal is to validate the idea and get feedback from target users without investing in a fully built product.
 - It also validates that the idea can be build by the engineering team in a reasonable amount of time.
 - Exposing the user to a concept or a prototype is very helpful to gain valuable feedback about whether the idea will satisfy a need or it will be used. Also, it will provide info about the porotype usability. UX researcher (Someone who studies the behavior of users) can help to coordinate a lot of this.
-- **Planning a User Study**:
-	- Start with broader questions and background.
-		- Who is your target user?
-			- Existing users, new users or users of competitor's product?
-			- Demographics or other characteristics related to the concept.
-			- Age
-			- Device type
-			- Income
-			- Gender
-		- How many interviews will you have?
-			- Typically 5-7
-			- Minimum of 3
-		- What do you want to find out?
-		    - Background information about the user
-		    - Specific questions around your idea
-		    - Tasks to complete with a prototype
-		- How much time you will need to complete each interview. It is to set expectation for the participants and respect their time.
-			- It can range from 45 to 60 mins per interview.
-			- Shorter if it is just for testing a part of a product.
-			- Longer if more in depth is required.
-				- Can be multiple sessions if it is more than 90 mins.
-	- Specify feedback on idea and task completion
-	- Outline high level objectives, then add more detail and create an interview script that will guide the user through answering the questions you care about.
-		- Does the product solve a real need?
-		- What do users think of it? How it fits into their lives?
-		- Can users navigate through the app?
-			- It can be validated by asking the user to complete some tasks with the prototype.
-	- **Further Readings**:
-		- [The Basics of Recruiting Users for Usability Testing](https://www.interaction-design.org/literature/article/the-basics-of-recruiting-users-for-usability-testing)
-- **User Interviews**:
-	- **Instructions**:
-		- Introduce yourself and give an overview of what you will be asking the user to do during the study
-		- Ask user to sign NDA (if applicable)
-			- NDA (Non-Disclosure Agreement): A confidentiality agreement that prevents someone from disclosing specific information they were given access to, for example an upcoming product roadmap or feature set	
-		- Ask if it is okay to record.
-			- Assure them that the recording will be used only by the internal team and won't be used for marketing material.
-		- Learn more about the user’s background by asking general questions (although the questions should be related to your project)
-		- Start focusing in by shifting to more specific questions directly tied to your project space
-		- Ask the user to complete tasks using the prototype.
-			- Explain that it is not a test, it will only be need to understand their feedback
-			- Ask for the possibility to think out loud so you can understand what is their understanding as they navigate the prototype.
-		- Ask the user for their overall feedback about the prototype
-		- Thank the user!
-	- **Things to remember**:
-		- Keep questions open ended
-		- If asked a question, try to get the user to answer the question from their perspective by reframing (ex: how do you think it should work?)
-	- **Further Readings**:
-		- [How to conduct user interviews](https://uxdesign.cc/how-to-conduct-user-interviews-fe4b8c34b0b7)
-		- [6 Tips for Better User Interviews](https://uxplanet.org/6-tips-for-better-user-interviews-ad925afc52df)
-- **Technical Feasibility**:
-	- If the idea cannot be built in a reasonable amount of time, it won't matter how good it is.
-	- It is important to involve the engineering early on to provide feedback regarding what is and what is not feasible or how complex it is. They might also provide better ideas with a simpler solution.
-	- Prototypes can facilitate the conversation by walking through user facing flows.
-	- You should also come prepared with some questions around what data is needed to generate the UI, where user entered data will be stored, and any causes for latency.
-	- **Examples** for interacting with an engineer:
-		- Not Helpful: "We need to build this feature. It should be pretty simple to build."
-		- Helpful: "Here is a PRD for a feature we have been thinking about. I wanted to get your thoughts on how difficult it would be to build."
-		- Best: "Let me show you a mock for a feature we have been thinking about. It is pretty exciting because we think it will have a 20% lift on revenue. I would love to get your perspective on this feature and what challenges we might run into if we build it."
-	- **Further Readings**:
-		- [Development fundamentals for UX designers](https://uxdesign.cc/development-fundamentals-for-ux-designers-caf759724874)
+
+##### Planning a User Study
+
+- Start with broader questions and background.
+	- Who is your target user?
+		- Existing users, new users or users of competitor's product?
+		- Demographics or other characteristics related to the concept.
+		- Age
+		- Device type
+		- Income
+		- Gender
+	- How many interviews will you have?
+		- Typically 5-7
+		- Minimum of 3
+	- What do you want to find out?
+		- Background information about the user
+		- Specific questions around your idea
+		- Tasks to complete with a prototype
+	- How much time you will need to complete each interview. It is to set expectation for the participants and respect their time.
+		- It can range from 45 to 60 mins per interview.
+		- Shorter if it is just for testing a part of a product.
+		- Longer if more in depth is required.
+			- Can be multiple sessions if it is more than 90 mins.
+- Specify feedback on idea and task completion
+- Outline high level objectives, then add more detail and create an interview script that will guide the user through answering the questions you care about.
+	- Does the product solve a real need?
+	- What do users think of it? How it fits into their lives?
+	- Can users navigate through the app?
+		- It can be validated by asking the user to complete some tasks with the prototype.
+- **Further Readings**:
+	- [The Basics of Recruiting Users for Usability Testing](https://www.interaction-design.org/literature/article/the-basics-of-recruiting-users-for-usability-testing)
+
+##### User Interviews
+
+- **Instructions**:
+	- Introduce yourself and give an overview of what you will be asking the user to do during the study
+	- Ask user to sign NDA (if applicable)
+		- NDA (Non-Disclosure Agreement): A confidentiality agreement that prevents someone from disclosing specific information they were given access to, for example an upcoming product roadmap or feature set	
+	- Ask if it is okay to record.
+		- Assure them that the recording will be used only by the internal team and won't be used for marketing material.
+	- Learn more about the user’s background by asking general questions (although the questions should be related to your project)
+	- Start focusing in by shifting to more specific questions directly tied to your project space
+	- Ask the user to complete tasks using the prototype.
+		- Explain that it is not a test, it will only be need to understand their feedback
+		- Ask for the possibility to think out loud so you can understand what is their understanding as they navigate the prototype.
+	- Ask the user for their overall feedback about the prototype
+	- Thank the user!
+- **Things to remember**:
+	- Keep questions open ended
+	- If asked a question, try to get the user to answer the question from their perspective by reframing (ex: how do you think it should work?)
+- **Further Readings**:
+	- [How to conduct user interviews](https://uxdesign.cc/how-to-conduct-user-interviews-fe4b8c34b0b7)
+	- [6 Tips for Better User Interviews](https://uxplanet.org/6-tips-for-better-user-interviews-ad925afc52df)
+
+##### Technical Feasibility
+
+- If the idea cannot be built in a reasonable amount of time, it won't matter how good it is.
+- It is important to involve the engineering early on to provide feedback regarding what is and what is not feasible or how complex it is. They might also provide better ideas with a simpler solution.
+- Prototypes can facilitate the conversation by walking through user facing flows.
+- You should also come prepared with some questions around what data is needed to generate the UI, where user entered data will be stored, and any causes for latency.
+- **Examples** for interacting with an engineer:
+	- **Not Helpful**: "We need to build this feature. It should be pretty simple to build."
+	- **Helpful**: "Here is a PRD for a feature we have been thinking about. I wanted to get your thoughts on how difficult it would be to build."
+	- **Best**: "Let me show you a mock for a feature we have been thinking about. It is pretty exciting because we think it will have a 20% lift on revenue. I would love to get your perspective on this feature and what challenges we might run into if we build it."
+- **Further Readings**:
+	- [Development fundamentals for UX designers](https://uxdesign.cc/development-fundamentals-for-ux-designers-caf759724874)
 
 #### Next Steps
 
-- **Iterate**:
-	- Iteration is going through the process again in order to make improvements
-	- It is an important part of the process that allows you to test and refine your ideas.
-	- It can reduce overall risk for a project by getting feedback early on without having to build out the actual product.
-	- Iteration does take time though. And you will never get everything completely perfect.
-	- It’s important to focus on getting the things right that will be hard to fix if you reach the wrong conclusion.
-	- **Further Readings**:
-		- [Design Iteration Brings Powerful Results](https://www.interaction-design.org/literature/article/design-iteration-brings-powerful-results-so-do-it-again-designer)
-		- [Iterative User Interface Design](https://www.nngroup.com/articles/iterative-design/)
-- **Evangelizing**
-	- Evangelize is to get people excited and bought into the project.
-	- Sharing a summary of the Design Sprint more broadly will help to create buy into the project and the Design Sprint process.
-	- The most powerful artifact you can share will likely be the prototype since it will clear communicate your idea from the perspective of how a user would interact with it.
-	- **Further Readings**:
-		- [The Art of Evangelism](https://hbr.org/2015/05/the-art-of-evangelism)
-- **Handoff**:
-	- After the sprint, it will be required to hand off the requirements to the other teams to start implementation. This where PRD comes in.
-	- PRD (Product Requirements Doc) that specifies why we’re building a product, how the product will work, and how the product’s success will be measured.
-	- A PRD typically has the following sections:
-		- Background:
-			- Framing the problem
-			- Explains why it matters
-			- Why this is something that should be solved
-			- Will be similar to the most of the discussion in Phase 1
-		- Problem:
-			- A clear description of the problem needed to be solved.
-		- Goals:
-			- Identify objectives that the product will hopefully solve.
-		- Success metrics:
-			- To determine whether the product is considered successful.
-		- Features:
-			- It is the most important section
-			- It lists all the features and their requirements priority.
-			- For each feature, you'll want to include a priority level:
-				- P0 = launch blocker. Product will not launch without this feature
-				- P1 = desirable for launch, but not required. Fast follow after launch
-				- P2 = nice to have
-				- P3, P4 = unlikely to get built
-	- **Further Readings**:
-		- [How to write a painless PRD](https://medium.com/@uxpin/how-to-write-a-painless-product-requirements-document-508ff6807b4a)
-		- [PRD template from Aha](https://www.aha.io/roadmapping/guide/requirements-management/what-is-a-good-product-requirements-document-template)
-		- [PRD template from Atlassian](https://www.atlassian.com/software/confluence/templates/product-requirements-document)
+##### Iterate
+
+- Iteration is going through the process again in order to make improvements
+- It is an important part of the process that allows you to test and refine your ideas.
+- It can reduce overall risk for a project by getting feedback early on without having to build out the actual product.
+- Iteration does take time though. And you will never get everything completely perfect.
+- It’s important to focus on getting the things right that will be hard to fix if you reach the wrong conclusion.
+- **Further Readings**:
+	- [Design Iteration Brings Powerful Results](https://www.interaction-design.org/literature/article/design-iteration-brings-powerful-results-so-do-it-again-designer)
+	- [Iterative User Interface Design](https://www.nngroup.com/articles/iterative-design/)
+
+##### Evangelizing
+
+- Evangelize is to get people excited and bought into the project.
+- Sharing a summary of the Design Sprint more broadly will help to create buy into the project and the Design Sprint process.
+- The most powerful artifact you can share will likely be the prototype since it will clear communicate your idea from the perspective of how a user would interact with it.
+- **Further Readings**:
+	- [The Art of Evangelism](https://hbr.org/2015/05/the-art-of-evangelism)
+
+##### PRD Handoff
+
+- After the sprint, it will be required to hand off the requirements to the other teams to start implementation. This where PRD comes in.
+- PRD (Product Requirements Doc) that specifies why we’re building a product, how the product will work, and how the product’s success will be measured.
+- A PRD typically has the following sections:
+	- **Background**:
+		- Framing the problem
+		- Explains why it matters
+		- Why this is something that should be solved
+		- Will be similar to the most of the discussion in Phase 1
+	- **Problem**:
+		- A clear description of the problem needed to be solved.
+	- **Goals**:
+		- Identify objectives that the product will hopefully solve.
+	- **Success metrics**:
+		- To determine whether the product is considered successful.
+	- **Features**:
+		- It is the most important section
+		- It lists all the features and their requirements priority.
+		- For each feature, you'll want to include a priority level:
+			- P0 = launch blocker. Product will not launch without this feature
+			- P1 = desirable for launch, but not required. Fast follow after launch
+			- P2 = nice to have
+			- P3, P4 = unlikely to get built
+- **Further Readings**:
+	- [How to write a painless PRD](https://medium.com/@uxpin/how-to-write-a-painless-product-requirements-document-508ff6807b4a)
+	- [PRD template from Aha](https://www.aha.io/roadmapping/guide/requirements-management/what-is-a-good-product-requirements-document-template)
+	- [PRD template from Atlassian](https://www.atlassian.com/software/confluence/templates/product-requirements-document)
 
 ### Further Readings
 
