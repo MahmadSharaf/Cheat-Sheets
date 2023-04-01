@@ -412,6 +412,177 @@
 - [5 Highly Effective Negotiation Tactics Anyone Can Use](https://www.inc.com/jeff-haden/tk-highly-effective-negotiation-tactics-anyone-can-use.html)
 - [4 Ways to Practice Your Negotiation Skills](https://blog.blackswanltd.com/the-edge/use-it-or-lose-it-4-ways-to-practice-your-negotiation-skills)
 
+### Influencing without Authority
+
+- PMs work with a variety of people and teams with different functions. And most of the teams building the product don’t directly report to the product manager.
+- This creates a challenge because the PM who is responsible for the product doesn't have an authority over the people building the product. Instead, he needs to influence and convince the team to do specific things, in order to get the desired product outcome.
+
+#### Build Credibility
+
+##### Know your Company
+
+- Building credibility starts with knowing your company's mission, vision, strategy, and products.
+	-   **Mission**:
+		- Why does the company exist?
+	-   **Vision**:
+		- What is the company trying to achieve?
+	-   **Strategy**: 
+		- How does the company plan to achieve it?
+		- It should include detailed understanding of:
+			- Who is the target customer?
+			- What are their needs?
+			- Who are the competitors?
+			- How is the company creates value and growth?
+	-   **Products**: A manifestation of a company's mission, vision, and strategy.
+
+##### Know your Market
+
+- It is also important to building credibility.
+- It means understanding your user and the competition.
+- **Market segmentation** is a helpful way to better understand your users and how you can position your products to better resonate with them.
+	- **Demographic segmentation**:
+		- Age
+		- Gender
+		- Marital Status
+		- Family Size
+		- Occupation
+		- Income Education
+	- **Geographic segmentation**:
+		- Country
+		- State
+		- City
+		- Climate
+		- Population Density
+- **Market dynamics** is about better understanding trends, competition, and opportunities for expansion.
+	- **Trends**:
+		- Change in customer needs and preferences
+		- Changes in technology and innovation
+	- **Competition**:
+		- Analysis of competing products.
+		- Identify gaps between the product and the competing ones.
+	- **Expansion**:
+		- Leverage company's capabilities and strengths.
+		- New products that capture additional segments.
+
+##### Know your Product 
+
+- The first step to knowing the product is using the product. This has a common term "Dogfooding":
+	- **Dogfooding**: When employees use the product that is going to launch to better understand real-world usage and identify and fix issues.
+- Document the experience of using the product
+	- What went well?
+	- What didn't work or was confusing?
+	- What specific information is requested from the user on specific page? Why? Is there a way to simplify it?
+	- Are all of the steps that the user need to take clear?
+	- Could the user figure how to do everything that he wanted to do?
+	- Is it fast and responsive, or it has a lot of spinners? If so, why?
+	- Does the product work at a slower connection?
+	- How does the product interact with other parts of the company's products?
+- Track and understand metrics
+	- Understand how data is being tracked and what tools is being used.
+	- Understand what events are tracked and how they are measured.
+	- Focus you and your team's time on optimizing and improving important key metrics.
+	- Prioritize feature requests, issues and roadmaps.
+
+##### Know your Users
+
+- Product Manager role is to know the users better than they know themselves—and represent their needs and views to the team.
+- Interview the users to gather information about:
+	- What they do?
+	- Why they do?
+	- Is there a current alternative product that they are using?
+- Observe the customers
+- Take users feedback
+
+##### Further Readings
+
+- [10 Powerful Ways You Can Earn Credibility in Your Industry](https://www.inc.com/lolly-daskal/10-powerful-ways-you-can-earn-credibility-in-your-industry.html) - An article from Inc with 10 different ways that you can build credibility.
+- [How to Build Credibility at Work](https://medium.com/swlh/how-to-build-credibility-at-work-d48892ec8512) - A couple of additional strategies that you can use to build credibility with your team.
+
+#### Build Trust
+
+- Trust is super important for a team to be effective and build good products. 
+- PM will work with a lot of **cross-functional teams** (sometimes abbreviated as "xfn"), and it's especially important to have trust with the engineering and design teams.
+- It will be needed to understand the **team dynamics** (roles, goals, challenges), and how everyone can help each other.
+- High-performing teams also tend to have **psychological safety**, which is another form of trust that allows team members to share ideas without worrying about what others will think. This can be achieved by modeling positive behaviors. This helps to:
+	- More inclusivity.
+	- Encourages new ideas and creativity.
+	- Creates high-performing teams.
+- Each person has a **different collaboration style**. Some prefer regular one to one meetings or even as much as needed, some prefer emails, and others prefer chatting. It is highly effective to set one to one meetings with new team members to know the people and how they work.
+- As a PM, it is crucial to know how to **motivate the team**. Some common things:
+	- **Trust**: Being the authority on something or having people for specific answers when they need help.
+	- **Recognition**: Creating social awareness of the team work and could be an email that's sent to the entire company or celebrating launches and milestones.
+	- **Rewards**: Monetary rewards like getting a bonus.
+	- **Promotion**
+	- **Learning**
+- It is also important to **give credit** to the team.
+	- Acknowledging the team is the expert.
+	- Not taking credit for the team's accomplishments.
+
+##### Further Readings
+
+- [The Product Manager vs the Engineering Manager](https://www.aha.io/blog/the-product-manager-vs-the-engineering-manager) - Some really helpful things to keep in mind and tips for how you can work better with your engineering counterparts.
+- [Building trust with your engineers](https://blog.asana.com/2017/10/product-managers-engineers-develop-great-relationship/) - Four things to keep in mind that will go a long way to building trust with your engineering team.
+- [How to build trust in the workplace: 10 effective solutions](https://www.betterup.com/blog/how-to-build-trust) - A great article with some background on different types of trust, why it's important, and how to build trust.
+
+#### Influence without Authority
+
+- Strategies to influence people
+	- Build excitement
+		- Become the expert
+		- Do your homework
+		- Explain _why_ and _how_
+	- Get co-workers involved
+	    - Leverage your team's strengths
+	    - Find common goals
+	    - Involve people in finding the solution
+	- Build organizational awareness
+	    - Raise awareness
+	    - Get key stakeholders involved
+
+##### Further Readings
+
+- [How to Influence without Authority in the workplace](https://online.hbs.edu/blog/post/influence-without-authority) - A great article from Harvard Business school.
+- [US Bureau of Labor Statistics](https://www.bls.gov/news.release/atus.t01.htm) - A site with statistics about the workforce in the US, including how people spend their time. This is the source of the data cited in the first video on this page.
+
+#### Negotiate and say no
+
+- Negotiation will be needed on a daily basis as a PM.
+- **Negotiation skills**:
+	- **Active listening**
+		- Give the speaker attention
+		- Ask open-ended follow-up questions to better understand other perspectives.
+	- **Paraphrasing**
+		- Focus on key details
+		- Confirm your understanding
+		- Give others a change to correct you if you didn't understand
+	- **Identifying the** _real_ **issue**
+		- The real problem is what you see may be a disguise to some underlying problems.
+		- Get team members to share their perspectives.
+		- Example: Tension between design and engineering
+			- Important to focus on what is right for the product and the user.
+	- **Aligning goals**
+		- Each person might have a different goal or point of view
+		- Look for shared goals that are more similar to each other
+		- Remind everyone that we are working on the goal to achieve the same thing.
+		- Focus on the big picture
+		- Look for compromise
+	- **Evaluating solutions against guiding principles**. Guidelines principles are the guidelines that help team make decisions.
+		- Evaluate solutions against guiding principles
+		- Focus on achieving the product goal.
+		- Example guiding principles:
+			- Faster launch
+			- Not adding complexity to the code
+			- Ability to iterate based on user feedback
+- Saying No is hard but necessary because it is not possible to agree on every feature request, feedback, or other ideas.
+	- “No” doesn’t have to mean “never”
+	- Share your rationale
+	- Use your knowledge
+	- Body language matters
+	- Be humble
+
+##### Further Readings
+
+- [How to Negotiate Effectively](https://www.forbes.com/sites/martinrand/2021/05/26/how-to-negotiate-effectively/?sh=66d6d0bc7d15) - Additional strategies and tactics for how to negotiate.
 
 ## Product phases
 
