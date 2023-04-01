@@ -224,6 +224,194 @@
 - [What It Takes to Become a Great Product Manager](https://hbr.org/2017/12/what-it-takes-to-become-a-great-product-manager)
 - [Product Managers for the Digital World](https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/product-managers-for-the-digital-world)
 
+## Product Manager Soft Skills
+
+### Communication Skills
+
+#### Active Listening
+
+ - **Active Listening is**:
+	- More than just listening
+		- Read between the lines
+		- Read body language
+		- Nonverbal behavior can say a lot about how an individual feels about a certain topic.
+	- Being an engaged listener
+		- Pay attention
+		- Express you are listening
+		- Avoid any distractions
+	- Fully understanding other points of views
+	- Not imposing your own views
+- **Why Active Listening is important**
+	- Builds relationships
+		- Builds Empathy
+		- Care about understanding their perspective.
+	- Promotes understanding
+		- Understand the context and why they have this point of view
+		- Anticipate how they might react to future things.
+	- Helps to save time and make sure things are done right the first time
+- **Tips for Active Listening**
+	- Make eye contact and smile
+	- Provide encouragement
+	- Don’t interrupt
+	- Ask clarifying questions when needed
+	- Paraphrase
+		- "Just to make sure I am understanding, I think that you said [XYZ]. Did I get it right?"
+
+##### Further readings
+- [How to Practice Active Listening](https://www.verywellmind.com/what-is-active-listening-3024343)
+
+#### Story telling
+
+- **Storytelling is**:
+	- Allowing you to **express your vision** and thoughts through more compelling, **tangible narratives**.
+	- Making it **easier** for people **to understand** and relate to what you are explaining.
+	- A **core role** of being a PM.
+- **Storytelling should**:
+	- Explain both **_what_** is happening and **_why_** it is happening
+	- Create an **emotional response** that gets the audience invested in the outcome
+	- Get **people excited** about solving the problem
+- **Story Elements**
+	- **Hero (your user)**: who they are, what they care about, and their background
+	- **Goal:** what the hero is trying to accomplish
+	- **Villain (the problem):** whatever is preventing the hero from reaching their goal
+	- **Sidekick (your product):** something that will help the Hero reach their goal
+	- **Plot:** describes how the Hero and Sidekick defeat the Villain and achieve their goal
+- **Crafting a Story**
+	1.  Start with the big picture to provide context (who your audience is and what they care about)
+	2.  Describe the problem or conflict (the problem your product solves)
+	3.  Outline the plot for getting to resolution (how your product solves the problem and why it is better than other solutions)
+	4.  Describe the impact and conclusion (why it matters that the problem was solved)
+- **Storytelling Tips**
+	- Keep the story simple
+	- Make it memorable by including emotional moments
+	- Show instead of telling
+	- Practice! Practice! Practice! until you can tell the story without referring to notes
+
+##### Further Readings
+
+- [Storytelling that Moves People](https://hbr.org/2003/06/storytelling-that-moves-people)
+- [How Pixar’s 22 Storytelling Rules Apply to Your Business](https://fizzle.co/sparkline/pixars-22-rules-of-storytelling)
+
+#### Being Persuasive
+
+- It **matters** because:
+	- Team needs to be aligned.
+	- There are different opinions and objections.
+	- You don't have authority to direct everyone.
+	- So, the best option is to convince them.
+- Persuasion **types**:
+	- **Ethos** (credibility): 
+		- The Greek word for character, describing the credibility of an individual
+		- You are qualified to speak on the topic due to your experiences, personal character, background, and achievements.
+	- **Pathos** (emotion):
+		- The Greek word for reason or logic
+		- You can make your audience feel a certain way
+	- **Logos** (logic):
+		- The Greek word for emotion
+		- You build an argument based on logic and facts.
+- How to build a **persuasive** message:
+	- Know your audience
+		- Tailor your message
+	- Pick a viewpoint
+		- Explain why it has the best outcome.
+		- Be decisive
+	- Know the other perspectives
+		- Be open to listen to other opinions
+	- Be data-driven
+	- Discuss objections
+		- Objection should be addressed without being rushed to really understand the viewpoint and its merits. This will also help you to build credibility with the audience showing that you care about their opinion and are interested in getting to the best solution.
+	- End with a call to action
+		- Wrap up the discussion by outlining the next steps.
+
+##### Further Readings
+
+- [The Science of Persuasion](https://buffer.com/resources/the-science-of-persuasion)
+- [Want to Be Extremely Persuasive? 9 Science-Backed Ways to Become a Better Leader](https://www.inc.com/jeff-haden/want-to-be-exceptionally-persuasive-9-science-backed-ways-to-become-a-better-lea.html)
+- [21 Principles of Persuasion](https://www.forbes.com/sites/jasonnazar/2013/03/26/the-21-principles-of-persuasion/)
+
+#### Presentations
+
+- Presentations are a very effective tool in **communicating** and **delivering** a **message**.
+- Presentations have the best our come when they are **simple**.
+- **Presentation structure**
+	- Have an introduction
+		- A brief about what is the main topic is
+		- A quick background info
+		- Capture audience attention
+		- Keep it memorable
+	- Then a body
+		- It is the main content of the presentation
+	- Lastly, the conclusion
+		- Wrap up the key points
+		- Bring up any next steps
+- **Slide Layout**
+	- Keep slides simple
+	- One takeaway per slide
+	- Minimize the amount of text (no paragraphs). Replace with pics and charts.
+	- Animation and transition effects are used only if needed to express an idea.
+	- Use visuals carefully.
+- **Tips**
+	- Presentation needs to stand on its own
+		- So people can read and interpret them on their own.
+	- Rehearse
+	- Pre-brief key stakeholders before big presentations
+
+##### Further Readings
+
+- [19 Great Examples of PowerPoint Presentation Design [+ Templates]](https://blog.hubspot.com/blog/tabid/6307/bid/6012/17-examples-of-great-presentation-design.aspx)
+- [Quite Possibly the World’s Worst PowerPoint Presentation Ever](https://www.apa.org/gradpsych/2012/01/worst-powerpoint-ever.pdf)
+- [Bad PowerPoint Examples You Should Avoid at All Costs](https://24slides.com/presentbetter/bad-powerpoint-examples-you-should-avoid/)
+
+#### Negotiation
+
+- **Negotiation** is all about trying to reach an agreement when there is **conflict**.
+- As a PM, you will be negotiating **every day**, whether it’s about what the product should do, who’s going to be working on the product, or timelines.
+
+##### Negotiation styles:
+
+- **Competitive**
+	- Me: Win
+	- You: Lose
+- **Collaborative**
+	- Me: Win
+	- You: Win
+- **Compromise**
+	- Me: Win & Lose
+	- You: Win & Lose
+- **Avoid**
+	- Me: Lose
+	- You: Lose
+- **Accommodate**
+	- Me: Lose
+	- You: Win
+- In most cases a **Collaborative** style is the best approach
+
+##### Strategies for Negotiation
+
+- **BATNA** (Best Alternative To a Negotiated Agreement)
+	- Understanding each side’s best alternative to a negotiated agreement will help you focus on what happens if you can’t reach an agreement -- and that can give you leverage to get to an agreement.
+- **Focus on interests**
+	- It’s helpful to understand what each side is interested in and why so understand where to focus during negotiation.
+- **Make the pie bigger**
+	- Based on understanding the other side’s interests, are there any things that you can offer that will be valuable for them that won’t cost you anything or be difficult for you to give away?
+-  **Use objective criteria**
+	- Using objective criteria bases the conversation in reality and helps remove emotion.
+- **Present multiple solutions**
+	- Multiple solutions help you get more information because you receive feedback about how the other side feels about each option.
+
+##### Tips for negotiating:
+
+-   Build strong relationships
+-   Use active listening
+-   Keep emotions in check
+-   Work together to find a solution
+
+##### Further Readings
+
+- [Negotiation Skills for Product Managers: 5 Things You Need to Know](https://medium.com/pminsider/negotiation-skills-for-product-managers-5-things-you-need-to-know-ec474f743d54) 
+- [5 Highly Effective Negotiation Tactics Anyone Can Use](https://www.inc.com/jeff-haden/tk-highly-effective-negotiation-tactics-anyone-can-use.html)
+- [4 Ways to Practice Your Negotiation Skills](https://blog.blackswanltd.com/the-edge/use-it-or-lose-it-4-ways-to-practice-your-negotiation-skills)
+
 
 ## Product phases
 
