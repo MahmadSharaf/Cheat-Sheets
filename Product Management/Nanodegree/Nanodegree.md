@@ -220,9 +220,10 @@
 
 ### Further Readings
 
--   [What To Expect as a PM from Startup to Scale Up, to Corporates](https://productcoalition.com/what-to-expect-as-a-pm-from-startup-to-scale-up-to-corporates-part-1-of-3-e7478117dd2b)
--   [What It Takes to Become a Great Product Manager](https://hbr.org/2017/12/what-it-takes-to-become-a-great-product-manager)
--   [Product Managers for the Digital World](https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/product-managers-for-the-digital-world)
+- [What To Expect as a PM from Startup to Scale Up, to Corporates](https://productcoalition.com/what-to-expect-as-a-pm-from-startup-to-scale-up-to-corporates-part-1-of-3-e7478117dd2b)
+- [What It Takes to Become a Great Product Manager](https://hbr.org/2017/12/what-it-takes-to-become-a-great-product-manager)
+- [Product Managers for the Digital World](https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/product-managers-for-the-digital-world)
+
 
 ## Product phases
 
@@ -439,7 +440,7 @@
 - It answers the question on why should the company invest in building this project.
 - PM will be needed to justify on why the project worth building to the stakeholder and sponsors.
 - Topics to be covered in a business case:
-	- Business problem:
+	- Business problem
 	- Benefits
 	- Costs
 	- Risks
@@ -481,106 +482,11 @@
 -   [Effective requirements gathering](https://blog.buildo.io/effective-requirements-gathering-b9cbd8176075)
 -   [Stop gathering requirements](https://www.goodproductmanager.com/2008/05/06/stop-gathering-requirements/)
 
-### Creating Solutions
+### Creating Solutions, Product Vision and Strategy
 
 - Search for build strategies on how to solve the problem through creation of the product.
 - The solution should be related with the company goals and KPIs.
-
-### Timelines
-
-- It is used to visualize tasks that need to be done to deliver the product. It presents task dependencies, resource allocations, workflows schedules, and deadlines.
-- Timelines has a fixed start and end dates. It incorporates sprint cycles with the product's short time strategies.
-- Assess the expected timelines according to the design and engineering teams feedback.
-- If the product is large, it can be split into milestones. In which each milestone can be a standalone project and the following milestones will add more features into the project.
-- Timelines components:
-	1. Product Improvements
-	2. Resources Management
-	3. Risk Management
-	4. Deadline
-
-### [Roadmap][1]
-
-- It identifies all the initiatives required for the creation and marketing of a product.
-- It is mainly used to visualize product's strategy that is aligned with business goals.
-- A roadmap streamlines business goals into strategic and executable paths.
-- A roadmap can span across multiple timelines for continuous product development.
-- A high-level roadmap explains the strategic course of action, with major milestones that you must complete to deliver your products on time.
-- Roadmap components:
-	1. Product Goal
-	2. Strategic Objectives
-	3. Major Features (Epics)
-	4. Releases Plans
-- Roadmap audiences are:
-	- Senior management
-	- External investors
-
-#### Further Readings
-
--   [How To Create a Product Roadmap](https://venngage.com/blog/product-roadmap/)
-
-### Product Requirement Document (PRD)
-
-- PRD is the most important artifact in product cycle.
-- It is the source of truth that answers all question related to:
-	- What is being built?
-	- Why is it needed?
-	- Who is it being build for?
-- It drives alignment between the team to reach the same final goal.
-- PRD is never done, it is continuously updated as decisions are made and new information becomes available.
-- PRD components:
-	- Frame the problem
-	- Outline the goals
-	- Success Metrics
-	- Describes the requirements
-	- Assumptions
-	- Out of scope
-	- UI Mocks
-	- Risks and Mitigations
-	- Support Plan
-- Priority Level needs to be mentioned, the below shorthand is common
-	- P0: A launch blocking feature. The product will not launch without it
-	- P1: A nice to have feature at launch, but not required. If not present at launch, it should be a fast follow
-	- P2: A desirable feature
-	- P3, P4: Unlikely to get built
-
-#### Further Readings
-
--   [Product requirements documents, downsized](https://www.atlassian.com/agile/product-management/requirements)
--   [How to Write a Painless Product Requirements Document](https://medium.com/@uxpin/how-to-write-a-painless-product-requirements-document-508ff6807b4a)
-
-### UX Design
-
-- It is important to work closely with the product designer during wireframing.
-- PM should provide context, requirements, visuals if possible, so the designer can take decisions. It is possible to provide design opinions and guidance, but it may not be always correct.
-- Prototyping
-	- Visualizing the UX can help in identifying gaps.
-- Once the UX is ready, run usability testing to surface any issues. A/B testing can be better for small changes that usability testing will not fit.
-
-### Implementation
-
-- Make sure that engineering team fully understand the requirements.
-- Cover and think of all possible edge cases.
-- Get regular status updates to know whether the implementation is on track or the dates are slipping. This will surface any roadblocks that the team is running into so that you can help to remove them.
-
-### Testing
-
-- Review test plans with QA teams to outline which scenarios should be tested, the steps to be taken and the expected behavior.
-- After QA team test the product, PM also should test it to find any bugs, and make sure that it meets the expected standards.
-
-### Launch
-
-- PM should work with the PR and marketing team to figure out how to launch the product.
-- Launches can be silently or with big announcements by posting blog posts or held press conferences.
-- For risks launches, it is advised to have a slow roll-out in phases. To have a chance to check the metrics and data.
-
-### Review
-
-- Check how the launch went. This can include different dimensions like changes in key metrics, users sentiments, or how the team thinks the launch went.
-- Identify what can be learned and avoid any mistakes in future ones.
-
-## Product Vision and Strategy
-
-### Vision
+#### Vision
 
 - **Vision is**:
 	- What your product looks like in its final state.
@@ -608,12 +514,12 @@
 	- [More examples](https://examples.yourdictionary.com/best-examples-of-a-vision-statement.html)
 - _Vision will impact every single aspect of your product, so it is important to be thoughtful when you are crafting your vision._
 
-#### Further Readings
+##### Further Readings
 
 - [Product Vision](https://www.productplan.com/glossary/product-vision/)
 - [4 Experts Reveal How to Create a Strong Product Vision](https://blog.hubspot.com/service/product-vision)
 
-### Strategy
+#### Strategy
 
 - It is about how to apply the product vision.
 - **Factors to consider**:
@@ -639,10 +545,10 @@
 	- High level, but with a little more detail
 	- Goal oriented, and preferably measurable
 
-#### Further Readings
+##### Further Readings
 - [What is Good Product Strategy?](https://medium.com/@melissaperri/what-is-good-product-strategy-8d5587cb7429)
 
-### Business Models
+#### Business Models
 
 - A business model describes how a business creates, delivers, and captures value.
 - **Business Model Canvas**
@@ -745,20 +651,20 @@
 						- Dropbox
 			- Products can have multiple revenue models. For example, a freemium app could have a free tier support by ads and a paid tier that is unlocked through a subscription.
 
-#### Further Readings
+##### Further Readings
 -   [Business Model Canvas Examples](https://corporatefinanceinstitute.com/resources/knowledge/strategy/business-model-canvas-examples/)
 -   [10 Most Popular Startup Revenue Models](https://fi.co/insight/the-10-most-popular-startup-revenue-models)
 
-### Competitive Analysis
+#### Competitive Analysis
 
-#### What it is
+##### What it is
 
 - Looking at competing products in the market.
 - Understanding strategy behind competing products.
 - Identifying strengths and weaknesses of each product.
 - Anticipate shifts in the market and trends.
 
-#### What it includes
+##### What it includes
 
 - Product offerings:
 	- It refers to the overall value proposition that the product provides to the users.
@@ -789,7 +695,7 @@
 - Marketing strategies
 - Overall performance
 
-#### How it built
+##### How it built
 
 - Identify the competitors
 - Google it.
@@ -798,7 +704,7 @@
 - Read reviews.
 - Check out social media presence.
 
-#### Types of competitors
+##### Types of competitors
 
 - Primary (Direct):
 	- Examples:
@@ -813,7 +719,7 @@
 	- Examples:
 		- DSLR cameras vs iPhone
 
-### Minimum Viable Product (MVP)
+#### Minimum Viable Product (MVP)
 
 - An **MVP**, or _minimum viable product_, is a product with must-haves features to get early adopters excited. After launching an MVP, you’ll get a lot of feedback that will help you understand if you have product market fit and what areas you should invest in next
 - MVP doesn't mean unfinished or broken product. On the contrary, it is still very important to deliver a high-quality experience to the users, and investing good design and reliability.
@@ -829,13 +735,13 @@
 	- Translate to requirements.
 	- Identify KPIs
 
-#### Further Readings
+##### Further Readings
 
 - [What is an MVP?](https://blog.leanstack.com/minimum-viable-product-mvp-7e280b0b9418)
 - [Types of MVPs and Examples](https://mlsdev.com/blog/minimum-viable-product-examples)
 - [15+ Examples MVPs](https://softwarebrothers.co/blog/15-examples-of-successful-mvps/)
 
-### Key Performance Indicators (KPIs)
+#### Key Performance Indicators (KPIs)
 
 - **KPIs**, or _Key Performance Indicators_, are metrics that measure the performance of your product against your strategy.
 - They capture the big picture and help you to understand how well your product is working (or isn’t working) and are aligned with business objectives.
@@ -872,196 +778,112 @@
 	- Make sure KPIs are measurable
 	- Use percentages and time periods when setting goals
 
-#### Further Readings
+##### Further Readings
 
 - [4 Things to Remember When Defining KPIs](https://blogs.oracle.com/datascience/4-things-to-remember-when-defining-kpis)
 - [18 KPI Examples Explained](https://www.clearpointstrategy.com/18-key-performance-indicators/)
 
-## Communication Skills
+### Timelines
 
-### Active Listening
+- It is used to visualize tasks that need to be done to deliver the product. It presents task dependencies, resource allocations, workflows schedules, and deadlines.
+- Timelines has a fixed start and end dates. It incorporates sprint cycles with the product's short time strategies.
+- Assess the expected timelines according to the design and engineering teams feedback.
+- If the product is large, it can be split into milestones. In which each milestone can be a standalone project and the following milestones will add more features into the project.
+- Timelines components:
+	1. Product Improvements
+	2. Resources Management
+	3. Risk Management
+	4. Deadline
 
- - **Active Listening is**:
-	- More than just listening
-		- Read between the lines
-		- Read body language
-		- Nonverbal behavior can say a lot about how an individual feels about a certain topic.
-	- Being an engaged listener
-		- Pay attention
-		- Express you are listening
-		- Avoid any distractions
-	- Fully understanding other points of views
-	- Not imposing your own views
-- **Why Active Listening is important**
-	- Builds relationships
-		- Builds Empathy
-		- Care about understanding their perspective.
-	- Promotes understanding
-		- Understand the context and why they have this point of view
-		- Anticipate how they might react to future things.
-	- Helps to save time and make sure things are done right the first time
-- **Tips for Active Listening**
-	- Make eye contact and smile
-	- Provide encouragement
-	- Don’t interrupt
-	- Ask clarifying questions when needed
-	- Paraphrase
-		- "Just to make sure I am understanding, I think that you said [XYZ]. Did I get it right?"
+### Roadmap
 
-#### Further readings
-- [How to Practice Active Listening](https://www.verywellmind.com/what-is-active-listening-3024343)
-
-### Story telling
-
-- **Storytelling is**:
-	- Allowing you to **express your vision** and thoughts through more compelling, **tangible narratives**.
-	- Making it **easier** for people **to understand** and relate to what you are explaining.
-	- A **core role** of being a PM.
-- **Storytelling should**:
-	- Explain both **_what_** is happening and **_why_** it is happening
-	- Create an **emotional response** that gets the audience invested in the outcome
-	- Get **people excited** about solving the problem
-- **Story Elements**
-	- **Hero (your user)**: who they are, what they care about, and their background
-	- **Goal:** what the hero is trying to accomplish
-	- **Villain (the problem):** whatever is preventing the hero from reaching their goal
-	- **Sidekick (your product):** something that will help the Hero reach their goal
-	- **Plot:** describes how the Hero and Sidekick defeat the Villain and achieve their goal
-- **Crafting a Story**
-	1.  Start with the big picture to provide context (who your audience is and what they care about)
-	2.  Describe the problem or conflict (the problem your product solves)
-	3.  Outline the plot for getting to resolution (how your product solves the problem and why it is better than other solutions)
-	4.  Describe the impact and conclusion (why it matters that the problem was solved)
-- **Storytelling Tips**
-	- Keep the story simple
-	- Make it memorable by including emotional moments
-	- Show instead of telling
-	- Practice! Practice! Practice! until you can tell the story without referring to notes
+- It identifies all the initiatives required for the creation and marketing of a product.
+- It is mainly used to visualize product's strategy that is aligned with business goals.
+- A roadmap streamlines business goals into strategic and executable paths.
+- A roadmap can span across multiple timelines for continuous product development.
+- A high-level roadmap explains the strategic course of action, with major milestones that you must complete to deliver your products on time.
+- Roadmap components:
+	1. Product Goal
+	2. Strategic Objectives
+	3. Major Features (Epics)
+	4. Releases Plans
+- Roadmap audiences are:
+	- Senior management
+	- External investors
 
 #### Further Readings
 
-- [Storytelling that Moves People](https://hbr.org/2003/06/storytelling-that-moves-people)
-- [How Pixar’s 22 Storytelling Rules Apply to Your Business](https://fizzle.co/sparkline/pixars-22-rules-of-storytelling)
+- [How To Create a Product Roadmap](https://venngage.com/blog/product-roadmap/)
+- [Roadmaps vs Timelines](https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc)
 
-### Being Persuasive
+### Product Requirement Document (PRD)
 
-- It **matters** because:
-	- Team needs to be aligned.
-	- There are different opinions and objections.
-	- You don't have authority to direct everyone.
-	- So, the best option is to convince them.
-- Persuasion **types**:
-	- **Ethos** (credibility): 
-		- The Greek word for character, describing the credibility of an individual
-		- You are qualified to speak on the topic due to your experiences, personal character, background, and achievements.
-	- **Pathos** (emotion):
-		- The Greek word for reason or logic
-		- You can make your audience feel a certain way
-	- **Logos** (logic):
-		- The Greek word for emotion
-		- You build an argument based on logic and facts.
-- How to build a **persuasive** message:
-	- Know your audience
-		- Tailor your message
-	- Pick a viewpoint
-		- Explain why it has the best outcome.
-		- Be decisive
-	- Know the other perspectives
-		- Be open to listen to other opinions
-	- Be data-driven
-	- Discuss objections
-		- Objection should be addressed without being rushed to really understand the viewpoint and its merits. This will also help you to build credibility with the audience showing that you care about their opinion and are interested in getting to the best solution.
-	- End with a call to action
-		- Wrap up the discussion by outlining the next steps.
+- PRD is the most important artifact in product cycle.
+- It is the source of truth that answers all question related to:
+	- What is being built?
+	- Why is it needed?
+	- Who is it being build for?
+- It drives alignment between the team to reach the same final goal.
+- PRD is never done, it is continuously updated as decisions are made and new information becomes available.
+- PRD components:
+	- Frame the problem
+	- Outline the goals
+	- Success Metrics
+	- Describes the requirements
+	- Assumptions
+	- Out of scope
+	- UI Mocks
+	- Risks and Mitigations
+	- Support Plan
+- Priority Level needs to be mentioned, the below shorthand is common
+	- P0: A launch blocking feature. The product will not launch without it
+	- P1: A nice to have feature at launch, but not required. If not present at launch, it should be a fast follow
+	- P2: A desirable feature
+	- P3, P4: Unlikely to get built
 
 #### Further Readings
 
-- [The Science of Persuasion](https://buffer.com/resources/the-science-of-persuasion)
-- [Want to Be Extremely Persuasive? 9 Science-Backed Ways to Become a Better Leader](https://www.inc.com/jeff-haden/want-to-be-exceptionally-persuasive-9-science-backed-ways-to-become-a-better-lea.html)
-- [21 Principles of Persuasion](https://www.forbes.com/sites/jasonnazar/2013/03/26/the-21-principles-of-persuasion/)
+-   [Product requirements documents, downsized](https://www.atlassian.com/agile/product-management/requirements)
+-   [How to Write a Painless Product Requirements Document](https://medium.com/@uxpin/how-to-write-a-painless-product-requirements-document-508ff6807b4a)
 
-### Presentations
+### UX Design
 
-- Presentations are a very effective tool in **communicating** and **delivering** a **message**.
-- Presentations have the best our come when they are **simple**.
-- **Presentation structure**
-	- Have an introduction
-		- A brief about what is the main topic is
-		- A quick background info
-		- Capture audience attention
-		- Keep it memorable
-	- Then a body
-		- It is the main content of the presentation
-	- Lastly, the conclusion
-		- Wrap up the key points
-		- Bring up any next steps
-- **Slide Layout**
-	- Keep slides simple
-	- One takeaway per slide
-	- Minimize the amount of text (no paragraphs). Replace with pics and charts.
-	- Animation and transition effects are used only if needed to express an idea.
-	- Use visuals carefully.
-- **Tips**
-	- Presentation needs to stand on its own
-		- So people can read and interpret them on their own.
-	- Rehearse
-	- Pre-brief key stakeholders before big presentations
+- It is important to work closely with the product designer during wireframing.
+- PM should provide context, requirements, visuals if possible, so the designer can take decisions. It is possible to provide design opinions and guidance, but it may not be always correct.
+- Prototyping
+	- Visualizing the UX can help in identifying gaps.
+- Once the UX is ready, run usability testing to surface any issues. A/B testing can be better for small changes that usability testing will not fit.
+
+### Development and Implementation
+
+- During Product Development, the product is built and tested.
+- As a PM, the role is to assure that the engineering team are building the right product at the right time
+- Make sure that engineering team fully understand the requirements.
+- Cover and think of all possible edge cases.
+- Get regular status updates to know whether the implementation is on track or the dates are slipping. This will surface any roadblocks that the team is running into so that you can help to remove them.
 
 #### Further Readings
 
-- [19 Great Examples of PowerPoint Presentation Design [+ Templates]](https://blog.hubspot.com/blog/tabid/6307/bid/6012/17-examples-of-great-presentation-design.aspx)
-- [Quite Possibly the World’s Worst PowerPoint Presentation Ever](https://www.apa.org/gradpsych/2012/01/worst-powerpoint-ever.pdf)
-- [Bad PowerPoint Examples You Should Avoid at All Costs](https://24slides.com/presentbetter/bad-powerpoint-examples-you-should-avoid/)
+- [Product Development Process](https://asana.com/resources/product-development-process) - An overview of the six stages of product development.
+- [Key Roles & Positions within a Tech Startup](https://get.tech/blog/key-roles-and-positions-in-a-tech-startup/) - An overview of common roles within a small company, what they do, and how they need to work together to launch a product.
+- [History of Product Development](https://www.encyclopedia.com/social-sciences-and-law/economics-business-and-labor/businesses-and-occupations/product-development) - An overview of product development from the nineteenth century to today.
 
-### Negotiation
 
-- **Negotiation** is all about trying to reach an agreement when there is **conflict**.
-- As a PM, you will be negotiating **every day**, whether it’s about what the product should do, who’s going to be working on the product, or timelines.
+### Testing
 
-#### Negotiation styles:
+- Review test plans with QA teams to outline which scenarios should be tested, the steps to be taken and the expected behavior.
+- After QA team test the product, PM also should test it to find any bugs, and make sure that it meets the expected standards.
 
-- **Competitive**
-	- Me: Win
-	- You: Lose
-- **Collaborative**
-	- Me: Win
-	- You: Win
-- **Compromise**
-	- Me: Win & Lose
-	- You: Win & Lose
-- **Avoid**
-	- Me: Lose
-	- You: Lose
-- **Accommodate**
-	- Me: Lose
-	- You: Win
-- In most cases a **Collaborative** style is the best approach
+### Launch
 
-#### Strategies for Negotiation
+- PM should work with the PR and marketing team to figure out how to launch the product.
+- Launches can be silently or with big announcements by posting blog posts or held press conferences.
+- For risks launches, it is advised to have a slow roll-out in phases. To have a chance to check the metrics and data.
 
-- **BATNA** (Best Alternative To a Negotiated Agreement)
-	- Understanding each side’s best alternative to a negotiated agreement will help you focus on what happens if you can’t reach an agreement -- and that can give you leverage to get to an agreement.
-- **Focus on interests**
-	- It’s helpful to understand what each side is interested in and why so understand where to focus during negotiation.
-- **Make the pie bigger**
-	- Based on understanding the other side’s interests, are there any things that you can offer that will be valuable for them that won’t cost you anything or be difficult for you to give away?
--  **Use objective criteria**
-	- Using objective criteria bases the conversation in reality and helps remove emotion.
-- **Present multiple solutions**
-	- Multiple solutions help you get more information because you receive feedback about how the other side feels about each option.
+### Review
 
-#### Tips for negotiating:
-
--   Build strong relationships
--   Use active listening
--   Keep emotions in check
--   Work together to find a solution
-
-#### Further Readings
-
-- [Negotiation Skills for Product Managers: 5 Things You Need to Know](https://medium.com/pminsider/negotiation-skills-for-product-managers-5-things-you-need-to-know-ec474f743d54) 
-- [5 Highly Effective Negotiation Tactics Anyone Can Use](https://www.inc.com/jeff-haden/tk-highly-effective-negotiation-tactics-anyone-can-use.html)
-- [4 Ways to Practice Your Negotiation Skills](https://blog.blackswanltd.com/the-edge/use-it-or-lose-it-4-ways-to-practice-your-negotiation-skills)
+- Check how the launch went. This can include different dimensions like changes in key metrics, users sentiments, or how the team thinks the launch went.
+- Identify what can be learned and avoid any mistakes in future ones.
 
 ## Design Sprint
 
@@ -1811,8 +1633,3 @@
 - [The Design Sprint](https://www.gv.com/sprint/)
 - [The Sprint Book](https://www.thesprintbook.com/how)
 - [UX Design Process](https://media.licdn.com/dms/image/C4D22AQGAv3WYH_diQw/feedshare-shrink_1280/0/1678699397627?e=1681948800&v=beta&t=qCnr28fhAK5aYcvStpp8O06ohN7UZNm3TrRaWSdDaQQ)
-
-
-## References
-
-[1]: https://medium.com/project-managers-planet/product-roadmap-and-project-timeline-whats-the-difference-49d3c1e7becc "Roadmaps vs Timelines"
