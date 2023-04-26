@@ -1475,6 +1475,29 @@
 	- [Dateful](https://dateful.com/schedule) - A really helpful tool for visualizing time zones across multiple regions.
 	- [How to Work Effectively With Globally Distributed Teams](https://kissflow.com/digital-workplace/remote-work/how-to-work-with-globally-distributed-teams/) - Some things to keep in mind that will help you to be successful when working with distributed teams
 
+##### Collaboration Examples
+
+###### Recommend a New Business Strategy
+
+- **Write a doc** that includes details on the background, problem definition, data, and recommendations.
+- **Share the doc via email** and gather feedback via comments.
+
+###### Review a Proposal and Get Feedback
+
+- **Share doc via email** - works well for simple and non-controversial topics; allows people to leave comments.
+- **Schedule a meeting** for complex topics and real-time conversation; This helps** **force a decision to be made.
+
+###### Unblock a Teammate
+
+- **Ping** for quick resolution of simple issues.
+- **Schedule a meeting** for a real-time conversation on more complex topics.
+
+###### Outage
+
+- **Create a group chat** to actively work on resolving the issues.
+- **Email** to keep stakeholders informed and send an ETA for a resolution.
+- **Write a post-mortem doc** with your team on how to prevent this from happening again.
+
 
 #### Further Readings
 
