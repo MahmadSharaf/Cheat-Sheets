@@ -2704,6 +2704,10 @@ There are a number of reasons but here are a few key types of failure:
 - **Further Readings**:
 	- [New feature for Google Wi-Fi](https://www.blog.google/products/google-wifi/google-wifis-network-check-now-tests-multiple-device-connections/)
 	- [Innovate Like Amazon with The Future Press Release](http://the-amazon-way.com/blog/future-press-release/)
+	- [On How to write a product launch press release](https://prowly.com/magazine/new-product-press-release-examples/)
+	- [On Product Launch Press Release](https://review42.com/resources/press-release-sample-for-product-launch/📚)
+	- [On So what exactly is a press review?](https://www.pressemonitor.de/en/press-review/)
+	- [On Press review: how to build and make the most of it](https://www.gagliardi-partners.it/en/come-si-fa-una-rassegna-stampa-ecco-come-costruirla-e-sfruttarla-al-meglio/)
 
 #### 3. Sketch
 
