@@ -1712,6 +1712,24 @@ Prioritization can be subjective, but there are a few things that should be cons
 	- **Medium P2**: Issues can be fixed much later since delaying the fix doesn’t cause significant impact
 	- **Low P3/P4**: Unlikely to be fixed
 
+##### Severity
+
+- It quantifies the impact of an issue, such as how many users the issue affects or what functionality of your product is impacted.
+- Levels of severity:
+	- **Critical**:
+		- Makes an important feature unstable
+		- Blocks multiple users
+		- Example: Users are unable to sign in to the grocery store app
+	- **Major**:
+		- Affects a critical features but some parts of the feature remain functional
+		- Affects a limited number of users
+		- Example: Users unable to pickup groceries after 7pm
+	- **Minor**:
+		- Causes unexpected behavior but system is functional
+		- Example: User gets an error message that a cereal coupon cannot be saved but then the coupon is actually saved.
+	- **Trivial**:
+		- Doesn't impact the functionality or user-experience significantly
+		- Example: Users cannot see their full last name on their profile page if it exceeds 32 characters
 
 ### Launch
 
