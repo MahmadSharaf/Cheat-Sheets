@@ -2100,6 +2100,160 @@ There are a number of reasons but here are a few key types of failure:
 	- [5 Easy Steps to Creating the Right Pricing Strategy](https://www.inc.com/patricia-fletcher/5-easy-steps-to-create-the-right-pricing-strategy.html)
 	- [Setting Financial Goals That Drive Your Business Forward](https://www.thebalancecareers.com/setting-business-financial-goals-3515712)
 
+##### Prepare partner teams for launch
+
+###### Other teams needed to work with
+
+- As we get closer to launch we need to work with the teams that are closer to the users
+	- Sales
+		- The Sales team is responsible for selling your product.
+	- Customer Support
+		- Customer support team is the team that takes care of all customer complaints.
+	- Technical Writers
+		- The ones who help with documentation, release notes, articles for help centers and event text on UI.
+			- These are notes or documents that will accompany your launch and describe new features or bugs that were fixed.
+	- Product Specialists
+		- The Product Specialist role varies based on the company and product. In some cases they work closely with sales and customers with large accounts. In other cases they act as a bridge between Product and support teams.
+- How to work with different teams?
+	- Create collaterals and documentation
+		- Guidance for Sales on how to sell our product
+		- Help center information and articles
+		- Guidance for the Customer Support team
+	- You must work closely with them because they own the communication channels with your users
+	- Your role is to empower these teams to be successful by providing them information about the product
+- If there are none of these functions in your startup, then it is probably _**your**_ responsibility as the Product Manager to handle these items.
+- **Further Readings**:
+	- [Product managers and sales: The alliance that leads to a better product](https://www.appcues.com/blog/product-managers-and-sales-the-alliance-that-leads-to-a-better-product)
+	- [How Product Management Can Work Effectively with Sales](https://community.uservoice.com/blog/how-to-work-effectively-with-sales/)
+	- [Why Support Should Have a Voice in Product Development](https://www.kayako.com/blog/product-development/)
+	- [The Intersection of Product Management and Customer Success](https://strikedeck.com/the-intersection-of-product-management-and-customer-success/)
+ 
+###### Preparing sales and customer support
+
+- Smaller companies might not have as many defined teams and processes so the PM may have wider responsibilities
+- Give the Sales and Customer Support teams enough time to get approvals, prepare communications and do the necessary training.
+- Inform the Sales and Customer Support teams every time you add features to your product so they are prepared to sell and support the new feature
+- Think about tools that you may need to build so that the support team can help and debug issues for users
+- What to Include in Collateral Materials for Sales Team
+	- Our value proposition
+	- How our product solves the user's problem
+	- Our product vs. competitor's products
+- What to Include in Collateral Materials for Customer Support Team
+	- Product overview
+	- Potential issues for users and work arounds
+	- Current vs. future product
+	- Known bugs
+- Working with Sales and Support
+	- Work with your partner teams to make sure they have all the information they need
+	- You can learn a lot about your product by sitting next to support and listening to in on their calls with our customers
+	- The Sales Team can help you understand customer needs better by sharing what they hear from customers and potential customers
+	- **Important! Your role is to understand and solve the underlying problem.** The solution the customers are asking for might not be the best solution for the problem they are having.
+
+###### User guide
+
+- If there are no technical writers or a big support team on the team, PM will be responsible to write the User Guide and Articles.
+- There are a lot of tools on the market today to create a help center or support center.
+- These guides and articles could include:
+	- Product flows
+	- Bugs and issues
+	- New and Future features
+- **Further Readings**:
+	- [How to Create a User Instruction Manual](https://www.userfocus.co.uk/articles/usermanuals.html)
+	- [11 Platforms to Create Knowledge Base and FAQ for Your Business](https://geekflare.com/create-kb-faq-tools/)
+	- [Zendesk](https://www.zendesk.com/support/)
+
+##### Launch
+
+- **Launch vs. Landing**: Your goal is not solely to launch, but to launch and then iterate to the next improvement (a.k.a. landing)
+	- **Landing the Product**: Landing the product means that you launched your product, monitored your metrics and did improvements based on the metrics and user’s feedback
+
+###### Launch Patterns
+
+- Launches could be as simple as flag switch or code running, it could be immediate release or gradual rollout.
+	- **Immediate Release/Full Launch**: Launch the product to all the users at the same time.
+		- A full launch makes more sense for a:
+			- Hardware product. Once a product is on the shelf it has to work for any user who purchases it. You can still do beta testing, but it will be more challenging to get a physical product to your target users. Additionally, you can't just "push" a new feature to an existing physical product like you can with software since you are limited by the capabilities of the hardware.  
+			- "No-brainer" product. It is a low-risk launch if your team is confident that the product will be well-received in the market and will work as expected.
+			- It also may make sense to do a full launch to meet a product goal or a legal requirement. There may be times when leadership decides that the need for immediate revenue is worth the risk of launching an imperfect product. Or changes in law, that require product updates for compliance, like GDPR privacy regulations in Europe.
+	- **Gradual Rollout**: Launch the updated product to a small percentage of current users and slowly add more users.
+		- A gradual rollout is the safest choice for a software product:
+			- Allows you to closely monitor performance metrics to identify issues and make any necessary fixes before launching to everyone. Oftentimes you might run into bugs at scale that you could not catch or predict before rolling out
+			- Gives you an early read if the product is on track to achieve goals  
+			- Easy to rollback the launch if any major issues arise
+		- Managing gradual rollout
+			- For a new product, a gradual rollout involves launching the product to a small or geographically contained group of users
+			- For a new feature on an existing product, you'll want to make the feature available to a select group of users of the existing product.
+			- You'll want to be strategic about the number of users you start with. You need enough users to get a good read on the users' reception of the project and to make sure any issues are uncovered. You will almost always want to start with 1% on the first day.
+			- After launch, monitor KPIs and user feedback
+				- No issues -> release the product to more users.
+				- If KPIs look problematic or issues appear in user feedback, halt the rollout or roll the feature back. Fix it and try again.
+- The actual **mechanism to launch** a product is different for different types of products
+	- Physical products need to be shipped
+	- iOS apps have button that needs to be pressed to release the product
+	- For other software products you may need to have the engineering team remove a flag or enable code on the production server
+- **Who should be notified about the launch**
+	- Leadership
+	- Teams Working on the Product (Engineering, Testing, Legal, etc.)
+	- Partner Teams for Launch (Marketing, Sales Customer Support, Technical Writers)
+- **Further Readings**:
+	- [Google Play: Release app updates with staged rollouts](https://support.google.com/googleplay/android-developer/answer/6346149)
+	- [App Store: Release a version update in phases](https://help.apple.com/app-store-connect/?lang=en#/dev3d65fcee1)
+	- [The Art of Staging a Rollout](https://medium.com/bleeding-edge/the-art-of-staging-a-rollout-8e203b337b75)
+	- [Why phasing your product launch might be your best product idea ever!](https://medium.com/@eliecasa/why-phasing-your-product-launch-might-be-your-best-product-idea-ever-5-reasons-22a6be5daaa5)
+	- [9 things you should consider before going for a Big-Bang product launch](https://medium.com/the-launchism/should-your-next-product-launch-be-a-big-bang-or-a-controlled-roll-out-1-2-a2ade81ee44f)
+
+###### Launch Timeline
+
+- **Pre Launch**
+	- Get legal approval
+	- Prepare and validate launch process
+	- Prepare collateral for Sales
+- **Launch Day**
+	- Bring donuts
+	- Have engineering support on call in case of emergency
+- **Post Launch**
+	- Send a Launch email
+	- Collect user feedback
+	- Prepare A/B testing for a product fix
+
+- **Example**
+	1. The product took a long time to develop due to the complexity of the system
+	2. We wanted a quick win so we started by launching our product to a small percentage of users with a high probability of conversion
+	3. We started with minimal marketing and monitored our KPIs and user feedback
+	4. We gradually launched to more users and increased our market presence.
+	5. Once the rollout was complete, we announced the product both internally and externally.
+	6. We celebrated our milestone!!!
+	7. After launch, we continued to monitor feedback from the field, support calls and cancellation rates.
+	8. We incorporated the feedback into an improved product design.
+
+###### Launch Email
+
+- **Internal Launch Email**
+	- An email sent to leadership, partner teams, other teams and most importantly, your manager to announce the launch.
+	- Internal launch emails are important because
+		- Product launches are your resume. People need to know about the great work you did.
+		- Your team deserves recognition as well. It is a part of your job to make sure they get it.
+	- Email tips
+		- Start your launch email with a story to capture people’s attention.
+		- It is a good idea to add some graphics on top of it. Ask your UX design team to help out.
+		- Briefly describe next steps for your product: new features, scaling and improvements -- but don't go into too much detail. This is not a road map.
+		- Thank all the people who worked on the launch by name. It is always important to recognize the people who did the work!
+		- Launches are a cause for celebration so the tone of the email should be upbeat and exciting!
+- **External Launch Email**
+	- A different type of email that is written to send to people outside your company to increase the buzz for your product.
+	- **When to Use**: External launch emails can definitely be helpful for bigger product feature launches. they don't always make sense for smaller features or behind the hood launches/improvements that aren’t visible to users.
+	- **Purpose**: While an internal launch email is more focused on congratulating the team, an external is more focused on driving adoption of the new feature.
+	- **Target**: External emails are sent to anyone who might be interested in your product. In many cases, this can be your existing user base or users who have joined a waitlist to hear more about your product.
+	- **Includes**: External emails should include much more marketing messaging about the product or feature and its value.
+		- What the product or feature is
+		- Why users should care/be excited about it
+		- How users can use it
+		- When users can expect it (if it's not available immediately)
+		- Where to go for more info/help
+- **Further Readings**:
+	- [The 20 best product launch emails that re-engage users](https://www.appcues.com/blog/product-launch-emails)
+	- [20 Announcement Email Examples to Hype Your Product Launch](https://www.activecampaign.com/blog/announcement-email)
+ 
 ### Review
 
 - Check how the launch went. This can include different dimensions like changes in key metrics, users sentiments, or how the team thinks the launch went.
