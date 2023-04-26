@@ -1533,6 +1533,36 @@
 - **Trello**
 	- [Sign up for free](https://trello.com/signup) and learn [what you need to know](https://trello.com/guide) about Trello.
 
+#### Code, Review, and Submit
+
+- PM will not write code but it helpful to understand the process that occurs for code changes.
+- At a high level, there are five steps:
+	- **Design**
+		- Engineers design how the code should work.
+		- If code is complex, a design is written 
+	- **Code**
+		- Writing the actual code
+	- **Review**
+		- Code review is essentially a peer review where other engineers will review the code that was written before it's submitted.
+		- Code reviews help identify bugs ahead of time, improve code quality, and increase awareness of the code base across the engineering team.
+		- Automated review so the code get flagged for common issues or is unable to build successfully.
+		- Manual review where other engineers will be asked to read, review, and ask for feedback or approve the code change.
+	- **Test**
+		- QA is responsible for this part.
+		- PM might be asked to test the code as well.
+	- **Deploy**
+		- The code might get deployed to an intermediate environment.
+		- Deploy to production.
+- **Version Control**:
+	- A system used to track all changes that are made to the code base.
+	- Version control keeps track of every single change that was made and allows the team to easily roll back to a prior version. If there are ever issues that are discovered, you can quickly roll back to a known good version.
+	- Version control also allows you to look at the change history of a specific file. This will let you see who made what changes and when those changes were made.
+- **Continuous integration**:
+	- This is an automated process that will automatically merge code changes into a build and run a suite of tests against that build.
+	- Continuous integration allows for lots of engineers to make changes across the code base with a lower effort of coordination.
+- **Further Readings**:
+	- [What is a code review?](https://about.gitlab.com/topics/version-control/what-is-code-review/#:~:text=Code%20reviews%2C%20also%20known%20as,developers%20learn%20the%20source%20code.) - More detailed information about what a code review is, how it works, and why it's a beneficial process
+	- [What is version control?](https://about.gitlab.com/topics/version-control/) - More in-depth information about version control, as well as different types of version control that exist.
 
 #### Further Readings
 
