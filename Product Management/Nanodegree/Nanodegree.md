@@ -1688,6 +1688,21 @@
 	- Items in the backlog
 - Good prioritization results in people spending time on the highest impact things
 
+##### Determining Priority
+
+Prioritization can be subjective, but there are a few things that should be considered:
+- Impact on user value
+- Impact on business value
+	- A bug at the checkout page
+- Reputational risk
+	- A bug that can compromise users data to be leaked
+- Severity (also known as the frequency of occurrence)
+	- If an issue with low severity but happens frequently, it should be has a high priority.
+- Isolate the impact:
+	- All users or a subset
+	- All OSs or only iOS
+- Stakeholder input
+
 
 ### Launch
 
