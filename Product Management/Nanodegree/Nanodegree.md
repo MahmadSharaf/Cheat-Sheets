@@ -2256,8 +2256,41 @@ There are a number of reasons but here are a few key types of failure:
  
 ### Review
 
+#### Feedback
+
 - Check how the launch went. This can include different dimensions like changes in key metrics, users sentiments, or how the team thinks the launch went.
-- Identify what can be learned and avoid any mistakes in future ones.
+	- **Monitor your metrics.**
+		- If something looks wrong, you need to understand why and how to fix it.
+		- Have a dashboard that tracks all your KPIs, check the state of your product frequently. Dashboards also help you to communicate with your leadership.
+	- **Metrics might not be enough**
+		- You need to listen to your users and customers by reading reviews for your app, asking customer support to pull statistics for your app reviews, looking for articles about your product, sending surveys.
+		- For big customers, ask the support team to do outreach and pass you the feedback.
+	- **Document the feedback in a central location**
+		- Invite others to contribute.
+		- Look for patterns and themes in the data.
+		- Identify the underlying problems and start developing possible solutions
+	- **Add problems and solutions to the PRD**
+		- Start planning how you will test your solutions
+		- Identify what can be learned and avoid any mistakes in future ones.
+
+#### A/B testing
+
+- **A/B testing**: multi-variant testing where we compare one version of a product with another version of the same product. For example, we can A/B test text on a button on our page and see which text gets more users to click on the button.
+- **Benefits**
+	- Minimizes the risk of possible failure after changing the product.
+	- It highly important for major change testing.
+- **A/B testing structure**
+	- The simplest one is there is a control group which has no changes and a variant which has some changes to be tested. The variant is given to a few randomly selected users.
+	- Conduct the results after completing the experiment
+- **Ask for help from your Data Analysts** when possible. They can confirm the validity of the test.
+- **Tips**:
+	- Well-defined options for each variant
+	- A Hypothesis about the results
+	- No fixed end-date for the experiment instead set the target for minimum number of responses
+	- Don't run multiple experiments at the same time
+- **Further Readings**
+	- [Wikipedia A/B Testing](https://en.wikipedia.org/wiki/A/B_testing)
+	- [10 Benefits of A/B Testing](https://www.mightycall.com/blog/10-benefits-ab-testing/)
 
 ## Design Sprint
 
