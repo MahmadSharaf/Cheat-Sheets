@@ -2769,6 +2769,10 @@ There are a number of reasons but here are a few key types of failure:
 - [The Messy Art of UX Sketching](https://www.smashingmagazine.com/2011/12/the-messy-art-of-ux-sketching/)
 - [Guide to UX Sketching](https://www.toptal.com/designers/ux/guide-to-ux-sketching)
 - [How to Run a Crazy Eights Workshop](https://blog.prototypr.io/how-to-run-a-crazy-eights-workshop-60d0a67b29a)
+- [On How To Sketch Like A Product Designer](https://www.youtube.com/watch?v=iVy0qGqmKFU)
+- [On How to draw New products in 3 steps with this simple creative technique](https://www.thedesignsketchbook.com/how-to-draw-new-products-in-3-steps-with-this-simple-creative-technique/)
+- [On How to Create Technical Drawings of Your Product Idea](https://medium.com/abilista/technical-drawings-product-3bd1fe0be4c4)
+- [On Use this 5-minute sketch to improve any product or service](http://prestosketching.com/blog/2017/07/10/use-this-5-minute-sketch-to-improve-any-product-or-service/)
 
 #### 4. Decide
 
