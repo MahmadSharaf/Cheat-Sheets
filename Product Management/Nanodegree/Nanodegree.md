@@ -1806,6 +1806,14 @@ There are a number of reasons but here are a few key types of failure:
 - Mistakes can be easier to fix because it is easier to update code than recall a physical product
 - Modern channels like the App Store make it easier to connect directly with users
 
+#### Product Launch Process
+
+- **Planning ahead is critical.** The launch process should be set up before product development is complete.
+	- **Testing**. Define criteria for launching. Since there is no product with zero bugs, it is important to know how many bugs and what severity would be allowed to launch them.
+	- **Involve key partners**. Every launch is different but in most cases, you'll want to engage with the engineering, testing teams, marketing, sales, privacy and legal.
+	- **Define your metrics before the launch** This will give you time to design an effective feedback mechanism to measure the product's success.
+- **A golden rule**: don't launch before weekends or holidays.
+
 ### Review
 
 - Check how the launch went. This can include different dimensions like changes in key metrics, users sentiments, or how the team thinks the launch went.
