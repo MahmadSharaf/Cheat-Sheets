@@ -1579,6 +1579,54 @@
 - Finally, set a Go/No-go meeting with the stakeholders to articulate the product status, risks and mitigations.
 - All these steps are focused to ship a high-quality product and making sure that all stakeholders are informed and on the same page when it comes to launch status and open issues.
 
+#### Test plan
+
+- A test plan is a document that outlines all aspects that are required to complete testing. This generally includes the **objective**, **scope**, and **features** to be tested, including **test cases**.
+- PM collaborates with QA team on defining the test cases.
+
+##### Test Cases
+
+- Test cases describes a feature, how to use it or test it, and the expected behavior.
+- A PM might be asked to write test cases or review them, depending on the QA team setup.
+- Test cases usually map to two types of requirements:
+	- **Functional**:
+		- It is what the user does and how the system reacts.
+	- **Non-functional** 
+		- How the system should work.
+	- Example 1:
+		- Functional: After the user places an order, a confirmation email is sent.
+		- Non-functional: The email must be sent within 1 minute of the order being placed.
+	- Example 2
+		- Functional: The user is able to place an order using their credit card during the checkout flow.
+		- Non-functional: The store is able to process 10,000 credit card transactions at any given time.
+- **Test cases includes**:
+	- Functional and non-functional requirements
+	- What feature
+	- Steps a user would take
+	- Expected behavior
+	- Priority
+	- Prerequisites
+	- Test data
+
+##### Working with QA
+
+- The QA team is a key partner in helping to make sure that you ship high-quality products. Here are some tips to keep in mind:
+	- Over-communicate
+	- Let QA drive timelines for testing
+	- QA is a stressful role. Try to de-risk and make things easy for the QA team
+	- Involve the QA team early
+	- Update your product requirements document (PRD) based on edge cases discovered by the QA team
+	- Involve your engineering team in the QA process and defining test cases
+	- Focus on resolving issues, not placing blame
+- After finding issues:
+	- QA will share a report of all test cases and of they passed or failed.
+	- QA will create a new task for each failed test for tracking.
+	- PM reviews these new tasks and prioritize them.
+
+##### Further Readings
+
+- [Test Planning](https://www.browserstack.com/guide/test-planning) - A detailed guide that goes into all the steps of the test planning process
+
 
 ### Launch
 
