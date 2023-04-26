@@ -1575,6 +1575,10 @@
 
 - Review test plans with QA teams to outline which scenarios should be tested, the steps to be taken and the expected behavior.
 - After QA team test the product, PM also should test it to find any bugs, and make sure that it meets the expected standards.
+- Then after finding issues or bugs, it is needed to prioritize them so the team is focused on fixing the most impactful issues first.
+- Finally, set a Go/No-go meeting with the stakeholders to articulate the product status, risks and mitigations.
+- All these steps are focused to ship a high-quality product and making sure that all stakeholders are informed and on the same page when it comes to launch status and open issues.
+
 
 ### Launch
 
