@@ -1731,6 +1731,15 @@ Prioritization can be subjective, but there are a few things that should be cons
 		- Doesn't impact the functionality or user-experience significantly
 		- Example: Users cannot see their full last name on their profile page if it exceeds 32 characters
 
+##### Prioritization Framework
+
+- Prioritization is subjective so this framework can help with it.
+- **Value vs effort** is a framework that can help you to figure out how to prioritize things. 
+- It can be a 2-by-2 grid to map out features, tech debt (Work that needs to be done as the result of choosing an easier or temporary solution, usually to meet schedules), bugs, and dogfood feedback, based on their values and the effort it takes to build them.
+![[value-effort.png]]
+- **Further Readings**:
+	- [How to Use Multiple Prioritization Frameworks](https://www.productplan.com/learn/how-to-use-multiple-prioritization-frameworks/) - There are benefits to using multiple prioritization frameworks. This article goes into the reasoning, as well as pairings that can work well together.
+
 ### Launch
 
 - PM should work with the PR and marketing team to figure out how to launch the product.
