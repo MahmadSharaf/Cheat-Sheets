@@ -1776,9 +1776,35 @@ Prioritization can be subjective, but there are a few things that should be cons
 
 ### Launch
 
+- Product launch is the step in the product development when it is completed, and ready to be launched in the market.
+- Product launches are important for PM's career and relationships with partner teams
 - PM should work with the PR and marketing team to figure out how to launch the product.
 - Launches can be silently or with big announcements by posting blog posts or held press conferences.
-- For risks launches, it is advised to have a slow roll-out in phases. To have a chance to check the metrics and data.
+- For risked launches, it is advised to have a Gradual Roll Out (When instead of launching the product to 100% of your users, you gradually increase % of users seeing/using your product). To have a chance to check the metrics and data.
+
+#### Why Do Product Launches Fail?
+
+There are a number of reasons but here are a few key types of failure:
+- A flawed process
+- The product doesn't resonate with the user
+- Lack of sales and customer support team training
+
+#### Things to Remember
+
+##### About Product Launches
+
+- **The end of one launch process is a the beginning of a new one**. After every launch you need to look at user feedback to help you decide where to take your product next.
+- **Your brain is the the most important tool you will use as a Product Manager**
+- **Launches should be celebrated!**
+	- Sharing credit and celebrating the launches will build trust with your partner teams
+- **Your career will be measured by your launches**
+	- It is ok to fail, as long as you and the team learn from the experience
+- **Leadership wants to see product progression and growth**
+
+##### About Modern Product Launches
+
+- Mistakes can be easier to fix because it is easier to update code than recall a physical product
+- Modern channels like the App Store make it easier to connect directly with users
 
 ### Review
 
