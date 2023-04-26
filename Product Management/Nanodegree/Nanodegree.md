@@ -1627,6 +1627,55 @@
 
 - [Test Planning](https://www.browserstack.com/guide/test-planning) - A detailed guide that goes into all the steps of the test planning process
 
+#### Dogfood
+
+- It references "Eat your own dog's food" phrase. It means that the company tests their own products. Employees will get access to pre-release versions of products to use.
+- **Dogfooding** is a way to identify issues before launching your product and allows you to get feedback on your product based on real-world usage.
+
+##### Dogfooding compared to User Testing
+
+- User Testing:
+	- Controlled environment, like a lab
+	- Conducted using a prototype
+	- Used for a short amount of time.
+- Dogfooding
+	- Real world usage
+	- Using the actual product
+	- Used for an extended period of time
+
+##### Creating a Dogfood Program
+
+1.  Identify your dogfood population
+	- The more people the better
+	- Identify people who are close to your target user
+2.  Get the product to dogfooders
+	- For an app: push out test builds
+	- For web-based products: enable access
+	- For hardware: logistics for device distribution and tracking who has been given the device
+3.  Collect feedback from dogfooders
+	- Logs
+	- Email forums or groups to discuss their feedback together
+	- Survey
+		- What do you want to learn?
+		- Write questions to get answers:
+			- Simple and straightforward; avoid jargon.
+			- One question at a time.
+			- Close-ended and open-ended questions
+				- Close-ended: "Did you like the product?"
+				- Open-ended: "What did you think about the product?"
+		- Test the survey before sending it.
+1. Acting on Dogfood Feedback
+	1. Analyze feedback
+	2. Identify trends and issues
+	3. Determine whether/how to address feedback
+	4. Create tasks
+	5. Prioritize tasks
+
+##### Further Readings
+
+- [Dogfooding 101: A Quick Guide to Internal Beta Testing](https://www.centercode.com/blog/dogfooding-101) - A great overview of what dogfooding is and why it's beneficial.
+- [UX Case Study: Dogfooding Products When You Can’t Test With Users](https://www.uxpin.com/studio/blog/ux-case-study-dogfooding-products-cant-test-users/) - A case study with some interesting insights to keep in mind that will help you to run effective dogfood programs.
+
 
 ### Launch
 
