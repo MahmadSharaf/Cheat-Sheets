@@ -1676,6 +1676,18 @@
 - [Dogfooding 101: A Quick Guide to Internal Beta Testing](https://www.centercode.com/blog/dogfooding-101) - A great overview of what dogfooding is and why it's beneficial.
 - [UX Case Study: Dogfooding Products When You Can’t Test With Users](https://www.uxpin.com/studio/blog/ux-case-study-dogfooding-products-cant-test-users/) - A case study with some interesting insights to keep in mind that will help you to run effective dogfood programs.
 
+#### Priority
+
+- Priority is a measure of how important something is.
+- As a PM, it is important to prioritize tasks. But stakeholders input and the impacted projects context matter
+- There are different type of tasks:
+	- New features
+	- Bugs
+	- Dogfood feedback that identifies a problem with the product.
+	- Outages
+	- Items in the backlog
+- Good prioritization results in people spending time on the highest impact things
+
 
 ### Launch
 
