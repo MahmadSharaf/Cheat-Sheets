@@ -1388,6 +1388,64 @@
 	- [What is Spiral Model and How is it Used?](https://www.techtarget.com/searchsoftwarequality/definition/spiral-model) - More details about Spiral, what it is, its benefits, as well as limitations.
 
 
+##### Collaboration Channels
+
+- PM need to be able to clearly and succinctly express his ideas while communicating.
+- There are different communication channels
+	- **Instant Messaging**:
+		- **Best for**:
+			- Simple questions
+			- Quick answers
+			- When blocked or need an immediate response
+		- **Things to keep in mind**:
+			- You are diverting someone's attention
+			- Email might be better when a timely response is not needed
+		- **Tips**:
+			- Create chat rooms or groups for each project
+			- Be thoughtful about how others will interpret your message
+			- Don't send a message that says just hello and wait. Instead, send one message that says both hello and includes your question.
+	- **Email**:
+		- **Best for**:
+			- Informing people about decisions
+			- Getting input from others on straightforward topics
+			- Having a record that you can refer back to
+		- **Things to keep in mind**:
+			- Be thoughtful about who you include in emails
+			- You want a response from To; FYI for CC
+		- **Tips**:
+			 - Use meaningful subject lines
+			- Make it easy to read
+			- Keep it as short and concise as possible
+			- Consider using a tl;dr at the beginning
+			- Re-read it before sending it!
+				- Sending a Document
+				- A meeting
+	- **Doc**:
+		- **Best for**:
+			- Complex problems that require others’ input
+			- Creating an artifact that can be shared and referenced broadly later on
+		- **Things to keep in mind**:
+			- You should fully think through, process, and structure your thoughts
+			- Set aside dedicated focus time for writing docs
+		- **Tips**:
+			- Start with a problem statement
+			- It’s ok to share the doc while it’s still in progress
+			- Tag specific people for their input or feedback
+	- **Meeting**:
+		- **Best for**:
+			- Complex problems requiring discussion in real time
+			- Forcing function to make a decision
+		- **Things to keep in mind**:
+			- Meetings are expensive
+			- Avoid meetings that do not add value
+		- **Tips**:
+			- Stick to the agenda and length
+			- Follow up offline on unrelated topics
+			- Take notes– key takeaways, decisions, next steps, and deadlines
+			- Share notes with attendees and stakeholders
+			- Decline meetings if you don’t think you’ll add value
+
+
 #### Further Readings
 
 - [Product Development Process](https://asana.com/resources/product-development-process) - An overview of the six stages of product development.
