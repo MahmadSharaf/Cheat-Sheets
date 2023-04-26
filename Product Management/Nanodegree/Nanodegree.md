@@ -1740,6 +1740,40 @@ Prioritization can be subjective, but there are a few things that should be cons
 - **Further Readings**:
 	- [How to Use Multiple Prioritization Frameworks](https://www.productplan.com/learn/how-to-use-multiple-prioritization-frameworks/) - There are benefits to using multiple prioritization frameworks. This article goes into the reasoning, as well as pairings that can work well together.
 
+#### Go/No Go Meeting
+
+- A **go / no go meeting** is a meeting that is held to make a decision about whether to proceed with a project or not. In this specific context, the decision is about whether or not to launch a product.
+- They are important because you will decide if your product is ready for launch, as well as make sure the broader team is aware of the current state of the product, any issues, and possible mitigations.
+
+##### Steps for running a Go / No Go Meeting
+
+1.  Invite the right people
+	- Who vested interested in the product
+	- Who can provide valuable feedback
+	- Like Team members and various stakeholders
+2.  Plan the agenda
+	- Project Overview
+	- Project Review
+	- Risks or Challenges
+3.  Run the meeting
+	- Stick to the agenda
+	- Encourage open and honest discussion
+	- Each Team member presents the product's current state
+	- Stakeholders provide feedback and make a decision
+4.  Make a decision (3 Possibilities)
+	1. Launch
+	2. Launch Conditionally. (Ex: Address the feedback before launching)
+	3. No launch
+		- Keep the team motivated
+		- Prevents launching something that is not ready
+		- Plan how to address launch blockers
+		- Create a timeline for issue resolution
+5.  Follow up
+
+##### Further Readings
+
+- [Structuring Go/No-Go Meetings and good preparation](https://bettersheepdog.blogspot.com/2014/05/Go-NoGo.html) - Great read to better understand how you run effective and successful launch meetings.
+
 ### Launch
 
 - PM should work with the PR and marketing team to figure out how to launch the product.
