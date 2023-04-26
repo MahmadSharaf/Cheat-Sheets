@@ -1498,6 +1498,41 @@
 - **Email** to keep stakeholders informed and send an ETA for a resolution.
 - **Write a post-mortem doc** with your team on how to prevent this from happening again.
 
+#### Project Management
+
+- As a product manager, you need to be familiar with the tools that are used to track how your products and projects are developed.
+- With an understanding of how work is tracked across your team, you can better structure and track your team’s work by:
+	- Creating new tasks
+	- Re-prioritizing items when needed
+	- Unblocking your team when tasks get stuck
+
+##### Best Practices:
+
+- Review your tasks
+- Naming guidelines
+- Use templates. A ticket template typically includes the following components:
+	- Title
+	- Steps to reproduce
+	- Expected behavior
+	- Actual behavior
+	- Reproducibility
+- Merge duplicates
+- Saved searches
+
+##### Tools
+
+- There are many different project management tools. The one that you use will be determined by your company.
+- **Asana**
+	- [Sign up for free](https://asana.com/create-account) and learn about [how to navigate Asana](https://asana.com/guide/help), or watch a few [video tutorials](https://academy.asana.com/series/video-tutorials-tips) to get more comfortable with workflows.
+- **ClickUp**
+	- [Sign up for free](https://clickup.com/on-demand-demo) and explore how you can use ClickUp to manage projects through several [video tutorials](https://clickup.com/on-demand-demo).
+- **JIRA**
+	- [Sign up for free](https://www.atlassian.com/try/cloud/signup?bundle=jira-software-confluence&edition=free) and learn how you can use JIRA for [Agile projects](https://www.atlassian.com/agile/tutorials).
+- **Monday**
+	- [Sign up for free](https://auth.monday.com/users/sign_up_new) and learn how you can [get started](https://support.monday.com/hc/en-us/categories/115000832309) using Monday to manage your projects.
+- **Trello**
+	- [Sign up for free](https://trello.com/signup) and learn [what you need to know](https://trello.com/guide) about Trello.
+
 
 #### Further Readings
 
