@@ -1814,6 +1814,145 @@ There are a number of reasons but here are a few key types of failure:
 	- **Define your metrics before the launch** This will give you time to design an effective feedback mechanism to measure the product's success.
 - **A golden rule**: don't launch before weekends or holidays.
 
+##### Set up the process
+
+###### Creating the launch process
+
+1. Define your criteria for launch
+2. List the partners who need to be should be aware of your launch
+	- Legal
+		- Make sure that there are no privacy or compliance issues.
+	- Marketing
+		- Prepare blog post, release notes, and screenshots
+	- Technical
+		- Communicate with the engineers and QA team to make sure that there are no P0  and agreed-on P1 left.
+	- Managers and leadership
+		- Take the buy-in for launch
+	- Technical support
+3. Create a timeline of what should happen and when. If you have a release manager and/or a program manager you'll need their input on the timeline
+4. Define metrics and KPIs
+
+**Example for launching an app on the App Store:**
+1. The legal team reviewed our TOS (terms of service), our privacy data storage and all legal items and gave us ok at least 2 weeks before the launch.
+2. Testing is complete. All the bugs are reviewed and assessed. No P0 or P1 are left.
+3. The engineering team gave their ok for the launch. They have a dedicated person on call for the day of the release. They have all the metrics and monitors in place.
+4. The marketing team is ready and gave their ok for launch. They already have prepared blog posts and their marketing plan
+5. Release notes will be ready at least one week before the submission to Apple. All visual elements for the store are ready
+6. Leadership reviewed our project and gave us a green light 3 weeks before the launch.
+7. We are ready at least 3 days before the submission to the App Store.
+8. We submit the app to the AppStore
+9. App is approved
+10. Push the button! (and watch for metrics including downloads post-launch crashes)
+
+**Why having a good launch process matters**
+- As a product manager, you are measured by your launches.
+- Having a good process eliminates the stress in the launch
+- Mistakes will happen but having a good process will help keep mistakes to a minimum.
+- Learn from your mistakes and better yet, share your learnings with a broader team
+
+**Further Readings**
+- [6 Steps to a Successful Product Launch](https://growthmarketingconf.com/successful-product-launch/)
+
+###### Scaling the product
+
+- Scaling the product means launching it to more markets. It can be a new geography, a new language, or a completely new market.
+- **Research is extremely important when going after a new market**.
+	- You can’t just copy your product from one market to another without validating that your product will work the same way in the new market.
+	- Your marketing and your acquisition channels also might require some changes.  
+	- Key questions to ask when considering a new market
+		- How many potential customers are there in the new market?
+		- Are there any cultural differences?
+		- Will we incur any new costs to launch in the new market?
+		- Do you need to change the language? 
+			- **Language is not just translation**. It is important if you are launching in a country with a different language to validate that your product works.
+				- Languages vary in length, which can affect your UI.
+				- Languages might have cultural interpretations and meanings.
+				- Some languages are right to left and not left to right.
+	- **New Market = New Culture**
+		 - Work with local experts or find ways to understand the culture of your potential market. Cultural norms and expectations can differ widely from place to place.
+- **Don’t forget to check local laws**
+	- Confirm that your product is legal in your new market. There may be different requirements in the new market.
+- **Test Everything**
+	- Ask local users for direct feedback. And don’t forget to leverage your team. You probably are working with a very diverse group of coworkers so engage them and ask for their help.
+- **Quick Wins**
+	- When looking for the next market you will need to balance speed to market and research. Quick wins are important to gain the trust of your leadership  
+- **Easiest Market**
+	- Start with the market that are close to your first launch market.
+- **Expand to New Languages**
+	- It is a good idea to work on the translations ahead of time if you are planning global expansion.
+- **Prioritization**
+	- Do ruthless prioritization for your resources and time. Translation takes time, adjusting your product to a new country takes time. Plan ahead and make sure you are chasing the right priorities.
+	- Prioritize the biggest markets first, to maximize the exposure.
+- **Understanding your User and Market**
+	- Spend a lot of time analyzing our data on different markets and learning which market should go next.
+- **More Things**
+	- Not all products are scalable outside of their primary market
+	- Knowing _when_ and _how_ to scale are important
+	- Products need to evolve and grow to stay relevant
+- **Further Readings**
+	- [Uber in India is fundamentally different from Uber in the West](https://qz.com/india/926220/uber-in-india-is-fundamentally-different-from-uber-in-the-west/)
+	- [7 Scaling Challenges That Can Sink Even Successful Companies](https://www.entrepreneur.com/article/240887)
+	- [The 7 Deadly Sins Of Startups: Premature Scaling](https://medium.com/superteam/danger-the-7-deadly-sins-of-startups-premature-scaling-1d2a976e2540)
+
+###### Identifying and mitigating risks
+
+- It is important to try to think through all of the possible risks, but you should never assume that you have a plan for all of them.
+- **Prepare by answering these questions**:
+	- Is the product finished?
+	- Has it been tested?
+	- Do we have enough support?
+	- Did we notify all of our partners?
+	- Did we check with Legal?
+	- Did we think about what can go wrong?
+	- Do we have a rollback plan?
+		- Rollback plan is the plan you put together if you need to ”undo” your launch.
+- **Understanding and mitigating risks**:
+	- **Know your product**
+		- Each product is different and will have different risks. If you are new to a product, ask a lot of questions, especially about any previous failures.
+	- **Talk to all the right people**
+		- Make sure that you are in contact with all of the relevant teams including engineering, testing, legal, marketing, sales, support and more.
+	- **Keep assessing the risks**
+		- Just because you already have previously launched a product, you can't be sure that it won't break again. Things break, even if “nobody touched them”.
+	- **Pay extra attention to anything new or special**
+		- New things tend to break more. Make sure that you analyze the potential risks in a new or unique situation.
+	- **Give everyone enough time to do their job**
+		- Do your best to provide all of your teams the time they need and you will gain credibility as a person who sets reasonable deadlines. This will be helpful when you are up against a tight deadline and you need to convince people to work more hours and go the extra mile for you. That happens, a lot!
+	- **Make a plan for when things go wrong**
+		- Nobody likes to think about what can go wrong - but as a PM it is your job to be prepared. Planning for the worst case scenario makes it easier to quickly handle problems when they arise.
+	- **Plan, communicate and then execute**
+		- A launch without a good plan will have more chances to fail. A plan that isn't communicated, can not be executed.
+- **Are We Ready to Launch?**
+	- **Did we finish all the parts of product development?**
+		- Don’t just assume we are done. Talk to our engineering team and test the product. Does it do what it is supposed to do?    
+	- **Did we finish all the testing?**
+		- Do not just assume that all the testing has been done. Test even the most crazy scenarios and think through edge cases. Make sure that you personally test your product (if possible).    
+	- **Did we set you the right date for our launch?**
+		- Did we secure all the technical support we need for launch? Do we have the right support if something goes wrong?    
+	- **Did we give enough time to all of our partners?**
+		- What if one of our teams doesn't have enough time to complete their pre-launch tasks? Do we have a plan for that? Make sure to think beyond the immediate partners and consider all of the tasks that need to be completed for launch.    
+	- **Did we cover all our legal bases?**
+		- Do we understand all of the risks? Do we feel confident that we are prepared to handle them?    
+	- **Did we think about the worst-case scenario?**
+		- What is our worst-case scenario? Are we prepared for it? Do we have a rollback plan?    
+	- **Have we communicated enough?**
+		- Communicate, communicate, communicate. That will save a lot of headaches.
+- **Further Readings**
+	- [Risks Associated with Product Development](https://erm.ncsu.edu/library/article/six-myths-product-development)
+	- [What are the 5 Risk Management Steps in a Sound Risk Management Process?](https://continuingprofessionaldevelopment.org/risk-management-steps-in-risk-management-process/)
+
+###### Points worth mentioning
+
+- **Mistakes will happen**:
+	- The best way to minimize these mistakes is by planning ahead. Write down your plan and communicate it. Don’t assume people know what you are doing, because chances are they don’t. Communicating a clear plan gives you a vote of confidence.
+- **Time is important**:
+	- You will have a lot of stressful launches, where time is extremely short. When you can and have enough time, don’t wait till the last minute to loop in your partners because they might have other priorities.
+- **Think outside of the box**:
+	- Whether it is a launch, thinking through risks or thinking about how to scale your product, find creative ways to do things faster or better. When thinking about risks, think beyond the obvious ones.
+- **Learn, research and ask for help**:
+	- When the time comes and you need to scale your product, learn and research what you can and ask others for help. Great planning goes a long way when you need to scale your product. Think about how you can get quick wins, what can be done fast and what needs more work. Consider your markets, which one has the higher potential.
+- **Be the glue**:
+	- You are the glue of the team, you are the motivator, you are the one who is going to push the team in the hard moments. That is why it is important to remember to encourage your team and get to know your team. Say thank you to your team members, show your appreciation.
+
 ### Review
 
 - Check how the launch went. This can include different dimensions like changes in key metrics, users sentiments, or how the team thinks the launch went.
