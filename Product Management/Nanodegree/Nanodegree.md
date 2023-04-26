@@ -1953,6 +1953,153 @@ There are a number of reasons but here are a few key types of failure:
 - **Be the glue**:
 	- You are the glue of the team, you are the motivator, you are the one who is going to push the team in the hard moments. That is why it is important to remember to encourage your team and get to know your team. Say thank you to your team members, show your appreciation.
 
+##### Marketing strategy
+
+- Successful product launch includes a successful go-to market strategy.
+
+###### Product and Marketing Managers
+
+- Product marketing manager (PMM) is one of the product manager's partners team.
+- In some companies, both the PMM and the PM have the same role, but they can be differentiated as below:
+	- PM who own the product:
+		- Develop product vision
+		- Define product features
+		- Work with all teams
+		- Manage timeline
+		- Confirming that privacy requirements for the product are met
+	- PMM who own go-to market strategy
+		- Communicate vision to users
+		- Articulate value of features
+		- Work with PM and Sales
+		- Implement go-to market strategy
+		- Determining which feature is most relevant to users in a specific demographic
+		- Creating promotions for the product
+	- Shared responsibilities:
+		- Developing a Go-to-Market strategy
+		- Managing translations and localization of the product
+- Working with PMMs
+	- **Timing:** You should involve your product marketing manager as early as possible in the product development cycle.
+	- **Communication:** A successful launch can be achieved only with great communication between you and all your partners.
+	- **Relationship** The PM and the PMM need to work closely together to create a comprehensive marketing strategy.
+- **Further Readings**:
+	- [How to Build an Amazing Relationship Between Product Management and Marketing](https://www.productplan.com/product-management-marketing-relationship/)
+
+###### Go-to-Market Strategy
+
+- **Go-to-Market Strategy** is a detailed plan of actionable items, which describes how you will achieve your product goals, acquire users and deliver value through your product to your target user. This includes:
+	- Pricing strategy- how you capture value
+	- Channel strategy- how you distribute your product
+	- Marketing campaigns- how you explain your product
+	- Customer journey map- how customers learn about and interact with your product
+	- Training for sales and support teams- how internal teams sell and help user with the product
+- Successful product launch includes a successful go-to market strategy.
+- The marketing team cannot create one without the PM. And if they did, it might not reflect the product vision.
+- A solid go-to-market strategy requires the PM and PMM to closely work together. The PM is more of the product expert and the PMM is the market expert and both types of expertise is needed.
+- It is critical to create a shared document with details about the product. Documenting the details ensures that everyone is working with the same information and prevents misunderstandings.
+- Communicate! Communicate! Communicate! You need to follow up as the launch approaches to ensure that there are no last minute delays.
+
+###### Marketing Message
+
+- As part of the go-to-market strategy you'll want to work closely with Marketing. You’ll want to start with your product’s **value proposition** to help you create the **product positioning** statements. Once you have the product positioning you can create the **messaging**.
+	- **Value Proposition**: Benefits that your product delivers to address your target user’s needs. Another way to think about it: your product’s value proposition answers the question why your target user would buy/use your product. Value proposition for the product is created well before launch because it drives how the product that is designed and built.
+	- **Product Positioning**: Where your product fits in the market for your target audience(s) given the product's value proposition. This can also highlight how your product is different compared to other products. You can have multiple product positioning statements.
+		1. More specific than your product’s value prop
+		2. Focused on a specific target user, audience, or segment
+		3. Include differentiation that is meaningful for this specific audience
+		- Combining these three parts into one sentence:
+			- For _**{Target Audience}**_, _**{Product Name}**_ delivers _**{Product Benefit}**_ better than other products because _**{Evidence of Superiority}**_
+		- An example from a time when Amazon was just focused on selling books. As the company has grown, Amazon's value proposition and product positioning has evolved:
+			- “For World Wide Web users who enjoy books, Amazon.com is a retail bookseller that provides instant access to over 1.1 million books. Unlike traditional book retailers, Amazon.com provides a combination of extraordinary convenience, low prices, and comprehensive selection.”
+	- **Marketing Message**: A concise statement of the value your product delivers to users based on your product positioning. The marketing message should be easy for users to understand and convey what our product does.
+		- Some tips to keep in mind:
+			1. Be clear and concise
+			2. Make it memorable
+			3. Consider including a call to action
+		- Examples:
+			- _AirPods deliver effortless, all-day audio on the go. And AirPods Pro bring Active Noise Cancellation to an in-ear headphone — with a customizable fit. Find the right AirPods for you.”_
+			- _“Venmo is a digital wallet that lets you make and share payments with friends. You can easily split the bill, cab fare, or much more. Download the iOS or Android app or sign up on Venmo.com today.”_
+			- _“Make Your Day. Real People. Real Videos. Text yourself a link to download TikTok”_
+- **Further Readings**:
+	- [Great marketing messaging strategies for successful campaigns](https://www.apifonica.com/en/blog/marketing-message/)
+	- [Strategic Communication: How to Develop Strategic Messaging and Positioning](https://medium.com/the-marketing-playbook/strategic-communication-how-to-develop-strategic-messaging-and-positioning-3cc59689ca28)
+	- [The 7 Components of a Brilliant Marketing Message](https://www.inc.com/geoffrey-james/7-components-of-a-brilliant-marketing-message.html)
+	- [Craft a Positioning Statement](https://blog.hubspot.com/sales/positioning-statement)
+
+###### Competitors
+
+- A lot of assumptions being made before launching the product, like the market share.
+- **Researching best practices**:
+	- **Competitors market share**: it is important to know what your competitors are doing and how well your competition is performing
+	- **Know your TAM**
+	- **Research is your best friend**: You can do a lot of research online using free tools and articles. Your company may also have access to premium research sources. Always check your sources to make sure you are getting accurate and reliable data.
+- **Research Plan**
+	1.  **Understand who your competitor sees as their target customers**.
+		- For public companies, you may be able to identify the target customers from the company's published mission statement.
+		- Private companies will be trickier. Look for published research and articles online.  
+	2.  **Search for market statistics**.
+		- Look for both general data about the market space and specific data about the market leaders. That should give you a good view of the size of the market and the relative shares of your competitors.  
+	3.  **Focus on the share smaller competitors are getting**.
+		- That should give you a good sense of how much of the market share can be gained by targeting the smaller players.
+		- Taking on the biggest competitor from the get-go might be tricker.
+- **Competitive Research**
+	- **Who are your competitors?**
+		- Make sure you create a comprehensive list of competitors for your product. It is especially important if you are entering a new market.
+	- **Estimate your competitor's market share**
+		- Start by researching the target audience for the competitor. Research as much as you can and read multiple articles. You will probably need to extrapolate the available data to calculate the competitor's market share.
+	- **Don't be discouraged by strong competitors**
+		- Just because there are strong competitors, it doesn’t mean that there is no room for one more, especially if you have better product.
+	- **Do your research and move on**
+		- Do not go down the rabbit hole and spend too much time doing research. You have a product to launch!
+		- **Going down the rabbit hole**: A reference to the long and chaotic journey of Alice in the book _**Alice in Wonderland**_ by Lewis Carroll. In this context it means spending too much time following research threads that are increasingly distant from the topic you are trying to understand.
+- **Further Readings**
+	- [7 Ways to Better Understand Your Competitors](https://www.michiganstateuniversityonline.com/resources/leadership/ways-to-better-understand-your-competitors/)
+	- [5 Things You Should Know About Your Competitors](https://thrivehive.com/5-things-you-should-know-about-your-competitors/)
+
+###### Acquisition Channels
+
+- **Acquisition channel** is the way that the customers find your product.
+- **Acquisition channels**
+	- **Organic channel**: Acquisition channel where users find your product on their own  
+	- **Viral channel**: Acquisition channel where users find us based on recommendations from others
+	- **SEO (Search Engine Optimization):** Increasing the search engine rankings of a website by optimizing its content and structure  
+	- **Influencer**: A person or organization who has expert-level knowledge or a wide social reach in your target market  
+- Channels can be **Organic** or **Viral**
+- Channels can be **free** or **paid**
+- **Channel Strategy**:
+	- Partner with Marketing
+	- Consider the following factors
+		- Who is your target user and what problem does your product solve?
+		- What are the goals for the product
+		- What is your budget and where can you get the best results for the money
+- **Further Readings**:
+	- [How to Find Your User Acquisition Channels](https://tuffgrowth.com/user-acquisition-channels/)
+	- [5 Steps To Choose Your Customer Acquisition Channel](https://brianbalfour.com/essays/5-steps-to-choose-your-customer-acquisition-channel)
+
+###### Pricing Strategy
+
+- Setting the product price is very complex, it involves several factors.
+	- What **values** does the user get?
+		- Users must think that the value they get is higher than the prices.
+	- What does the product **cost** to produce?
+		- In most cases, the price can't be lower than the long term cost to produce it
+	- What is the company **goal** for the product?
+		- The product's price must be consistent with goals for the product
+	- What does the **competitor** charge?
+		- The price can't be higher than a competitor's price, unless you have a product that does a better job of meeting the user's need
+- **Pricing Models**:
+	- **Free/Near Free**
+		- *Free*
+		- *Freemium*: The basic product is free but you can purchase additional features or content.
+		- *Ad Supported*: The product is free, but it generates revenue from advertisers.
+	- **Paid**
+		- *Value-based*: Price is based on the value the user gets from the product.
+		- *Cost-based*: The cost to produce the product is the base price and a mark-up is added.
+		- *Dynamic pricing*: Price changes reflect changes in supply or demand, e.g. surge pricing.
+		- *Price Discrimination*: Different users are charged a different price for the same product.
+- **Further Readings**
+	- [5 Easy Steps to Creating the Right Pricing Strategy](https://www.inc.com/patricia-fletcher/5-easy-steps-to-create-the-right-pricing-strategy.html)
+	- [Setting Financial Goals That Drive Your Business Forward](https://www.thebalancecareers.com/setting-business-financial-goals-3515712)
+
 ### Review
 
 - Check how the launch went. This can include different dimensions like changes in key metrics, users sentiments, or how the team thinks the launch went.
