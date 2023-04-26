@@ -1703,6 +1703,15 @@ Prioritization can be subjective, but there are a few things that should be cons
 	- All OSs or only iOS
 - Stakeholder input
 
+##### Tiers of Priority
+
+- The scale differs between teams and companies. So it is important to align with the team on the scale and expectations of each priority.
+- Common scale:
+	- **Urgent P0**: Must be resolved as soon as possible due to severe impact on the system
+	- **High P1**: Issue will be fixed as part of the regular release cycle
+	- **Medium P2**: Issues can be fixed much later since delaying the fix doesn’t cause significant impact
+	- **Low P3/P4**: Unlikely to be fixed
+
 
 ### Launch
 
