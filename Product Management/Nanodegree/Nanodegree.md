@@ -1223,6 +1223,170 @@
 	- Get regular status updates to know whether the implementation is on track or the dates are slipping. This will surface any roadblocks that the team is running into so that you can help to remove them.
 - It is helpful to understand the different methodologies that can be used for development and what the coding process generally looks like, along with best practices for keeping the team moving and communicating effectively.
 
+#### Development Methodologies
+
+- There are lots of different types of methodologies for project management.
+- Methodologies tend to be either sequential like Waterfall, cyclical like Agile, or in-between like Spiral.
+
+##### Waterfall
+
+- A sequential approach to project management that follows a linear progression where each step depends on the preceding steps before it.
+- Waterfall is used when the safety and stability of the project is more important than money or time.
+- **User Cases**:
+	- A linear and sequential process
+	- Fixed requirements
+	- Stable product definition
+	- Strict timeline
+	- Large-scale
+	- Changes are costly
+- **Phases**:
+	- Requirements:
+		- Rigorous documentation
+		- Elaborate requirements document
+	- Design:
+		- Design product and engineering architecture
+	- Develop
+		- Develop and test work units
+	- Test
+		- Work units are integrated and tested as a whole
+	- Deploy
+		- Customers start using it
+	- Maintain
+		- Fix issues
+		- Enhancements
+- **Further Readings**:
+	- [Ultimate Guide to the Waterfall Model](https://www.projectmanager.com/guides/waterfall-methodology) - A deeper look into how the waterfall model can be applied to software development.
+
+##### Agile
+
+- An iterative approach to project management that is focused on delivering value to customers quickly. The cycle is often repeated multiple times.
+- Agile is used when the product is constantly changes to adopt to evolving customer needs and constantly changing market dynamics.
+- **Characteristics**:
+	- Is commonly used in software development
+	- Is an iterative approach
+	- Involves self-organizing, cross-functional team
+	- Typically includes multiple cycles
+	- Focuses on delivering value to customers
+	- Emphasizes a continuous feedback loop
+	- Phases may be similar to waterfall but it tends to be
+		- Shorter, more focused, and repeated.
+- **Phases**:
+	- Requirements and planning
+	- Design
+	- Build
+	- Test
+	- Deploy
+	- Review
+		- Collect feedback from users on what is working well and if there is anything that can be improved.
+- **Frameworks**:
+	- **Scrum**:
+		- An agile approach to project management focused on teamwork.
+		- It creates structure for how teams work together.
+		- Teams work through cycles ,generally 2 weeks in duration, and include sprint planning, daily standup, sprint demo, and retrospective.
+		- **Components**:
+			- **Sprint planning** - A meeting where the following questions are answered:
+				-   Why is the sprint valuable?
+					- Talk about how to improve the product
+					- Define Sprint Goal
+				-   What can be done in this sprint?
+					- Engineers will take items from backlog
+					- Cost items in the product backlog
+				-   How will the work be done?
+					- Who is responsible for what?
+					- Do we need to break things down into smaller tasks?
+			- **Daily Standup**
+				- 15 minutes at the beginning of every day
+				- Update from each person
+					- What they did yesterday
+					- What they are planning to do today
+					- Anything that is blocking them
+				- Raise concerns and share praises
+			- **Sprint Demo**:
+				- Highlight what the team accomplished
+				 - Create visibility for team members
+				 - Get feedback from stakeholders
+			- **Sprint Retrospective** - A constructive discussion about the sprint and opportunities for improvement
+				- What went well?
+				- What didn't go well?
+				- What could be improved for next time?
+		- **Further Readings**:
+			- [Scrum Guide](https://scrumguides.org/scrum-guide.html) - The official guide to Scrum!
+			- [What is Scrum?](https://www.scrum.org/resources/what-is-scrum) - More in-depth information about the different roles, events, and artifacts you'll encounter in Scrum
+	- **Kanban**:
+		- An agile approach to project management that visualizes tasks as they progress through a workflow.
+		- Each column represents a stage of your workflow.
+		- Tasks are represented visually as a card.
+		- Cards move through the columns until they are completed
+		- Columns can have a limit on the number of cards that can be present at a given time
+		- **Further Readings**:
+			- What Is Kanban?](https://kanbanize.com/kanban-resources/getting-started/what-is-kanban) - A deeper look into Kanban.
+	- **Lean**:
+		- Lean is another development methodology that is first and foremost focused on maximizing value for the customer while reducing waste.
+		- While Lean has its roots in manufacturing, many elements of it are still relevant for software-based products.
+		- **Phases**:
+			- **Identify Value**:
+				- Identify what customers value in the product
+			- **Map value stream**
+				- Identify how that value is created
+				- Identify all the steps and processes that are needed to create the product.
+				- Any process that doesn't directly contribute to creating the value should be eliminated.
+			- **Create flow**:
+				- When all process are working tightly together and flow continuously from one step to another.
+			- **Establish Pull**
+				- Pull is the idea that noting is created until the things created are needed and ready for the next step.
+			- **Pursue Perfection**:
+				- Repeat all stops until achieving perfection.
+		- **8 Types of waste**:
+			- Transportation
+			- Inventory
+			- Motion
+			- Waiting
+			- Over-processing
+			- Overproduction
+			- Defects
+			- Skills
+		- **Further Readings**:
+			- [What is Lean?](https://www.lean.org/explore-lean/what-is-lean/) - Some additional information and details about Lean.
+	- **Rapid Application Development (RAD)**:
+		- It focuses on developing applications quickly through frequent iteration and constant feedback
+		- **Phases**:
+			- Requirements
+				- Defining high-level, loose requirements.
+				- Requirements can change at any point in time
+			- Design
+				- Prototype
+				- Test
+				- Improve
+				- And repeat until customer is satisfied.
+				- Eventually, the prototype will serve as a blueprint so that the engineering team knows exactly what they need to build.
+			- Build
+		- **Further Readings**:
+			- [6 Essential Questions to Understand Rapid Application Development Methodology](https://kissflow.com/application-development/rad/rapid-application-development-methodology-essentials/) - A great overview of RAD by walking through six different considerations.
+- **Further Readings**:
+	- [Agile 101](https://www.agilealliance.org/agile101/) - Agile Alliance goes into more detail about Agile, the Agile manifesto, and the 12 Agile principles.
+
+##### Spiral
+
+- Spiral is a methodology focused on **reducing risk** for large, expensive projects.
+- This looks like it would be an agile methodology since it does have a loop… but it’s not actually agile.
+- A key principle of agile is delivering incremental value to the customer as fast as possible. Spiral’s iterative approach is focused on reducing risk as quickly as possible and is not as focused on providing incremental value to customers.
+- **Phases**:
+	- **Plan Objectives**:
+		- Gathering requirements
+		- Understanding objectives
+		- Explore alternative solutions
+	- **Risk Analysis**:
+		- Look at all possible solutions
+		- Identify risks for each solution
+		- Identify strategies to minimize those risks
+		- Select the best solution and prototype it
+	- **Develop and Test**
+		- Build the identified solution
+	- **Plan the next iteration**
+		- Having customer review of the current state of the product 
+- **Further Readings**:
+	- [What is Spiral Model and How is it Used?](https://www.techtarget.com/searchsoftwarequality/definition/spiral-model) - More details about Spiral, what it is, its benefits, as well as limitations.
+
 
 #### Further Readings
 
