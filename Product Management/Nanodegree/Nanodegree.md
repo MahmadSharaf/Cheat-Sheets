@@ -1445,6 +1445,36 @@
 			- Share notes with attendees and stakeholders
 			- Decline meetings if you don’t think you’ll add value
 
+##### Collaboration Strategies
+
+- Teams today are more distributed than ever. When teams are remote, it’s critical to make sure that you are able to collaborate well together.
+- Some things that you should keep in mind:
+	- **Strategies**:
+		- Encourage open communication
+		- Optimize your tools
+		- Make sure it's easy to know who is working on what and the status of tasks
+		- Use a shared drive to store files
+		- Organize and structure team files in a way that makes sense
+		- Communicate clearly and explicitly
+		- Invite people to ask questions
+	- **Virtual Meetings**:
+		- Hold regular meetings
+		- Keep your webcam on
+		- Participate in the meeting
+		- Use the "raise hand" feature
+		- Use chat and reactions
+		- Take notes and share them
+	- **Be aware of time zone differences** 
+		- Try to schedule meetings at convenient times.
+		- Avoid scheduling meetings outside of work hours
+		- Block off common working hours on the calendar
+		- Be flexible and adaptable
+		- Visit when possible
+- Remember that you are one team and need to work together. It can be helpful to spend some time establishing norms for how you want to work together with other people on your team—regardless of whether they sit next to you or are on the other side of the world.
+- **Further Readings**:
+	- [Dateful](https://dateful.com/schedule) - A really helpful tool for visualizing time zones across multiple regions.
+	- [How to Work Effectively With Globally Distributed Teams](https://kissflow.com/digital-workplace/remote-work/how-to-work-with-globally-distributed-teams/) - Some things to keep in mind that will help you to be successful when working with distributed teams
+
 
 #### Further Readings
 
