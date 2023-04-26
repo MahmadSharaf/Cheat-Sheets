@@ -1207,11 +1207,11 @@
 
 ### UX Design
 
-- It is important to work closely with the product designer during wireframing.
-- PM should provide context, requirements, visuals if possible, so the designer can take decisions. It is possible to provide design opinions and guidance, but it may not be always correct.
-- Prototyping
+- It is important to work closely with the product designer during [[#Prototyping|wireframing]].
+- PM should provide [[#2. Define|context]], [[#Product Requirement Document (PRD)|requirements]], [[#3. Sketch|visuals]] if possible, so the designer can take decisions. It is possible to provide design opinions and guidance, but it may not be always correct.
+- [[#Prototyping]]
 	- Visualizing the UX can help in identifying gaps.
-- Once the UX is ready, run usability testing to surface any issues. A/B testing can be better for small changes that usability testing will not fit.
+- Once the UX is ready, run usability [[#6. Validate|testing]] to surface any issues. A/B testing can be better for small changes that usability testing will not fit.
 
 ### Development and Implementation
 
