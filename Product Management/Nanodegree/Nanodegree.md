@@ -1216,10 +1216,13 @@
 ### Development and Implementation
 
 - During Product Development, the product is built and tested.
-- As a PM, the role is to assure that the engineering team are building the right product at the right time
-- Make sure that engineering team fully understand the requirements.
-- Cover and think of all possible edge cases.
-- Get regular status updates to know whether the implementation is on track or the dates are slipping. This will surface any roadblocks that the team is running into so that you can help to remove them.
+- As a PM, the role is:
+	- Make sure that engineering team fully understand the requirements.
+	- To assure that the engineering team are building the right product at the right time.
+	- Cover and think of all possible edge cases.
+	- Get regular status updates to know whether the implementation is on track or the dates are slipping. This will surface any roadblocks that the team is running into so that you can help to remove them.
+- It is helpful to understand the different methodologies that can be used for development and what the coding process generally looks like, along with best practices for keeping the team moving and communicating effectively.
+
 
 #### Further Readings
 
