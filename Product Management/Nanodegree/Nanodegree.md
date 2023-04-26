@@ -464,7 +464,7 @@
 		- Leverage company's capabilities and strengths.
 		- New products that capture additional segments.
 
-##### Know your Product 
+##### Know your Product
 
 - The first step to knowing the product is using the product. This has a common term "Dogfooding":
 	- **Dogfooding**: When employees use the product that is going to launch to better understand real-world usage and identify and fix issues.
@@ -845,6 +845,7 @@
 
 - Search for build strategies on how to solve the problem through creation of the product.
 - The solution should be related with the company goals and KPIs.
+
 #### Vision
 
 - **Vision is**:
@@ -1087,7 +1088,7 @@
 	- Get to market fast vs building the complete features of the product.
 	- Get feedback from real users to get sense of Product/Market fit.
 	- Fail fast and learn, as it is an iterative approach.
-- MVP creation:
+- **MVP creation**:
 	- Start with business model canvas. Focusing on Value Prop, Customer Relationship, Channels.
 	- Weigh against competing solutions
 	- Make sure it is aligned with business objectives.
@@ -1213,7 +1214,7 @@
 	- Visualizing the UX can help in identifying gaps.
 - Once the UX is ready, run usability [[#6. Validate|testing]] to surface any issues. A/B testing can be better for small changes that usability testing will not fit.
 
-### Development and Implementation
+### Development
 
 - During Product Development, the product is built and tested.
 - As a PM, the role is:
@@ -1387,6 +1388,7 @@
 - **Further Readings**:
 	- [What is Spiral Model and How is it Used?](https://www.techtarget.com/searchsoftwarequality/definition/spiral-model) - More details about Spiral, what it is, its benefits, as well as limitations.
 
+#### Collaboration
 
 ##### Collaboration Channels
 
@@ -1569,7 +1571,6 @@
 - [Product Development Process](https://asana.com/resources/product-development-process) - An overview of the six stages of product development.
 - [Key Roles & Positions within a Tech Startup](https://get.tech/blog/key-roles-and-positions-in-a-tech-startup/) - An overview of common roles within a small company, what they do, and how they need to work together to launch a product.
 - [History of Product Development](https://www.encyclopedia.com/social-sciences-and-law/economics-business-and-labor/businesses-and-occupations/product-development) - An overview of product development from the nineteenth century to today.
-
 
 ### Testing
 
