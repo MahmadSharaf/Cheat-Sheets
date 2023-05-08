@@ -70,7 +70,7 @@ Overview:
     - Cost function: Binary Cross Entropy
     - Used for hidden and output layers.
   - Softmax:
-    $$a_j = f(x_j) = \frac{e^{x_j}}{{\sum}_{k=1}^N e^{x_k}}$$
+    $$a_j = f(x_j) = \frac{e^{x_j}}{ {\sum}_{k=1}^N e^{x_k} }$$
     - Notations:
       - $N$: number of classes
       - $j$: class number
